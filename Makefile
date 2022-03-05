@@ -14,7 +14,7 @@ LIBFT	= $(LIBFT_PATH)/libft.a
 LIBFT_FLAGS = -L$(LIBFT_PATH) -lft
 INCLUDES	= $(addprefix -I,$(INCLUDES_DIR))
 
-SRCS	= minishell.c
+SRCS	= minishell.c megastart.c space_treat.c minishell_utils.c command_line.c
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 SRCS	:= $(addprefix $(SRC_DIR)/,$(SRCS))
@@ -41,7 +41,7 @@ fclean: clean
 
 re:	fclean all
 
-go: all
+run: all
 	./$(NAME) $$ARG
 
 valgrind: $(NAME)
