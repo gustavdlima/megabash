@@ -3,8 +3,8 @@ NAME	= minishell
 CC	= gcc
 CFLAGS	= -g -Wall -Werror -Wextra
 RM	= rm -f
-VALGRIND =	valgrind --leak-check=full --show-leak-kinds=all \
-			--track-origins=yes -q --tool=memcheck
+VALGRIND =	valgrind --leak-check=full --show-leak-kinds=all
+
 INCLUDES_DIR	= ./includes ./libs/libft
 SRC_DIR	= ./src
 OBJ_DIR	 = ./src/build
@@ -22,7 +22,7 @@ SRCS	:= $(addprefix $(SRC_DIR)/,$(SRCS))
 all:	$(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(INCLUDES) $(LIBFT_FLAGS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(INCLUDES) $(LIBFT_FLAGS) -lreadline
 
 $(LIBFT):
 	make -C $(LIBFT_PATH)
