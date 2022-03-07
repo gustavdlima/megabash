@@ -9,5 +9,6 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 		exit (1);
 	}
 	(void)envp;
+	initialize_struct(&root, envp);
 	megastart(&root);
 }
