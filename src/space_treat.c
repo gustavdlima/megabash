@@ -1,90 +1,25 @@
 #include "minishell.h"
 
-// char	*original_cmd(char *cmd)
-// {
-// 	int	i;
-// 	int	j;
+int	searc_quote(char *cmd)
+{
+	int		i;
+	char	signal;
 
-// 	i = 0;
-// 	j = ft_strlen(cmd);
-// 	while (i < j)
-// 	{
-// 		if (cmd[i] == '\'')
-// 		{
-// 			i++;
-// 			while (cmd[i] != '\'' && cmd[i] != '\0')
-// 			{
-// 				if (cmd[i] == 1)
-// 					cmd[i] = ' ';
-// 				i++;
-// 			}
-// 		}
-// 		if (cmd[i] == '\"')
-// 		{
-// 			i++;
-// 			while (cmd[i] != '\"' && cmd[i] != '\0')
-// 			{
-// 				if (cmd[i] == 1)
-// 					cmd[i] = ' ';
-// 				i++;
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (cmd);
-// }
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == 39 || cmd[i] == 34)
+			signal = cmd[i];
+		if (cmd[i] == signal)
+		{
+			i++;
+			while (cmd[i])
+			{
 
-// char	*treating_cmd(char *cmd)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (cmd[i])
-// 	{
-// 		printf("KKKKKKKKKKKKKKKKKKKKK\n");
-// 		if (cmd[i] == '\'')
-// 		{
-// 			i++;
-// 			while (cmd[i] != '\'' && cmd[i] != '\0')
-// 			{
-// 				if (cmd[i] == ' ')
-// 					cmd[i] = 1;
-// 				i++;
-// 			}
-// 		}
-// 		if (cmd[i] == '\"')
-// 		{
-// 			i++;
-// 			while (cmd[i] != '\"' && cmd[i] != '\0')
-// 			{
-// 				if (cmd[i] == ' ')
-// 					cmd[i] = 1;
-// 				i++;
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (cmd);
-// }
-
-// char	**space_treat(char *input)
-// {
-// 	char	**cmd;
-// 	char	*to_treat;
-// 	int		i;
-
-// 	i = 0;
-// 	to_treat = treating_cmd(input);
-// 	cmd = ft_split(to_treat, ' ');
-// 	if (!cmd)
-// 		perror("Failed to process the command");
-// 	while (cmd[i])
-// 	{
-// 		cmd[i] = original_cmd(cmd[i]);
-// 		i++;
-// 	}
-// 	return(cmd);
-// }
+			}
+		}
+	}
+}
 
 char    *no_quotes(char *cmd)
 {
@@ -147,6 +82,9 @@ char	*space_treat(char *cmd, char sign)
 			if (cmd[i] == 39 || cmd[i] == 34)
 				sign = cmd[i];
 		}
+		if (cmd[i] == sign && cmd[i++] == sign)
+			i++;
+		printf("%d\n", cmd[i]);
 		if (cmd[i] == sign)
 		{
 			i++;
@@ -154,12 +92,12 @@ char	*space_treat(char *cmd, char sign)
 				i++;
 			while (cmd[i] != sign)
 			{
-				if (cmd[i] == '\0')
-				{
-					printf("\nDEU NULO PO KKKKKK\n");
-					exit(130); //verificar depois!!!
-				}
-				else if (cmd[i] == ' ')
+				// if (cmd[i] == '\0')
+				// {
+				// 	printf("\nDEU NULO PO KKKKKK\n");
+				// 	exit(130); //verificar depois!!!
+				// }
+				if (cmd[i] == ' ')
 					cmd[i] = 1;
 				i++;
 			}
