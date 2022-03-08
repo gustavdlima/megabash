@@ -14,7 +14,8 @@ LIBFT	= $(LIBFT_PATH)/libft.a
 LIBFT_FLAGS = -L$(LIBFT_PATH) -lft
 INCLUDES	= $(addprefix -I,$(INCLUDES_DIR))
 
-SRCS	= minishell.c megastart.c space_treat.c minishell_utils.c command_line.c
+SRCS	= minishell.c megastart.c command_line.c process.c execute_process.c \
+			minishell_utils.c space_treat.c init_struct.c \
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 SRCS	:= $(addprefix $(SRC_DIR)/,$(SRCS))

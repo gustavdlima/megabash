@@ -2,25 +2,17 @@
 
 void	megastart(t_root *root)
 {
-	pid_t	child_pid;
-
+	pid_t	p_id;
 	while(1)
 	{
 		command_line(root);
-		root->command = space_treat(root->input);
-		child_pid = fork();
-		if (child_pid < 0)
-			exit(1);
-		if (child_pid == 0)
+		p_id = fork();
+		if (p_id == 0)
 		{
-			printf("\nChild proccess\n");
+			execute_process(root);
 		}
-		else
-		{
-			printf("\nParent proccess\n");
-			waitpid(child_pid, NULL, WUNTRACED);
-		}
+		waitpid(p_id, NULL, WUNTRACED);
+	}
 		free(root->input);
 		free_matrix(root->command);
-	}
 }

@@ -1,10 +1,9 @@
 #include "minishell.h"
 
-char	*command_line(t_root *root)
+void command_line(t_root *root)
 {
 	root->input = readline("megabash$ ");
 	add_history(root->input);
-	return(root->input);
 }
 
 char	*what_cmd(char *cmd)
@@ -19,7 +18,10 @@ char	*what_cmd(char *cmd)
 	{
 		path_cmd = ft_strjoin(pathways[i], cmd);
 		if (access(path_cmd, F_OK) == 0)
+		{
+			free_matrix(pathways);
 			return (path_cmd);
+		}
 		free(path_cmd);
 		i++;
 	}
