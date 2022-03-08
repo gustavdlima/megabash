@@ -12,5 +12,7 @@ void	execute_process(t_root *root)
 		free_matrix(root->command);
 		printf("Command not found.\n");
 	}
+	for (int i = 0; root->command[i]; i++)
+		printf("Command:\t%s\n", root->command[i]);
 	execve(root->cmd_path, root->command, root->envp);
 }

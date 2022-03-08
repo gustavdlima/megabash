@@ -17,6 +17,7 @@ typedef struct	s_root{
 	char	*cmd_path;
 	char	*path;
 	char	*input;
+	char	*teste;
 }				t_root;
 
 //										init_struct.c
@@ -39,7 +40,7 @@ char	*what_cmd(char *cmd);
 // 										space_treat.c
 // char	*original_cmd(char *cmd);
 // char	*treating_cmd(char *cmd);
-char	*space_treat(char *cmd);
+char	*space_treat(char *cmd, char sign);
 char	**reverse_space_treat(char **matrix);
 char	**matrix_split(char *cmd, int cmd_size);
 

@@ -108,20 +108,25 @@ char	**reverse_space_treat(char **matrix)
 	return (matrix);
 }
 
-char	*space_treat(char *cmd)
+char	*space_treat(char *cmd, char sign)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (cmd[i])
 	{
-		if (cmd[i] == 39)
+		if (cmd[i] == sign)
 		{
 			i++;
-			if (cmd[i] == 39)
+			if (cmd[i] == sign)
 				i++;
-			while (cmd[i] != 39 && cmd[i] != '\0')
+			while (cmd[i] != sign)
 			{
+				if (cmd[i] == '\0')
+				{
+					printf("\nDEU NULO PO KKKKKK\n");
+					exit(130); //verificar depois!!!
+				}
 				if (cmd[i] == ' ')
 					cmd[i] = 1;
 				i++;
@@ -142,7 +147,7 @@ char	**matrix_split(char *cmd, int cmd_size)
 	{
 		if (cmd[i] == 39 || cmd[i] == 34)
 		{
-			space_treat(cmd);
+			space_treat(cmd, cmd[i]);
 			matrix = ft_split(cmd, ' ');
 			reverse_space_treat(matrix);
 			break ;
