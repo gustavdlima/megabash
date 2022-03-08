@@ -40,6 +40,7 @@ char	*what_cmd(char *cmd);
 // 										space_treat.c
 // char	*original_cmd(char *cmd);
 // char	*treating_cmd(char *cmd);
+char    *no_quotes(char *cmd);
 char	*space_treat(char *cmd, char sign);
 char	**reverse_space_treat(char **matrix);
 char	**matrix_split(char *cmd, int cmd_size);

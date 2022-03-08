@@ -86,6 +86,33 @@
 // 	return(cmd);
 // }
 
+char    *no_quotes(char *cmd)
+{
+    char    *str;
+    int        i;
+    int        j;
+    int        len;
+
+    i = 0;
+    j = 0;
+    len = ft_strlen(cmd) - 1;
+    while (cmd[i])
+    {
+        if (cmd[i] == '\'' || cmd[i] == '\"')
+        {
+            i++;
+            str = ft_calloc(len, sizeof(char));
+            while (i < len)
+            {
+                str[j++] = cmd[i++];
+            }
+            return (str);
+        }
+        i++;
+    }
+    return (cmd);
+}
+
 char	**reverse_space_treat(char **matrix)
 {
 	int	i;
@@ -112,9 +139,14 @@ char	*space_treat(char *cmd, char sign)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	while (cmd[i])
 	{
+		if (cmd[i] != sign)
+		{
+			if (cmd[i] == 39 || cmd[i] == 34)
+				sign = cmd[i];
+		}
 		if (cmd[i] == sign)
 		{
 			i++;
@@ -127,7 +159,7 @@ char	*space_treat(char *cmd, char sign)
 					printf("\nDEU NULO PO KKKKKK\n");
 					exit(130); //verificar depois!!!
 				}
-				if (cmd[i] == ' ')
+				else if (cmd[i] == ' ')
 					cmd[i] = 1;
 				i++;
 			}
@@ -152,12 +184,11 @@ char	**matrix_split(char *cmd, int cmd_size)
 			reverse_space_treat(matrix);
 			break ;
 		}
-		else if (cmd[i] == cmd[cmd_size])
-		{
-			matrix = ft_split(cmd, ' ');
-			break ;
-		}
 		i++;
+	}
+	if (cmd[i] == cmd[cmd_size])
+	{
+		matrix = ft_split(cmd, ' ');
 	}
 	return (matrix);
 }
