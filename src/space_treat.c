@@ -1,24 +1,31 @@
 #include "minishell.h"
 
-int	searc_quote(char *cmd)
+int	search_quotes(char *cmd)
 {
-	int		i;
-	char	signal;
+    int        i;
+    char    signal;
 
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == 39 || cmd[i] == 34)
-			signal = cmd[i];
-		if (cmd[i] == signal)
-		{
-			i++;
-			while (cmd[i])
-			{
-
-			}
-		}
-	}
+    i = 0;
+    signal = 0;
+    while (cmd[i])
+    {
+        if (cmd[i] == 39 || cmd[i] == 34)
+        {
+            signal = cmd[i];
+            i++;
+        }
+        while (cmd[i] != signal)
+        {
+            if (cmd[i] == '\0')
+                break ;
+            i++;
+        }
+        if (signal != 0 && cmd[i] != signal)
+            return (1);
+        signal = 0;
+        i++;
+    }
+    return (0);
 }
 
 char    *no_quotes(char *cmd)
@@ -31,6 +38,7 @@ char    *no_quotes(char *cmd)
     i = 0;
     j = 0;
     len = ft_strlen(cmd) - 1;
+	printf(">>>>>>>>%s\n", cmd);
     while (cmd[i])
     {
         if (cmd[i] == '\'' || cmd[i] == '\"')
@@ -82,14 +90,14 @@ char	*space_treat(char *cmd, char sign)
 			if (cmd[i] == 39 || cmd[i] == 34)
 				sign = cmd[i];
 		}
-		if (cmd[i] == sign && cmd[i++] == sign)
-			i++;
-		printf("%d\n", cmd[i]);
 		if (cmd[i] == sign)
 		{
 			i++;
 			if (cmd[i] == sign)
+			{
+				break ;
 				i++;
+			}
 			while (cmd[i] != sign)
 			{
 				// if (cmd[i] == '\0')
@@ -124,9 +132,8 @@ char	**matrix_split(char *cmd, int cmd_size)
 		}
 		i++;
 	}
+	(void)cmd_size;
 	if (cmd[i] == cmd[cmd_size])
-	{
 		matrix = ft_split(cmd, ' ');
-	}
 	return (matrix);
 }

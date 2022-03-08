@@ -11,6 +11,7 @@ void	execute_process(t_root *root)
 	while(root->command[i])
 	{
 		root->command[i] = no_quotes(root->command[i]);
+		printf("%s\n", root->command[i]);
 		i++;
 	}
 	root->cmd_path = what_cmd(root->command[0]);

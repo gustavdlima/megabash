@@ -44,6 +44,7 @@ char    *no_quotes(char *cmd);
 char	*space_treat(char *cmd, char sign);
 char	**reverse_space_treat(char **matrix);
 char	**matrix_split(char *cmd, int cmd_size);
+int		search_quotes(char *cmd);
 
 //										minishell_utils.c
 void	free_matrix(char **matrix);
