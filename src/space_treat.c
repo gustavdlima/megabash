@@ -93,18 +93,8 @@ char	*space_treat(char *cmd, char sign)
 		if (cmd[i] == sign)
 		{
 			i++;
-			if (cmd[i] == sign)
+			while (cmd[i] != sign && cmd[i])
 			{
-				break ;
-				i++;
-			}
-			while (cmd[i] != sign)
-			{
-				// if (cmd[i] == '\0')
-				// {
-				// 	printf("\nDEU NULO PO KKKKKK\n");
-				// 	exit(130); //verificar depois!!!
-				// }
 				if (cmd[i] == ' ')
 					cmd[i] = 1;
 				i++;
@@ -127,13 +117,16 @@ char	**matrix_split(char *cmd, int cmd_size)
 		{
 			space_treat(cmd, cmd[i]);
 			matrix = ft_split(cmd, ' ');
-			reverse_space_treat(matrix);
 			break ;
 		}
 		i++;
 	}
 	(void)cmd_size;
 	if (cmd[i] == cmd[cmd_size])
+	{
+		space_treat(cmd, cmd[i]);
 		matrix = ft_split(cmd, ' ');
+	}
+	reverse_space_treat(matrix);
 	return (matrix);
 }
