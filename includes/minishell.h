@@ -37,14 +37,14 @@ void	execute_process(t_root *root);
 void	command_line(t_root *root);
 char	*what_cmd(char *cmd);
 
+//										quotes_treat.c
+int		search_quotes(char *cmd);
+char	*no_quotes(char *cmd);
+
 // 										space_treat.c
-// char	*original_cmd(char *cmd);
-// char	*treating_cmd(char *cmd);
-char    *no_quotes(char *cmd);
 char	*space_treat(char *cmd, char sign);
 char	**reverse_space_treat(char **matrix);
 char	**matrix_split(char *cmd, int cmd_size);
-int		search_quotes(char *cmd);
 
 //										minishell_utils.c
 void	free_matrix(char **matrix);
