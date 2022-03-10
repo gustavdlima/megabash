@@ -1,8 +1,6 @@
 #ifndef MINISHELL
 # define MINISHELL
 
-
-
 # include "libft.h"
 # include <stdio.h>
 # include <stdlib.h>
