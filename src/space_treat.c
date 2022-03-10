@@ -14,6 +14,14 @@ int	search_quotes(char *cmd)
 			return (1);
 		}
 	}
+	else if (cmd[i] == 39 || cmd[i] == 34)
+	{
+		if (cmd[0] != cmd[i])
+		{
+			printf("ASPAS DIFERENTES, BOY\n");
+			return (1);
+		}
+	}
 	return (0);
 }
 
