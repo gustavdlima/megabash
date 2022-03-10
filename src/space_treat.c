@@ -52,6 +52,7 @@ char	*space_treat(char *cmd, char sign)
 char	**matrix_split(char *cmd, int cmd_size)
 {
 	int		i;
+	int		j;
 	char	**matrix;
 
 	i = 0;
@@ -65,13 +66,11 @@ char	**matrix_split(char *cmd, int cmd_size)
 		}
 		i++;
 	}
-	(void)cmd_size;
 	if (cmd[i] == cmd[cmd_size])
 	{
 		space_treat(cmd, cmd[i]);
 		matrix = ft_split(cmd, ' ');
 	}
-	int		j;
 	j = 0;
 	while (matrix[j])
 	{

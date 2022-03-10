@@ -8,7 +8,7 @@ void	execute_process(t_root *root)
 	i = 0;
 	cmd_size = ft_strlen(root->input);
 	root->command = matrix_split(root->input, cmd_size);
-	while(root->command[i])
+	while (root->command[i])
 	{
 		root->command[i] = no_quotes(root->command[i]);
 		printf("%s\n", root->command[i]);

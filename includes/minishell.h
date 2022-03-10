@@ -1,17 +1,18 @@
 #ifndef MINISHELL
 # define MINISHELL
 
-#include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <sys/wait.h>
+# include "libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/wait.h>
 
-# define PATH "/usr/local/sbin/:/usr/local/bin/:/usr/sbin/:/usr/bin/:/sbin/:/bin/"
+# define PATH "/usr/local/sbin/:/usr/local/bin/:/usr/sbin/:/usr/bin/:/sbin/\
+				:/bin/"
 
-typedef struct	s_root{
+typedef struct s_root{
 	char	**command;
 	char	**envp;
 	char	*cmd_path;
@@ -48,4 +49,5 @@ char	**matrix_split(char *cmd, int cmd_size);
 
 //										minishell_utils.c
 void	free_matrix(char **matrix);
+
 #endif

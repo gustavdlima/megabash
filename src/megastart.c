@@ -3,7 +3,8 @@
 void	megastart(t_root *root)
 {
 	pid_t	p_id;
-	while(1)
+
+	while (1)
 	{
 		command_line(root);
 		p_id = fork();
@@ -13,6 +14,6 @@ void	megastart(t_root *root)
 		}
 		waitpid(p_id, NULL, WUNTRACED);
 	}
-		free(root->input);
-		free_matrix(root->command);
+	free(root->input);
+	free_matrix(root->command);
 }
