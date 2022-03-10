@@ -2,30 +2,19 @@
 
 int	search_quotes(char *cmd)
 {
-    int        i;
-    char    signal;
+	int	i;
 
-    i = 0;
-    signal = 0;
-    while (cmd[i])
-    {
-        if (cmd[i] == 39 || cmd[i] == 34)
-        {
-            signal = cmd[i];
-            i++;
-        }
-        while (cmd[i] != signal)
-        {
-            if (cmd[i] == '\0')
-                break ;
-            i++;
-        }
-        if (signal != 0 && cmd[i] != signal)
-            return (1);
-        signal = 0;
-        i++;
-    }
-    return (0);
+	i = ft_strlen(cmd) - 1;
+	if (cmd[0] == 39 || cmd[0] == 34)
+	{
+		// printf("i : %c\nj : %c\n", i);
+		if (cmd[0] != cmd[i])
+		{
+			printf("ASPAS DIFERENTES, BOY\n");
+			return (1);
+		}
+	}
+	return (0);
 }
 
 char    *no_quotes(char *cmd)
@@ -126,6 +115,16 @@ char	**matrix_split(char *cmd, int cmd_size)
 	{
 		space_treat(cmd, cmd[i]);
 		matrix = ft_split(cmd, ' ');
+	}
+	int		j;
+	j = 0;
+	while (matrix[j])
+	{
+		if (search_quotes(matrix[j]) == 1)
+			exit(1);
+		// if (j > 0 && multiple_quotes(matrix[j]) == 1)
+		// 	exit(1);
+		j++;
 	}
 	reverse_space_treat(matrix);
 	return (matrix);
