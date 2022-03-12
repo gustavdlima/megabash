@@ -39,7 +39,8 @@ void	command_line(t_root *root);
 char	*what_cmd(char *cmd);
 
 //										quotes_treat.c
-void	middle_quotes(char *cmd);
+char	*reverse_quotes_treat(char *cmd);
+char	*quotes_treat(char *cmd);
 char	*no_quotes(char *cmd);
 int		matching_quotes(char *cmd);
 
