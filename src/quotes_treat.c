@@ -7,14 +7,12 @@ char	*reverse_quotes_treat(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == 1) //oi' ''   " oioioioii" " "'" considerar o que vem antes também pra não dar b.o quando for '"' 'oi
+		if (cmd[i] == 1)
 		{
-			printf("cccccccccccccccccccccccccc\n");
 			cmd[i] = '\'';
 		}
 		else if (cmd[i] == 2)
 		{
-			printf("ddddddddddddddddddddddddddd\n");
 			cmd[i] = '\"';
 		}
 		i++;
@@ -31,87 +29,56 @@ char	*quotes_treat(char *cmd)
 	len = ft_strlen(cmd) - 1;
 	while (cmd[i])
 	{
-		if (cmd[i] == 39 && i != 0 && i != len) //oi' ''   " oioioioii" " "'" considerar o que vem antes também pra não dar b.o quando for '"' 'oi
+		if (cmd[i] == 39)
 		{
-			printf("AAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
-			cmd[i] = 1;
+			i++;
+			while (cmd[i] != 39 && i != 0 && i != len)
+			{
+				if (cmd[i] == 34)
+				{
+					cmd[i] = 2;
+				}
+				i++;
+			}
 		}
-		else if (cmd[i] == 34 && i != 0 && i != len)
+		if (cmd[i] == 34)
 		{
-			printf("BBBBBBBBBBBBBBBBBBBBBBBBBBB\n");
-			cmd[i] = 2;
+			i++;
+			while (cmd[i] != 34 && i != 0 && i != len)
+			{
+				if (cmd[i] == 39)
+				{
+				cmd[i] = 1;
+				}
+				i++;
+			}
 		}
 		i++;
 	}
 	return (cmd);
 }
 
-int	wheres_quote(char *cmd)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = ft_strlen(cmd) - 1;
-	while (cmd[i])
-	{
-		if (cmd[i] == 39) //oi' ''   " oioioioii" " "'" considerar o que vem antes também pra não dar b.o quando for '"' 'oi'
-		{
-			i++;
-			while(cmd[i] && cmd[i] != 39)
-				i++;
-			if (cmd[i] == '\0')
-			{
-				if(cmd[0] == 39 || cmd[len] == 39)
-				{
-					return (1);
-				}
-			}
-		}
-		else if (cmd[i] == 34)
-		{
-			i++;
-			while(cmd[i] && cmd[i] != 34)
-				i++;
-			if (cmd[i] == '\0')
-			{
-				if(cmd[0] == 34 || cmd[len] == 34)
-				{
-					return (1);
-				}
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
 int	matching_quotes(char *cmd)
 {
 	int	i;
-	int	single_quotes;
-	int	double_quotes;
+	int	sign;
 
 	i = 0;
-	single_quotes = 0;
-	double_quotes = 0;
+	sign = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == 39)
-			single_quotes++;
-		if (cmd[i] == 34)
-			double_quotes++;
+		if (cmd[i] == 39 || cmd[i] == 34)
+		{
+			sign = cmd[i];
+			i++;
+			while (cmd[i] && cmd[i] != sign)
+			{
+				i++;
+			}
+			if (cmd[i] != sign)
+				return (1);
+		}
 		i++;
-	}
-	if (single_quotes % 2 != 0)
-	{
-		if (wheres_quote(cmd) == 1)
-			return (1);
-	}
-	if (double_quotes % 2 != 0)
-	{
-		if (wheres_quote(cmd) == 1)
-			return (1);
 	}
 	return (0);
 }
@@ -146,8 +113,7 @@ char	*no_quotes(char *cmd)
 				i++;
 			str[j++] = cmd[i++];
 		}
-		reverse_quotes_treat(cmd);
-		printf("oi?\n");
+		reverse_quotes_treat(str);
 		return (str);
 	}
 	return (cmd);
