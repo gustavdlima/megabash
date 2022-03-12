@@ -39,8 +39,9 @@ void	command_line(t_root *root);
 char	*what_cmd(char *cmd);
 
 //										quotes_treat.c
-int		search_quotes(char *cmd);
+void	middle_quotes(char *cmd);
 char	*no_quotes(char *cmd);
+int		matching_quotes(char *cmd);
 
 // 										space_treat.c
 char	*space_treat(char *cmd, char sign);
