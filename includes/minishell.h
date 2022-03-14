@@ -54,6 +54,9 @@ int		matching_quotes(char *cmd);
 /* looks for double quotes arguments*/
 int		double_quotes(char *cmd);
 
+//										redirections_treat.c
+void		find_redirections(t_root *root);
+
 // 										space_treat.c
 char	*space_treat(char *cmd, char sign);
 char	**reverse_space_treat(char **matrix);
