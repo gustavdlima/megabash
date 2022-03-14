@@ -14,27 +14,30 @@ int	special_characters(char *cmd)
 	return (0);
 }
 
-char	*interpret_dollar(char *cmd, int position)
-{
-	char	*interpreted;
-	int		i;
-	int		j;
-	// int		len;
+// char	*interpret_dollar(char *cmd, int position)
+// {
+// 	char	*interpreted;
+// 	int		i;
+// 	int		j;
+// 	 int		len;
+//	int wants_exit;
 
-	i = 0;
-	j = 0;
-	// len = cmd + tamanho do nome do user - 5;
-	// o - 5 é pra descontar o $USER, mas talvez seja desnecessário
-	while (cmd[i])
-	{
-		if (cmd[position])
-		{
-			// interpreted[j++] copiar o nome do user
-		}
-		interpreted[j++] = cmd[i++];
-	}
-	return (interpreted);
-}
+// 	i = 0;
+// 	j = 0;
+// wants_exit = position++;
+// len = cmd + tamanho do nome do user;
+// if (cmd[wants_exit] == '?')
+// //tchama o valor de saída do exit
+// 	while (cmd[i])
+// 	{
+// 		if (cmd[position])
+// 		{
+// 			// interpreted[j++] copiar o nome do user
+// 		}
+// 		interpreted[j++] = cmd[i++];
+// 	}
+// 	return (interpreted);
+// }
 
 char	*metacharacters_treat(char *cmd)
 {
