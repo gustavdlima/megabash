@@ -16,7 +16,8 @@ INCLUDES	= $(addprefix -I,$(INCLUDES_DIR))
 
 SRCS	= minishell.c megastart.c command_line.c process.c execute_process.c \
 			minishell_utils.c metacharacters_treat.c quotes_treat.c \
-			redirections_treat.c space_treat.c init_struct.c \
+			line_input_treat.c redirections_treat.c space_treat.c \
+			init_struct.c \
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 SRCS	:= $(addprefix $(SRC_DIR)/,$(SRCS))

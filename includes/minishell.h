@@ -24,6 +24,9 @@ typedef struct s_root{
 //										init_struct.c
 void	initialize_struct(t_root *root, char **envp);
 
+//										line_input_treat.c
+void	input_treat(t_root *root);
+
 //										megastart.c
 void	megastart(t_root *root);
 
