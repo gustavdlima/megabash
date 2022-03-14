@@ -27,6 +27,10 @@ void	initialize_struct(t_root *root, char **envp);
 //										megastart.c
 void	megastart(t_root *root);
 
+//										metacharacters_treat.c
+/* do not interpret \ or ; */
+int		special_characters(char *cmd);
+
 //										process.c
 // void	child_process(t_root *root, int *fd);
 // void	parent_process(t_root *root, int *fd);
