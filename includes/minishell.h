@@ -30,6 +30,8 @@ void	megastart(t_root *root);
 //										metacharacters_treat.c
 /* do not interpret \ or ; */
 int		special_characters(char *cmd);
+/* looks for $ to interpret */
+char	*metacharacters_treat(char *cmd);
 
 //										process.c
 // void	child_process(t_root *root, int *fd);
@@ -45,8 +47,12 @@ char	*what_cmd(char *cmd);
 //										quotes_treat.c
 char	*reverse_quotes_treat(char *cmd);
 char	*quotes_treat(char *cmd);
+/* taking off quotes to show the right output*/
 char	*no_quotes(char *cmd);
+/* verifies if quotes are matching*/
 int		matching_quotes(char *cmd);
+/* looks for double quotes arguments*/
+int		double_quotes(char *cmd);
 
 // 										space_treat.c
 char	*space_treat(char *cmd, char sign);

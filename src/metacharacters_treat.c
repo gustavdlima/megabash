@@ -14,17 +14,50 @@ int	special_characters(char *cmd)
 	return (0);
 }
 
-void	metacharacters_treat(char *cmd)
+char	*interpret_dollar(char *cmd, int position)
+{
+	char	*interpreted;
+	int		i;
+	int		j;
+	// int		len;
+
+	i = 0;
+	j = 0;
+	// len = cmd + tamanho do nome do user - 5;
+	// o - 5 é pra descontar o $USER, mas talvez seja desnecessário
+	while (cmd[i])
+	{
+		if (cmd[position])
+		{
+			// interpreted[j++] copiar o nome do user
+		}
+		interpreted[j++] = cmd[i++];
+	}
+	return (interpreted);
+}
+
+char	*metacharacters_treat(char *cmd)
 {
 	int	i;
 
 	i = 0;
-	while (cmd[i])
+	if (double_quotes(cmd) == 1)
 	{
-		if (cmd[i] == 35 || cmd[i] == 35 || cmd[i] == 38 || cmd[i] == 40 || cmd[i] == 41)
+		while (cmd[i])
 		{
-			// printf("Metacaracters")
+			if (cmd[i] == 34)
+			{
+				i++;
+				while (cmd[i] && cmd[i] != 34)
+				{
+					if (cmd[i] == 36)
+						printf("Tem dolar, chamar função para interpretar\n");
+					i++;
+				}
+			}
+			i++;
 		}
 	}
+	return(cmd);
 }
 

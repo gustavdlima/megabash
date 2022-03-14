@@ -1,5 +1,24 @@
 #include "minishell.h"
 
+int	double_quotes(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == 34)
+		{
+			while (cmd[i] && cmd[i] != 34)
+				i++;
+			if (cmd[i] == 34)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 char	*reverse_quotes_treat(char *cmd)
 {
 	int	i;

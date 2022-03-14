@@ -10,6 +10,7 @@ void	execute_process(t_root *root)
 	root->command = matrix_split(root->input, cmd_size);
 	while (root->command[i])
 	{
+		root->command[i] = metacharacters_treat(root->command[i]);
 		root->command[i] = no_quotes(root->command[i]);
 		printf("%s\n", root->command[i]);
 		i++;
