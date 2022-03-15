@@ -1,47 +1,103 @@
 #include "minishell.h"
 
-// int	search_substituted_spaces(char *cmd)
-// {
-// 	int	spaces;
-// 	int	i;
-
-// 	i = 0;
-// 	spaces = 0;
-// 	while(cmd[i])
-// 	{
-// 		if (cmd[i] == 1)
-// 			spaces++;
-// 		i++;
-// 	}
-// 	if (spaces > 0)
-// 	{
-// 		printf("Tem espaço no argumento\n");
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
-int	search_quotes(char *cmd)
+int	double_quotes(char *cmd)
 {
 	int	i;
 
-	i = ft_strlen(cmd) - 1;
-	if (cmd[0] == 39 || cmd[0] == 34)
+	i = 0;
+	while (cmd[i])
 	{
-		// printf("i : %c\nj : %c\n", i);
-		if (cmd[0] != cmd[i])
+		if (cmd[i] == 34)
 		{
-			printf("ASPAS DIFERENTES, BOY\n");
-			return (1);
+			while (cmd[i] && cmd[i] != 34)
+				i++;
+			if (cmd[i] == 34)
+				return (1);
 		}
+		i++;
 	}
-	else if (cmd[i] == 39 || cmd[i] == 34)
+	return (0);
+}
+
+char	*reverse_quotes_treat(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
 	{
-		if (cmd[0] != cmd[i])
+		if (cmd[i] == 1)
 		{
-			printf("ASPAS DIFERENTES, BOY\n");
-			return (1);
+			cmd[i] = '\'';
 		}
+		else if (cmd[i] == 2)
+		{
+			cmd[i] = '\"';
+		}
+		i++;
+	}
+	return (cmd);
+}
+
+char	*quotes_treat(char *cmd)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(cmd) - 1;
+	while (cmd[i])
+	{
+		if (cmd[i] == 39)
+		{
+			i++;
+			while (cmd[i] != 39 && i != 0 && i != len)
+			{
+				if (cmd[i] == 34)
+				{
+					cmd[i] = 2;
+				}
+				i++;
+			}
+		}
+		if (cmd[i] == 34)
+		{
+			i++;
+			while (cmd[i] != 34 && i != 0 && i != len)
+			{
+				if (cmd[i] == 39)
+				{
+				cmd[i] = 1;
+				}
+				i++;
+			}
+		}
+		i++;
+	}
+	return (cmd);
+}
+
+int	matching_quotes(char *cmd)
+{
+	int	i;
+	int	sign;
+
+	i = 0;
+	sign = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == 39 || cmd[i] == 34)
+		{
+			sign = cmd[i];
+			i++;
+			while (cmd[i] && cmd[i] != sign)
+			{
+				i++;
+			}
+			if (cmd[i] != sign)
+				return (1);
+		}
+		i++;
 	}
 	return (0);
 }
@@ -52,24 +108,32 @@ char	*no_quotes(char *cmd)
 	int		i;
 	int		j;
 	int		len;
+	int		quotes;
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(cmd) - 1;
+	quotes = 0;
 	printf(">>>>>>>>%s\n", cmd);
+	quotes_treat(cmd);
 	while (cmd[i])
 	{
 		if (cmd[i] == '\'' || cmd[i] == '\"')
-		{
-			i++;
-			str = ft_calloc(len, sizeof(char));
-			while (i < len)
-			{
-				str[j++] = cmd[i++];
-			}
-			return (str);
-		}
+			quotes++;
 		i++;
+	}
+	if (quotes != 0)
+	{
+		len = ft_strlen(cmd);
+		str = ft_calloc((len), sizeof(char));
+		i = 0;
+		while (cmd[i])
+		{
+			while (cmd[i] == '\'' || cmd[i] == '\"')
+				i++;
+			str[j++] = cmd[i++];
+		}
+		reverse_quotes_treat(str);
+		return (str);
 	}
 	return (cmd);
 }
