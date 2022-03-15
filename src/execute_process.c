@@ -1,9 +1,9 @@
 #include "minishell.h"
 
-void	execute_process(t_root *root)
+void	execute_process(t_root *root, t_env *env)
 {
 	find_redirections(root);
-	root->cmd_path = what_cmd(root->command[0]);
+	root->cmd_path = what_cmd(root->command[0], env);
 	if (root->cmd_path == NULL)
 	{
 		free_matrix(root->command);

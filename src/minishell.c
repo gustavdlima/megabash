@@ -3,13 +3,14 @@
 int	main(int argc, char **argv __attribute__((unused)), char **envp)
 {
 	t_root	root;
+	t_env	*env;
 
-	if (argc > 1)
+	if (argc > 1 && argv != NULL)
 	{
 		printf("Error. Try only ./minishell\n");
 		exit (1);
 	}
-	(void)envp;
 	initialize_struct(&root, envp);
-	megastart(&root);
+	env = environment(&root);
+	megastart(&root, env);
 }
