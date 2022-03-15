@@ -12,6 +12,12 @@
 # define PATH "/usr/local/sbin/:/usr/local/bin/:/usr/sbin/:/usr/bin/:/sbin/\
 				:/bin/"
 
+typedef struct	s_env{
+	char			*name;
+	char			*content;
+	struct s_env	*next;
+}				t_env;
+
 typedef struct s_root{
 	char	**command;
 	char	**envp;
@@ -28,7 +34,7 @@ void	initialize_struct(t_root *root, char **envp);
 void	input_treat(t_root *root);
 
 //										megastart.c
-void	megastart(t_root *root);
+void	megastart(t_root *root, t_env *env);
 
 //										metacharacters_treat.c
 /* do not interpret \ or ; */
@@ -36,16 +42,28 @@ int		special_characters(char *cmd);
 /* looks for $ to interpret */
 char	*metacharacters_treat(char *cmd);
 
+//										env.c
+t_env	*environment(t_root *root);
+char	*get_env_name(char *envp);
+char	*get_env_path(char *envp);
+void 	put_env_data(char *envp, t_env *env);
+
+//										env_operations.c
+void			env_content_to_null(t_env *list, char *name);
+void			env_node_addback(t_env *list, char *name, char *content);
+void			env_node_delete(t_env *list, char *name);
+struct s_env 	*env_node(t_env *list, char *name, int size);
+
 //										process.c
 // void	child_process(t_root *root, int *fd);
 // void	parent_process(t_root *root, int *fd);
 
 //										execute_process.c
-void	execute_process(t_root *root);
+void	execute_process(t_root *root, t_env *env);
 
 //										command_line.c
 void	command_line(t_root *root);
-char	*what_cmd(char *cmd);
+char	*what_cmd(char *cmd, t_env *env);
 
 //										quotes_treat.c
 char	*reverse_quotes_treat(char *cmd);
@@ -67,5 +85,13 @@ char	**matrix_split(char *cmd, int cmd_size);
 
 //										minishell_utils.c
 void	free_matrix(char **matrix);
+int		ft_int_strchr(const char *s, int c);
+
+//										lst_utils.c
+int		env_lstsize(t_env *lst);
+void	env_addback(t_env **lst, t_env *new);
+t_env	*env_lstnew(char *name, char *content);
+t_env	*env_last_node(t_env *lst);
+int		env_name_check(t_env *lst, char *name);
 
 #endif
