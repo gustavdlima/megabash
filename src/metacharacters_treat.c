@@ -20,14 +20,14 @@ int	special_characters(char *cmd)
 // 	int		i;
 // 	int		j;
 // 	 int		len;
-//	int wants_exit;
+// 	int wants_exit;
 
 // 	i = 0;
 // 	j = 0;
-// wants_exit = position++;
-// len = cmd + tamanho do nome do user;
-// if (cmd[wants_exit] == '?')
-// //tchama o valor de saída do exit
+// 	wants_exit = position++;
+// 	len = cmd + tamanho do nome do user;
+// 	if (cmd[wants_exit] == '?')
+// 	//tchama o valor de saída do exit
 // 	while (cmd[i])
 // 	{
 // 		if (cmd[position])
