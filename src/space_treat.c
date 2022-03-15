@@ -74,8 +74,12 @@ char	**matrix_split(char *cmd, int cmd_size)
 	j = 0;
 	while (matrix[j])
 	{
-		if (search_quotes(matrix[j]) == 1)
+		if (matching_quotes(matrix[j]) == 1
+			|| special_characters(matrix[j]) == 1)
+		{
+			printf("Aspas faltando ou tem caracteres especiais\n");
 			exit(1);
+		}
 		j++;
 	}
 	reverse_space_treat(matrix);
