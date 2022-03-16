@@ -19,7 +19,7 @@ int	theres_delimiter(char *cmd)
 	return (FALSE);
 }
 
-void	find_redirections(t_root *root)
+void	find_redirections(t_root *root, t_env *env)
 {
 	int	i;
 
@@ -46,5 +46,5 @@ void	find_redirections(t_root *root)
 		}
 		i++;
 	}
-	input_treat(root);
+	input_treat(root, env);
 }

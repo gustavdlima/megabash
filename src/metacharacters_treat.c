@@ -15,30 +15,33 @@ int	special_or_metacharacters(char *cmd)
 	return (FALSE);
 }
 
-// char	*interpret_dollar(char *cmd, int position)
-// {
-// 	char	*interpreted;
-// 	int		i;
-// 	int		j;
-// 	int		len;
+char	*interpret_dollar(char *cmd, int position, t_env *env)
+{
+	char	*interpreted;
+	char	*temp;
+	char	*rest;
+	t_env	*env_var;
+	int		jump;
 
-// 	i = 0;
-// 	j = 0;
-// 	if (cmd[position++] == '?')
-// 	//tchama o valor de saída do exit
-// 	len = ft_strlen(cmd); //+ ft_strlen(tamanho_da_variável_de_ambiente);
-// 	interpreted = malloc(len * sizeof(char));
-// 	while (cmd[i])
-// 	{
-// 		if (i + 1 == position)
-// 		{
-// 			interpreted[j++] = variavelDeAmbiente[];
-// 		}
-// 		interpreted[j++] = cmd[i++];
-// 	}
-// 	free(cmd);
-// 	return (interpreted);
-// }
+	// if (cmd[position++] == '?')
+		// return (get_exit());
+	printf("CMD[POSITION] : %c\n", cmd[position]);
+	temp = ft_substr(cmd, 0, position);
+	env_var = get_env_content_(cmd, env);
+	interpreted = ft_strjoin(temp, env_var->content);
+	free (temp);
+	temp = ft_strdup(interpreted);
+	free (interpreted);
+	jump = jump_positions(cmd, env);
+	printf("jump : %d\n", jump);
+	rest = ft_substr(cmd, jump + position, ft_strlen(cmd));
+	printf("rest = %s\n", rest);
+	interpreted = ft_strjoin(temp, rest);
+	printf("interpreted = %s\n", interpreted);
+	free (temp);
+	free (rest);
+	return (interpreted);
+}
 
 int	unquotted_line(char *cmd)
 {
@@ -54,7 +57,7 @@ int	unquotted_line(char *cmd)
 	return (TRUE);
 }
 
-char	*metacharacters_treat(char *cmd)
+char	*metacharacters_treat(char *cmd, t_env *env)
 {
 	int	i;
 
@@ -69,7 +72,7 @@ char	*metacharacters_treat(char *cmd)
 				while (cmd[i] && cmd[i] != 34)
 				{
 					if (cmd[i] == '$')
-						printf("Tem dolar entre aspas duplas, chamar função para interpretar\n");
+						return (interpret_dollar(cmd, i, env));
 					i++;
 				}
 			}
@@ -85,7 +88,8 @@ char	*metacharacters_treat(char *cmd)
 		while (cmd[i])
 		{
 			if (cmd[i] == '$')
-				printf("Tem dolar fora de aspas, chamar função para interpretar\n");
+				return (interpret_dollar(cmd, i, env));
+				// printf("Tem dolar fora de aspas, chamar função para interpretar\n");
 			i++;
 		}
 	}

@@ -33,7 +33,7 @@ typedef struct s_root{
 void	initialize_struct(t_root *root, char **envp);
 
 //										line_input_treat.c
-void	input_treat(t_root *root);
+void	input_treat(t_root *root, t_env *env);
 
 //										megastart.c
 void	megastart(t_root *root, t_env *env);
@@ -42,7 +42,7 @@ void	megastart(t_root *root, t_env *env);
 /* do not interpret \ or ; */
 int		special_or_metacharacters(char *cmd);
 /* looks for $ to interpret */
-char	*metacharacters_treat(char *cmd);
+char	*metacharacters_treat(char *cmd, t_env *env);
 
 //										env.c
 t_env	*environment(t_root *root);
@@ -63,6 +63,10 @@ struct s_env 	*env_node(t_env *list, char *name, int size);
 //										execute_process.c
 void	execute_process(t_root *root, t_env *env);
 
+//										expand_utils.c
+struct s_env *get_env_content_(char *cmd, t_env *env);
+int		jump_positions(char *cmd, t_env *env);
+
 //										command_line.c
 void	command_line(t_root *root);
 char	*what_cmd(char *cmd, t_env *env);
@@ -78,7 +82,7 @@ int		matching_quotes(char *cmd);
 int		double_closed_quotes(char *cmd);
 
 //										redirections_treat.c
-void		find_redirections(t_root *root);
+void		find_redirections(t_root *root, t_env *env);
 /*it looks for <<*/
 int			theres_delimiter(char *cmd);
 
