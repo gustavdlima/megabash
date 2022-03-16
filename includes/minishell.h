@@ -11,6 +11,8 @@
 
 # define PATH "/usr/local/sbin/:/usr/local/bin/:/usr/sbin/:/usr/bin/:/sbin/\
 				:/bin/"
+# define FALSE 1
+# define TRUE 0
 
 typedef struct	s_env{
 	char			*name;
@@ -38,7 +40,7 @@ void	megastart(t_root *root, t_env *env);
 
 //										metacharacters_treat.c
 /* do not interpret \ or ; */
-int		special_characters(char *cmd);
+int		special_or_metacharacters(char *cmd);
 /* looks for $ to interpret */
 char	*metacharacters_treat(char *cmd);
 
@@ -73,7 +75,7 @@ char	*no_quotes(char *cmd);
 /* verifies if quotes are matching*/
 int		matching_quotes(char *cmd);
 /* looks for double quotes arguments*/
-int		double_quotes(char *cmd);
+int		double_closed_quotes(char *cmd);
 
 //										redirections_treat.c
 void		find_redirections(t_root *root);
@@ -81,7 +83,7 @@ void		find_redirections(t_root *root);
 // 										space_treat.c
 char	*space_treat(char *cmd, char sign);
 char	**reverse_space_treat(char **matrix);
-char	**matrix_split(char *cmd, int cmd_size);
+char	**tokenizer(char *cmd, int cmd_size);
 
 //										minishell_utils.c
 void	free_matrix(char **matrix);
