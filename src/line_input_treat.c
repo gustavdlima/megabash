@@ -7,7 +7,7 @@ void	input_treat(t_root *root)
 
 	i = 0;
 	cmd_size = ft_strlen(root->input);
-	root->command = matrix_split(root->input, cmd_size);
+	root->command = tokenizer(root->input, cmd_size);
 	while (root->command[i])
 	{
 		root->command[i] = metacharacters_treat(root->command[i]);
