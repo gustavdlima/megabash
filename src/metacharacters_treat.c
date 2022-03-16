@@ -1,17 +1,18 @@
 #include "minishell.h"
 
-int	special_characters(char *cmd)
+int	special_or_metacharacters(char *cmd)
 {
 	int	i;
 
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == 59 || cmd[i] == 92)
-			return (1);
+		if (cmd[i] == ';' || cmd[i] == 92 || cmd[i] == '(' || cmd[i] == ')'
+			|| cmd[i] == '&' || cmd[i] == '#')
+			return (TRUE);
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }
 
 // char	*interpret_dollar(char *cmd, int position)
@@ -19,32 +20,46 @@ int	special_characters(char *cmd)
 // 	char	*interpreted;
 // 	int		i;
 // 	int		j;
-// 	 int		len;
-// 	int wants_exit;
+// 	int		len;
 
 // 	i = 0;
 // 	j = 0;
-// 	wants_exit = position++;
-// 	len = cmd + tamanho do nome do user;
-// 	if (cmd[wants_exit] == '?')
+// 	if (cmd[position++] == '?')
 // 	//tchama o valor de saída do exit
+// 	len = ft_strlen(cmd); //+ ft_strlen(tamanho_da_variável_de_ambiente);
+// 	interpreted = malloc(len * sizeof(char));
 // 	while (cmd[i])
 // 	{
-// 		if (cmd[position])
+// 		if (i + 1 == position)
 // 		{
-// 			// interpreted[j++] copiar o nome do user
+// 			interpreted[j++] = variavelDeAmbiente[];
 // 		}
 // 		interpreted[j++] = cmd[i++];
 // 	}
+// 	free(cmd);
 // 	return (interpreted);
 // }
+
+int	unquotted_line(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == 34 || cmd[i] == 39)
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
 
 char	*metacharacters_treat(char *cmd)
 {
 	int	i;
 
 	i = 0;
-	if (double_quotes(cmd) == 1)
+	if (double_closed_quotes(cmd) == TRUE)
 	{
 		while (cmd[i])
 		{
@@ -53,11 +68,24 @@ char	*metacharacters_treat(char *cmd)
 				i++;
 				while (cmd[i] && cmd[i] != 34)
 				{
-					if (cmd[i] == 36)
-						printf("Tem dolar, chamar função para interpretar\n");
+					if (cmd[i] == '$')
+						printf("Tem dolar entre aspas duplas, chamar função para interpretar\n");
 					i++;
 				}
 			}
+			i++;
+		}
+	}
+	else if (unquotted_line(cmd) == TRUE)
+	{
+		if (special_or_metacharacters(cmd) == TRUE)
+		{
+			printf("Caractere especial ou metacaractere fora de aspas, NÃO PODE!\n");
+		}
+		while (cmd[i])
+		{
+			if (cmd[i] == '$')
+				printf("Tem dolar fora de aspas, chamar função para interpretar\n");
 			i++;
 		}
 	}
