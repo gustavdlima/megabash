@@ -49,7 +49,7 @@ char	*space_treat(char *cmd, char sign)
 	return (cmd);
 }
 
-char	**matrix_split(char *cmd, int cmd_size)
+char	**tokenizer(char *cmd, int cmd_size)
 {
 	int		i;
 	int		j;
@@ -74,10 +74,9 @@ char	**matrix_split(char *cmd, int cmd_size)
 	j = 0;
 	while (matrix[j])
 	{
-		if (matching_quotes(matrix[j]) == 1
-			|| special_characters(matrix[j]) == 1)
+		if (matching_quotes(matrix[j]) == FALSE)
 		{
-			printf("Aspas faltando ou tem caracteres especiais\n");
+			printf("Aspas faltando, não pode!\n");
 			exit(1);
 		}
 		j++;
