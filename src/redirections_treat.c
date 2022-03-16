@@ -1,5 +1,24 @@
 #include "minishell.h"
 
+int	theres_delimiter(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '<')
+		{
+			while (cmd[i] && cmd[i] != '<')
+				i++;
+			if (cmd[i] == '<')
+				return (TRUE);
+		}
+		i++;
+	}
+	return (FALSE);
+}
+
 void	find_redirections(t_root *root)
 {
 	int	i;

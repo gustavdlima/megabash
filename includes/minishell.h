@@ -79,6 +79,8 @@ int		double_closed_quotes(char *cmd);
 
 //										redirections_treat.c
 void		find_redirections(t_root *root);
+/*it looks for <<*/
+int			theres_delimiter(char *cmd);
 
 // 										space_treat.c
 char	*space_treat(char *cmd, char sign);

@@ -3,7 +3,8 @@
 void	command_line(t_root *root)
 {
 	root->input = readline("megabash$ ");
-	add_history(root->input);
+	if (theres_delimiter(root->input) == FALSE)
+		add_history(root->input);
 }
 
 char	*what_cmd(char *cmd, t_env *env)
