@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	double_quotes(char *cmd)
+int	double_closed_quotes(char *cmd)
 {
 	int	i;
 
@@ -12,11 +12,11 @@ int	double_quotes(char *cmd)
 			while (cmd[i] && cmd[i] != 34)
 				i++;
 			if (cmd[i] == 34)
-				return (1);
+				return (TRUE);
 		}
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }
 
 char	*reverse_quotes_treat(char *cmd)
@@ -67,7 +67,7 @@ char	*quotes_treat(char *cmd)
 			{
 				if (cmd[i] == 39)
 				{
-				cmd[i] = 1;
+					cmd[i] = 1;
 				}
 				i++;
 			}
@@ -95,11 +95,11 @@ int	matching_quotes(char *cmd)
 				i++;
 			}
 			if (cmd[i] != sign)
-				return (1);
+				return (FALSE);
 		}
 		i++;
 	}
-	return (0);
+	return (TRUE);
 }
 
 char	*no_quotes(char *cmd)
