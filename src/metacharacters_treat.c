@@ -25,22 +25,22 @@ char	*interpret_dollar(char *cmd, int position, t_env *env)
 
 	// if (cmd[position++] == '?')
 		// return (get_exit());
-	printf("CMD[POSITION] : %c\n", cmd[position]);
 	temp = ft_substr(cmd, 0, position);
-	env_var = get_env_content_(cmd, env);
-	interpreted = ft_strjoin(temp, env_var->content);
-	free (temp);
-	temp = ft_strdup(interpreted);
-	free (interpreted);
 	jump = jump_positions(cmd, env);
-	printf("jump : %d\n", jump);
-	rest = ft_substr(cmd, jump + position, ft_strlen(cmd));
-	printf("rest = %s\n", rest);
-	interpreted = ft_strjoin(temp, rest);
-	printf("interpreted = %s\n", interpreted);
-	free (temp);
-	free (rest);
-	return (interpreted);
+	if (!ft_isalnum(cmd[position + jump]))
+	{
+		env_var = get_env_content_(cmd, env);
+		interpreted = ft_strjoin(temp, env_var->content);
+		free (temp);
+		temp = ft_strdup(interpreted);
+		free (interpreted);
+		rest = ft_substr(cmd, jump + position, ft_strlen(cmd));
+		interpreted = ft_strjoin(temp, rest);
+		free (temp);
+		free (rest);
+		return (interpreted);
+	}
+	return (temp);
 }
 
 int	unquotted_line(char *cmd)
@@ -69,7 +69,7 @@ char	*metacharacters_treat(char *cmd, t_env *env)
 			if (cmd[i] == 34)
 			{
 				i++;
-				while (cmd[i] && cmd[i] != 34)
+				while (cmd[i])
 				{
 					if (cmd[i] == '$')
 						return (interpret_dollar(cmd, i, env));
@@ -81,16 +81,15 @@ char	*metacharacters_treat(char *cmd, t_env *env)
 	}
 	else if (unquotted_line(cmd) == TRUE)
 	{
-		if (special_or_metacharacters(cmd) == TRUE)
-		{
-			printf("Caractere especial ou metacaractere fora de aspas, NÃO PODE!\n");
-		}
 		while (cmd[i])
 		{
 			if (cmd[i] == '$')
 				return (interpret_dollar(cmd, i, env));
-				// printf("Tem dolar fora de aspas, chamar função para interpretar\n");
 			i++;
+		}
+		if (special_or_metacharacters(cmd) == TRUE)
+		{
+			printf("Caractere especial ou metacaractere fora de aspas, NÃO PODE!\n");
 		}
 	}
 	return(cmd);
