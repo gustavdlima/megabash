@@ -15,6 +15,8 @@ int	special_or_metacharacters(char *cmd)
 	return (FALSE);
 }
 
+int	get_exit();
+
 char	*interpret_dollar(char *cmd, int position, t_env *env)
 {
 	char	*interpreted;
@@ -23,8 +25,8 @@ char	*interpret_dollar(char *cmd, int position, t_env *env)
 	t_env	*env_var;
 	int		jump;
 
-	// if (cmd[position++] == '?')
-		// return (get_exit());
+	if (cmd[position++] == '?')
+		return (get_exit());
 	temp = ft_substr(cmd, 0, position);
 	jump = jump_positions(cmd, env);
 	if (!ft_isalnum(cmd[position + jump]))
