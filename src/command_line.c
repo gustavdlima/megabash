@@ -14,7 +14,7 @@ char	*what_cmd(char *cmd, t_env *env)
 	char	*path_cmd;
 	int		i;
 
-	path = env_node(env, "PATH", 5);
+	path = get_env_node(env, "PATH", 5);
 	pathways = ft_split(path->content, ':');
 	i = 0;
 	while (pathways[i])

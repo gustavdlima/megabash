@@ -113,7 +113,7 @@ char	*no_quotes(char *cmd)
 	i = 0;
 	j = 0;
 	quotes = 0;
-	printf(">>>>>>>>%s\n", cmd);
+	// printf(">>>>>>>>%s\n", cmd);
 	quotes_treat(cmd);
 	while (cmd[i])
 	{

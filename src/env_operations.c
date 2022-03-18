@@ -4,7 +4,19 @@
 // funcao para excluir node com NAME especifico
 // funcao para adicionar um addback com NAME e CONTENT
 
-struct s_env 	*env_node(t_env *list, char *name, int size)
+void	print_env(t_env *env)
+{
+	if (!env)
+		return ;
+	while(env->next)
+	{
+		printf("%s=", env->name);
+		printf("%s\n", env->content);
+		env = env->next;
+	}
+}
+
+struct s_env 	*get_env_node(t_env *list, char *name, int size)
 {
 	while (list)
 	{
@@ -13,7 +25,7 @@ struct s_env 	*env_node(t_env *list, char *name, int size)
 		// printf("Content = %s\n", list->name);
 		list = list->next;
 	}
-	return (0);
+	return NULL;
 }
 
 void	env_node_addback(t_env *list, char *name, char *content)

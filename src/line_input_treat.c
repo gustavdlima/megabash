@@ -12,7 +12,7 @@ void	input_treat(t_root *root)
 	{
 		root->command[i] = metacharacters_treat(root->command[i]);
 		root->command[i] = no_quotes(root->command[i]);
-		printf("%s\n", root->command[i]);
+		// printf("%s\n", root->command[i]);
 		i++;
 	}
 }

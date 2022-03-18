@@ -10,8 +10,8 @@ char	*get_env_path(char *envp)
 {
 	int			i;
 	char		*sup;
-	size_t		name_size;
-	size_t		path_size;
+	int		name_size;
+	int		path_size;
 
 	i = 0;
 	name_size = ft_int_strchr(envp, '=') + 1;
@@ -28,17 +28,19 @@ char	*get_env_path(char *envp)
 		name_size++;
 		i++;
 	}
+	sup[path_size] = '\0';
 	return (sup);
 }
 
 char	*get_env_name(char *envp)
 {
-	size_t	name_size;
+	int	name_size;
 	char	*sup;
 
 	name_size = ft_int_strchr(envp, '=');
 	sup = malloc((sizeof(char *) * name_size));
-	ft_memcpy(sup, envp, (name_size));
+	ft_memcpy(sup, envp, name_size);
+	sup[name_size] = '\0';
 	return(sup);
 }
 
