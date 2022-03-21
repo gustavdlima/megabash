@@ -15,21 +15,28 @@ void	export(t_root *root, t_env *env)
 		node = get_env_node(env, name, ft_strlen(name));
 		if (node == NULL)
 		{
+			printf("name: %s\ncontent: %s\n", name, content);
 			env_addback(&env, env_lstnew(name, content));
+			t_env *temp = env_last_node(node);
+			printf("TEMP: %s\n", temp->content);
 			// printf("O NODE NAO EXISTE\n");
+			printf("node == NULL: %s\n", node->content);
 		}
 		else
 		{
 			env_content_to_null(env, name);
 			node->content = content;
+		printf("ELSE node: %s\n", node->content);
+
 		}
 		i++;
 		// print_env(env);
 		// printf("Name: %s\n", name);
 		// printf("Content: %s\n", content);
-		free(name);
-		free(content);
+		// free(name);
+		// free(content);
 	}
+	printf("node: %s\n", node->content);
 }
 
 

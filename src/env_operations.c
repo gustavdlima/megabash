@@ -8,7 +8,7 @@ void	print_env(t_env *env)
 {
 	if (!env)
 		return ;
-	while(env->next)
+	while(env)
 	{
 		printf("%s=", env->name);
 		printf("%s\n", env->content);

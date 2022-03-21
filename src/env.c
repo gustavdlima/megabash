@@ -8,27 +8,33 @@ void	put_env_data(char *envp, t_env *env)
 
 char	*get_env_path(char *envp)
 {
-	int			i;
+	// int			i;
 	char		*sup;
-	int		name_size;
-	int		path_size;
+	char		*temp;
+	// int		name_size;
+	// int		path_size;
 
-	i = 0;
-	name_size = ft_int_strchr(envp, '=') + 1;
-	path_size = ft_strlen(envp) - name_size;
-	if (path_size == 0)
-	{
-		sup = ft_strdup("");
-		return (sup);
-	}
-	sup = malloc(sizeof(char *) * path_size);
-	while (envp[i])
-	{
-		sup[i] = envp[name_size];
-		name_size++;
-		i++;
-	}
-	sup[path_size] = '\0';
+	// i = 0;
+	temp = ft_strchr(envp, '=') + 1;
+	sup = ft_strdup(temp);
+	printf("%s\n", sup);
+	// name_size = ft_int_strchr(envp, '=') + 1;
+	// path_size = ft_strlen(envp) - name_size;
+	// if (path_size == 0)
+	// {
+	// 	sup = ft_strdup("");
+	// 	return (sup);
+	// }
+	// sup = malloc(sizeof(char *) * path_size);
+	// printf("depois do malloc\n");
+	// while (envp[name_size])
+	// {
+	// 	sup[i] = envp[name_size];
+	// 	name_size++;
+	// 	i++;
+	// }
+	// printf("%s\n", sup);
+	// sup[path_size] = '\0';
 	return (sup);
 }
 
