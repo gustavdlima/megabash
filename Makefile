@@ -18,7 +18,8 @@ SRCS	= minishell.c megastart.c command_line.c process.c execute_process.c \
 			minishell_utils.c metacharacters_treat.c quotes_treat.c \
 			line_input_treat.c redirections_treat.c space_treat.c \
 			init_struct.c lst_utils.c env_operations.c env.c \
-			check_builtins.c builtin_export.c \
+			check_builtins.c builtin_export.c builtin_unset.c\
+			builtin_env.c \
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 SRCS	:= $(addprefix $(SRC_DIR)/,$(SRCS))

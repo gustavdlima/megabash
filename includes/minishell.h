@@ -8,7 +8,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-
+# include <signal.h>
 
 typedef struct	s_env{
 	char			*name;
@@ -56,6 +56,12 @@ void	export(t_root *root, t_env *env);
 char	*get_export_data_name(char *data);
 char	*get_export_data_content(char *data);
 char	*remove_quotes(char *data);
+
+//										builtin_unset.c
+void	unset(t_root *root, t_env *env);
+
+//										builtin_env.c
+void	env_b(t_root *root, t_env *env);
 
 //										env_operations.c
 void			env_content_to_null(t_env *list, char *name);

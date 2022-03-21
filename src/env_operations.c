@@ -47,6 +47,7 @@ void	env_node_delete(t_env *list, char *name)
 			list = list->next;
 		}
 	}
+	return ;
 }
 
 void	env_content_to_null(t_env *list, char *name)

@@ -16,7 +16,7 @@ void	export(t_root *root, t_env *env)
 		if (node == NULL)
 		{
 			env_addback(&env, env_lstnew(name, content));
-			printf("O NODE NAO EXISTE\n");
+			// printf("O NODE NAO EXISTE\n");
 		}
 		else
 		{

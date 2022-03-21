@@ -5,7 +5,6 @@ void	execute_process(t_root *root, t_env *env)
 	find_redirections(root);
 	if (check_builtins(root, env))
 		printf("builtin checkado\n+");
-	printf("Oi\n");
 	root->cmd_path = what_cmd(root->command[0], env);
 	if (root->cmd_path == NULL)
 	{
