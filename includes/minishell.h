@@ -27,6 +27,7 @@ typedef struct s_root{
 	char	*path;
 	char	*input;
 	char	*teste;
+	int		exit_status;
 }				t_root;
 
 //										init_struct.c
@@ -93,6 +94,7 @@ char	**tokenizer(char *cmd, int cmd_size);
 
 //										minishell_utils.c
 void	free_matrix(char **matrix);
+void	free_linked_list(t_env *env);
 int		ft_int_strchr(const char *s, int c);
 
 //										lst_utils.c

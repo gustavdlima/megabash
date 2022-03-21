@@ -15,8 +15,6 @@ int	special_or_metacharacters(char *cmd)
 	return (FALSE);
 }
 
-int	get_exit();
-
 char	*interpret_dollar(char *cmd, int position, t_env *env)
 {
 	char	*interpreted;
