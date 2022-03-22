@@ -19,32 +19,35 @@ int	theres_delimiter(char *cmd)
 	return (FALSE);
 }
 
-void	find_redirections(t_root *root, t_env *env)
+void	find_redirections(void)
 {
 	int	i;
 
 	i= 0;
-	while (root->input[i])
+	while (g_megabash.input->input[i])
 	{
-		if (root->input[i] == '<')
+		if (g_megabash.input->input[i] == '<')
 		{
 			i++;
-			if (root->input[i] == '<')
-				printf("should be given a delimiter, then read the input until a line containing the delimiter is seen. However, it doesn’t have to update the history!\n");
+			if (g_megabash.input->input[i] == '<')
+				printf("should be given a delimiter, then read the input->input until a line containing the delimiter is seen. However, it doesn’t have to update the history!\n");
 			else
-				printf("redirect_input(root)\n");
+				printf("redirect_input->input(g_megabash)\n");
 			return ;
 		}
-		if (root->input[i] == '>')
+		if (g_megabash.input->input[i] == '>')
 		{
 			i++;
-			if (root->input[i] == '>')
+			if (g_megabash.input->input[i] == '>')
 				printf("should redirect output in append mode\n");
 			else
-				printf("redirect_output(root)\n");
+				printf("redirect_output(g_megabash)\n");
 			return ;
 		}
 		i++;
 	}
-	input_treat(root, env);
+	// if (find_pipe(g_megabash.input) == TRUE)
+	// 	pipe_treat(g_megabash, env);
+	// else
+		input_treat();
 }

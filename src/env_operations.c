@@ -4,8 +4,11 @@
 // funcao para excluir node com NAME especifico
 // funcao para adicionar um addback com NAME e CONTENT
 
-struct s_env 	*env_node(t_env *list, char *name, int size)
+struct s_env 	*get_env_node(t_env *list, char *name)
 {
+	int	size;
+
+	size = ft_strlen(name);
 	while (list)
 	{
 		if (!ft_memcmp(list->name, name, size))

@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-void	command_line(t_root *root)
+void	command_line(void)
 {
-	root->input = readline("megabash$ ");
-	if (theres_delimiter(root->input) == FALSE)
-		add_history(root->input);
+	g_megabash.input->input = readline("megabash$ ");
+	if (theres_delimiter(g_megabash.input->input) == FALSE)
+		add_history(g_megabash.input->input);
 }
 
-char	*what_cmd(char *cmd, t_env *env)
+char	*what_cmd(char *cmd)
 {
 	t_env	*path;
 	char	*temp;
@@ -15,7 +15,7 @@ char	*what_cmd(char *cmd, t_env *env)
 	char	*path_cmd;
 	int		i;
 
-	path = env_node(env, "PATH", 5);
+	path = get_env_node(g_megabash.env, "PATH");
 	pathways = ft_split(path->content, ':');
 	i = 0;
 	while (pathways[i])

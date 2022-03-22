@@ -1,18 +1,18 @@
 #include "minishell.h"
 
-void	input_treat(t_root *root, t_env *env)
+void	input_treat(void)
 {
 	int	cmd_size;
 	int	i;
 
 	i = 0;
-	cmd_size = ft_strlen(root->input);
-	root->command = tokenizer(root->input, cmd_size);
-	while (root->command[i])
+	cmd_size = ft_strlen(g_megabash.input->input);
+	g_megabash.cmd->content = tokenizer(g_megabash.input->input, cmd_size);
+	while (g_megabash.cmd->content[i])
 	{
-		root->command[i] = metacharacters_treat(root->command[i], env);
-		root->command[i] = no_quotes(root->command[i]);
-		printf("%s\n", root->command[i]);
+		g_megabash.cmd->content[i] = metacharacters_treat(g_megabash.cmd->content[i]);
+		g_megabash.cmd->content[i] = no_quotes(g_megabash.cmd->content[i]);
+		printf("%s\n", g_megabash.cmd->content[i]);
 		i++;
 	}
 }

@@ -1,27 +1,16 @@
 #include "minishell.h"
 
-int	jump_positions(char *cmd, t_env *env)
+int	jump_positions(char *cmd)
 {
 	int		len;
 
-	while (env)
+	while (g_megabash.env)
 	{
-		len = ft_strlen(env->name) + 1;
-		if(ft_strnstr(cmd, env->name, ft_strlen(cmd)) != NULL)
+		len = ft_strlen(g_megabash.env->name) + 1;
+		if(ft_strnstr(cmd, g_megabash.env->name, ft_strlen(cmd)) != NULL)
 			return (len);
-		env = env->next;
+		g_megabash.env = g_megabash.env->next;
 	}
 	return (0);
-}
-
-struct s_env	*get_env_content_(char *cmd, t_env *env)
-{
-	while (env)
-	{
-		if(ft_strnstr(cmd, env->name, ft_strlen(cmd)) != NULL)
-			return (env);
-		env = env->next;
-	}
-	return ('\0');
 }
 

@@ -1,19 +1,19 @@
 #include "minishell.h"
 
-void	megastart(t_root *root, t_env *env)
+void	megastart(void)
 {
 	pid_t	p_id;
 
 	while (1)
 	{
-		command_line(root);
+		command_line();
 		p_id = fork();
 		if (p_id == 0)
 		{
-			execute_process(root, env);
+			execute_process();
 		}
 		waitpid(p_id, NULL, WUNTRACED);
 	}
-	free(root->input);
-	free_matrix(root->command);
+	free(g_megabash.input->input);
+	free_matrix(g_megabash.cmd->content);
 }

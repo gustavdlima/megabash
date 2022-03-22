@@ -15,7 +15,7 @@ int	special_or_metacharacters(char *cmd)
 	return (FALSE);
 }
 
-char	*interpret_dollar(char *cmd, int position, t_env *env)
+char	*interpret_dollar(char *cmd, int position)
 {
 	char	*interpreted;
 	char	*temp;
@@ -26,15 +26,16 @@ char	*interpret_dollar(char *cmd, int position, t_env *env)
 	// if (cmd[position++] == '?')
 	// 	return ("get_exit()");
 	temp = ft_substr(cmd, 0, position);
-	jump = jump_positions(cmd, env);
-	if (!ft_isalnum(cmd[position + jump]))
+	jump = jump_positions(cmd);
+	if (!ft_isalnum(cmd[position + jump])) //O PROBLEMA TÁ AQUI DENTRO, PRECISA DE MAIS CONDIÇÕES CASO TENHA MAIS $
 	{
-		env_var = get_env_content_(cmd, env);
+		env_var = get_env_node(g_megabash.env, cmd);
 		interpreted = ft_strjoin(temp, env_var->content);
 		free (temp);
 		temp = ft_strdup(interpreted);
 		free (interpreted);
-		rest = ft_substr(cmd, jump + position, ft_strlen(cmd));
+		rest = ft_substr(cmd, jump + position, ft_strlen(cmd)); //TEM MAIS $s???
+		// PROCURAR EM "rest" MAIS $s
 		interpreted = ft_strjoin(temp, rest);
 		free (temp);
 		free (rest);
@@ -57,7 +58,7 @@ int	unquotted_line(char *cmd)
 	return (TRUE);
 }
 
-char	*metacharacters_treat(char *cmd, t_env *env)
+char	*metacharacters_treat(char *cmd)
 {
 	int	i;
 
@@ -72,7 +73,7 @@ char	*metacharacters_treat(char *cmd, t_env *env)
 				while (cmd[i])
 				{
 					if (cmd[i] == '$')
-						return (interpret_dollar(cmd, i, env));
+						return (interpret_dollar(cmd, i));
 					i++;
 				}
 			}
@@ -84,7 +85,7 @@ char	*metacharacters_treat(char *cmd, t_env *env)
 		while (cmd[i])
 		{
 			if (cmd[i] == '$')
-				return (interpret_dollar(cmd, i, env));
+				return (interpret_dollar(cmd, i));
 			i++;
 		}
 		if (special_or_metacharacters(cmd) == TRUE)

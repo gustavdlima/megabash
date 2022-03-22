@@ -1,15 +1,15 @@
 #include "minishell.h"
 
-void	execute_process(t_root *root, t_env *env)
+void	execute_process(void)
 {
-	find_redirections(root, env);
-	root->cmd_path = what_cmd(root->command[0], env);
-	if (root->cmd_path == NULL)
+	find_redirections();
+	g_megabash.input->cmd_path = what_cmd(g_megabash.cmd->content[0]);
+	if (g_megabash.input->cmd_path == NULL)
 	{
-		free_matrix(root->command);
+		free_matrix(g_megabash.cmd->content);
 		printf("Command not found.\n");
 	}
-	for (int j = 0; root->command[j]; j++)
-		printf("Command:\t%s\n", root->command[j]);
-	execve(root->cmd_path, root->command, root->envp);
+	for (int j = 0; g_megabash.cmd->content[j]; j++)
+		printf("Command:\t%s\n", g_megabash.cmd->content[j]);
+	execve(g_megabash.input->cmd_path, g_megabash.cmd->content, g_megabash.input->envp);
 }

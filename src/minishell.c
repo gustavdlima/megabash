@@ -1,16 +1,13 @@
 #include "minishell.h"
 
-int	main(int argc, char **argv __attribute__((unused)), char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_root	root;
-	t_env	*env;
-
 	if (argc > 1 && argv != NULL)
 	{
 		printf("Error. Try only ./minishell\n");
 		exit (1);
 	}
-	initialize_struct(&root, envp);
-	env = environment(&root);
-	megastart(&root, env);
+	// g_megabash.input->envp = envp;
+	g_megabash.env = environment(envp);
+	megastart();
 }

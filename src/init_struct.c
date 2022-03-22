@@ -1,7 +1,6 @@
 #include "minishell.h"
 
-void	initialize_struct(t_root *root, char **envp)
+void	initialize_struct(char **envp)
 {
-	root->envp = envp;
-	root->exit_status = 0;
+	g_megabash.input->envp = envp;
 }

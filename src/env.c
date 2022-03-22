@@ -42,18 +42,18 @@ char	*get_env_name(char *envp)
 	return(sup);
 }
 
-t_env	*environment(t_root *root)
+t_env	*environment(char **envp)
 {
 	int	i;
 	t_env *list;
 
 	i = 1;
-	list = env_lstnew(get_env_name(root->envp[0]),
-					get_env_path(root->envp[0]));
-	while (root->envp[i])
+	list = env_lstnew(get_env_name(envp[0]),
+					get_env_path(envp[0]));
+	while (envp[i])
 	{
-		env_addback(&list, env_lstnew(get_env_name(root->envp[i]),
-					get_env_path(root->envp[i])));
+		env_addback(&list, env_lstnew(get_env_name(envp[i]),
+					get_env_path(envp[i])));
 		i++;
 	}
 	return (list);
