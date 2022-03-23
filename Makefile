@@ -19,7 +19,7 @@ LIBFT_PATH	 	= ./libs/libft
 LIBFT			= $(LIBFT_PATH)/libft.a
 LIBFT_FLAGS		= -L$(LIBFT_PATH) -lft
 
-SRCS	=	minishell.c megastart.c			\
+SRCS	=	minishell.c			\
 			$(ENV_PATH)environment.c 		\
 			$(ENV_PATH)env_operations.c 	\
 			$(LIST_PATH)env_list_utils.c 	\
