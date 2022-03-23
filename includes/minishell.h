@@ -36,6 +36,8 @@ typedef struct	s_global
 # include "linked_list.h"
 # include "utils.h"
 
+void	megastart(void);
+
 extern t_global	g_megabash;
 
 #endif

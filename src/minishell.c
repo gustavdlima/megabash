@@ -2,6 +2,11 @@
 
 t_global	g_megabash;
 
+void	megastart(void)
+{
+
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	if (argc > 1 && argv != NULL)
@@ -10,5 +15,6 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	}
 	environment(envp);
+	megastart();
 	return (0);
 }
