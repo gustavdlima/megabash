@@ -6,8 +6,8 @@ void	input_treat(void)
 	int	i;
 
 	i = 0;
-	cmd_size = ft_strlen(g_megabash.input->input);
-	g_megabash.cmd->content = tokenizer(g_megabash.input->input, cmd_size);
+	cmd_size = ft_strlen(g_megabash.input);
+	g_megabash.cmd->content = tokenizer(g_megabash.input, cmd_size);
 	while (g_megabash.cmd->content[i])
 	{
 		g_megabash.cmd->content[i] = metacharacters_treat(g_megabash.cmd->content[i]);

@@ -20,12 +20,6 @@ typedef struct	s_env{
 	struct s_env	*next;
 }				t_env;
 
-typedef struct s_root{
-	char	**envp;
-	char	*cmd_path;
-	char	*input;
-}				t_root;
-
 typedef struct s_command
 {
 	char				**content;
@@ -36,8 +30,10 @@ typedef struct s_command
 typedef struct s_global
 {
 	t_env		*env;
-	t_root		*input;
 	t_command	*cmd;
+	char		*input;
+	char		**envp;
+	char		*cmd_path;
 }				t_global;
 
 t_global	g_megabash;
@@ -119,6 +115,6 @@ int		env_name_check(t_env *lst, char *name);
 
 //										pipe_treat.c
 int		find_pipe(char *cmd);
-void	pipe_treat(t_root *root, t_env *env);
+void	pipe_treat(void);
 
 #endif

@@ -14,6 +14,6 @@ void	megastart(void)
 		}
 		waitpid(p_id, NULL, WUNTRACED);
 	}
-	free(g_megabash.input->input);
+	free(g_megabash.input);
 	free_matrix(g_megabash.cmd->content);
 }

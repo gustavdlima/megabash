@@ -2,9 +2,9 @@
 
 void	command_line(void)
 {
-	g_megabash.input->input = readline("megabash$ ");
-	if (theres_delimiter(g_megabash.input->input) == FALSE)
-		add_history(g_megabash.input->input);
+	g_megabash.input = readline("megabash$ ");
+	if (theres_delimiter(g_megabash.input) == FALSE)
+		add_history(g_megabash.input);
 }
 
 char	*what_cmd(char *cmd)

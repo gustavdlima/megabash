@@ -24,21 +24,21 @@ void	find_redirections(void)
 	int	i;
 
 	i= 0;
-	while (g_megabash.input->input[i])
+	while (g_megabash.input[i])
 	{
-		if (g_megabash.input->input[i] == '<')
+		if (g_megabash.input[i] == '<')
 		{
 			i++;
-			if (g_megabash.input->input[i] == '<')
-				printf("should be given a delimiter, then read the input->input until a line containing the delimiter is seen. However, it doesn’t have to update the history!\n");
+			if (g_megabash.input[i] == '<')
+				printf("should be given a delimiter, then read the input until a line containing the delimiter is seen. However, it doesn’t have to update the history!\n");
 			else
-				printf("redirect_input->input(g_megabash)\n");
+				printf("redirect_input(g_megabash)\n");
 			return ;
 		}
-		if (g_megabash.input->input[i] == '>')
+		if (g_megabash.input[i] == '>')
 		{
 			i++;
-			if (g_megabash.input->input[i] == '>')
+			if (g_megabash.input[i] == '>')
 				printf("should redirect output in append mode\n");
 			else
 				printf("redirect_output(g_megabash)\n");

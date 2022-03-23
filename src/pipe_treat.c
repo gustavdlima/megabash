@@ -18,7 +18,7 @@ int	find_pipe(char *cmd)
 // {
 // 	t_root	*pipe_cmd;
 
-// 	pipe_cmd->command = ft_split(root->input, '|');
+// 	pipe_cmd->command = ft_split(root, '|');
 // 	for (int i = 0; pipe_cmd->command[i]; i++)
 // 	{
 // 		printf("pipe_cmd->command[%d] : %s\n", i, pipe_cmd->command[i]);
