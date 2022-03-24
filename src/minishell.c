@@ -10,7 +10,8 @@ void	megastart(void)
 	{
 		signal_handler();
 		read = read_input();
-		validate_input(read);
+		if (validate_input(read) == TRUE)
+			treat_input(&read);
 	}
 }
 
