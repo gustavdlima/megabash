@@ -4,7 +4,7 @@ char	*read_input(void)
 {
 	char	*input;
 
-	input = readline("minishell$ ");
+	input = readline("megabash$ ");
 	if (input == NULL)
 	{
 		free_megabash();
