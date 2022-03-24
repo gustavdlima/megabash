@@ -5,17 +5,22 @@ void	validate_input(char *input)
 	//não é builtin
 	if (open_quotes(input) == TRUE)
 	{
-		ft_putendl_fd("Open quotes.", 2);
+		ft_putendl_fd("Syntax error: open quotes.", 2);
 		g_megabash.exit_status = 130;
-		exit (130);
 	}
 	if (unquotted_command(input) == TRUE
 		&& special_or_metacharacters(input) == TRUE)
 	{
-		ft_putendl_fd("Forbidden characters on unquotted command.", 2);
-		g_megabash.exit_status = 1;
-		exit (1);
+		ft_putendl_fd("Syntax error: special or metacharacters on unquotted command.", 2);
+		g_megabash.exit_status = 130;
 	}
-	// pipe sem argumento
+	if (pipe_no_arguments(input) == TRUE)
+	{
+		ft_putendl_fd("Syntax error: not enough arguments to pipe.", 2);
+		g_megabash.exit_status = 130;
+	}
 	// erro de sintax
+	// fd nao existir
+	// repositorio n existir
+	//
 }

@@ -6,4 +6,5 @@
 int	unquotted_command(char *cmd);
 int	open_quotes(char *cmd);
 int	special_or_metacharacters(char *cmd);
+int	pipe_no_arguments(char *cmd);
 #endif
