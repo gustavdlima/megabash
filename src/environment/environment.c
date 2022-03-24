@@ -2,27 +2,11 @@
 
 char	*get_env_path(char *envp)
 {
-	int			i;
 	char		*sup;
-	int		name_size;
-	int		path_size;
+	char		*temp;
 
-	i = 0;
-	name_size = ft_int_strchr(envp, '=') + 1;
-	path_size = ft_strlen(envp) - name_size;
-	if (path_size == 0)
-	{
-		sup = ft_strdup("");
-		return (sup);
-	}
-	sup = malloc(sizeof(char *) * path_size);
-	while (envp[i])
-	{
-		sup[i] = envp[name_size];
-		name_size++;
-		i++;
-	}
-	sup[path_size] = '\0';
+	temp = ft_strchr(envp, '=') + 1;
+	sup = ft_strdup(temp);
 	return (sup);
 }
 

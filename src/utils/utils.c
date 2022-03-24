@@ -1,5 +1,15 @@
 #include "minishell.h"
 
+int	matrix_size(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+		i++;
+	return (i - 1);
+}
+
 int	ft_int_strchr(const char *s, int c)
 {
 	int		index;

@@ -37,6 +37,8 @@ typedef struct	s_global
 # include "utils.h"
 # include "tokenizer.h"
 # include "input.h"
+# include "free.h"
+# include "builtin.h"
 
 void	megastart(void);
 
