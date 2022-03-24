@@ -14,7 +14,7 @@ ENV_PATH		= environment/
 LIST_PATH 		= list_utils/
 UTILS_PATH		= utils/
 INPUT_PATH		= input/
-PARSE_PATH		= parse/
+TOKEN_PATH		= tokenizer/
 
 LIBFT_PATH	 	= ./libs/libft
 LIBFT			= $(LIBFT_PATH)/libft.a
@@ -23,8 +23,8 @@ LIBFT_FLAGS		= -L$(LIBFT_PATH) -lft
 SRCS	=	minishell.c			\
 			$(INPUT_PATH)read_input.c		\
 			$(INPUT_PATH)validate_input.c	\
-			$(PARSE_PATH)quotes.c			\
-			$(PARSE_PATH)special_or_metacharacters.c	\
+			$(TOKEN_PATH)quotes.c			\
+			$(TOKEN_PATH)special_or_metacharacters.c	\
 			$(ENV_PATH)environment.c 		\
 			$(ENV_PATH)env_operations.c 	\
 			$(LIST_PATH)env_list_utils.c 	\
@@ -47,7 +47,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(ENV_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(LIST_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(UTILS_PATH))
-	@mkdir -p $(addprefix $(OBJ_DIR)/,$(PARSE_PATH))
+	@mkdir -p $(addprefix $(OBJ_DIR)/,$(TOKEN_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(INPUT_PATH))
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ $(LIBFT_FLAGS)
 
