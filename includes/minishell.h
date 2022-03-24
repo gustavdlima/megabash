@@ -35,6 +35,8 @@ typedef struct	s_global
 # include "environment.h"
 # include "linked_list.h"
 # include "utils.h"
+# include "parse.h"
+# include "input.h"
 
 void	megastart(void);
 
