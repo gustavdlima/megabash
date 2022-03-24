@@ -8,6 +8,7 @@ void	megastart(void)
 
 	while (1)
 	{
+		signal_handler();
 		read = read_input();
 		validate_input(read);
 	}

@@ -18,7 +18,7 @@ INPUT_PATH		= input/
 TOKEN_PATH		= tokenizer/
 BUILTIN_PATH	= builtins/
 FREE_PATH		= free_functions/
-
+SIGNAL_PATH		= signal/
 
 LIBFT_PATH	 	= ./libs/libft
 LIBFT			= $(LIBFT_PATH)/libft.a
@@ -32,6 +32,7 @@ SRCS	=	minishell.c			\
 			$(TOKEN_PATH)special_or_metacharacters.c	\
 			$(ENV_PATH)environment.c 		\
 			$(ENV_PATH)env_operations.c 	\
+			$(SIGNAL_PATH)signal.c			\
 			$(LIST_PATH)env_list_utils.c 	\
 			$(UTILS_PATH)utils.c 			\
 			$(FREE_PATH)free.c				\
@@ -57,6 +58,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(INPUT_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(BUILTIN_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(FREE_PATH))
+	@mkdir -p $(addprefix $(OBJ_DIR)/,$(SIGNAL_PATH))
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ $(LIBFT_FLAGS)
 
 clean:

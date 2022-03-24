@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+void	free_megabash(void)
+{
+	printf("exit\n");
+	free_env(g_megabash.env);
+	rl_clear_history();
+}
+
+
 void	free_matrix(char **matrix)
 {
 	int	i;

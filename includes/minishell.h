@@ -6,6 +6,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # define TRUE 0
 # define FALSE 1
@@ -39,6 +40,7 @@ typedef struct	s_global
 # include "input.h"
 # include "free.h"
 # include "builtin.h"
+# include "signal_handler.h"
 
 void	megastart(void);
 
