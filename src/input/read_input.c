@@ -46,6 +46,8 @@ int	is_it_history(char *cmd)
 		return (FALSE);
 	if (theres_delimiter(cmd) == TRUE)
 		return (FALSE);
+	// if (ft_strncmp(cmd, g_megabash.input, ft_strlen(cmd)) == 0)
+	// 	return (FALSE); PENSAR MELHOR
 	return (TRUE);
 }
 
@@ -62,6 +64,9 @@ char	*read_input(void)
 	if (!ft_strncmp(input, "exit", 4))
 		exit_builtin(input);
 	if (is_it_history(input) == TRUE)
+	{
 		add_history(input);
+		// g_megabash.input = input;
+	}
 	return (input);
 }

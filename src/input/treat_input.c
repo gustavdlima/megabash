@@ -54,35 +54,79 @@ void	treat_space(char *cmd)
 	}
 }
 
-// void	*interpret_dollar(char *cmd)
-// {
+char	*interpret_dollar(char *cmd, int position)
+{
+	t_env	*env_var;
+	char	*before;
+	char	*interpreted;
+	char	*after;
+	int		jump;
 
-// }
+	before = ft_substr(cmd, 0, position);
+	jump = jump_positions(cmd, position);
+	if (!cmd[jump])
+	{
+		free(cmd);
+		cmd = ft_strdup(before);
+		free(before);
+	}
+	else if (!ft_isalnum(cmd[position + jump]))
+	{
+		env_var = get_env_node(g_megabash.env, cmd);
+		interpreted = ft_strjoin(before, env_var->content);
+		free (before);
+	}
+	else
+	{
+		position = position + jump;
+		while (cmd[position])
+		{
+			if (cmd[position] == ' '|| cmd[position] == '$'
+				|| special_or_metacharacters(cmd + position) == TRUE)
+			{
+				interpreted = ft_substr(cmd, position, ft_strlen(cmd));
+				break ;
+			}
+			position++;
+		}
+	}
+	free (cmd);
+	after = ft_strjoin(before, interpreted);
+	free (before);
+	free (interpreted);
+	return (after);
+}
 
-// void	*treat_dollar(char *cmd)
-// {
-// 	int	i;
+void	treat_dollar(char *cmd)
+{
+	char	*treated;
+	int		i;
 
-// 	i = 0;
-// 	while (cmd[i])
-// 	{
-// 		if (cmd[i] == '\"')
-// 		{
-// 			i++;
-// 			while (cmd[i] && cmd[i] != '\"')
-// 			{
-// 				if (cmd[i] == '$')
-// 					printf("Tem dolar, chamar função para interpretar\n");
-// 				i++;
-// 			}
-// 		}
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '\"')
+		{
+			i++;
+			while (cmd[i] && cmd[i] != '\"')
+			{
+				if (cmd[i] == '$')
+				{
+					treated = interpret_dollar(cmd, i);
+				}
+				i++;
+			}
+		}
+		if (cmd[i] == '$')
+			treated = interpret_dollar(cmd, i);
+		i++;
+	}
+	printf("%s\n", treated);
+}
 
 void	treat_input(char **input)
 {
 	treat_space(*input);
 	treat_quote(*input);
-	// treat_dollar(*input);
+	treat_dollar(*input);
 }

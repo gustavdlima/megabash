@@ -22,7 +22,7 @@ int	validate_input(char *input)
 		g_megabash.exit_status = 130;
 		return (FALSE);
 	}
-
+// <, <<, >> e > sozinhos erro de sintaxe (2)
 	// erro de sintax
 	// fd nao existir
 	// repositorio n existir
