@@ -54,55 +54,77 @@ void	treat_space(char *cmd)
 	}
 }
 
+char	*get_name(char *cmd)
+{
+	char	**input;
+	char	*name;
+	char	*temp;
+	int		jump;
+	int		i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == ' ' || cmd[i] == '$')
+		{
+			i--;
+			break ;
+		}
+		i++;
+	}
+	name = ft_substr(cmd, 1, i);
+	if (special_or_metacharacters(name) == TRUE)
+	{
+		printf("oi?\n");
+		jump = jump_special_or_metacharacters(name);
+		temp = ft_substr(name, 0, jump);
+		free (name);
+		return (temp);
+	}
+	return (name);
+}
+
 char	*interpret_dollar(char *cmd, int position)
 {
-	t_env	*env_var;
-	char	*before;
 	char	*interpreted;
-	char	*after;
-	int		jump;
+	char	*complete;
+	char	*temp;
+	char	*name;
+	t_env	*env_var;
 
-	before = ft_substr(cmd, 0, position);
-	jump = jump_positions(cmd, position);
-	if (!cmd[jump])
-	{
-		free(cmd);
-		cmd = ft_strdup(before);
-		free(before);
-	}
-	else if (!ft_isalnum(cmd[position + jump]))
-	{
-		env_var = get_env_node(g_megabash.env, cmd);
-		interpreted = ft_strjoin(before, env_var->content);
-		free (before);
-	}
+	if (position > 0)
+		temp = ft_substr(cmd, 0, position);
 	else
+		temp = ft_strdup("");
+	name = get_name(cmd + position++);
+	printf("name: %s\n", name);
+	env_var = get_env_node(g_megabash.env, name);
+	printf("env_var: %s\n", env_var->name);
+	if (env_var != NULL)
 	{
-		position = position + jump;
-		while (cmd[position])
-		{
-			if (cmd[position] == ' '|| cmd[position] == '$'
-				|| special_or_metacharacters(cmd + position) == TRUE)
-			{
-				interpreted = ft_substr(cmd, position, ft_strlen(cmd));
-				break ;
-			}
-			position++;
-		}
+		interpreted = ft_strjoin(temp, env_var->content);
+		free (temp);
 	}
-	free (cmd);
-	after = ft_strjoin(before, interpreted);
-	free (before);
-	free (interpreted);
-	return (after);
+	if (ft_strncmp(cmd, (cmd + position + ft_strlen(name)), ft_strlen(cmd)) > 0)
+	{
+		temp = ft_substr(cmd, position + ft_strlen(name), ft_strlen(cmd));
+		complete = ft_strjoin(interpreted, temp);
+		free (interpreted);
+		free (temp);
+		return (complete);
+	}
+	return (temp);
 }
 
 void	treat_dollar(char *cmd)
 {
+	char	*treat;
 	char	*treated;
+	char	*temp;
 	int		i;
 
 	i = 0;
+	temp = ft_strdup("");
 	while (cmd[i])
 	{
 		if (cmd[i] == '\"')
@@ -112,15 +134,30 @@ void	treat_dollar(char *cmd)
 			{
 				if (cmd[i] == '$')
 				{
-					treated = interpret_dollar(cmd, i);
+					printf("1\n");
+					treat = interpret_dollar(cmd, i);
+					printf("TREATED: %s\n", treat);
+					treated = ft_strjoin(temp, treat);
+					free (temp);
+					temp = ft_strdup(treat);
+					free (treat);
 				}
 				i++;
 			}
 		}
 		if (cmd[i] == '$')
-			treated = interpret_dollar(cmd, i);
+		{
+					printf("2\n");
+			treat = interpret_dollar(cmd, i);
+			printf("TREATED: %s\n", treat);
+			treated = ft_strjoin(temp, treat);
+			free (temp);
+			temp = ft_strdup(treat);
+			free (treat);
+		}
 		i++;
 	}
+	free (temp);
 	printf("%s\n", treated);
 }
 

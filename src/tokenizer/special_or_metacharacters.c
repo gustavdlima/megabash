@@ -1,5 +1,20 @@
 #include "minishell.h"
 
+int	jump_special_or_metacharacters(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == ';' || cmd[i] == 92 || cmd[i] == '(' || cmd[i] == ')'
+			|| cmd[i] == '&' || cmd[i] == '#' || cmd[i] == '[' || cmd[i] == ']')
+			break ;
+		i++;
+	}
+	return (i);
+}
+
 int	special_or_metacharacters(char *cmd)
 {
 	int	i;

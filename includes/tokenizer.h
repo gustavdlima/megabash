@@ -3,6 +3,7 @@
 
 # include "minishell.h"
 
+int	jump_special_or_metacharacters(char *cmd);
 int	unquotted_command(char *cmd);
 int	open_quotes(char *cmd);
 int	special_or_metacharacters(char *cmd);
