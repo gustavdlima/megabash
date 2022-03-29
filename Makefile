@@ -36,6 +36,7 @@ SRCS	=	minishell.c			\
 			$(ENV_PATH)env_operations.c 	\
 			$(SIGNAL_PATH)signal.c			\
 			$(LIST_PATH)env_list_utils.c 	\
+			$(UTILS_PATH)dollar_utils.c		\
 			$(UTILS_PATH)utils.c 			\
 			$(FREE_PATH)free.c				\
 
