@@ -29,6 +29,7 @@ void	treat_quote(char *cmd)
 		}
 		i++;
 	}
+	// no_quotes(&cmd);
 }
 
 void	treat_space(char *cmd)
@@ -57,13 +58,12 @@ void	treat_space(char *cmd)
 void	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 {
 	char	*name;
-	// char	*aux;
-	// size_t	where;
+	char	*aux;
 	size_t	i;
 
 	i = wheres_dollar(cmd);
 	*temp = ft_substr(cmd, 0, i);
-	i--;
+			printf("TEMP : %s\n", *temp);
 	while (cmd[i])
 	{
 		if (cmd[i] == '$')
@@ -71,43 +71,40 @@ void	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 			if (single_quotted_argument(cmd, i) == FALSE)
 			{
 				name = interpret_dollar(cmd, i);
-				// while (cmd[i] && cmd[i] != '\"')
-				// 	i++;
+				// aux = ft_substr(cmd, ft_strlen(*temp), i);
+				aux = get_name(cmd + i + 1);
+				printf("AUX: %s\n", aux);
+				i = i + ft_strlen(aux);
+				free (aux);
 			printf("NAME : %s\n", name);
 			}
 			else
 			{
-				while (cmd[i] && cmd[i] != '\'')
-					i++;
-				name = ft_substr(cmd, ft_strlen(*temp), i);
+				name = ft_substr(cmd, i, ft_int_strchr(cmd + i, '\''));
+				i = i + ft_strlen(name) - 1;
 			printf("NAME : %s\n", name);
 			}
 			*sec_temp = ft_strjoin(*temp, name);
 			printf("sec_temp : %s\n", *sec_temp);
 			free (*temp);
+			*temp = ft_strdup(*sec_temp);
+			free (*sec_temp);
 		}
-		// where = wheres_dollar(cmd + i);
-		// aux = ft_substr(cmd, i, where);
-		// 	printf("AUX : %s\n", aux);
-		// if (!temp)
-		// {
-		// 	*temp = ft_strjoin(*sec_temp, aux);
-		// 	printf("1. temp : %s\n", *temp);
-		// 	free (*sec_temp);
-		// 	free (aux);
-		// }
-		//  if (!sec_temp)
-		// {
-		// 	*sec_temp = ft_strdup(*temp);
-		// 	free (*temp);
-		// 	*temp = ft_strjoin(*sec_temp, aux);
-		// 	printf("2. temp : %s\n", *temp);
-		// 	free (aux);
-		// 	free (*sec_temp);
-		// }
+		else
+		{
+			aux = ft_substr(cmd, i, 1);
+				printf("X. AUX: %s\n", aux);
+			*sec_temp = ft_strjoin(*temp, aux);
+			printf("X. sec_temp : %s\n", *sec_temp);
+			free (*temp);
+			*temp = ft_strdup(*sec_temp);
+			free (*sec_temp);
+		}
 		i++;
 	}
-	*final = ft_strdup(*temp);
+	*sec_temp = ft_strdup(*final);
+	free (*final);
+	*final = ft_strjoin(*sec_temp, *temp);
 	free (*temp);
 }
 

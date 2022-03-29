@@ -23,9 +23,9 @@ char	*get_name(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == ' ' || cmd[i] == '$' || cmd[i] == '\'' || cmd[i] == '\"')
+		if (cmd[i] == '-' || cmd[i] == ' ' || cmd[i] == '$' || cmd[i] == '\'' || cmd[i] == '\"')
 		{
-			i--;
+			// i--;
 			break ;
 		}
 		i++;
@@ -34,9 +34,9 @@ char	*get_name(char *cmd)
 	i = 0;
 	while (name[i])
 	{
-		if (ft_isascii(name[i]) && ft_isalnum(name[i]) == 0)
+		if (ft_isascii(name[i]) != 0 && ft_isalnum(name[i]) == 0)
 		{
-			temp = ft_substr(name, 0, i - 1);
+			temp = ft_substr(name, 0, i);
 			free (name);
 			return (temp);
 		}
@@ -76,4 +76,20 @@ char	*interpret_dollar(char *cmd, int position)
 		return (interpreted);
 	}
 	return (temp);
+}
+
+int	counting_dollars(char *cmd)
+{
+	int	i;
+	int	dollar;
+
+	i = 0;
+	dollar = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '$')
+			dollar++;
+		i++;
+	}
+	return (dollar);
 }
