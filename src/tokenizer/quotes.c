@@ -1,5 +1,27 @@
 #include "minishell.h"
 
+int	single_quotted_argument(char *cmd)
+{
+	int	i;
+	int	sign;
+
+	i = 0;
+	sign = '\'';
+	while (cmd[i])
+	{
+		if (sign == cmd[i])
+		{
+			i++;
+			while (cmd[i] && cmd[i] != sign)
+				i++;
+			if (cmd[i] == sign)
+				return (TRUE);
+		}
+		i++;
+	}
+	return (FALSE);
+}
+
 int	double_quotted_argument(char *cmd)
 {
 	int	i;
