@@ -49,22 +49,6 @@ char	*interpret_dollar(char *cmd, int position)
 	return (temp);
 }
 
-int	counting_dollars(char *cmd)
-{
-	int	i;
-	int	dollar;
-
-	i = 0;
-	dollar = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == '$')
-			dollar++;
-		i++;
-	}
-	return (dollar);
-}
-
 int	single_dollar(char *cmd)
 {
 	int	i;
