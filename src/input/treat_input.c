@@ -90,20 +90,16 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 				{
 					name = interpret_dollar(cmd, i);
 					aux = get_name(cmd + i + 1);
-					// printf("AUX: %s\n", aux);
 					i = i + ft_strlen(aux);
 					free (aux);
 				}
-			// printf("NAME : %s\n", name);
 			}
 			else
 			{
 				name = ft_substr(cmd, i, ft_int_strchr(cmd + i, '\''));
 				i = i + ft_strlen(name) - 1;
-			// printf("NAME : %s\n", name);
 			}
 			*sec_temp = ft_strjoin(*temp, name);
-			// printf("sec_temp : %s\n", *sec_temp);
 			free (*temp);
 			*temp = ft_strdup(*sec_temp);
 			free (*sec_temp);
@@ -111,9 +107,7 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 		else
 		{
 			aux = ft_substr(cmd, i, 1);
-				// printf("X. AUX: %s\n", aux);
 			*sec_temp = ft_strjoin(*temp, aux);
-			// printf("X. sec_temp : %s\n", *sec_temp);
 			free (*temp);
 			*temp = ft_strdup(*sec_temp);
 			free (*sec_temp);
@@ -123,6 +117,7 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 	*sec_temp = ft_strdup(*final);
 	free (*final);
 	*final = ft_strjoin(*sec_temp, *temp);
+	// free (*sec_temp);
 	free (*temp);
 	return (i);
 }

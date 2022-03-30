@@ -40,8 +40,10 @@ char	*interpret_dollar(char *cmd, int position)
 	env_var = get_env_node(g_megabash.env, name);
 	if (env_var != NULL)
 	{
-		interpreted = ft_strjoin(temp, env_var->content);
 		free (temp);
+		interpreted = ft_strdup(env_var->content);
+		free (name);
+		free_env(env_var);
 		return (interpreted);
 	}
 	return (temp);

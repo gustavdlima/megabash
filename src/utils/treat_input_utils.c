@@ -10,10 +10,7 @@ char	*get_name(char *cmd)
 	while (cmd[i])
 	{
 		if (cmd[i] == '-' || cmd[i] == ' ' || cmd[i] == '$' || cmd[i] == '\'' || cmd[i] == '\"')
-		{
-			// i--;
 			break ;
-		}
 		i++;
 	}
 	name = ft_substr(cmd, 0, i);
@@ -44,5 +41,3 @@ int	treat_no_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 	free (*sec_temp);
 	return (i);
 }
-
-
