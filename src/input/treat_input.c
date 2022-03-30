@@ -134,8 +134,11 @@ char	*treat_dollar(char *cmd)
 	i = 0;
 	input = ft_split(cmd, ' ');
 	final = ft_strdup("");
+	for (int j = 0; input[j]; j++)
+		printf("INPUT[%d] : %s\n", j, input[j]);
 	while (input[i])
 	{
+		printf("INPUT[%d] : %s\n", i, input[i]);
 		if (is_there_dollar(input[i], ft_strlen(input[i])) == TRUE)
 			treat_dollar_input(input[i], &final, &temp, &second_temp);
 		else
