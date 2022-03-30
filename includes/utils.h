@@ -12,7 +12,7 @@ int		single_dollar(char *cmd);
 
 //treat_input_utils.c
 char	*get_name(char *cmd);
-void	treat_no_dollar_input(char *cmd, char **final, char **temp, char **sec_temp);
+int	treat_no_dollar_input(char *cmd, char **final, char **temp, char **sec_temp);
 
 //utils.c
 int		ft_int_strchr(const char *s, int c);
