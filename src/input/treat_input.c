@@ -48,6 +48,8 @@ void	treat_space(char *cmd)
 {
 	int	i;
 	int	sign;
+	char	*str;
+	char	*temp;
 
 	i = 0;
 	while (cmd[i])
@@ -77,11 +79,7 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 	*temp = ft_substr(cmd, 0, i);
 	while (cmd[i])
 	{
-		// if (single_dollar(cmd + i) == TRUE)
-		// {
-
-		// }
-		if (cmd[i] == '$')
+		if (cmd[i] == '$' && single_dollar(cmd + i) == FALSE)
 		{
 			if (single_quotted_argument(cmd, i) == FALSE)
 			{
@@ -125,7 +123,6 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 
 char	*treat_dollar(char *cmd)
 {
-	// char	**input;
 	char	*final;
 	char	*temp;
 	char	*second_temp;
