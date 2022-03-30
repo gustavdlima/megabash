@@ -111,7 +111,7 @@ char	*reverse_quotes_treat(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == 1)
+		if (cmd[i] == 3)
 		{
 			cmd[i] = '\'';
 		}
@@ -162,38 +162,45 @@ char	*quotes_treat(char *cmd)
 	return (cmd);
 }
 
-char	*no_quotes(char **cmd)
+char	*no_quotes(char *cmd)
 {
+	int	quotes;
+	int	len;
 	char	*str;
-	int		i;
 	int		j;
-	int		len;
-	int		quotes;
-
-	i = 0;
+	int		i;
 	j = 0;
+	i = 0;
 	quotes = 0;
-	printf(">>>>>>>>%s\n", *cmd);
-	quotes_treat(*cmd);
-	while (*cmd[i])
+	while (cmd[i])
 	{
-		if (*cmd[i] == '\'' || *cmd[i] == '\"')
+		if (cmd[i] == '\'' || cmd[i] == '\"')
 			quotes++;
 		i++;
 	}
 	if (quotes != 0)
 	{
-		len = ft_strlen(*cmd);
+		len = ft_strlen(cmd);
 		str = ft_calloc((len), sizeof(char));
 		i = 0;
-		while (*cmd[i])
+		while (cmd[i])
 		{
-			while (*cmd[i] == '\'' || *cmd[i] == '\"')
+			while (cmd[i] == '\'' || cmd[i] == '\"')
 				i++;
-			str[j++] = *cmd[i++];
+			str[j++] = cmd[i++];
 		}
-		reverse_quotes_treat(str);
-		return (str);
+	printf("cmd : %s\nstr : %s\n", cmd, str);
+		i = 0;
+		while(str[i])
+		{
+			if (str[i] == 2)
+				str[i] = '\"';
+			if (str[i] == 3)
+				str[i] = '\'';
+			i++;
+		}
+		printf("cmd : %s\nstr : %s\n", cmd, str);
+		return(str);
 	}
-	return (*cmd);
+	return (cmd);
 }
