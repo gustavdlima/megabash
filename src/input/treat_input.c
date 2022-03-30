@@ -81,11 +81,19 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 		{
 			if (single_quotted_argument(cmd, i) == FALSE)
 			{
-				name = interpret_dollar(cmd, i);
-				aux = get_name(cmd + i + 1);
-				// printf("AUX: %s\n", aux);
-				i = i + ft_strlen(aux);
-				free (aux);
+				if (is_question_mark(cmd + i) == TRUE)
+				{
+					name = ft_itoa(g_megabash.exit_status);
+					i++;
+				}
+				else
+				{
+					name = interpret_dollar(cmd, i);
+					aux = get_name(cmd + i + 1);
+					// printf("AUX: %s\n", aux);
+					i = i + ft_strlen(aux);
+					free (aux);
+				}
 			// printf("NAME : %s\n", name);
 			}
 			else

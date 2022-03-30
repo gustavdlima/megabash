@@ -73,3 +73,13 @@ int	single_dollar(char *cmd)
 	printf("false?\n");
 	return(FALSE);
 }
+
+int	is_question_mark(char *cmd)
+{
+	int	i;
+
+	i = 1;
+	if (cmd[i] == '?')
+		return (TRUE);
+	return (FALSE);
+}
