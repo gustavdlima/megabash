@@ -48,8 +48,6 @@ void	treat_space(char *cmd)
 {
 	int	i;
 	int	sign;
-	char	*str;
-	char	*temp;
 
 	i = 0;
 	while (cmd[i])
