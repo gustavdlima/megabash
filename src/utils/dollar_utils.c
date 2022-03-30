@@ -68,9 +68,8 @@ int	single_dollar(char *cmd)
 	int	i;
 
 	i = 1;
-	if (cmd[i] == 1 || cmd[i] == ' ' || !cmd[i])
+	if (cmd[i] == 1 || cmd[i] == ' ' || !cmd[i] || cmd[i] == '$')
 		return(TRUE);
-	printf("false?\n");
 	return(FALSE);
 }
 
