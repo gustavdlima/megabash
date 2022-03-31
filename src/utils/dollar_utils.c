@@ -38,6 +38,7 @@ char	*interpret_dollar(char *cmd, int position)
 	temp = ft_strdup("");
 	name = get_name(cmd + position + 1);
 	env_var = get_env_node(g_megabash.env, name);
+	printf("X . NAME : %s\n", name);
 	if (env_var != NULL)
 	{
 		free (temp);
@@ -46,6 +47,8 @@ char	*interpret_dollar(char *cmd, int position)
 		free_env(env_var);
 		return (interpreted);
 	}
+	free (name);
+	free_env(env_var);
 	return (temp);
 }
 

@@ -89,6 +89,7 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 				else
 				{
 					name = interpret_dollar(cmd, i);
+					printf("1 . NAME : %s\n", name);
 					aux = get_name(cmd + i + 1);
 					i = i + ft_strlen(aux);
 					free (aux);
@@ -98,9 +99,11 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 			{
 				name = ft_substr(cmd, i, ft_int_strchr(cmd + i, '\''));
 				i = i + ft_strlen(name) - 1;
+					// printf("2 . NAME : %s\n", aux);
 			}
 			*sec_temp = ft_strjoin(*temp, name);
 			free (*temp);
+			free (name);
 			*temp = ft_strdup(*sec_temp);
 			free (*sec_temp);
 		}
@@ -109,6 +112,7 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 			aux = ft_substr(cmd, i, 1);
 			*sec_temp = ft_strjoin(*temp, aux);
 			free (*temp);
+			free (aux);
 			*temp = ft_strdup(*sec_temp);
 			free (*sec_temp);
 		}
@@ -116,8 +120,8 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
 	}
 	*sec_temp = ft_strdup(*final);
 	free (*final);
-	*final = ft_strjoin(*sec_temp, *temp);
-	// free (*sec_temp);
+	*final = ft_strjoin(*sec_temp, *temp); //Address is 0 bytes after a block of size 12 alloc'd
+	free (*sec_temp);
 	free (*temp);
 	return (i);
 }
@@ -143,18 +147,24 @@ char	*treat_dollar(char *cmd)
 
 void	treat_input(char **input)
 {
-	char	*aux;
+	// char	*aux;
 
-	(void)aux;
 	printf("0. input : %s\n", *input);
 	treat_space(*input);
 	printf("1. SPACE input : %s\n", *input);
+	*input = treat_dollar(*input);
+	// free (*input);
+	// *input = ft_strdup(aux);
+	// free (aux);
+	printf("3. DOLLAR input : %s\n", *input);
 	treat_quote(*input);
 	printf("2. QUOTE input : %s\n", *input);
-	*input = treat_dollar(*input);
-	printf("3. DOLLAR input : %s\n", *input);
 	*input = no_quotes(*input);
+	// free (*input);
+	// *input = ft_strdup(aux);
+	// free (aux);
 	printf("4. REVERSE QUOTES input : %s\n", *input);
 	reverse_space(*input);
 	printf("5. REVERSE SPACE input : %s\n", *input);
+	free (*input);
 }

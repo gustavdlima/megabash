@@ -13,7 +13,13 @@ int	single_quotted_argument(char *cmd, int dollar)
 	end = 0;
 	while (cmd[i])
 	{
-		if (sign == cmd[i])
+		if (cmd[i] == '\"')
+		{
+			while (cmd[i] && cmd[i] != '\"')
+				i++;
+			begin = i;
+		}
+		else if (sign == cmd[i])
 		{
 			begin = i;
 			i++;
@@ -27,56 +33,6 @@ int	single_quotted_argument(char *cmd, int dollar)
 	if (end > begin && end > dollar && dollar > begin)
 		return (TRUE);
 	return (FALSE);
-}
-
-int	double_quotted_argument(char *cmd)
-{
-	int	i;
-	int	sign;
-
-	i = 0;
-	sign = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == 34 || cmd[i] == 39)
-		{
-			sign = cmd[i];
-			if (sign == '\"')
-			{
-				i++;
-				while (cmd[i] && cmd[i] != sign)
-					i++;
-				if (cmd[i] == sign)
-					return (TRUE);
-			}
-		}
-		i++;
-	}
-	return (FALSE);
-}
-
-int	unquotted_command(char *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == 34 || cmd[i] == 39)
-			return (FALSE);
-		i++;
-	}
-	return (TRUE);
-}
-
-int	unquotted_dollar_argument(char *cmd)
-{
-	size_t	i;
-
-	i = wheres_dollar(cmd);
-	if (i == ft_strlen(cmd))
-		return (FALSE);
-	return (TRUE);
 }
 
 int	open_quotes(char *cmd)
@@ -165,11 +121,12 @@ char	*quotes_treat(char *cmd)
 char	*no_quotes(char *cmd)
 {
 	int	quotes;
+	int		j;
 	int	len;
 	char	*str;
-	int		j;
 	int		i;
-	j = 0;
+	int		k;
+
 	i = 0;
 	quotes = 0;
 	while (cmd[i])
@@ -180,27 +137,40 @@ char	*no_quotes(char *cmd)
 	}
 	if (quotes != 0)
 	{
-		len = ft_strlen(cmd);
+		len = ft_strlen(cmd) - quotes + 1;
+		printf("len : %d\n", len);
 		str = ft_calloc((len), sizeof(char));
-		i = 0;
-		while (cmd[i])
+		k = 0;
+		j = 0;
+		while (cmd[k]) //INVALID READ OF SIZE
 		{
-			while (cmd[i] == '\'' || cmd[i] == '\"')
-				i++;
-			str[j++] = cmd[i++];
+			while (cmd[k] == '\'' || cmd[k] == '\"')
+				k++;
+			str[j++] = cmd[k++];
 		}
-	printf("cmd : %s\nstr : %s\n", cmd, str);
-		i = 0;
-		while(str[i])
-		{
-			if (str[i] == 2)
-				str[i] = '\"';
-			if (str[i] == 3)
-				str[i] = '\'';
-			i++;
-		}
-		printf("cmd : %s\nstr : %s\n", cmd, str);
+	// printf("cmd : %s\nstr : %s\n", cmd, str);
+		str = reverse_quotes_treat(str);
+		// printf("cmd : %s\nstr : %s\n", cmd, str);
+		free (cmd);
 		return(str);
 	}
 	return (cmd);
+}
+
+int	ft_new_strncmp(char *s1, char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (FALSE);
+	while (i < ft_strlen(s1))
+	{
+		if (s1[i] != s2[i])
+			return (FALSE);
+		i++;
+	}
+	if (!s1[i] && s2[i])
+		return (FALSE);
+	return (TRUE);
 }
