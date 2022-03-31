@@ -2,36 +2,40 @@
 
 int	single_quotted_argument(char *cmd, int dollar)
 {
-	int	i;
-	int	sign;
-	int	begin;
-	int	end;
+	char	sign;
+	int		begin;
+	int		i;
 
-	i = 0;
-	sign = '\'';
+	i = dollar;
 	begin = 0;
-	end = 0;
+		printf("Where's the begin?\n");
+	while (i >= 0)
+	{
+		printf("cmd[%d] : %c\n", i, cmd[i]);
+		if (cmd[i] == ' ')
+		{
+		printf("HERE! : cmd[%d] : %c\n", i, cmd[i]);
+			begin = i;
+			break ;
+		}
+		i--;
+	}
+	i = begin;
 	while (cmd[i])
 	{
-		if (cmd[i] == '\"')
+		printf("Quotes?\n");
+		if (cmd[i] == '\'' || cmd[i] == '\"')
 		{
-			while (cmd[i] && cmd[i] != '\"')
-				i++;
-			begin = i;
-		}
-		else if (sign == cmd[i])
-		{
-			begin = i;
-			i++;
+			sign = cmd[i];
+		printf("SURE! : cmd[%d] : %c\tsign is %c\n", i, cmd[i], sign);
 			while (cmd[i] && cmd[i] != sign)
 				i++;
-			if (cmd[i] == sign)
-				end = i;
+		printf("sign is %c\n", sign);
+			if (cmd[i] == sign && sign == '\'')
+				return (TRUE);
 		}
 		i++;
 	}
-	if (end > begin && end > dollar && dollar > begin)
-		return (TRUE);
 	return (FALSE);
 }
 
@@ -142,11 +146,13 @@ char	*no_quotes(char *cmd)
 		str = ft_calloc((len), sizeof(char));
 		k = 0;
 		j = 0;
-		while (cmd[k]) //INVALID READ OF SIZE
+		while (cmd[k]) //INVALID READ OF SIZE AQUIII
 		{
 			while (cmd[k] == '\'' || cmd[k] == '\"')
 				k++;
-			str[j++] = cmd[k++];
+			str[j++] = cmd[k];
+			if (cmd[k])
+				k++;
 		}
 	// printf("cmd : %s\nstr : %s\n", cmd, str);
 		str = reverse_quotes_treat(str);
@@ -160,17 +166,19 @@ char	*no_quotes(char *cmd)
 int	ft_new_strncmp(char *s1, char *s2)
 {
 	size_t	i;
+	size_t	s1_len;
+	size_t	s2_len;
 
 	i = 0;
-	if (ft_strlen(s1) != ft_strlen(s2))
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	if (s1_len != s2_len)
 		return (FALSE);
-	while (i < ft_strlen(s1))
+	while (i < s1_len)
 	{
 		if (s1[i] != s2[i])
 			return (FALSE);
 		i++;
 	}
-	if (!s1[i] && s2[i])
-		return (FALSE);
 	return (TRUE);
 }

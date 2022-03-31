@@ -14,7 +14,7 @@ char	*get_name(char *cmd)
 		i++;
 	}
 	name = ft_substr(cmd, 0, i);
-	printf("name : %s\n", name);
+	printf("get_name = name : %s\n", name);
 	i = 0;
 	while (name[i])
 	{

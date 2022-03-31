@@ -12,6 +12,8 @@ void	megastart(void)
 		read = read_input();
 		if (validate_input(read) == TRUE)
 			treat_input(&read);
+		else
+			printf("BORN TO BE BASH\n");
 	}
 }
 

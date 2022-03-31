@@ -37,14 +37,14 @@ char	*interpret_dollar(char *cmd, int position)
 
 	temp = ft_strdup("");
 	name = get_name(cmd + position + 1);
-	env_var = get_env_node(g_megabash.env, name);
+	env_var = get_env_node(g_megabash.env, name); //INVALID READ OF SIZE = 1
 	printf("X . NAME : %s\n", name);
 	if (env_var != NULL)
 	{
 		free (temp);
 		interpreted = ft_strdup(env_var->content);
 		free (name);
-		free_env(env_var);
+		// free_env(env_var); // INVALID READ OF SIZE = 1 solved??
 		return (interpreted);
 	}
 	free (name);
