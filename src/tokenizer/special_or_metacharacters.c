@@ -50,7 +50,7 @@ int	pipe_no_arguments(char *cmd)
 		arguments = ft_split(cmd, '|');
 		while (arguments[i])
 			i++;
-		free(arguments);
+		free_matrix(arguments);
 		if (pipes == (i - 1))
 			return (FALSE);
 		return (TRUE);

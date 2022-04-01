@@ -4,35 +4,24 @@ int	single_quotted_argument(char *cmd, int dollar)
 {
 	char	sign;
 	int		begin;
+	int		end;
 	int		i;
 
-	i = dollar;
-	begin = 0;
-		printf("Where's the begin?\n");
-	while (i >= 0)
-	{
-		printf("cmd[%d] : %c\n", i, cmd[i]);
-		if (cmd[i] == ' ')
-		{
-		printf("HERE! : cmd[%d] : %c\n", i, cmd[i]);
-			begin = i;
-			break ;
-		}
-		i--;
-	}
-	i = begin;
+	i = 0;
 	while (cmd[i])
 	{
-		printf("Quotes?\n");
 		if (cmd[i] == '\'' || cmd[i] == '\"')
 		{
 			sign = cmd[i];
-		printf("SURE! : cmd[%d] : %c\tsign is %c\n", i, cmd[i], sign);
+			begin = i;
+			i++;
 			while (cmd[i] && cmd[i] != sign)
 				i++;
-		printf("sign is %c\n", sign);
-			if (cmd[i] == sign && sign == '\'')
+			end = i;
+			if (dollar < end && dollar > begin && sign == '\'')
 				return (TRUE);
+			else if (dollar < end && dollar > begin && sign == '\"')
+				return (FALSE);
 		}
 		i++;
 	}

@@ -57,9 +57,13 @@ int	single_dollar(char *cmd)
 	int	i;
 
 	i = 1;
+	if (cmd[i] == '?')
+		return (FALSE);
 	if (cmd[i] == 1 || cmd[i] == ' ' || !cmd[i] || cmd[i] == '$')
-		return(TRUE);
-	return(FALSE);
+		return (TRUE);
+	if (ft_isascii(cmd[i]) != 0 && ft_isalnum(cmd[i]) == 0)
+		return (TRUE);
+	return (FALSE);
 }
 
 int	is_question_mark(char *cmd)
