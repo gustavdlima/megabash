@@ -19,7 +19,7 @@ char	*get_env_name(char *envp)
 	sup = malloc((sizeof(char *) * name_size));
 	ft_memcpy(sup, envp, name_size);
 	sup[name_size] = '\0';
-	return(sup);
+	return (sup);
 }
 
 void	environment(char **envp)

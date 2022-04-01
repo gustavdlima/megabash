@@ -2,7 +2,11 @@
 
 int	validate_input(char *input)
 {
-	//não é builtin
+	// check_builtins
+	// if (is_builtin(input) == TRUE)
+	// {
+
+	// }
 	if (open_quotes(input) == TRUE)
 	{
 		ft_putendl_fd("Syntax error: open quotes.", 2);
@@ -15,6 +19,7 @@ int	validate_input(char *input)
 		g_megabash.exit_status = 130;
 		return (FALSE);
 	}
+	// erro de sintax ; e
 // <, <<, >> e > sozinhos erro de sintaxe (2)
 	// erro de sintax
 	// fd nao existir

@@ -19,8 +19,9 @@ typedef	struct	s_env{
 
 typedef struct s_commands
 {
-	char				**content;
 	int					builtin;
+	int					redirection;
+	char				**content;
 	struct s_commands	*next;
 }				t_commands;
 

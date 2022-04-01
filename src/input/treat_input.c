@@ -31,15 +31,22 @@ void	treat_quote(char *cmd)
 	}
 }
 
-void	reverse_space(char *cmd)
+void	reverse_space(char **cmd)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == 1)
-			cmd[i] = ' ';
+		j = 0;
+		while (cmd[i][j])
+
+		{
+			if (cmd[i][j] == 1)
+				cmd[i][j] = ' ';
+			j++;
+		}
 		i++;
 	}
 }
@@ -160,7 +167,6 @@ void	treat_input(char **input)
 	printf("3. DOLLAR input : %s\n", *input);
 	*input = no_quotes(*input);
 	printf("4. REVERSE QUOTES input : %s\n", *input);
-	reverse_space(*input);
+	// reverse_space(*input);
 	printf("5. REVERSE SPACE input : %s\n", *input);
-	free (*input);
 }

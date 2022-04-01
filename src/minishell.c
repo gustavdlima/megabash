@@ -14,6 +14,8 @@ void	megastart(void)
 			treat_input(&read);
 		else
 			printf("BORN TO BE BASH\n");
+		printf ("INPUT = %s\n", read);
+		create_list(read);
 	}
 }
 
