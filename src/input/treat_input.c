@@ -85,6 +85,7 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp, ch
 				if (is_question_mark(cmd + i) == TRUE)
 				{
 					name = ft_itoa(g_megabash.exit_status);
+					g_megabash.exit_status = 0;
 					i++;
 				}
 				else

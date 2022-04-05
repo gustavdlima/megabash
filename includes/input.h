@@ -12,5 +12,9 @@ void	treat_input(char **input);
 int		jump_positions(char *cmd, int position);
 int		wheres_dollar(char *cmd);
 void	reverse_space(char *cmd);
+<<<<<<< HEAD
+=======
+void	treat_space(char *cmd);
+>>>>>>> 5e4bd6547455d6f7fd04c5f2d3a54fed90f065a1
 
 #endif

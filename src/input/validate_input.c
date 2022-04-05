@@ -8,6 +8,12 @@ int	validate_input(char *input)
 
 	// }
 	// checar se eh um comando valido pelo access
+	if (input[0] == '|' || input[0] == ';' || input[0] == '<' | input[0] == '>')
+	{
+		printf("Syntax error near unexpected token `%c'\n", input[0]);
+		g_megabash.exit_status = 2;
+		return (FALSE);
+	}
 	if (open_quotes(input) == TRUE)
 	{
 		ft_putendl_fd("Syntax error: open quotes.", 2);
@@ -20,8 +26,12 @@ int	validate_input(char *input)
 		g_megabash.exit_status = 130;
 		return (FALSE);
 	}
-	// erro de sintax ; e
-// <, <<, >> e > sozinhos erro de sintaxe (2)
+	if (unquotted_special_metacharacters(input) == TRUE)
+	{
+		ft_putendl_fd("Syntax error: special or metacharacters on unquotted arguments.", 2);
+		g_megabash.exit_status = 2;
+		return (FALSE);
+	}
 	// erro de sintax
 	// fd nao existir
 	// repositorio n existir
