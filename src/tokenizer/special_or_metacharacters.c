@@ -22,7 +22,7 @@ int	special_or_metacharacters(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == ';' || cmd[i] == 92 || cmd[i] == '(' || cmd[i] == ')'
+		if (cmd[i] == ';' || cmd[i] == '\\' || cmd[i] == '(' || cmd[i] == ')'
 			|| cmd[i] == '&' || cmd[i] == '#' || cmd[i] == '[' || cmd[i] == ']')
 			return (TRUE);
 		i++;
@@ -55,5 +55,34 @@ int	pipe_no_arguments(char *cmd)
 			return (FALSE);
 		return (TRUE);
 	}
+	return (FALSE);
+}
+
+int	unquotted_special_metacharacters(char *cmd)
+{
+	// int	i;
+	// int	sign;
+
+	// i = 0;
+	// sign = 0;
+	if ((ft_strnstr(cmd, "\'", ft_strlen(cmd)) == NULL || ft_strnstr(cmd, "\"", ft_strlen(cmd)) == NULL) && special_or_metacharacters(cmd) == TRUE)
+		return (TRUE);
+	// while (cmd[i])
+	// {
+	// 	if (special_or_metacharacters(cmd + i) == TRUE)
+	// 	{
+
+	// 	}
+	// 	if (cmd[i] == '\'' || cmd[i] == '\"')
+	// 	{
+	// 		sign = cmd[i];
+	// 		i++;
+	// 		while (cmd[i] && cmd[i] != sign)
+	// 			i++;
+	// 		if (cmd[i] != sign)
+	// 			break ;
+	// 	}
+	// 	i++;
+	// }
 	return (FALSE);
 }
