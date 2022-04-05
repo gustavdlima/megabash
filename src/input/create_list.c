@@ -25,7 +25,6 @@ int	is_operator(char *input)
 
 void	create_list(char *input)
 {
-
 	g_megabash.cmd = cmd_lst_new();
 
 }
@@ -38,16 +37,16 @@ void	create_list(char *input)
 
 // Quando nao for um comando encontrado pelo ACCESS eh um BUILTIN.
 
-// 1. echo oi					-> split ' ' e depois revert_space
+// 1. echo oi
 
-// 2. echo texto | grep "x"	-> split '|'
+// 2. echo texto | grep "x"
 
-// 3. echo oi << file heredoc	-> split ' ' e depois revert_space
+// 3. echo oi << file
 
-// 4. ls >> file redirect
-// 5. cat > file redirect
+// 4. ls >> file
+// 5. cat > file
 
-// 6.  < file PIPEX
+// 6.  < file
 
 
 // lista:
