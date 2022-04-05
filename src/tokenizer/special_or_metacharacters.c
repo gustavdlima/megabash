@@ -58,31 +58,45 @@ int	pipe_no_arguments(char *cmd)
 	return (FALSE);
 }
 
+int	wheres_special_metacharacter(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == ';' || cmd[i] == '\\' || cmd[i] == '(' || cmd[i] == ')'
+			|| cmd[i] == '&' || cmd[i] == '#' || cmd[i] == '[' || cmd[i] == ']')
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
 int	unquotted_special_metacharacters(char *cmd)
 {
-	// int	i;
-	// int	sign;
+	int		i;
+	int		len;
+	char	*aux;
+	char	**input;
 
-	// i = 0;
-	// sign = 0;
+	i = 0;
 	if ((ft_strnstr(cmd, "\'", ft_strlen(cmd)) == NULL || ft_strnstr(cmd, "\"", ft_strlen(cmd)) == NULL) && special_or_metacharacters(cmd) == TRUE)
 		return (TRUE);
-	// while (cmd[i])
-	// {
-	// 	if (special_or_metacharacters(cmd + i) == TRUE)
-	// 	{
-
-	// 	}
-	// 	if (cmd[i] == '\'' || cmd[i] == '\"')
-	// 	{
-	// 		sign = cmd[i];
-	// 		i++;
-	// 		while (cmd[i] && cmd[i] != sign)
-	// 			i++;
-	// 		if (cmd[i] != sign)
-	// 			break ;
-	// 	}
-	// 	i++;
-	// }
+	if (special_or_metacharacters(cmd) == TRUE)
+	{
+		aux = cmd;
+		treat_space(aux);
+		input = ft_split(aux, ' ');
+		while (input[i])
+		{
+			len = ft_strlen(input[i]) - 1;
+			if ((input[i][0] != '\'' || input[i][0] != '\"')
+				&& (input[i][len] != '\'' || input[i][len] != '\"')
+				&& special_or_metacharacters(cmd) == TRUE)
+				return (TRUE);
+			i++;
+		}
+	}
 	return (FALSE);
 }
