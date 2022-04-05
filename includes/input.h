@@ -5,6 +5,8 @@
 
 char	*read_input(void);
 void 	create_list(char *input);
+void	process_exec(char *input);
+int		is_operator(char *input);
 int		validate_input(char *input);
 void	treat_input(char **input);
 int		jump_positions(char *cmd, int position);

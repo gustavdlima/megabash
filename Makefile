@@ -1,7 +1,7 @@
 NAME			= minishell
 
 CC				= gcc
-CFLAGS			= -g -Wall -Werror -Wextra
+CFLAGS			= -g -Wall -Wextra #-Werror
 RM				= rm -f
 VALGRIND 		= valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
 
@@ -37,6 +37,7 @@ SRCS	=	minishell.c			\
 			$(ENV_PATH)env_operations.c 	\
 			$(SIGNAL_PATH)signal.c			\
 			$(LIST_PATH)env_list_utils.c 	\
+			$(LIST_PATH)cmd_list_utils.c 	\
 			$(UTILS_PATH)treat_input_utils.c		\
 			$(UTILS_PATH)dollar_utils.c		\
 			$(UTILS_PATH)utils.c 			\

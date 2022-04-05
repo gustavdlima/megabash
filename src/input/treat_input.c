@@ -41,7 +41,6 @@ void	reverse_space(char **cmd)
 	{
 		j = 0;
 		while (cmd[i][j])
-
 		{
 			if (cmd[i][j] == 1)
 				cmd[i][j] = ' ';
@@ -163,10 +162,12 @@ void	treat_input(char **input)
 	printf("1. SPACE input : %s\n", *input);
 	treat_quote(*input);
 	printf("2. QUOTE input : %s\n", *input);
+	g_megabash.operation = is_operator(*input);
+	printf("3. IS OPERATION? : %d\n", g_megabash.operation);
 	*input = treat_dollar(*input);
-	printf("3. DOLLAR input : %s\n", *input);
+	printf("4. DOLLAR input : %s\n", *input);
 	*input = no_quotes(*input);
-	printf("4. REVERSE QUOTES input : %s\n", *input);
+	printf("5. REVERSE QUOTES input : %s\n", *input);
 	// reverse_space(*input);
-	printf("5. REVERSE SPACE input : %s\n", *input);
+	printf("6. REVERSE SPACE input : %s\n", *input);
 }

@@ -7,6 +7,7 @@ int	validate_input(char *input)
 	// {
 
 	// }
+	// checar se eh um comando valido pelo access
 	if (open_quotes(input) == TRUE)
 	{
 		ft_putendl_fd("Syntax error: open quotes.", 2);

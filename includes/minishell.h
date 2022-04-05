@@ -20,8 +20,7 @@ typedef	struct	s_env{
 typedef struct s_commands
 {
 	int					builtin;
-	int					redirection;
-	char				**content;
+	char				**cmd;
 	struct s_commands	*next;
 }				t_commands;
 
@@ -29,16 +28,19 @@ typedef struct	s_global
 {
 	t_env		*env;
 	t_commands	*cmd;
+	char		**envp;
 	char		*cmd_path;
+	int			operation;
+	int			pipe;
 	int			fd;
 	int			exit_status;
 }				t_global;
 
 # include "environment.h"
+# include "input.h"
 # include "linked_list.h"
 # include "utils.h"
 # include "tokenizer.h"
-# include "input.h"
 # include "free.h"
 # include "builtin.h"
 # include "signal_handler.h"

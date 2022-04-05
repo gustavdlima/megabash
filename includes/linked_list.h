@@ -9,4 +9,5 @@ void	env_addback(t_env **lst, t_env *new);
 t_env	*env_last_node(t_env *lst);
 int		env_lst_size(t_env *lst);
 
+t_commands	*cmd_lst_new(void);
 #endif
