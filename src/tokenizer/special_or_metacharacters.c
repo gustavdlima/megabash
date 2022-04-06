@@ -75,28 +75,29 @@ int	wheres_special_metacharacter(char *cmd)
 
 int	unquotted_special_metacharacters(char *cmd)
 {
-	int		i;
-	int		len;
-	char	*aux;
-	char	**input;
+	// int		i;
+	// // int		len;
+	// // char	*aux;
+	// // char	**input;
 
-	i = 0;
-	if ((ft_strnstr(cmd, "\'", ft_strlen(cmd)) == NULL || ft_strnstr(cmd, "\"", ft_strlen(cmd)) == NULL) && special_or_metacharacters(cmd) == TRUE)
-		return (TRUE);
-	if (special_or_metacharacters(cmd) == TRUE)
-	{
-		aux = cmd;
-		treat_space(aux);
-		input = ft_split(aux, ' ');
-		while (input[i])
-		{
-			len = ft_strlen(input[i]) - 1;
-			if ((input[i][0] != '\'' || input[i][0] != '\"')
-				&& (input[i][len] != '\'' || input[i][len] != '\"')
-				&& special_or_metacharacters(cmd) == TRUE)
-				return (TRUE);
-			i++;
-		}
-	}
+	(void)cmd;
+	// i = 0;
+	// if ((ft_strnstr(cmd, "\'", ft_strlen(cmd)) == NULL || ft_strnstr(cmd, "\"", ft_strlen(cmd)) == NULL) && special_or_metacharacters(cmd) == TRUE)
+	// 	return (TRUE);
+	// if (special_or_metacharacters(cmd) == TRUE)
+	// {
+	// 	aux = cmd;
+	// 	treat_space(aux);
+	// 	input = ft_split(aux, ' ');
+	// 	while (input[i])
+	// 	{
+	// 		len = ft_strlen(input[i]) - 1;
+	// 		if ((input[i][0] != '\'' || input[i][0] != '\"')
+	// 			&& (input[i][len] != '\'' || input[i][len] != '\"')
+	// 			&& special_or_metacharacters(cmd) == TRUE)
+	// 			return (TRUE);
+	// 		i++;
+	// 	}
+	// }
 	return (FALSE);
 }

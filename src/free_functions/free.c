@@ -4,6 +4,7 @@ void	free_megabash(void)
 {
 	printf("exit\n");
 	free_env(g_megabash.env);
+	free_token(g_megabash.token_list);
 	rl_clear_history();
 }
 

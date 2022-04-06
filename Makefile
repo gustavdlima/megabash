@@ -33,11 +33,13 @@ SRCS	=	minishell.c			\
 			$(BUILTIN_PATH)exit.c			\
 			$(TOKEN_PATH)quotes.c			\
 			$(TOKEN_PATH)special_or_metacharacters.c	\
+			$(TOKEN_PATH)tokenizer.c	\
 			$(ENV_PATH)environment.c 		\
 			$(ENV_PATH)env_operations.c 	\
 			$(SIGNAL_PATH)signal.c			\
 			$(LIST_PATH)env_list_utils.c 	\
 			$(LIST_PATH)cmd_list_utils.c 	\
+			$(LIST_PATH)token_list_utils.c 	\
 			$(UTILS_PATH)treat_input_utils.c		\
 			$(UTILS_PATH)dollar_utils.c		\
 			$(UTILS_PATH)utils.c 			\

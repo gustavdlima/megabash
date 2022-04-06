@@ -8,7 +8,8 @@ int	validate_input(char *input)
 
 	// }
 	// checar se eh um comando valido pelo access
-	if (input[0] == '|' || input[0] == ';' || input[0] == '<' | input[0] == '>')
+	if (input[0] == '|' || input[0] == ';' || input[0] == '<'
+			|| input[0] == '>')
 	{
 		printf("Syntax error near unexpected token `%c'\n", input[0]);
 		g_megabash.exit_status = 2;

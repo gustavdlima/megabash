@@ -26,7 +26,7 @@ int	is_operator(char *input)
 void	create_list(char *input)
 {
 	g_megabash.cmd = cmd_lst_new();
-
+	(void)input;
 }
 
 // checar se tem e quantos tem pipes e redirecionamento

@@ -17,22 +17,23 @@ typedef	struct	s_env{
 	struct s_env	*next;
 }				t_env;
 
-typedef struct s_commands
-{
+typedef struct	s_token{
+	char			*content;
+	struct s_token	*next;
+}				t_token;
+
+typedef struct s_commands{
 	int					builtin;
 	char				**cmd;
 	struct s_commands	*next;
 }				t_commands;
 
-typedef struct	s_global
-{
+typedef struct	s_global{
 	t_env		*env;
 	t_commands	*cmd;
+	t_token		*token_list;
 	char		**envp;
-	char		*cmd_path;
 	int			operation;
-	int			pipe;
-	int			fd;
 	int			exit_status;
 }				t_global;
 

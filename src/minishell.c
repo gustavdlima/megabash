@@ -15,7 +15,8 @@ void	megastart(void)
 		else
 			printf("BORN TO BE BASH\n");
 		printf ("INPUT = %s\n", read);
-		create_list(read);
+		// create_list(read);
+		// free_megabash();
 	}
 }
 

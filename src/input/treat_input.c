@@ -149,21 +149,18 @@ char	*treat_dollar(char *cmd)
 	return (final);
 }
 
+
 void	treat_input(char **input)
 {
 	// char	*aux;
 	printf("0. input : %s\n", *input);
 	treat_space(*input);
 	printf("1. SPACE input : %s\n", *input);
-	treat_quote(*input);
-	printf("2. QUOTE input : %s\n", *input);
+	tokenizer(*input);
+	treat_token_list();
+	print_token(g_megabash.token_list);
 	g_megabash.operation = is_operator(*input);
 	printf("3. IS OPERATION? : %d\n", g_megabash.operation);
-	*input = treat_dollar(*input);
-	printf("4. DOLLAR input : %s\n", *input);
-
-	*input = no_quotes(*input);
-	printf("5. REVERSE QUOTES input : %s\n", *input);
 	reverse_space(*input);
-	printf("6. REVERSE SPACE input : %s\n", *input);
 }
+// echo "oi" | ls -l > file |  < file cat | cat > file
