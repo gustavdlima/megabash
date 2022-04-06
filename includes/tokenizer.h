@@ -13,5 +13,6 @@ int	ft_new_strncmp(char *s1, char *s2);
 int	unquotted_special_metacharacters(char *cmd);
 
 void	tokenizer (char *input);
+void	treat_token_list(void);
 
 #endif

@@ -46,8 +46,6 @@ typedef struct	s_global{
 # include "builtin.h"
 # include "signal_handler.h"
 
-void	megastart(void);
-
 extern t_global	g_megabash;
 
 #endif

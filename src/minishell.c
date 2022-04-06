@@ -2,19 +2,24 @@
 
 t_global	g_megabash;
 
-void	megastart(void)
+static void	megaexecute(char **input)
 {
-	char	*read;
+	treat_input(input);
+}
+
+static void	megastart(void)
+{
+	char	*input;
 
 	while (1)
 	{
 		signal_handler();
-		read = read_input();
-		if (validate_input(read) == TRUE)
-			treat_input(&read);
+		input = read_input();
+		if (validate_input(input) == TRUE)
+			megaexecute(&input);
 		else
 			printf("BORN TO BE BASH\n");
-		printf ("INPUT = %s\n", read);
+		printf ("INPUT = %s\n", input);
 		// create_list(read);
 		// free_megabash();
 	}

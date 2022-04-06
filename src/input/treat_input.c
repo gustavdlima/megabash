@@ -149,10 +149,8 @@ char	*treat_dollar(char *cmd)
 	return (final);
 }
 
-
 void	treat_input(char **input)
 {
-	// char	*aux;
 	printf("0. input : %s\n", *input);
 	treat_space(*input);
 	printf("1. SPACE input : %s\n", *input);
