@@ -16,7 +16,11 @@ int		treat_no_dollar_input(char *cmd, char **final, char **temp,
 			char **sec_temp);
 
 //utils.c
+int		ft_new_strncmp(char *s1, char *s2);
 int		ft_int_strchr(const char *s, int c);
 int		matrix_size(char **matrix);
+
+//validate_utils.c
+int	open_curly_bracket(char *cmd);
 
 #endif
