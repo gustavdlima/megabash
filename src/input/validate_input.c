@@ -13,6 +13,12 @@ int	validate_input(char *input)
 		g_megabash.exit_status = 137;
 		return (FALSE);
 	}
+	if (ft_strlen(input) == 1 && input[0] != 'l' && ft_isalnum(input[0]))
+	{
+		printf("%c: command not found\n", input[0]);
+		g_megabash.exit_status = 127;
+		return (FALSE);
+	}
 	if (only_space(input) == TRUE)
 	{
 		g_megabash.exit_status = 127;

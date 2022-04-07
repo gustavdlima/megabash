@@ -32,7 +32,8 @@ void	tokenizer (char *input)
 		while (temp[i])
 		{
 			token_addback(&g_megabash.token_list, token_lst_new(temp[i]));
-			i++;
+			if (temp[i])
+				i++;
 		}
 	}
 }
