@@ -44,17 +44,17 @@ void	reverse_space(char *cmd)
 	}
 }
 
-void    reverse_char(char *cmd, int nbr, char c)
+void	reverse_char(char *cmd, int nbr, char c)
 {
-    int    i;
+	int	i;
 
-    i = 0;
-    while (cmd[i])
-    {
-        if (cmd[i] == nbr)
-            cmd[i] = c;
-        i++;
-    }
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == nbr)
+			cmd[i] = c;
+		i++;
+	}
 }
 
 void	reverse_input_chars(char *input)
@@ -68,32 +68,32 @@ void	reverse_input_chars(char *input)
 void	treat_input_chars(char *input)
 {
 	treat_char(input, ' ', 1);
-    treat_char(input, '>', 4);
-    treat_char(input, '<', 5);
-    treat_char(input, '|', 6);
+	treat_char(input, '>', 4);
+	treat_char(input, '<', 5);
+	treat_char(input, '|', 6);
 }
 
-void    treat_char(char *cmd, char c, int nbr)
+void	treat_char(char *cmd, char c, int nbr)
 {
-    int    i;
-    int    sign;
+	int	i;
+	int	sign;
 
-    i = 0;
-    while (cmd[i])
-    {
-        if (cmd[i] == '\'' || cmd[i] == '\"')
-        {
-            sign = cmd[i];
-            i++;
-            while (cmd[i] != sign && cmd[i])
-            {
-                if (cmd[i] == c)
-                    cmd[i] = nbr;
-                i++;
-            }
-        }
-        i++;
-    }
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '\'' || cmd[i] == '\"')
+		{
+			sign = cmd[i];
+			i++;
+			while (cmd[i] != sign && cmd[i])
+			{
+				if (cmd[i] == c)
+					cmd[i] = nbr;
+				i++;
+			}
+		}
+		i++;
+	}
 }
 
 void	treat_space(char *cmd)
@@ -144,9 +144,9 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp, ch
 				{
 					name = interpret_dollar(cmd, i);
 					printf("1 . NAME : %s\n", name);
-					aux = get_name(cmd + i + 1);
-					i = i + ft_strlen(aux);
-					free (aux);
+					i = i + jump_positions(cmd + i + 1);
+					if (cmd[i] == '\0')
+						break ;
 				}
 			}
 			else

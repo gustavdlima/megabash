@@ -9,7 +9,8 @@ char	*get_name(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '-' || cmd[i] == ' ' || cmd[i] == '$' || cmd[i] == '\'' || cmd[i] == '\"')
+		if (cmd[i] == '-' || cmd[i] == ' ' || cmd[i] == '$' || cmd[i] == '\''
+		|| cmd[i] == '\"' || cmd[i] == '}')
 			break ;
 		i++;
 	}

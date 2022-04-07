@@ -36,6 +36,10 @@ char	*interpret_dollar(char *cmd, int position)
 	t_env	*env_var;
 
 	temp = ft_strdup("");
+	printf("X . position : %d\n", position);
+	if (cmd[position + 1] == '{')
+		position++;
+	printf("1 . position : %d\n", position);
 	name = get_name(cmd + position + 1);
 	env_var = get_env_node(g_megabash.env, name); //INVALID READ OF SIZE = 1
 	printf("X . NAME : %s\n", name);
@@ -44,7 +48,6 @@ char	*interpret_dollar(char *cmd, int position)
 		free (temp);
 		interpreted = ft_strdup(env_var->content);
 		free (name);
-		// free_env(env_var); // INVALID READ OF SIZE = 1 solved??
 		return (interpreted);
 	}
 	free (name);
@@ -57,7 +60,7 @@ int	single_dollar(char *cmd)
 	int	i;
 
 	i = 1;
-	if (cmd[i] == '?')
+	if (cmd[i] == '?' || cmd[i] == '{')
 		return (FALSE);
 	if (cmd[i] == 1 || cmd[i] == ' ' || !cmd[i] || cmd[i] == '$')
 		return (TRUE);

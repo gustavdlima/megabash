@@ -24,9 +24,12 @@ int	open_curly_bracket(char *cmd)
 					i++;
 				if (cmd[i] != '}')
 					return (TRUE);
+				if (!cmd[i])
+					break ;
 			}
 		}
-		i++;
+		if (cmd[i])
+			i++;
 	}
 	return (FALSE);
 }
