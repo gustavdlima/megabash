@@ -15,7 +15,7 @@ int	validate_input(char *input)
 		return (FALSE);
 	}
 	if (input[0] == '|' || input[0] == ';' || input[0] == '<'
-			|| input[0] == '>')
+			|| input[0] == '>' || input[0] == '{' || input[0] == '}')
 	{
 		printf("Syntax error near unexpected token `%c'\n", input[0]);
 		g_megabash.exit_status = 2;
