@@ -4,8 +4,10 @@ t_global	g_megabash;
 
 static void	megaexecute(char **input)
 {
-	treat_input(input);
-	check_input();
+	printf("INPUTÃO: %s\n", *input);
+		treat_input(input);
+		check_input();
+		g_megabash.exit_status = 0;
 }
 
 static void	megastart(void)
@@ -33,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_putendl_fd("Error: Try only ./minishell", 2);
 		exit(1);
 	}
+	g_megabash.last_input = ft_strdup("");
 	environment(envp);
 	megastart();
 	return (0);

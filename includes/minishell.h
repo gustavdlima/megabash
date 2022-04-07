@@ -33,6 +33,7 @@ typedef struct	s_global{
 	t_commands	*cmd;
 	t_token		*token_list;
 	char		**envp;
+	char		*last_input;
 	int			operation;
 	int			pipe;
 	int			exit_status;

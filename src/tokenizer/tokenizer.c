@@ -4,8 +4,10 @@ void	treat_token_list(void)
 {
 	t_token *temp;
 
+printf("3.0. check_input\n");
 	check_input();
 	temp = g_megabash.token_list;
+	print_token(temp);
 	while (temp)
 	{
 		treat_quote(temp->content);

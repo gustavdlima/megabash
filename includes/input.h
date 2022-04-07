@@ -3,7 +3,10 @@
 
 # include "minishell.h"
 
+// read_input.c
 char	*read_input(void);
+int		only_space(char *cmd);
+
 void 	create_list(char *input);
 void	process_exec(char *input);
 int		is_operator(char *input);

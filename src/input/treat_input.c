@@ -137,7 +137,6 @@ int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp, ch
 				if (is_question_mark(cmd + i) == TRUE)
 				{
 					name = ft_itoa(g_megabash.exit_status);
-					g_megabash.exit_status = 0;
 					i++;
 				}
 				else
@@ -203,13 +202,17 @@ char	*treat_dollar(char *cmd)
 
 void	treat_input(char **input)
 {
-	printf("0. input : %s\n", *input);
+	// printf("0. input : %s\n", *input);
 
 	treat_input_chars(*input);
+	// printf("1. treat_input_chars : %s\n", *input);
 
 	tokenizer(*input);
+	printf("2. tokenizer : %s\n", *input);
 	print_token(g_megabash.token_list);
+	printf("3. print_token : %s\n", *input);
 	treat_token_list();
+	printf("4. treat_token_list : %s\n", *input);
 	// reverse_space(*input);
 }
 
