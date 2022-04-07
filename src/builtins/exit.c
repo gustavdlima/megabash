@@ -23,12 +23,12 @@ static int	check_arg(char *arg)
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
-			return (1);
+			return (TRUE);
 		i++;
 	}
 	if (ft_atoi(arg) > 0 && ft_atoi(arg) <= 255)
-		return (0);
-	return (1);
+		return (FALSE);
+	return (TRUE);
 }
 
 void	exit_builtin(char *arg)

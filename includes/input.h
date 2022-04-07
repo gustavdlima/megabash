@@ -13,8 +13,14 @@ int		jump_positions(char *cmd, int position);
 int		wheres_dollar(char *cmd);
 void	reverse_space(char *cmd);
 void	treat_space(char *cmd);
+void    treat_char(char *cmd, char c, int nbr);
+void    reverse_char(char *cmd, int nbr, char c);
+void	reverse_input_chars(char *input);
+void	treat_input_chars(char *input);
 void	treat_quote(char *cmd);
 char	*treat_dollar(char *cmd);
-int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp, char *input);
+int		treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp, char *input);
+int 	is_builtin(char *input);
+void		check_input(void);
 
 #endif

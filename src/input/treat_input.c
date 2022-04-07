@@ -44,6 +44,58 @@ void	reverse_space(char *cmd)
 	}
 }
 
+void    reverse_char(char *cmd, int nbr, char c)
+{
+    int    i;
+
+    i = 0;
+    while (cmd[i])
+    {
+        if (cmd[i] == nbr)
+            cmd[i] = c;
+        i++;
+    }
+}
+
+void	reverse_input_chars(char *input)
+{
+	reverse_char(input, 1, ' ');
+	reverse_char(input, 4, '>');
+	reverse_char(input, 5, '<');
+	reverse_char(input, 6, '|');
+}
+
+void	treat_input_chars(char *input)
+{
+	treat_char(input, ' ', 1);
+    treat_char(input, '>', 4);
+    treat_char(input, '<', 5);
+    treat_char(input, '|', 6);
+}
+
+void    treat_char(char *cmd, char c, int nbr)
+{
+    int    i;
+    int    sign;
+
+    i = 0;
+    while (cmd[i])
+    {
+        if (cmd[i] == '\'' || cmd[i] == '\"')
+        {
+            sign = cmd[i];
+            i++;
+            while (cmd[i] != sign && cmd[i])
+            {
+                if (cmd[i] == c)
+                    cmd[i] = nbr;
+                i++;
+            }
+        }
+        i++;
+    }
+}
+
 void	treat_space(char *cmd)
 {
 	int	i;
@@ -152,13 +204,13 @@ char	*treat_dollar(char *cmd)
 void	treat_input(char **input)
 {
 	printf("0. input : %s\n", *input);
-	treat_space(*input);
-	printf("1. SPACE input : %s\n", *input);
+
+	treat_input_chars(*input);
+
 	tokenizer(*input);
-	treat_token_list();
 	print_token(g_megabash.token_list);
-	g_megabash.operation = is_operator(*input);
-	printf("3. IS OPERATION? : %d\n", g_megabash.operation);
-	reverse_space(*input);
+	treat_token_list();
+	// reverse_space(*input);
 }
+
 // echo "oi" | ls -l > file |  < file cat | cat > file

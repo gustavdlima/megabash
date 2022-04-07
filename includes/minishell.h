@@ -8,8 +8,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-# define TRUE 0
-# define FALSE 1
+# define TRUE 1
+# define FALSE 0
 
 typedef	struct	s_env{
 	char			*name;
@@ -34,6 +34,7 @@ typedef struct	s_global{
 	t_token		*token_list;
 	char		**envp;
 	int			operation;
+	int			pipe;
 	int			exit_status;
 }				t_global;
 
@@ -45,6 +46,7 @@ typedef struct	s_global{
 # include "free.h"
 # include "builtin.h"
 # include "signal_handler.h"
+# include "command.h"
 
 extern t_global	g_megabash;
 

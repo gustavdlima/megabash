@@ -5,6 +5,7 @@ t_global	g_megabash;
 static void	megaexecute(char **input)
 {
 	treat_input(input);
+	check_input();
 }
 
 static void	megastart(void)
@@ -19,7 +20,7 @@ static void	megastart(void)
 			megaexecute(&input);
 		else
 			printf("BORN TO BE BASH\n");
-		printf ("INPUT = %s\n", input);
+		print_token(g_megabash.token_list);
 		// create_list(read);
 		// free_megabash();
 	}

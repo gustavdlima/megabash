@@ -19,31 +19,35 @@ TOKEN_PATH		= tokenizer/
 BUILTIN_PATH	= builtins/
 FREE_PATH		= free_functions/
 SIGNAL_PATH		= signal/
+COMMAND_PATH	= command/
 
 LIBFT_PATH	 	= ./libs/libft
 LIBFT			= $(LIBFT_PATH)/libft.a
 LIBFT_FLAGS		= -L$(LIBFT_PATH) -lft
 
-SRCS	=	minishell.c			\
-			$(INPUT_PATH)expand_env.c		\
-			$(INPUT_PATH)read_input.c		\
-			$(INPUT_PATH)create_list.c		\
-			$(INPUT_PATH)treat_input.c		\
-			$(INPUT_PATH)validate_input.c	\
-			$(BUILTIN_PATH)exit.c			\
-			$(TOKEN_PATH)quotes.c			\
+SRCS	=	minishell.c	\
+			$(INPUT_PATH)expand_env.c					\
+			$(INPUT_PATH)read_input.c					\
+			$(INPUT_PATH)check_input.c					\
+			$(INPUT_PATH)create_list.c					\
+			$(INPUT_PATH)treat_input.c					\
+			$(INPUT_PATH)validate_input.c				\
+			$(INPUT_PATH)is_builtin.c					\
+			$(COMMAND_PATH)cmd_path.c					\
+			$(BUILTIN_PATH)exit.c						\
+			$(TOKEN_PATH)quotes.c						\
 			$(TOKEN_PATH)special_or_metacharacters.c	\
-			$(TOKEN_PATH)tokenizer.c	\
-			$(ENV_PATH)environment.c 		\
-			$(ENV_PATH)env_operations.c 	\
-			$(SIGNAL_PATH)signal.c			\
-			$(LIST_PATH)env_list_utils.c 	\
-			$(LIST_PATH)cmd_list_utils.c 	\
-			$(LIST_PATH)token_list_utils.c 	\
-			$(UTILS_PATH)treat_input_utils.c		\
-			$(UTILS_PATH)dollar_utils.c		\
-			$(UTILS_PATH)utils.c 			\
-			$(FREE_PATH)free.c				\
+			$(TOKEN_PATH)tokenizer.c					\
+			$(ENV_PATH)environment.c 					\
+			$(ENV_PATH)env_operations.c 				\
+			$(SIGNAL_PATH)signal.c						\
+			$(LIST_PATH)env_list_utils.c 				\
+			$(LIST_PATH)cmd_list_utils.c 				\
+			$(LIST_PATH)token_list_utils.c 				\
+			$(UTILS_PATH)treat_input_utils.c			\
+			$(UTILS_PATH)dollar_utils.c					\
+			$(UTILS_PATH)utils.c 						\
+			$(FREE_PATH)free.c							\
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 SRCS	:= $(addprefix $(SRC_DIR)/,$(SRCS))
@@ -67,6 +71,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(BUILTIN_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(FREE_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(SIGNAL_PATH))
+	@mkdir -p $(addprefix $(OBJ_DIR)/,$(COMMAND_PATH))
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ $(LIBFT_FLAGS)
 
 clean:

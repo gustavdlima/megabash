@@ -2,25 +2,18 @@
 
 int	is_operator(char *input)
 {
-	int	i;
-	char	**content;
-
-	i = 0;
-	content = ft_split(input, ' ');
-	while (content[i])
-	{
-		if (!ft_strncmp(content[i], "|", 2) || !ft_strncmp(content[i], ">", 2)
-			|| !ft_strncmp(content[i], "<", 2)
-			|| !ft_strncmp(content[i], ">>", 3)
-			|| !ft_strncmp(content[i], "<<", 3))
-		{
-			free_matrix(content);
-			return (1);
-		}
-		i++;
-	}
-	free_matrix(content);
-	return (0);
+	if (!ft_strncmp(input, "|", 2))
+			return (TRUE);
+	else if	(!ft_strncmp(input, ">", 2))
+			return (TRUE);
+	else if	(!ft_strncmp(input, "<", 2))
+			return (TRUE);
+	else if	(!ft_strncmp(input, ">>", 3))
+			return (TRUE);
+	else if	(!ft_strncmp(input, "<<", 3))
+			return (TRUE);
+	else
+		return (FALSE);
 }
 
 void	create_list(char *input)
