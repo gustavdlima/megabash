@@ -8,6 +8,12 @@ int	validate_input(char *input)
 
 	// }
 	// checar se eh um comando valido pelo access
+	if (open_curly_bracket(input) == TRUE)
+	{
+		ft_putendl_fd("Syntax error: open curly bracket.", 2);
+		g_megabash.exit_status = 2;
+		return (FALSE);
+	}
 	if (input[0] == '|' || input[0] == ';' || input[0] == '<'
 			|| input[0] == '>')
 	{
