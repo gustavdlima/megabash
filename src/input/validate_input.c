@@ -11,7 +11,7 @@ int	validate_input(char *input)
 	if (open_curly_bracket(input) == TRUE)
 	{
 		ft_putendl_fd("Syntax error: open curly bracket.", 2);
-		g_megabash.exit_status = 2;
+		g_megabash.exit_status = 130;
 		return (FALSE);
 	}
 	if (input[0] == '|' || input[0] == ';' || input[0] == '<'
@@ -36,7 +36,7 @@ int	validate_input(char *input)
 	if (unquotted_special_metacharacters(input) == TRUE)
 	{
 		ft_putendl_fd("Syntax error: special or metacharacters on unquotted arguments.", 2);
-		g_megabash.exit_status = 2;
+		g_megabash.exit_status = 130;
 		return (FALSE);
 	}
 	// erro de sintax
