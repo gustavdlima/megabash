@@ -4,7 +4,7 @@ void	treat_token_list(void)
 {
 	t_token *temp;
 
-printf("3.0. check_input\n");
+	printf("3.0. check_input\n");
 	check_input();
 	temp = g_megabash.token_list;
 	print_token(temp);
@@ -23,6 +23,7 @@ void	tokenizer (char *input)
 	int	i;
 	char **temp;
 
+	// separar o redirect do oi nesse caso -> echo oi>>
 	i = 1;
 	temp = ft_split(input, ' ');
 	if (temp != NULL)

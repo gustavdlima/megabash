@@ -25,12 +25,12 @@ typedef	struct	s_env{
 }				t_env;
 
 typedef struct	s_token{
+	int					type;
 	char			*content;
 	struct s_token	*next;
 }				t_token;
 
 typedef struct s_commands{
-	int					type;
 	char				*cmd;
 	char				**cmd_matrix;
 	struct s_commands	*next;

@@ -55,7 +55,6 @@ t_commands	*cmd_lst_new(void)
 	element = malloc(sizeof(t_commands));
 	if (element)
 	{
-		element->type = 0;
 		element->cmd_matrix = NULL;
 		element->cmd = NULL;
 		element->next = NULL;
@@ -64,14 +63,13 @@ t_commands	*cmd_lst_new(void)
 	return (0);
 }
 
-t_commands	*cmd_lst_new_args(char *cmd, int type)
+t_commands	*cmd_lst_new_args(char *cmd)
 {
 	t_commands	*element;
 
 	element = malloc(sizeof(t_commands));
 	if (element)
 	{
-		element->type = type;
 		element->cmd_matrix = ft_split(cmd, ' ');
 		element->cmd = ft_strdup(cmd);
 		element->next = NULL;

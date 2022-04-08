@@ -18,6 +18,7 @@ t_token	*token_lst_new(char *content)
 	element = malloc(sizeof(t_token));
 	if (element)
 	{
+		element->type = 0;
 		element->content = content;
 		element->next = NULL;
 		return (element);

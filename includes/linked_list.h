@@ -10,7 +10,7 @@ t_env	*env_last_node(t_env *lst);
 int		env_lst_size(t_env *lst);
 
 t_commands	*cmd_lst_new(void);
-t_commands	*cmd_lst_new_args(char *cmd, int type);
+t_commands	*cmd_lst_new_args(char *cmd);
 void	commands_addback(t_commands **lst, t_commands *new);
 t_commands	*commands_last_node(t_commands *lst);
 void	free_commands(t_commands *commands);

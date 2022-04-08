@@ -2,13 +2,16 @@
 
 int	validate_input(char *input)
 {
+
+	//execve ja trata os erros na hora da execucao
+
 	// check_builtins
 	// if (is_builtin(input) == TRUE)
 	// {
 
 	// }
 	// checar se eh um comando valido pelo access
-	if (input[0] == 'NULL') // aqui nao seria melhor colocar !input[0]?
+	if (!input[0]) // aqui nao seria melhor colocar !input[0]?
 	{
 		g_megabash.exit_status = 137;
 		return (FALSE);

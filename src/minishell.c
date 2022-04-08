@@ -8,7 +8,8 @@ static void	megaexecute(char **input)
 	treat_input(input);
 	check_input();
 	create_list();
-	print_commands(g_megabash.cmd_list);
+	// print_token(g_megabash.token_list);
+	// print_commands(g_megabash.cmd_list);
 	g_megabash.exit_status = 0;
 }
 
