@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+void	insert_caracter(char **cmd, char caracter)
+{
+	*cmd = ft_strdup(*cmd + 1);
+	*cmd[ft_strlen(*cmd) - 1] = caracter;
+}
+
 int	is_operator(char *input)
 {
 	if (!ft_strncmp(input, "|", 2))
@@ -16,35 +22,27 @@ int	is_operator(char *input)
 		return (FALSE);
 }
 
-void	create_list(char *input)
+void	create_list(void)
 {
-	g_megabash.cmd = cmd_lst_new();
-	(void)input;
+	char	*cmd;
+	char	*temp;
+
+	cmd = ft_strdup("");
+	g_megabash.cmd_list = cmd_lst_new();
+	while (g_megabash.token_list)
+	{
+		if (!ft_strncmp(g_megabash.token_list->content, "|", 2))
+		{
+			commands_addback(&g_megabash.cmd_list, cmd_lst_new_args(cmd, 0)); //TESTANDO
+			free(cmd);
+			g_megabash.pipe++;
+			g_megabash.token_list = g_megabash.token_list->next;
+		}
+		printf("OIII\n");
+		temp = ft_strjoin(cmd, g_megabash.token_list->content);
+		// insert_caracter(&cmd, ' ');
+		cmd = ft_strdup(temp);
+		free(temp);
+		g_megabash.token_list = g_megabash.token_list->next;
+	}
 }
-
-// checar se tem e quantos tem pipes e redirecionamento
-// se tem permissao de criar o arquivo nos casos de redirecionamento
-// caso nao tenha nada, cria um processo filho e o executa, mas redireciona para a saida padrao (se nao for)
-
-// //
-
-// Quando nao for um comando encontrado pelo ACCESS eh um BUILTIN.
-
-// 1. echo oi
-
-// 2. echo texto | grep "x"
-
-// 3. echo oi << file
-
-// 4. ls >> file
-// 5. cat > file
-
-// 6.  < file
-
-
-// lista:
-
-// cmd -> pra identificar o comando eu uso access ou checo se eh um builtin;
-// argumentos -> o que vier depois do comando ate um pipe
-
-// seria interessante separar a linha de comando toda? por exemplo, a cada pipe a gente separa os comandos..

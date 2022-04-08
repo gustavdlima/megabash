@@ -5,9 +5,11 @@ t_global	g_megabash;
 static void	megaexecute(char **input)
 {
 	printf("INPUTÃO: %s\n", *input);
-		treat_input(input);
-		check_input();
-		g_megabash.exit_status = 0;
+	treat_input(input);
+	check_input();
+	create_list();
+	print_commands(g_megabash.cmd_list);
+	g_megabash.exit_status = 0;
 }
 
 static void	megastart(void)

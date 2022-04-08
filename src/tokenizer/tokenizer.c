@@ -14,7 +14,6 @@ printf("3.0. check_input\n");
 		temp->content = treat_dollar(temp->content);
 		temp->content = no_quotes(temp->content);
 		reverse_input_chars(temp->content);
-		// g_megabash.operation = is_operator(temp->content);
 		temp = temp->next;
 	}
 }

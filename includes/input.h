@@ -7,7 +7,7 @@
 char	*read_input(void);
 int		only_space(char *cmd);
 
-void 	create_list(char *input);
+void 	create_list(void);
 void	process_exec(char *input);
 int		is_operator(char *input);
 int		validate_input(char *input);

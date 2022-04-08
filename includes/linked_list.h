@@ -10,6 +10,11 @@ t_env	*env_last_node(t_env *lst);
 int		env_lst_size(t_env *lst);
 
 t_commands	*cmd_lst_new(void);
+t_commands	*cmd_lst_new_args(char *cmd, int type);
+void	commands_addback(t_commands **lst, t_commands *new);
+t_commands	*commands_last_node(t_commands *lst);
+void	free_commands(t_commands *commands);
+void	print_commands(t_commands *commands);
 
 t_token	*token_lst_new(char *content);
 void	token_addback(t_token **lst, t_token *new);

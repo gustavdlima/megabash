@@ -8,7 +8,7 @@ int	validate_input(char *input)
 
 	// }
 	// checar se eh um comando valido pelo access
-	if (input[0] == NULL)
+	if (input[0] == 'NULL') // aqui nao seria melhor colocar !input[0]?
 	{
 		g_megabash.exit_status = 137;
 		return (FALSE);
