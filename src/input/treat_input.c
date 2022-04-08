@@ -200,10 +200,76 @@ char	*treat_dollar(char *cmd)
 	return (final);
 }
 
+static void insert_space_after(char *input, int location, char operator)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	while (input[i])
+	{
+		while (input[j])
+		{
+			if(check_operator(input[j]))
+				break;
+			j++;
+		}
+
+		i++;
+	}
+}
+
+static void insert_space_before(char *input, int location, char operator)
+{
+	char *temp;
+
+	while(input)
+	{
+		temp = ft_substr(input, 0, location);
+	}
+}
+
+static void	check_operator_space(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (check_operator(input[i]))
+		{
+			if (input[i - 1] != ' ' && input[i - 1] != NULL)
+			{
+				insert_space_before(input, i, input[i]);
+			}
+			if (input [i + 1] != ' ' && input[i + 1] != NULL)
+			{
+				insert_space_after(input, i, input[i]);
+			}
+		}
+		i++;
+	}
+}
+
+static void	treat_operators(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (check_operator(input[i]))
+			check_operator_space(input);
+		else
+			i++;
+	}
+}
+
 void	treat_input(char **input)
 {
 	printf("0. input : %s\n", *input);
 	treat_input_chars(*input);
+	treat_operators(*input);
 	printf("1. treat_input_chars : %s\n", *input);
 	tokenizer(*input);
 	printf("2. tokenizer : %s\n", *input);

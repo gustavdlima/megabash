@@ -19,6 +19,18 @@ char	*insert_caracter(char *cmd, char caracter)
 	return (new_cmd);
 }
 
+int	check_operator(char operator)
+{
+	if (operator == '|')
+			return (TRUE);
+	else if	(operator == '>')
+			return (TRUE);
+	else if	(operator == '<')
+			return (TRUE);
+	else
+		return (FALSE);
+}
+
 int	is_operator(char *input)
 {
 	if (!ft_strncmp(input, "|", 2))
@@ -52,3 +64,5 @@ void	create_list(void)
 	}
 	printf("%s\n", cmd);
 }
+
+

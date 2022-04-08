@@ -8,6 +8,7 @@ char	*read_input(void);
 int		only_space(char *cmd);
 char	*insert_caracter(char *cmd, char caracter);
 void 	create_list(void);
+int		check_operator(char operator);
 void	process_exec(char *input);
 int		is_operator(char *input);
 int		validate_input(char *input);
