@@ -27,4 +27,7 @@ int		treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp, c
 int 	is_builtin(char *input);
 void		check_input(void);
 
+// treat_operators.c
+char	*treat_operators(char *input);
+
 #endif

@@ -31,6 +31,7 @@ SRCS	=	minishell.c	\
 			$(INPUT_PATH)check_input.c					\
 			$(INPUT_PATH)create_list.c					\
 			$(INPUT_PATH)treat_input.c					\
+			$(INPUT_PATH)treat_operators.c					\
 			$(INPUT_PATH)validate_input.c				\
 			$(INPUT_PATH)is_builtin.c					\
 			$(COMMAND_PATH)cmd_path.c					\
