@@ -28,6 +28,7 @@ static char	*double_operator(char *input, int i, int is_second_space)
 	free (str);
 	return (aux);
 }
+
 static void	insert_space_after(char *input, int i, char **temp,
 								int is_second_space)
 {
@@ -68,7 +69,7 @@ static void	insert_space_before(char *input, char **temp)
 	free (str);
 }
 
-static char	*check_operator_space(char *input)
+char	*check_operator_space(char *input)
 {
 	int		i;
 	char	*temp;
@@ -95,19 +96,4 @@ static char	*check_operator_space(char *input)
 			i++;
 	}
 	return (temp);
-}
-
-char	*treat_operators(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		if (check_operator(input[i]))
-			return (check_operator_space(input));
-		else
-			i++;
-	}
-	return (input);
 }

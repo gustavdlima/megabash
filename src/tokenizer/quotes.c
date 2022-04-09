@@ -53,26 +53,6 @@ int	open_quotes(char *cmd)
 	return (FALSE);
 }
 
-char	*reverse_quotes_treat(char *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == 3)
-		{
-			cmd[i] = '\'';
-		}
-		else if (cmd[i] == 2)
-		{
-			cmd[i] = '\"';
-		}
-		i++;
-	}
-	return (cmd);
-}
-
 char	*quotes_treat(char *cmd)
 {
 	int	i;
@@ -143,9 +123,6 @@ char	*no_quotes(char *cmd)
 			if (cmd[k])
 				k++;
 		}
-	// printf("cmd : %s\nstr : %s\n", cmd, str);
-		str = reverse_quotes_treat(str);
-		// printf("cmd : %s\nstr : %s\n", cmd, str);
 		free (cmd);
 		return(str);
 	}

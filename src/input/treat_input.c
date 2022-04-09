@@ -31,19 +31,6 @@ void	treat_quote(char *cmd)
 	}
 }
 
-void	reverse_space(char *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == 1)
-			cmd[i] = ' ';
-		i++;
-	}
-}
-
 void	reverse_char(char *cmd, int nbr, char c)
 {
 	int	i;
@@ -60,6 +47,8 @@ void	reverse_char(char *cmd, int nbr, char c)
 void	reverse_input_chars(char *input)
 {
 	reverse_char(input, 1, ' ');
+	reverse_char(input, 2, '"');
+	reverse_char(input, 3, '\'');
 	reverse_char(input, 4, '>');
 	reverse_char(input, 5, '<');
 	reverse_char(input, 6, '|');
@@ -89,29 +78,6 @@ void	treat_char(char *cmd, char c, int nbr)
 			{
 				if (cmd[i] == c)
 					cmd[i] = nbr;
-				i++;
-			}
-		}
-		i++;
-	}
-}
-
-void	treat_space(char *cmd)
-{
-	int	i;
-	int	sign;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == '\'' || cmd[i] == '\"')
-		{
-			sign = cmd[i];
-			i++;
-			while (cmd[i] != sign && cmd[i])
-			{
-				if (cmd[i] == ' ')
-					cmd[i] = 1;
 				i++;
 			}
 		}
@@ -200,118 +166,20 @@ char	*treat_dollar(char *cmd)
 	return (final);
 }
 
-// static void	getting_temp_with_char(char **temp, char *input)
-// {
-// 	char	*character;
-// 	char	*str;
+char	*treat_operators(char *input)
+{
+	int	i;
 
-// 	character = ft_substr(input, 0, 1);
-// 	str = ft_strjoin(*temp, character);
-// 	free(*temp);
-// 	*temp = ft_strdup(str);
-// 	free(str);
-// 	free(character);
-// }
-
-// static char	*double_operator(char *input, int i, int is_second_space)
-// {
-// 	char	*aux;
-// 	char	*str;
-
-// 	if (is_second_space == TRUE)
-// 		aux = ft_substr(input + i, 0, 1);
-// 	else
-// 		aux = ft_substr(input + i, 0, 2);
-// 	str = ft_strjoin(aux, " ");
-// 	free (aux);
-// 	aux = ft_strdup(str);
-// 	free (str);
-// 	return (aux);
-// }
-// static void	insert_space_after(char *input, int i, char **temp,
-// 								int is_second_space)
-// {
-// 	char	*str;
-// 	char	*aux;
-
-// 	if (input[i + 1] == input[i])
-// 		aux = double_operator(input, i, is_second_space);
-// 	else
-// 	{
-// 		if (is_second_space == TRUE)
-// 			aux = ft_strdup(" ");
-// 		else
-// 		{
-// 			str = ft_substr(input + i, 0, 1);
-// 			aux = ft_strjoin(str, " ");
-// 			free (str);
-// 		}
-// 	}
-// 	str = ft_strjoin(*temp, aux);
-// 	free (*temp);
-// 	free (aux);
-// 	*temp = ft_strdup(str);
-// 	free (str);
-// }
-
-// static void	insert_space_before(char *input, char **temp)
-// {
-// 	char	*str;
-// 	char	*aux;
-
-// 	str = ft_substr(input, 0, 1);
-// 	aux = ft_strjoin(" ", str);
-// 	free (str);
-// 	str = ft_strjoin(*temp, aux);
-// 	free (aux);
-// 	*temp = ft_strdup(str);
-// 	free (str);
-// }
-
-// static char	*check_operator_space(char *input)
-// {
-// 	int		i;
-// 	char	*temp;
-
-// 	i = 0;
-// 	temp = ft_strdup("");
-// 	while (input[i])
-// 	{
-// 		if (check_operator(input[i])
-// 			&& (input[i - 1] != ' ' || input[i + 1] != ' '))
-// 		{
-// 			if (input[i - 1] != ' ' && input[i - 1] != NULL)
-// 			{
-// 				insert_space_before(input + i, &temp);
-// 				if (input[i + 1] != ' ' && input[i + 1] != NULL)
-// 					insert_space_after(input, i, &temp, TRUE);
-// 			}
-// 			else if (input[i + 1] != ' ' && input[i + 1] != NULL)
-// 				insert_space_after(input, i, &temp, FALSE);
-// 		}
-// 		else
-// 			getting_temp_with_char(&temp, input + i);
-// 		if (check_operator(input[i]) && (input[i + 1] == input[i]))
-// 			i++;
-// 		i++;
-// 	}
-// 	return (temp);
-// }
-
-// static char	*treat_operators(char *input)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (input[i])
-// 	{
-// 		if (check_operator(input[i]))
-// 			return (check_operator_space(input));
-// 		else
-// 			i++;
-// 	}
-// 	return (input);
-// }
+	i = 0;
+	while (input[i])
+	{
+		if (check_operator(input[i]))
+			return (check_operator_space(input));
+		else
+			i++;
+	}
+	return (input);
+}
 
 void	treat_input(char **input)
 {
@@ -327,7 +195,6 @@ void	treat_input(char **input)
 	// printf("4. treat_token_list : %s\n", *input);
 	treat_token_list();
 	print_token(g_megabash.token_list);
-	// reverse_space(*input);
 }
 
 // echo "oi" | ls -l > file |< file cat | cat > file

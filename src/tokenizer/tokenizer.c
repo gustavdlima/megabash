@@ -16,6 +16,8 @@ void	treat_token_list(void)
 		reverse_input_chars(temp->content);
 		temp = temp->next;
 	}
+	printf("AQUI!!!\n");
+	print_token(temp);
 }
 
 void	tokenizer (char *input)

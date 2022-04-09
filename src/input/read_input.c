@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	theres_delimiter(char *cmd)
+static int	theres_delimiter(char *cmd)
 {
 	int	i;
 	int	delimiter;
@@ -38,7 +38,7 @@ int	only_space(char *cmd)
 	return (FALSE);
 }
 
-int	is_it_history(char *cmd)
+static int	is_it_history(char *cmd)
 {
 	if (cmd == NULL)
 		return (FALSE);
