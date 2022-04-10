@@ -4,11 +4,13 @@ void	print_commands(t_commands *commands)
 {
 	if (!commands)
 		return ;
+	printf("Commands content: ------------\n");
 	while(commands)
 	{
-		printf("Commands content: %s\n", commands->cmd);
+		printf("%s\n", commands->cmd);
 		commands = commands->next;
 	}
+	printf("---------------------------\n");
 }
 
 void	commands_addback(t_commands **lst, t_commands *new)

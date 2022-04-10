@@ -81,13 +81,13 @@ char	*check_operator_space(char *input)
 		if (check_operator(input[i])
 			&& (input[i - 1] != ' ' || input[i + 1] != ' '))
 		{
-			if (input[i - 1] != ' ' && input[i - 1] != NULL)
+			if (input[i - 1] != ' ' && input[i - 1])
 			{
 				insert_space_before(input + i, &temp);
-				if (input[i + 1] != ' ' && input[i + 1] != NULL)
+				if (input[i + 1] != ' ' && input[i + 1])
 					insert_space_after(input, i, &temp, TRUE);
 			}
-			else if (input[i + 1] != ' ' && input[i + 1] != NULL)
+			else if (input[i + 1] != ' ' && input[i + 1])
 				insert_space_after(input, i, &temp, FALSE);
 		}
 		else

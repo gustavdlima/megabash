@@ -4,10 +4,10 @@ t_global	g_megabash;
 
 static void	megaexecute(char **input)
 {
-	printf("INPUTÃO: %s\n", *input);
 	treat_input(input);
-	check_input();
+	print_token(g_megabash.token_list);
 	create_list();
+	print_commands(g_megabash.cmd_list);
 	// print_token(g_megabash.token_list);
 	// print_commands(g_megabash.cmd_list);
 	g_megabash.exit_status = 0;
@@ -21,11 +21,11 @@ static void	megastart(void)
 	{
 		signal_handler();
 		input = read_input();
+		printf("\n\ninput: %s\n", input);
 		if (validate_input(input) == TRUE)
 			megaexecute(&input);
 		else
 			printf("BORN TO BE BASH\n");
-		print_token(g_megabash.token_list);
 		// create_list(read);
 		// free_megabash();
 	}

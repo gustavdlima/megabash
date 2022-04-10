@@ -47,6 +47,33 @@ int	is_operator(char *input)
 		return (FALSE);
 }
 
+static void create_list_pipe(void)
+{
+	char *temp;
+	char *cmd;
+
+	cmd = ft_strdup("");
+	while (g_megabash.token_list)
+	{
+		if (!ft_strncmp(g_megabash.token_list->content, "|", 2))
+		{
+			g_megabash.pipe++;
+			if (!g_megabash.cmd_list)
+				g_megabash.cmd_list = cmd_lst_new_args(cmd);
+			else
+				commands_addback(&g_megabash.cmd_list, cmd_lst_new_args(cmd));
+			g_megabash.token_list = g_megabash.token_list->next;
+			free(cmd);
+		}
+		temp = ft_strjoin(cmd, g_megabash.token_list->content);
+		cmd = ft_strdup(temp);
+		if (g_megabash.token_list->next)
+			cmd = insert_caracter(cmd, ' ');
+		g_megabash.token_list = g_megabash.token_list->next;
+		free(temp);
+	}
+}
+
 void	create_list(void)
 {
 	char	*cmd;
@@ -55,14 +82,24 @@ void	create_list(void)
 	cmd = ft_strdup("");
 	while (g_megabash.token_list)
 	{
-		temp = ft_strjoin(cmd, g_megabash.token_list->content);
-		cmd = ft_strdup(temp);
-		if (g_megabash.token_list->next)
-			cmd = insert_caracter(cmd, ' ');
-		g_megabash.token_list = g_megabash.token_list->next;
-		free(temp);
+		if (token_caracter_checker(g_megabash.token_list, "|"))
+			create_list_pipe();
+		else
+		{
+			if (g_megabash.token_list->next)
+				cmd = insert_caracter(cmd, ' ');
+			else
+			{
+				if (!g_megabash.cmd_list)
+					g_megabash.cmd_list = cmd_lst_new_args(cmd);
+				else
+					commands_addback(&g_megabash.cmd_list, cmd_lst_new_args(cmd));
+			}
+			// o fim do comando nao ta entrando aqui pq entra no else acima
+			temp = ft_strjoin(cmd, g_megabash.token_list->content);
+			cmd = ft_strdup(temp);
+			g_megabash.token_list = g_megabash.token_list->next;
+			free(temp);
+		}
 	}
-	printf("%s\n", cmd);
 }
-
-

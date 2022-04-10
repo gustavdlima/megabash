@@ -111,7 +111,6 @@ char	*no_quotes(char *cmd)
 	if (quotes != 0)
 	{
 		len = ft_strlen(cmd) - quotes + 1;
-		printf("len : %d\n", len);
 		str = ft_calloc((len), sizeof(char));
 		k = 0;
 		j = 0;

@@ -19,6 +19,7 @@ void	print_commands(t_commands *commands);
 t_token	*token_lst_new(char *content);
 void	token_addback(t_token **lst, t_token *new);
 t_token	*token_last_node(t_token *lst);
+int token_caracter_checker(t_token *list, char *caracter);
 void	print_token(t_token *token);
 void	free_token(t_token *token);
 

@@ -185,16 +185,12 @@ void	treat_input(char **input)
 {
 	char	*treated;
 
-	printf("0. input : %s\n", *input);
 	treat_input_chars(*input);
+	printf("treat_input_chars: %s\n", *input);
 	treated = treat_operators(*input);
-	printf("1. treat_input_chars : %s\n", treated);
+	printf("treat_operators : %s\n", treated);
 	tokenizer(treated);
-	printf("2. tokenizer : %s\n", treated);
-	printf("3. print_token : %s\n", treated);
-	// printf("4. treat_token_list : %s\n", *input);
 	treat_token_list();
-	print_token(g_megabash.token_list);
 }
 
 // echo "oi" | ls -l > file |< file cat | cat > file
