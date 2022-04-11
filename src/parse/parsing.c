@@ -25,7 +25,7 @@ t_commands *take_command(t_token *token, t_commands *command)
 	char *cmd;
 
 	cmd = ft_strdup("");
-	while (token != NULL && token->type != IS_PIPE)
+	while (token)
 	{
 		if (token->type == IS_BUILTIN || token->type == IS_CMD)
 			command->cmd = ft_strdup(token->content);
@@ -39,6 +39,8 @@ t_commands *take_command(t_token *token, t_commands *command)
 			if ((token->next == NULL) || token->next->type == IS_PIPE)
 				command->content = ft_split(cmd, ' ');
 		}
+		if (token->next == NULL || token->next->type == IS_PIPE)
+			break ;
 		token = token->next;
 	}
 	free(cmd);
