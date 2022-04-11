@@ -4,5 +4,6 @@
 # include "minishell.h"
 
 void	exit_builtin(char *arg);
+void	export(char **command);
 
 #endif

@@ -35,6 +35,7 @@ typedef struct s_commands{
 	int					type;
 	char				*cmd;
 	char				**content;
+	char				*file;
 	struct s_commands	*next;
 }				t_commands;
 
