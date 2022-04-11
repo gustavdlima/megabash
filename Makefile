@@ -20,6 +20,7 @@ BUILTIN_PATH	= builtins/
 FREE_PATH		= free_functions/
 SIGNAL_PATH		= signal/
 COMMAND_PATH	= command/
+PARSE_PATH		= parse/
 
 LIBFT_PATH	 	= ./libs/libft
 LIBFT			= $(LIBFT_PATH)/libft.a
@@ -29,9 +30,8 @@ SRCS	=	minishell.c	\
 			$(INPUT_PATH)expand_env.c					\
 			$(INPUT_PATH)read_input.c					\
 			$(INPUT_PATH)check_input.c					\
-			$(INPUT_PATH)create_list.c					\
 			$(INPUT_PATH)treat_input.c					\
-			$(INPUT_PATH)treat_operators.c					\
+			$(INPUT_PATH)treat_operators.c				\
 			$(INPUT_PATH)validate_input.c				\
 			$(INPUT_PATH)is_builtin.c					\
 			$(COMMAND_PATH)cmd_path.c					\
@@ -39,6 +39,7 @@ SRCS	=	minishell.c	\
 			$(TOKEN_PATH)quotes.c						\
 			$(TOKEN_PATH)special_or_metacharacters.c	\
 			$(TOKEN_PATH)tokenizer.c					\
+			$(PARSE_PATH)parsing.c						\
 			$(ENV_PATH)environment.c 					\
 			$(ENV_PATH)env_operations.c 				\
 			$(SIGNAL_PATH)signal.c						\
@@ -48,7 +49,7 @@ SRCS	=	minishell.c	\
 			$(UTILS_PATH)treat_input_utils.c			\
 			$(UTILS_PATH)dollar_utils.c					\
 			$(UTILS_PATH)utils.c 						\
-			$(UTILS_PATH)validate_utils.c 						\
+			$(UTILS_PATH)validate_utils.c 				\
 			$(FREE_PATH)free.c							\
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
@@ -74,6 +75,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(FREE_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(SIGNAL_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(COMMAND_PATH))
+	@mkdir -p $(addprefix $(OBJ_DIR)/,$(PARSE_PATH))
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ $(LIBFT_FLAGS)
 
 clean:

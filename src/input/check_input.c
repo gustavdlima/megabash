@@ -8,13 +8,13 @@ void check_input(void)
 	while (list_temp)
 	{
 		if (is_builtin(list_temp->content))
-			g_megabash.token_list->type = IS_BUILTIN;
+			list_temp->type = IS_BUILTIN;
 		else if (is_operator(list_temp->content))
-			g_megabash.token_list->type = IS_PIPE; // MUDAR DEPOIS
+			list_temp->type = is_operator(list_temp->content);
 		else if (what_cmd(list_temp->content))
-			g_megabash.token_list->type = IS_CMD;
-		// else
-		// 	// printf("ARGUMENT OR FLAG-> %s\n", list_temp->content);
+			list_temp->type = IS_CMD;
+		else
+			list_temp->type = IS_PARAMETER;
 		list_temp = list_temp->next;
 	}
 }

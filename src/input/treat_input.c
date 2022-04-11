@@ -166,6 +166,34 @@ char	*treat_dollar(char *cmd)
 	return (final);
 }
 
+int	is_operator(char *input)
+{
+	if (!ft_strncmp(input, "|", 2))
+			return (IS_PIPE);
+	else if	(!ft_strncmp(input, ">", 2))
+			return (IS_REDIRECT);
+	else if	(!ft_strncmp(input, "<", 2))
+			return (IS_REDIRECT);
+	else if	(!ft_strncmp(input, ">>", 3))
+			return (IS_REDIRECT);
+	else if	(!ft_strncmp(input, "<<", 3))
+			return (IS_HERE_DOC);
+	else
+		return (FALSE);
+}
+
+int	check_operator(char operator)
+{
+	if (operator == '|')
+			return (TRUE);
+	else if	(operator == '>')
+			return (TRUE);
+	else if	(operator == '<')
+			return (TRUE);
+	else
+		return (FALSE);
+}
+
 char	*treat_operators(char *input)
 {
 	int	i;
@@ -193,4 +221,3 @@ void	treat_input(char **input)
 	treat_token_list();
 }
 
-// echo "oi" | ls -l > file |< file cat | cat > file

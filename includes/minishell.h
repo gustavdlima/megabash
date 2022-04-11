@@ -17,6 +17,7 @@
 # define IS_REDIRECT	13
 # define IS_HERE_DOC	14
 # define IS_FILE		15
+# define IS_PARAMETER	16
 
 typedef	struct	s_env{
 	char			*name;
@@ -31,8 +32,9 @@ typedef struct	s_token{
 }				t_token;
 
 typedef struct s_commands{
+	int					type;
 	char				*cmd;
-	char				**cmd_matrix;
+	char				**content;
 	struct s_commands	*next;
 }				t_commands;
 
@@ -44,6 +46,7 @@ typedef struct	s_global{
 	char		*last_input;
 	int			operation;
 	int			pipe;
+	int			tokens;
 	int			exit_status;
 }				t_global;
 
@@ -56,6 +59,7 @@ typedef struct	s_global{
 # include "builtin.h"
 # include "signal_handler.h"
 # include "command.h"
+# include "parsing.h"
 
 extern t_global	g_megabash;
 

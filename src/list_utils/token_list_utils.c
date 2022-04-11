@@ -4,7 +4,7 @@ void	print_token(t_token *token)
 {
 	if (!token)
 		return ;
-	printf("Token content: ------------\n");
+	printf("\nToken content: ------------\n");
 	while(token)
 	{
 		printf("%s\n", token->content);
@@ -13,15 +13,15 @@ void	print_token(t_token *token)
 	printf("---------------------------\n");
 }
 
-int token_caracter_checker(t_token *list, char *caracter)
+int token_pipe_checker(t_token *token)
 {
+	t_token	*list;
+
+	list = token;
 	while (list)
 	{
-		if (!ft_strncmp(g_megabash.token_list->content, caracter, ft_strlen(caracter)))
-		{
-			g_megabash.pipe++;
+		if (list->type == IS_PIPE)
 			return (TRUE);
-		}
 		list = list->next;
 	}
 	return (FALSE);

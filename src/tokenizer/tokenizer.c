@@ -5,7 +5,6 @@ void	treat_token_list(void)
 	t_token *temp;
 
 	check_input();
-	printf("check_input moment\n");
 	temp = g_megabash.token_list;
 	while (temp)
 	{
