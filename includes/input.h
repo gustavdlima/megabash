@@ -9,7 +9,6 @@ int		only_space(char *cmd);
 
 // treat_input.c
 void	treat_input(char **input);
-char	*insert_caracter(char *cmd, char caracter);
 void	command_list(void);
 int		check_operator(char operator);
 void	process_exec(char *input);

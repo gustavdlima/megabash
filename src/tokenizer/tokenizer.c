@@ -10,8 +10,8 @@ void	treat_token_list(void)
 	{
 		treat_quote(temp->content);
 		temp->content = treat_dollar(temp->content);
-		temp->content = no_quotes(temp->content);
-		reverse_input_chars(temp->content);
+		// temp->content = no_quotes(temp->content);
+		// reverse_input_chars(temp->content);
 		temp = temp->next;
 	}
 }

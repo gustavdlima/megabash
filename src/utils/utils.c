@@ -1,5 +1,24 @@
 #include "minishell.h"
 
+char	*insert_caracter(char *cmd, char caracter)
+{
+	int	i;
+	char *new_cmd;
+
+	new_cmd = malloc(sizeof(char) * (ft_strlen(cmd) + 2));
+	i = 0;
+	while(cmd[i])
+	{
+		new_cmd[i] = cmd[i];
+		i++;
+	}
+	new_cmd[i] = caracter;
+	i++;
+	new_cmd[i] = '\0';
+	free(cmd);
+	return (new_cmd);
+}
+
 int	matrix_size(char **matrix)
 {
 	int	i;

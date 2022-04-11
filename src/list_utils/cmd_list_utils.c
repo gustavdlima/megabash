@@ -4,9 +4,12 @@ void	print_commands(t_commands *commands)
 {
 	if (!commands)
 		return ;
-	while(commands)
+	while (commands)
 	{
-		printf("Commands content: %s\n", commands->cmd);
+		printf("type: %d\n", commands->type);
+		printf("cmd: %s\n", commands->cmd);
+		for(int	j = 0; commands->content[j]; j++)
+			printf("content: %s\n", commands->content[j]);
 		commands = commands->next;
 	}
 }
