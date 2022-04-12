@@ -5,7 +5,7 @@ void	print_token(t_token *token)
 	if (!token)
 		return ;
 	printf("\nToken content: ------------\n");
-	while(token)
+	while (token)
 	{
 		printf("%s\n", token->content);
 		token = token->next;
@@ -13,7 +13,7 @@ void	print_token(t_token *token)
 	printf("---------------------------\n");
 }
 
-int token_pipe_checker(t_token *token)
+int	token_pipe_checker(t_token *token)
 {
 	t_token	*list;
 
@@ -45,6 +45,7 @@ t_token	*token_lst_new(char *content)
 void	token_addback(t_token **lst, t_token *new)
 {
 	t_token	*i;
+
 	if (*lst)
 	{
 		i = token_last_node(*lst);
@@ -67,7 +68,7 @@ t_token	*token_last_node(t_token *lst)
 
 void	free_token(t_token *token)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	while (token)
 	{

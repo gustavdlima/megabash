@@ -8,7 +8,7 @@ void	print_commands(t_commands *commands)
 	{
 		printf("type: %d\n", commands->type);
 		printf("cmd: %s\n", commands->cmd);
-		for(int	j = 0; commands->content[j]; j++)
+		for (int j = 0; commands->content[j]; j++)
 			printf("content: %s\n", commands->content[j]);
 		commands = commands->next;
 	}
@@ -17,6 +17,7 @@ void	print_commands(t_commands *commands)
 void	cmd_addback(t_commands **lst, t_commands *new)
 {
 	t_commands	*i;
+
 	if (*lst)
 	{
 		i = cmd_last_node(*lst);
@@ -39,7 +40,7 @@ t_commands	*cmd_last_node(t_commands *lst)
 
 void	free_commands(t_commands *commands)
 {
-	t_commands *temp;
+	t_commands	*temp;
 
 	while (commands)
 	{
