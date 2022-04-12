@@ -12,7 +12,8 @@ static void	megaexecute(char **input)
 		export(g_megabash.cmd_list->content);
 	if(!ft_strncmp(g_megabash.cmd_list->cmd, "unset", 6))
 		unset(g_megabash.cmd_list->content);
-	print_env(g_megabash.env);
+	if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
+		print_env(g_megabash.env);
 	g_megabash.exit_status = 0;
 }
 
