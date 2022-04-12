@@ -56,7 +56,7 @@ char	*read_input(void)
 {
 	char	*input;
 
-	input = readline("megabash$ ");
+	input = readline("\033[0;35mmegabash$ \033[0m");
 	if (input == NULL)
 	{
 		free_megabash();

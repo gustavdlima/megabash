@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	chdir(void)
-{
+// void	chdir(void)
+// {
 
-}
+// }
