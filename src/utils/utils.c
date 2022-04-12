@@ -2,12 +2,12 @@
 
 char	*insert_caracter(char *cmd, char caracter)
 {
-	int	i;
-	char *new_cmd;
+	int		i;
+	char	*new_cmd;
 
 	new_cmd = malloc(sizeof(char) * (ft_strlen(cmd) + 2));
 	i = 0;
-	while(cmd[i])
+	while (cmd[i])
 	{
 		new_cmd[i] = cmd[i];
 		i++;
