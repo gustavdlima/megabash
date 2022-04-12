@@ -8,7 +8,10 @@ static void	megaexecute(char **input)
 	print_token(g_megabash.token_list);
 	parsing();
 	print_commands(g_megabash.cmd_list);
-	export(g_megabash.cmd_list->content);
+	if(!ft_strncmp(g_megabash.cmd_list->cmd, "export", 7))
+		export(g_megabash.cmd_list->content);
+	if(!ft_strncmp(g_megabash.cmd_list->cmd, "unset", 6))
+		unset(g_megabash.cmd_list->content);
 	print_env(g_megabash.env);
 	g_megabash.exit_status = 0;
 }

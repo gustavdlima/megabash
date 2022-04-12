@@ -5,5 +5,7 @@
 
 void	exit_builtin(char *arg);
 void	export(char **command);
+void	unset(char **command);
+void	free_unset(t_env *list);
 
 #endif

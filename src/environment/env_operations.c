@@ -23,21 +23,23 @@ struct s_env 	*get_env_node(t_env *list, char *name)
 	return (NULL);
 }
 
-void	env_node_delete(t_env *list, char *name)
+void	env_node_delete(t_env *list)
 {
-	if (env_name_check(list, name) == 0)
+	t_env *temp;
+
+	if (list->next)
 	{
-		while (list->next)
+		if (list->next->next)
 		{
-			if (list->next->name == name)
-			{
-				list->next = list->next->next;
-				break ;
-			}
-			list = list->next;
+			temp = list->next;
+			list->next = list->next->next;
+			free_unset(temp);
 		}
+		else
+			list->next = NULL;
 	}
-	return ;
+	else
+		list->next = NULL;
 }
 
 void	env_content_to_null(t_env *list, char *name)
