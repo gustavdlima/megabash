@@ -29,14 +29,9 @@ void	unset(char **command)
 	i = 1;
 	while (command[i])
 	{
-		printf("env name-> %s\n", command[i]);
-		temp = get_env_previous_node(g_megabash.env, get_env_name(command[i]));
-		printf("E LA VAMOS NOS\n");
-		printf("--------------------------------------- %s\n", temp->name);
+		temp = get_env_previous_node(g_megabash.env, command[i]);
 		if (temp)
-		{
 			env_node_delete(temp);
-		}
 		else
 			return ;
 		i++;
