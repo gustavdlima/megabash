@@ -35,7 +35,7 @@ CC				=	gcc
 AR				=	ar
 RM				=	rm -f
 
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -g
 ARFLAGS 		=	rcs
 
 .c.o:
