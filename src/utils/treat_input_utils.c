@@ -10,12 +10,11 @@ char	*get_name(char *cmd)
 	while (cmd[i])
 	{
 		if (cmd[i] == '-' || cmd[i] == ' ' || cmd[i] == '$' || cmd[i] == '\''
-		|| cmd[i] == '\"' || cmd[i] == '}')
+			|| cmd[i] == '\"' || cmd[i] == '}')
 			break ;
 		i++;
 	}
 	name = ft_substr(cmd, 0, i);
-	printf("get_name = name : %s\n", name);
 	i = 0;
 	while (name[i])
 	{

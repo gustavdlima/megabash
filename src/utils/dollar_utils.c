@@ -36,13 +36,10 @@ char	*interpret_dollar(char *cmd, int position)
 	t_env	*env_var;
 
 	temp = ft_strdup("");
-	printf("X . position : %d\n", position);
 	if (cmd[position + 1] == '{')
 		position++;
-	printf("1 . position : %d\n", position);
 	name = get_name(cmd + position + 1);
-	env_var = get_env_node(g_megabash.env, name); //INVALID READ OF SIZE = 1
-	printf("X . NAME : %s\n", name);
+	env_var = get_env_node(g_megabash.env, name);
 	if (env_var != NULL)
 	{
 		free (temp);
