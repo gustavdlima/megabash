@@ -42,6 +42,7 @@ t_env	*env_lst_new(char *name, char *content)
 void	env_addback(t_env **lst, t_env *new)
 {
 	t_env	*i;
+
 	if (*lst)
 	{
 		i = env_last_node(*lst);

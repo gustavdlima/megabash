@@ -14,20 +14,17 @@ void	export(char **command)
 		name = get_env_name(g_megabash.cmd_list->content[i]);
 		content = get_env_path(g_megabash.cmd_list->content[i]);
 		node = get_env_node(g_megabash.env, name);
-		if (node == NULL)
+		if (!node)
 		{
+			printf("ANTES ENV_ADDBACK\n");
 			env_addback(&g_megabash.env, env_lst_new(name, content));
+			printf("DEPOIS ENV_ADDBACK\n");
 		}
 		else
 		{
 			env_content_to_null(node, name);
-			node->content = content;
+			node->content = ft_strdup(content);
 		}
 		i++;
-		print_env(g_megabash.env);
-		// printf("Name: %s\n", name);
-		// printf("Content: %s\n", content);
-		// free(name);
-		// free(content);
 	}
 }

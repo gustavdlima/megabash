@@ -9,6 +9,7 @@ static void	megaexecute(char **input)
 	parsing();
 	print_commands(g_megabash.cmd_list);
 	export(g_megabash.cmd_list->content);
+	print_env(g_megabash.env);
 	g_megabash.exit_status = 0;
 }
 
