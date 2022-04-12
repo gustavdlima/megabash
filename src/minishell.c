@@ -14,6 +14,8 @@ static void	megaexecute(char **input)
 		unset(g_megabash.cmd_list->content);
 	if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
 		print_env(g_megabash.env);
+	if(!ft_strncmp(g_megabash.cmd_list->cmd, "pwd", 4))
+		pwd();
 	g_megabash.exit_status = 0;
 }
 
