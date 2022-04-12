@@ -35,8 +35,10 @@ SRCS	=	minishell.c	\
 			$(INPUT_PATH)validate_input.c				\
 			$(INPUT_PATH)is_builtin.c					\
 			$(COMMAND_PATH)cmd_path.c					\
+			$(BUILTIN_PATH)chdir.c						\
 			$(BUILTIN_PATH)exit.c						\
 			$(BUILTIN_PATH)export.c						\
+			$(BUILTIN_PATH)pwd.c						\
 			$(BUILTIN_PATH)unset.c						\
 			$(TOKEN_PATH)quotes.c						\
 			$(TOKEN_PATH)special_or_metacharacters.c	\
