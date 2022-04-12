@@ -28,29 +28,6 @@ int	single_quotted_argument(char *cmd, int dollar)
 	return (FALSE);
 }
 
-int	open_quotes(char *cmd)
-{
-	int	sign;
-	int	i;
-
-	i = 0;
-	sign = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == '\'' || cmd[i] == '\"')
-		{
-			sign = cmd[i];
-			i++;
-			while (cmd[i] && cmd[i] != sign)
-				i++;
-			if (cmd[i] != sign)
-				return (TRUE);
-		}
-		i++;
-	}
-	return (FALSE);
-}
-
 static int	is_there_quotes(char *cmd)
 {
 	int		quotes;
@@ -93,4 +70,34 @@ char	*no_quotes(char *cmd)
 		return (str);
 	}
 	return (cmd);
+}
+
+static int	hide_quotes_arguments(char *cmd, int quote, int quote_to_hide,
+								int nbr)
+{
+	int	i;
+
+	i = 1;
+	while (cmd[i] != quote)
+	{
+		if (cmd[i] == quote_to_hide)
+			cmd[i] = nbr;
+		i++;
+	}
+	return (i);
+}
+
+void	treat_quote(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '\'')
+			i = i + hide_quotes_arguments(cmd + i, '\'', '\"', 2);
+		if (cmd[i] == '\"')
+			i = i + hide_quotes_arguments(cmd + i, '\"', '\'', 3);
+		i++;
+	}
 }

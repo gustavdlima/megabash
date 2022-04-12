@@ -20,7 +20,9 @@ int		ft_new_strncmp(char *s1, char *s2);
 int		ft_int_strchr(const char *s, int c);
 int		matrix_size(char **matrix);
 char	*insert_caracter(char *cmd, char caracter);
+
 //validate_utils.c
 int	open_curly_bracket(char *cmd);
+int	open_quotes(char *cmd);
 
 #endif

@@ -43,3 +43,26 @@ int	open_curly_bracket(char *cmd)
 	}
 	return (FALSE);
 }
+
+int	open_quotes(char *cmd)
+{
+	int	sign;
+	int	i;
+
+	i = 0;
+	sign = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '\'' || cmd[i] == '\"')
+		{
+			sign = cmd[i];
+			i++;
+			while (cmd[i] && cmd[i] != sign)
+				i++;
+			if (cmd[i] != sign)
+				return (TRUE);
+		}
+		i++;
+	}
+	return (FALSE);
+}

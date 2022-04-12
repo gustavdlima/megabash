@@ -25,7 +25,6 @@ char	*what_cmd(char *cmd)
 		free(path_cmd);
 		i++;
 	}
-	free(temp);
 	free_matrix(pathways);
 	return (NULL);
 }

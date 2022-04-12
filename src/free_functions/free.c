@@ -8,7 +8,6 @@ void	free_megabash(void)
 	rl_clear_history();
 }
 
-
 void	free_matrix(char **matrix)
 {
 	int	i;
@@ -24,7 +23,7 @@ void	free_matrix(char **matrix)
 
 void	free_env(t_env *env)
 {
-	t_env *temp;
+	t_env	*temp;
 
 	while (env)
 	{
