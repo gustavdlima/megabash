@@ -17,12 +17,15 @@ char	*what_cmd(char *cmd)
 		path_cmd = ft_strjoin(temp, cmd);
 		if (access(path_cmd, F_OK) == 0)
 		{
+			free(temp);
 			free_matrix(pathways);
 			return (path_cmd);
 		}
+		free(temp);
 		free(path_cmd);
 		i++;
 	}
-	free(pathways);
+	free(temp);
+	free_matrix(pathways);
 	return (NULL);
 }

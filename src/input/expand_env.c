@@ -1,10 +1,8 @@
 #include "minishell.h"
 
-int	jump_positions(char *cmd)
+static int	incrementing(char *cmd)
 {
-	char	*name;
-	char	*temp;
-	int		i;
+	int	i;
 
 	i = 0;
 	if (cmd[i] == '{')
@@ -17,14 +15,23 @@ int	jump_positions(char *cmd)
 	{
 		while (cmd[i])
 		{
-			if (cmd[i] == '-' || cmd[i] == ' ' || cmd[i] == '$' || cmd[i] == '\''
-			|| cmd[i] == '\"')
+			if (cmd[i] == '-' || cmd[i] == ' ' || cmd[i] == '$'
+				|| cmd[i] == '\'' || cmd[i] == '\"')
 				break ;
 			i++;
 		}
 	}
+	return (i);
+}
+
+int	jump_positions(char *cmd)
+{
+	char	*name;
+	char	*temp;
+	int		i;
+
+	i = incrementing(cmd);
 	name = ft_substr(cmd, 0, i);
-	printf("JUMP = name : %s\n", name);
 	i = 0;
 	while (name[i])
 	{
@@ -33,7 +40,7 @@ int	jump_positions(char *cmd)
 			temp = ft_substr(name, 0, i);
 			free (name);
 			i = ft_strlen(temp);
-	printf("JUMP = TEMP : %s\n", temp);
+			free (temp);
 			return (i);
 		}
 		i++;

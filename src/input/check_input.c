@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void check_input(void)
+void	check_input(void)
 {
 	t_token	*list_temp;
 

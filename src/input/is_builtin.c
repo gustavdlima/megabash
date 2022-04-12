@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int is_builtin(char *input)
+int	is_builtin(char *input)
 {
 	if (ft_new_strncmp("export", input) == TRUE)
 		return (TRUE);
