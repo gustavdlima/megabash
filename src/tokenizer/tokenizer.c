@@ -2,7 +2,7 @@
 
 void	treat_token_list(void)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	check_input();
 	temp = g_megabash.token_list;
@@ -16,10 +16,10 @@ void	treat_token_list(void)
 	}
 }
 
-void	tokenizer (char *input)
+void	tokenizer(char *input)
 {
-	int	i;
-	char **temp;
+	char	**temp;
+	int		i;
 
 	i = 1;
 	temp = ft_split(input, ' ');
