@@ -2,7 +2,7 @@
 
 void	export(char **command)
 {
-	int	i;
+	int		i;
 	char	*name;
 	char	*content;
 	t_env	*node;
@@ -15,11 +15,7 @@ void	export(char **command)
 		content = get_env_path(g_megabash.cmd_list->content[i]);
 		node = get_env_node(g_megabash.env, name);
 		if (!node)
-		{
-			printf("ANTES ENV_ADDBACK\n");
 			env_addback(&g_megabash.env, env_lst_new(name, content));
-			printf("DEPOIS ENV_ADDBACK\n");
-		}
 		else
 		{
 			env_content_to_null(node, name);
