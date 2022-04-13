@@ -29,16 +29,3 @@ char	*get_name(char *cmd)
 	return (name);
 }
 
-int	treat_no_dollar_input(char *cmd, char **final, char **temp, char **sec_temp)
-{
-	int	i;
-
-	i = ft_strlen(cmd);
-	*temp = ft_strdup(cmd);
-	*sec_temp = ft_strdup(*final);
-	free (*final);
-	*final = ft_strjoin(*sec_temp, *temp);
-	free (*temp);
-	free (*sec_temp);
-	return (i);
-}
