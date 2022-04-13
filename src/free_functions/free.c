@@ -34,3 +34,17 @@ void	free_env(t_env *env)
 		free(temp);
 	}
 }
+
+void	free_strings(void *s1, void *s2, void *s3, void *s4, void *s5)
+{
+	if (s1 != FALSE)
+		free(s1);
+	if (s2 != FALSE)
+		free(s2);
+	if (s3 != FALSE)
+		free(s3);
+	if (s4 != FALSE)
+		free(s4);
+	if (s5 != FALSE)
+		free(s5);
+}

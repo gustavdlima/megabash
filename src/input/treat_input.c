@@ -54,80 +54,56 @@ void	treat_char(char *cmd, char c, int nbr)
 	}
 }
 
-int	treat_dollar_input(char *cmd, char **final, char **temp, char **sec_temp, char *input)
+static int	expand_dollar(char *cmd, int i, char **name)
 {
-	char	*name;
-	char	*aux;
-	size_t	i;
+	int		curly_bracket;
+	int		skip;
 
-	i = wheres_dollar(cmd);
-	*temp = ft_substr(cmd, 0, i);
-	while (cmd[i])
+	skip = 0;
+	curly_bracket = 0;
+	if (cmd[i + 1] == '{')
 	{
-		if (cmd[i] == '$' && single_dollar(cmd + i) == FALSE)
-		{
-			if (single_quotted_argument(input, i) == FALSE)
-			{
-				if (is_question_mark(cmd + i) == TRUE)
-				{
-					name = ft_itoa(g_megabash.exit_status);
-					i++;
-				}
-				else
-				{
-					name = interpret_dollar(cmd, i);
-					i = i + jump_positions(cmd + i + 1);
-					if (cmd[i] == '\0')
-						break ;
-				}
-			}
-			else
-			{
-				name = ft_substr(cmd, i, ft_int_strchr(cmd + i, '\''));
-				i = i + ft_strlen(name) - 1;
-			}
-			*sec_temp = ft_strjoin(*temp, name);
-			free (*temp);
-			free (name);
-			*temp = ft_strdup(*sec_temp);
-			free (*sec_temp);
-		}
-		else
-		{
-			aux = ft_substr(cmd, i, 1);
-			*sec_temp = ft_strjoin(*temp, aux);
-			free (*temp);
-			free (aux);
-			*temp = ft_strdup(*sec_temp);
-			free (*sec_temp);
-		}
 		i++;
+		skip++;
+		curly_bracket = 1;
 	}
-	*sec_temp = ft_strdup(*final);
-	free (*final);
-	*final = ft_strjoin(*sec_temp, *temp);
-	free(*sec_temp);
-	free(*temp);
-	return (i);
+	if (is_question_mark(cmd + i) == TRUE)
+	{
+		*name = ft_itoa(g_megabash.exit_status);
+		skip = skip + 2 + curly_bracket;
+	}
+	else
+	{
+		*name = interpret_dollar(cmd, i);
+		skip = skip + jump_positions(cmd + i + 1) + 1 + curly_bracket;
+	}
+	return (skip);
 }
 
 char	*treat_dollar(char *cmd)
 {
 	char	*final;
 	char	*temp;
-	char	*second_temp;
+	char	*name;
 	int		i;
 
-	i = 0;
-	final = ft_strdup("");
+	i = wheres_dollar(cmd);
+	final = ft_substr(cmd, 0, i);
 	while (cmd[i])
 	{
-		if (is_there_dollar(cmd + i, ft_strlen(cmd + i)) == TRUE)
-			i = treat_dollar_input(cmd + i, &final, &temp, &second_temp, cmd)
-				+ i;
+		if (cmd[i] == '$' && single_dollar(cmd + i) == FALSE
+			&& single_quotted_argument(cmd, i) == FALSE)
+			i = i + expand_dollar(cmd, i, &name);
 		else
-			i = treat_no_dollar_input(cmd + i, &final, &temp, &second_temp)
-				+ i;
+		{
+			name = ft_substr(cmd + i, 0, 1);
+			i++;
+		}
+		temp = ft_strjoin(final, name);
+		free(final);
+		free(name);
+		final = ft_strdup(temp);
+		free(temp);
 	}
 	return (final);
 }
