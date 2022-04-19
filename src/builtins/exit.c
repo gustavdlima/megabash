@@ -36,16 +36,19 @@ void	exit_builtin(char *arg)
 	char **matrix;
 
 	printf("exit\n");
-	matrix = ft_split(arg, ' ');
-	if (matrix_size(matrix) > 0)
+	if (arg)
 	{
-		print_error_exit("too many arguments");
-		return ;
+		matrix = ft_split(arg, ' ');
+		if (matrix_size(matrix) > 0)
+		{
+			print_error_exit("too many arguments");
+			return ;
+		}
+		if (matrix[1] && !check_arg(matrix[1]))
+			g_megabash.exit_status = ft_atoi(matrix[1]);
+		if (matrix[1] && check_arg(matrix[1]))
+			g_megabash.exit_status = 2;
+		free_exit_builtin(arg, matrix);
 	}
-	if (matrix[1] && !check_arg(matrix[1]))
-		g_megabash.exit_status = ft_atoi(matrix[1]);
-	if (matrix[1] && check_arg(matrix[1]))
-		g_megabash.exit_status = 2;
-	free_exit_builtin(arg, matrix);
 	exit(g_megabash.exit_status);
 }

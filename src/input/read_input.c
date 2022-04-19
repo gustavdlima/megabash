@@ -48,7 +48,8 @@ static int	is_it_history(char *cmd)
 		return (FALSE);
 	if (ft_new_strncmp(cmd, g_megabash.last_input) == TRUE)
 		return (FALSE);
-	g_megabash.last_input = cmd;
+	free(g_megabash.last_input);
+	g_megabash.last_input = ft_strdup(cmd);
 	return (TRUE);
 }
 
@@ -59,18 +60,21 @@ char	*read_input(void)
 	char	*aux;
 
 	input = readline("\033[0;35mmegabash$ \033[0m");
-	while (open_quotes(input) == TRUE || pipe_no_arguments(input) == TRUE)
+	if (input)
 	{
-		temp = readline("\033[0;35m> \033[0m");
-		aux = ft_strjoin(input, temp);
-		free(input);
-		free(temp);
-		input = ft_strjoin(aux, "\n");
-		free(aux);
+		while (open_quotes(input) == TRUE || pipe_no_arguments(input) == TRUE)
+		{
+			temp = readline("\033[0;35m> \033[0m");
+			aux = ft_strjoin(input, temp);
+			free(input);
+			free(temp);
+			input = ft_strjoin(aux, "\n");
+			free(aux);
+		}
 	}
-	if (!ft_strncmp(input, "exit", 4))
+	if (!input || !ft_strncmp(input, "exit", 4))
 		exit_builtin(input);
-	if (is_it_history(input) == TRUE)
+	if (input && is_it_history(input) == TRUE)
 	{
 		add_history(input);
 	}
