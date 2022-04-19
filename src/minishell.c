@@ -28,7 +28,7 @@ static void	megastart(void)
 		signal_handler();
 		input = read_input();
 		printf("\n\ninput: %s\n", input);
-		if (validate_input(input) == TRUE)
+		if (input && validate_input(input) == TRUE)
 			megaexecute(&input);
 		else
 			printf("BORN TO BE BASH\n");
