@@ -24,5 +24,9 @@ char	*insert_caracter(char *cmd, char caracter);
 //validate_utils.c
 int		open_curly_bracket(char *cmd);
 int		open_quotes(char *cmd);
+int		redirect_to_no_arguments(char *cmd);
+
+//validate_redirect_utils.c
+int		different_redirection_signs(char *cmd);
 
 #endif

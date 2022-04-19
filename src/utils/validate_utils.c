@@ -66,3 +66,35 @@ int	open_quotes(char *cmd)
 	}
 	return (FALSE);
 }
+
+static int	no_arguments(char *cmd)
+{
+	if (ft_strlen(cmd) < 1)
+		return (TRUE);
+	if (only_space(cmd) == TRUE)
+		return (TRUE);
+	if (!cmd)
+		return (TRUE);
+	return(FALSE);
+}
+
+int	redirect_to_no_arguments(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '>' || cmd[i] == '<')
+		{
+			i++;
+			if (cmd[i] == '>' || cmd[i] == '<')
+				i++;
+			if (no_arguments(cmd + i) == TRUE)
+				return (TRUE);
+		}
+		if (cmd[i])
+			i++;
+	}
+	return (FALSE);
+}

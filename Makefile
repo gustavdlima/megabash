@@ -45,15 +45,16 @@ SRCS	=	minishell.c	\
 			$(TOKEN_PATH)tokenizer.c					\
 			$(PARSE_PATH)parsing.c						\
 			$(ENV_PATH)environment.c 					\
-			$(ENV_PATH)env_operations.c 				\
+			$(ENV_PATH)env_operations.c				\
 			$(SIGNAL_PATH)signal.c						\
-			$(LIST_PATH)env_list_utils.c 				\
-			$(LIST_PATH)cmd_list_utils.c 				\
-			$(LIST_PATH)token_list_utils.c 				\
+			$(LIST_PATH)env_list_utils.c				\
+			$(LIST_PATH)cmd_list_utils.c				\
+			$(LIST_PATH)token_list_utils.c				\
 			$(UTILS_PATH)treat_input_utils.c			\
 			$(UTILS_PATH)dollar_utils.c					\
-			$(UTILS_PATH)utils.c 						\
-			$(UTILS_PATH)validate_utils.c 				\
+			$(UTILS_PATH)utils.c						\
+			$(UTILS_PATH)validate_redirect_utils.c		\
+			$(UTILS_PATH)validate_utils.c				\
 			$(FREE_PATH)free.c							\
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
