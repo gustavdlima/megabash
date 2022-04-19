@@ -55,12 +55,18 @@ static int	is_it_history(char *cmd)
 char	*read_input(void)
 {
 	char	*input;
+	char	*temp;
+	char	*aux;
 
 	input = readline("\033[0;35mmegabash$ \033[0m");
-	if (input == NULL)
+	while (open_quotes(input) == TRUE || pipe_no_arguments(input) == TRUE)
 	{
-		free_megabash();
-		exit (0);
+		temp = readline("\033[0;35m> \033[0m");
+		aux = ft_strjoin(input, temp);
+		free(input);
+		free(temp);
+		input = ft_strjoin(aux, "\n");
+		free(aux);
 	}
 	if (!ft_strncmp(input, "exit", 4))
 		exit_builtin(input);
