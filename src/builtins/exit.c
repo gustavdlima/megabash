@@ -37,7 +37,7 @@ void	exit_builtin(char *arg)
 
 	printf("exit\n");
 	matrix = ft_split(arg, ' ');
-	if (matrix_size(matrix) > 1)
+	if (matrix_size(matrix) > 0)
 	{
 		print_error_exit("too many arguments");
 		return ;

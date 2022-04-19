@@ -29,25 +29,26 @@ int	pipe_no_arguments(char *cmd)
 	int		pipes;
 	int		i;
 
-	i = 0;
+	i = -1;
 	pipes = 0;
-	while (cmd[i])
+	treat_char(cmd, '|', 6);
+	while (cmd[++i])
 	{
 		if (cmd[i] == '|')
 			pipes++;
-		i++;
 	}
 	if (pipes != 0)
 	{
-		i = 0;
+		i = -1;
 		arguments = ft_split(cmd, '|');
-		while (arguments[i])
-			i++;
+		while (arguments[++i]);
 		free_matrix(arguments);
+		reverse_char(cmd, 6, '|');
 		if (pipes == (i - 1))
 			return (FALSE);
 		return (TRUE);
 	}
+	reverse_char(cmd, 6, '|');
 	return (FALSE);
 }
 

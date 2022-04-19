@@ -40,18 +40,6 @@ int	validate_input(char *input)
 		g_megabash.exit_status = 2;
 		return (FALSE);
 	}
-	if (open_quotes(input) == TRUE)
-	{
-		ft_putendl_fd("Syntax error: open quotes.", 2);
-		g_megabash.exit_status = 130;
-		return (FALSE);
-	}
-	if (pipe_no_arguments(input) == TRUE)
-	{
-		ft_putendl_fd("Syntax error: not enough arguments to pipe.", 2);
-		g_megabash.exit_status = 130;
-		return (FALSE);
-	}
 	if (unquotted_special_metacharacters(input) == TRUE)
 	{
 		ft_putendl_fd("Syntax error: special or metacharacters on unquotted arguments.", 2);
