@@ -22,7 +22,7 @@ int		matrix_size(char **matrix);
 char	*insert_caracter(char *cmd, char caracter);
 
 //validate_utils.c
-int	open_curly_bracket(char *cmd);
-int	open_quotes(char *cmd);
+int		open_curly_bracket(char *cmd);
+int		open_quotes(char *cmd);
 
 #endif

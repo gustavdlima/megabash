@@ -19,14 +19,14 @@
 # define IS_FILE		15
 # define IS_PARAMETER	16
 
-typedef	struct	s_env{
+typedef struct s_env{
 	char			*name;
 	char			*content;
 	struct s_env	*next;
 }				t_env;
 
-typedef struct	s_token{
-	int					type;
+typedef struct s_token{
+	int				type;
 	char			*content;
 	struct s_token	*next;
 }				t_token;
@@ -39,7 +39,7 @@ typedef struct s_commands{
 	struct s_commands	*next;
 }				t_commands;
 
-typedef struct	s_global{
+typedef struct s_global{
 	t_env		*env;
 	t_commands	*cmd_list;
 	t_token		*token_list;
