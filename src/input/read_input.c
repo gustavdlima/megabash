@@ -67,9 +67,9 @@ static int	is_valid_input(char *cmd)
 			break ;
 		i++;
 	}
-	str = ft_substr(cmd, 0, i + 1);
-	if (only_space(str) == TRUE || !str)
-		return (FALSE);
+	// str = ft_substr(cmd, 0, i);
+	// if (only_space(str) == TRUE || !str)
+	// 	return (FALSE);
 	// free(str);
 	// str = ft_substr(cmd + i, 1, ft_strlen(cmd + i) - 1);
 	// if (only_space(str) == TRUE)
