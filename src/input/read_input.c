@@ -95,14 +95,15 @@ char	*read_input(void)
 		while (open_quotes(input) == TRUE || pipe_no_arguments(input) == TRUE)
 		{
 			temp = readline("\033[0;35m> \033[0m");
-			aux = ft_strjoin(input, temp);
+			aux = ft_strjoin(input, " ");
 			free(input);
+			input = ft_strjoin(aux, temp);
+			// input = ft_strdup(aux);
 			free(temp);
-			// input = ft_strjoin(aux, "\n");
-			input = ft_strdup(aux);
 			free(aux);
 			if (is_valid_input(temp) == FALSE || is_valid_input(input) == FALSE)
 				break ;
+
 		}
 	}
 	if (!input || !ft_strncmp(input, "exit", 4))
