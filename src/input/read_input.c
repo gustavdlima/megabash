@@ -59,19 +59,21 @@ static int	is_valid_input(char *cmd)
 	int		i;
 
 	i = 0;
+	if (ft_new_strncmp("|", cmd) == TRUE)
+		return (FALSE);
 	while (cmd[i])
 	{
 		if (cmd[i] == '|')
 			break ;
 		i++;
 	}
-	str = ft_substr(cmd, 0, i);
+	str = ft_substr(cmd, 0, i + 1);
 	if (only_space(str) == TRUE || !str)
 		return (FALSE);
-	free(str);
-	str = ft_substr(cmd + i, 1, ft_strlen(cmd + i));
-	if (only_space(str) == TRUE)
-		return (FALSE);
+	// free(str);
+	// str = ft_substr(cmd + i, 1, ft_strlen(cmd + i) - 1);
+	// if (only_space(str) == TRUE)
+	// 	return (FALSE);
 	return (TRUE);
 }
 
@@ -92,8 +94,8 @@ char	*read_input(void)
 			free(temp);
 			input = ft_strjoin(aux, "\n");
 			free(aux);
-			// if (is_valid_input(temp) == FALSE)
-			// 	break ;
+			if (is_valid_input(temp) == FALSE || is_valid_input(input) == FALSE)
+				break ;
 		}
 	}
 	if (!input || !ft_strncmp(input, "exit", 4))
