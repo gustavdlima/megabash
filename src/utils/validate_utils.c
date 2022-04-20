@@ -67,34 +67,24 @@ int	open_quotes(char *cmd)
 	return (FALSE);
 }
 
-static int	no_arguments(char *cmd)
+int	bash_syntax_error(char *cmd)
 {
-	if (ft_strlen(cmd) < 1)
-		return (TRUE);
-	if (only_space(cmd) == TRUE)
-		return (TRUE);
-	if (!cmd)
-		return (TRUE);
-	return(FALSE);
-}
-
-int	redirect_to_no_arguments(char *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
+	if (cmd[0] == '|' || cmd[0] == ';' || cmd[0] == '&')
 	{
-		if (cmd[i] == '>' || cmd[i] == '<')
-		{
-			i++;
-			if (cmd[i] == '>' || cmd[i] == '<')
-				i++;
-			if (no_arguments(cmd + i) == TRUE)
-				return (TRUE);
-		}
-		if (cmd[i])
-			i++;
+		printf("bash: syntax error near unexpected token `%c'\n", cmd[0]);
+		g_megabash.exit_status = 2;
+		return (TRUE);
 	}
 	return (FALSE);
+}
+
+int	command_not_found(char *cmd)
+{
+	if (ft_strlen(cmd) == 1 && cmd[0] != 'l' && ft_isascii(cmd[0]))
+	{
+		printf("%c: command not found\n", cmd[0]);
+		g_megabash.exit_status = 127;
+		return (FALSE);
+	}
+	return (TRUE);
 }

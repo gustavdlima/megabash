@@ -21,12 +21,19 @@ int		ft_int_strchr(const char *s, int c);
 int		matrix_size(char **matrix);
 char	*insert_caracter(char *cmd, char caracter);
 
-//validate_utils.c
-int		open_curly_bracket(char *cmd);
-int		open_quotes(char *cmd);
-int		redirect_to_no_arguments(char *cmd);
+//validate_pipes_utils.c
+int		pipe_no_arguments(char *cmd);
 
 //validate_redirect_utils.c
 int		different_redirection_signs(char *cmd);
+int		redirect_to_no_arguments(char *cmd);
+int		too_many_redirections(char *cmd);
+
+//validate_utils.c
+int		open_curly_bracket(char *cmd);
+int		open_quotes(char *cmd);
+int		bash_syntax_error(char *cmd);
+int		command_not_found(char *cmd);
+
 
 #endif

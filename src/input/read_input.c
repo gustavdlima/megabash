@@ -48,8 +48,30 @@ static int	is_it_history(char *cmd)
 		return (FALSE);
 	if (ft_new_strncmp(cmd, g_megabash.last_input) == TRUE)
 		return (FALSE);
-	free(g_megabash.last_input);
-	g_megabash.last_input = ft_strdup(cmd);
+		free(g_megabash.last_input);
+		g_megabash.last_input = ft_strdup(cmd);
+	return (TRUE);
+}
+
+static int	is_valid_input(char *cmd)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '|')
+			break ;
+		i++;
+	}
+	str = ft_substr(cmd, 0, i);
+	if (only_space(str) == TRUE || !str)
+		return (FALSE);
+	free(str);
+	str = ft_substr(cmd + i, 1, ft_strlen(cmd + i));
+	if (only_space(str) == TRUE)
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -70,6 +92,8 @@ char	*read_input(void)
 			free(temp);
 			input = ft_strjoin(aux, "\n");
 			free(aux);
+			// if (is_valid_input(temp) == FALSE)
+			// 	break ;
 		}
 	}
 	if (!input || !ft_strncmp(input, "exit", 4))

@@ -53,6 +53,7 @@ SRCS	=	minishell.c	\
 			$(UTILS_PATH)treat_input_utils.c			\
 			$(UTILS_PATH)dollar_utils.c					\
 			$(UTILS_PATH)utils.c						\
+			$(UTILS_PATH)validate_pipes_utils.c			\
 			$(UTILS_PATH)validate_redirect_utils.c		\
 			$(UTILS_PATH)validate_utils.c				\
 			$(FREE_PATH)free.c							\
