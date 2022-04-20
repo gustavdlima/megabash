@@ -60,17 +60,23 @@ static int	is_valid_input(char *cmd)
 
 	i = 0;
 	if (ft_new_strncmp("|", cmd) == TRUE)
+	{
+		ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
+		g_megabash.exit_status = 2;
 		return (FALSE);
+	}
 	while (cmd[i])
 	{
 		if (cmd[i] == '|')
 			break ;
 		i++;
 	}
-	// str = ft_substr(cmd, 0, i);
-	// if (only_space(str) == TRUE || !str)
-	// 	return (FALSE);
-	// free(str);
+	str = ft_substr(cmd, 0, i);
+	if (only_space(str) == TRUE || !str)
+	{
+		free(str);
+		return (FALSE);
+	}
 	// str = ft_substr(cmd + i, 1, ft_strlen(cmd + i) - 1);
 	// if (only_space(str) == TRUE)
 	// 	return (FALSE);
@@ -92,7 +98,8 @@ char	*read_input(void)
 			aux = ft_strjoin(input, temp);
 			free(input);
 			free(temp);
-			input = ft_strjoin(aux, "\n");
+			// input = ft_strjoin(aux, "\n");
+			input = ft_strdup(aux);
 			free(aux);
 			if (is_valid_input(temp) == FALSE || is_valid_input(input) == FALSE)
 				break ;

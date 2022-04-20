@@ -11,6 +11,8 @@ int	validate_input(char *input)
 
 	// }
 	// checar se eh um comando valido pelo access
+	if (g_megabash.exit_status != 0)
+		return (FALSE);
 	if (!input[0] || only_space(input) == TRUE)
 		return (FALSE);
 	if (bash_syntax_error(input) == TRUE)
