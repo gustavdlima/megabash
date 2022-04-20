@@ -84,7 +84,7 @@ int	command_not_found(char *cmd)
 	{
 		printf("%c: command not found\n", cmd[0]);
 		g_megabash.exit_status = 127;
-		return (FALSE);
+		return (TRUE);
 	}
-	return (TRUE);
+	return (FALSE);
 }

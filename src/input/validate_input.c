@@ -11,18 +11,17 @@ int	validate_input(char *input)
 
 	// }
 	// checar se eh um comando valido pelo access
-	if (g_megabash.exit_status != 0)
+	if (g_megabash.exit_status == 42)
+	{
+		g_megabash.exit_status = 2;
 		return (FALSE);
+	}
 	if (!input[0] || only_space(input) == TRUE)
 		return (FALSE);
 	if (bash_syntax_error(input) == TRUE)
 		return (FALSE);
-	if (ft_strlen(input) == 1 && input[0] != 'l' && ft_isascii(input[0]))
-	{
-		printf("%c: command not found\n", input[0]);
-		g_megabash.exit_status = 127;
+	if (command_not_found(input) == TRUE)
 		return (FALSE);
-	}
 	if (open_curly_bracket(input) == TRUE)
 	{
 		ft_putendl_fd("Syntax error: open curly bracket.", 2);

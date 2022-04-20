@@ -62,7 +62,7 @@ static int	is_valid_input(char *cmd)
 	if (ft_new_strncmp("|", cmd) == TRUE)
 	{
 		ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
-		g_megabash.exit_status = 2;
+		g_megabash.exit_status = 42;
 		return (FALSE);
 	}
 	while (cmd[i])
