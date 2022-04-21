@@ -9,7 +9,7 @@ static	int	counting_args(char **arguments)
 	args = 0;
 	while (arguments[i])
 	{
-		if (ft_new_strncmp(arguments[i], "\n") == FALSE)
+		if (ft_new_strncmp(arguments[i], "\n") == FALSE && only_space(arguments[i]) == FALSE)
 			args++;
 		i++;
 	}
