@@ -53,36 +53,6 @@ static int	is_it_history(char *cmd)
 	return (TRUE);
 }
 
-static int	is_valid_input(char *cmd)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	// if (cmd[0] == '|')
-	// {
-	// 	ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
-	// 	g_megabash.exit_status = 42;
-	// 	return (FALSE);
-	// }
-	while (cmd[i])
-	{
-		if (cmd[i] == '|')
-			break ;
-		i++;
-	}
-	str = ft_substr(cmd, 0, i);
-	if (only_space(str) == TRUE || !str)
-	{
-		free(str);
-		return (FALSE);
-	}
-	// str = ft_substr(cmd + i, 1, ft_strlen(cmd + i) - 1);
-	// if (only_space(str) == TRUE)
-	// 	return (FALSE);
-	return (TRUE);
-}
-
 int	too_many_pipes(char *cmd)
 {
 	int	i;
@@ -131,7 +101,7 @@ char	*read_input(void)
 				input = ft_strjoin(aux, temp);
 			else
 				input = ft_strdup(aux);
-			// free(temp);
+			free(temp);
 			free(aux);
 			if (open_quotes(input) == FALSE && pipe_no_arguments(input) == FALSE)
 				break ;
