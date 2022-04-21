@@ -48,8 +48,8 @@ static int	is_it_history(char *cmd)
 		return (FALSE);
 	if (ft_new_strncmp(cmd, g_megabash.last_input) == TRUE)
 		return (FALSE);
-		free(g_megabash.last_input);
-		g_megabash.last_input = ft_strdup(cmd);
+	free(g_megabash.last_input);
+	g_megabash.last_input = ft_strdup(cmd);
 	return (TRUE);
 }
 
@@ -59,12 +59,12 @@ static int	is_valid_input(char *cmd)
 	int		i;
 
 	i = 0;
-	if (ft_new_strncmp("|", cmd) == TRUE)
-	{
-		ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
-		g_megabash.exit_status = 42;
-		return (FALSE);
-	}
+	// if (cmd[0] == '|')
+	// {
+	// 	ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
+	// 	g_megabash.exit_status = 42;
+	// 	return (FALSE);
+	// }
 	while (cmd[i])
 	{
 		if (cmd[i] == '|')
@@ -83,6 +83,36 @@ static int	is_valid_input(char *cmd)
 	return (TRUE);
 }
 
+int	too_many_pipes(char *cmd)
+{
+	int	i;
+	int	sign;
+
+	i = 0;
+	if (open_quotes(cmd) == TRUE)
+		return (FALSE);
+	treat_char(cmd, '|', 6);
+	while (cmd[i])
+	{
+		if (cmd[i] == '|')
+		{
+			i++;
+			while(cmd[i] == ' ')
+				i++;
+			if (cmd[i] == '|')
+			{
+				ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
+				g_megabash.exit_status = 42;
+				return (TRUE);
+			}
+		}
+		if (cmd[i])
+			i++;
+	}
+	reverse_char(cmd, 6, '|');
+	return (FALSE);
+}
+
 char	*read_input(void)
 {
 	char	*input;
@@ -90,20 +120,21 @@ char	*read_input(void)
 	char	*aux;
 
 	input = readline("\033[0;35mmegabash$ \033[0m");
-	if (input)
+	if (open_quotes(input) == TRUE || pipe_no_arguments(input) == TRUE)
 	{
-		while (open_quotes(input) == TRUE || pipe_no_arguments(input) == TRUE)
+		while (too_many_pipes(input) == FALSE)
 		{
 			temp = readline("\033[0;35m> \033[0m");
 			aux = ft_strjoin(input, " ");
 			free(input);
-			input = ft_strjoin(aux, temp);
-			// input = ft_strdup(aux);
-			free(temp);
+			if (temp && only_space(temp) == FALSE)
+				input = ft_strjoin(aux, temp);
+			else
+				input = ft_strdup(aux);
+			// free(temp);
 			free(aux);
-			if (is_valid_input(temp) == FALSE || is_valid_input(input) == FALSE)
+			if (open_quotes(input) == FALSE && pipe_no_arguments(input) == FALSE)
 				break ;
-
 		}
 	}
 	if (!input || !ft_strncmp(input, "exit", 4))

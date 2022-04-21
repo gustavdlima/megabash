@@ -28,8 +28,6 @@ static int	counting_pipes(char *cmd)
 		if (cmd[i] == '|')
 		{
 			i++;
-			while (cmd[i] == '|')
-				i++;
 			pipes++;
 		}
 		if (cmd[i])
