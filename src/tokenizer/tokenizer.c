@@ -4,7 +4,7 @@ void	treat_token_list(void)
 {
 	t_token	*temp;
 
-	check_input();
+	// check_input();
 	temp = g_megabash.token_list;
 	while (temp)
 	{
@@ -33,4 +33,5 @@ void	tokenizer(char *input)
 				i++;
 		}
 	}
+	set_token_type(g_megabash.token_list);
 }

@@ -128,9 +128,9 @@ int	check_operator(char operator)
 {
 	if (operator == '|')
 		return (TRUE);
-	else if (operator == '>')
-		return (TRUE);
 	else if (operator == '<')
+		return (TRUE);
+	else if (operator == '>')
 		return (TRUE);
 	else
 		return (FALSE);

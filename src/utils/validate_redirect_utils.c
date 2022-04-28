@@ -93,6 +93,7 @@ int	too_many_redirections(char *cmd)
 				g_megabash.exit_status = 2;
 				return (TRUE);
 			}
+			redirection = 0;
 		}
 		if (cmd[i])
 			i++;

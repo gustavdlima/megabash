@@ -43,9 +43,10 @@ SRCS	=	minishell.c	\
 			$(TOKEN_PATH)quotes.c						\
 			$(TOKEN_PATH)special_or_metacharacters.c	\
 			$(TOKEN_PATH)tokenizer.c					\
+			$(TOKEN_PATH)set_token_type.c				\
 			$(PARSE_PATH)parsing.c						\
 			$(ENV_PATH)environment.c 					\
-			$(ENV_PATH)env_operations.c				\
+			$(ENV_PATH)env_operations.c					\
 			$(SIGNAL_PATH)signal.c						\
 			$(LIST_PATH)env_list_utils.c				\
 			$(LIST_PATH)cmd_list_utils.c				\
@@ -60,7 +61,6 @@ SRCS	=	minishell.c	\
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 SRCS	:= $(addprefix $(SRC_DIR)/,$(SRCS))
-
 
 all:	$(NAME)
 

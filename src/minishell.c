@@ -7,17 +7,19 @@ static void	megaexecute(char **input)
 	treat_input(input);
 	print_token(g_megabash.token_list);
 	parsing();
-	print_commands(g_megabash.cmd_list);
-	if(!ft_strncmp(g_megabash.cmd_list->cmd, "export", 7))
-		export(g_megabash.cmd_list->content);
-	if(!ft_strncmp(g_megabash.cmd_list->cmd, "unset", 6))
-		unset(g_megabash.cmd_list->content);
-	if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
-		print_env(g_megabash.env);
-	if(!ft_strncmp(g_megabash.cmd_list->cmd, "pwd", 4))
-		pwd();
-	g_megabash.exit_status = 0;
+	// print_commands(g_megabash.cmd_list);
+	// if(!ft_strncmp(g_megabash.cmd_list->cmd, "export", 7))
+	// 	export(g_megabash.cmd_list->content);
+	// if(!ft_strncmp(g_megabash.cmd_list->cmd, "unset", 6))
+	// 	unset(g_megabash.cmd_list->content);
+	// if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
+	// 	print_env(g_megabash.env);
+	// if(!ft_strncmp(g_megabash.cmd_list->cmd, "pwd", 4))
+	// 	pwd();
+	// g_megabash.exit_status = 0;
 }
+
+
 
 static void	megastart(void)
 {
