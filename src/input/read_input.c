@@ -90,28 +90,33 @@ char	*read_input(void)
 	char	*aux;
 
 	input = readline("\033[0;35mmegabash$ \033[0m");
-	if (open_quotes(input) == TRUE || pipe_no_arguments(input) == TRUE)
+	if (input)
 	{
-		while (too_many_pipes(input) == FALSE)
+		if (open_quotes(input) == TRUE || pipe_no_arguments(input) == TRUE)
 		{
-			temp = readline("\033[0;35m> \033[0m");
-			aux = ft_strjoin(input, " ");
-			free(input);
-			if (temp && only_space(temp) == FALSE)
-				input = ft_strjoin(aux, temp);
-			else
-				input = ft_strdup(aux);
-			free(temp);
-			free(aux);
-			if (open_quotes(input) == FALSE && pipe_no_arguments(input) == FALSE)
-				break ;
+			while (too_many_pipes(input) == FALSE)
+			{
+				temp = readline("\033[0;35m> \033[0m");
+				aux = ft_strjoin(input, " ");
+				free(input);
+				if (temp && only_space(temp) == FALSE)
+					input = ft_strjoin(aux, temp);
+				else
+					input = ft_strdup(aux);
+				free(temp);
+				free(aux);
+				if (open_quotes(input) == FALSE && pipe_no_arguments(input) == FALSE)
+					break ;
+			}
 		}
+		if (!input || !ft_strncmp(input, "exit", 4))
+			exit_builtin(input);
+		if (input && is_it_history(input) == TRUE)
+		{
+			add_history(input);
+		}
+		return (input);
 	}
-	if (!input || !ft_strncmp(input, "exit", 4))
-		exit_builtin(input);
-	if (input && is_it_history(input) == TRUE)
-	{
-		add_history(input);
-	}
-	return (input);
+	else
+		exit (0);
 }

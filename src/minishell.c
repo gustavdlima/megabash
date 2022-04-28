@@ -6,7 +6,7 @@ static void	megaexecute(char **input)
 {
 	treat_input(input);
 	print_token(g_megabash.token_list);
-	parsing();
+	// parsing();
 	// print_commands(g_megabash.cmd_list);
 	// if(!ft_strncmp(g_megabash.cmd_list->cmd, "export", 7))
 	// 	export(g_megabash.cmd_list->content);
