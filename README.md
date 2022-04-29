@@ -1,6 +1,6 @@
 # megabash
 
-## 0. "|" : precisa de dois argumentos, a prioridade de execução é do segundo argumento.
+##0. "|" : precisa de dois argumentos, a prioridade de execução é do segundo argumento.
 	- o que leva o pipe a dar prioridade a um argumento?
 	0.1. Enquanto o segundo não for encontrado, o comando não fecha.
 	1.1. Se o primeiro comando trabalhar com texto e o segundo trabalhar alterando texto, então os dois são executados.
@@ -30,7 +30,7 @@ da direita pra esquerda, o primeiro a fazer parzinho de comando (echo + tr) foi 
 
 - Então, basicamente, vamos ter dois tipos de comandos (até agora): o que trabalha com texto e o que trabalha alterando texto, e NESSE CASO de redirecionamento, ele deve vir depois do texto ter sido especificado.
 
-## 1. ">" : O que vem depois de ">" é um arquivo e o que vem antes é o conteúdo que esse arquivo receberá.
+##1. ">" : O que vem depois de ">" é um arquivo e o que vem antes é o conteúdo que esse arquivo receberá.
 	1.1. Se o arquivo não existir, ele é criado.
 	1.2. Se o arquivo existir, o seu conteúdo será alterado pelo que vier antes de ">".
 	1.3. Se não houver conteúdo, ele cria um arquivo vazio.
@@ -57,10 +57,10 @@ ls | echo oi | tr i @ | cat README.md | tr i $ > file
 só cat com o segundo tr são executados
 
 
-## 2. ">>" : parecido com o anterior, porém ele ACRESCENTA ao arquivo o conteúdo e utiliza as mesmas regras explicadas acima.
+##2. ">>" : parecido com o anterior, porém ele ACRESCENTA ao arquivo o conteúdo e utiliza as mesmas regras explicadas acima.
 
 
-## 3. "<" : o texto de input utilizado para alterações será o do primeiro arquivo a direita.
+##3. "<" : o texto de input utilizado para alterações será o do primeiro arquivo a direita.
 	3.1. Se houver mais arquivos no meio, nada será alterado dentro deles. (eles são tipo ignorados)
 	3.2. Se o comando utilizado for do tipo que trabalha com texto, seu texto será printado no prompt.
 
@@ -104,7 +104,7 @@ o$?
 o$o$o$o$o$
 Aplicou tr em file.txt
 
-## 4. "<<" : cria um texto que pode ser redirecionado pra um arquivo e esse texto é/pode ser alterado por comandos que estão na esquerda.
+##4. "<<" : cria um texto que pode ser redirecionado pra um arquivo e esse texto é/pode ser alterado por comandos que estão na esquerda.
 
 - EX1:
 tr 'i' '$' > file << end
