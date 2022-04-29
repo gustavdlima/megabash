@@ -60,7 +60,9 @@ só cat com o segundo tr são executados
 2. ">>" : parecido com o anterior, porém ele ACRESCENTA ao arquivo o conteúdo e utiliza as mesmas regras explicadas acima.
 
 
-3. "<" : tem a ver com o input
+3. "<" : o texto de input utilizado para alterações será o do primeiro arquivo a direita.
+	3.1. Se houver mais arquivos no meio, nada será alterado dentro deles. (eles são tipo ignorados)
+	3.2. Se o comando utilizado for do tipo que trabalha com texto, seu texto será printado no prompt.
 
 - EX1:
 tr 'i' '$' > file < file.txt
@@ -82,6 +84,25 @@ pega o conteudo de file.txt, altera com tr, e printa no prompt (nada acontece co
 tr 'i' '$' | ls < file < file.txt
 printou ls no prompt, mas bugou (tr não foi aplicado)
 
+- EX6:
+ls -l < file < file.txt
+total 268
+-rw-r--r--  1 juliana juliana   2840 Apr 27 21:19 Makefile
+-rw-r--r--  1 juliana juliana   3324 Apr 29 00:28 README.md
+drwxr-xr-x 12 juliana juliana   4096 Apr 27 22:04 build
+-rw-r--r--  1 juliana juliana     17 Apr 29 00:15 file
+-rw-r--r--  1 juliana juliana     15 Apr 29 00:12 file.txt
+drwxr-xr-x  2 juliana juliana   4096 Apr 27 21:19 includes
+drwxr-xr-x  3 juliana juliana   4096 Apr 11 23:08 libs
+-rwxr-xr-x  1 juliana juliana 235664 Apr 27 22:13 minishell
+-rw-r--r--  1 juliana juliana    474 Apr 14 14:10 readline.supp
+drwxr-xr-x 12 juliana juliana   4096 Apr 27 21:19 src
+
+- EX7:
+ls -l | tr 'i' '$' < file < file.txt
+o$?
+o$o$o$o$o$
+Aplicou tr em file.txt
 
 4. "<<" : cria um texto que pode ser redirecionado pra um arquivo e esse texto é/pode ser alterado por comandos que estão na esquerda.
 
