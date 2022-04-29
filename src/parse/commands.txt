@@ -4,15 +4,21 @@ Na hora de parsear o comando precisamos considerar o que tem antes e depois do t
 podemos assumir se a sintaxe do token está correta.
 
 Num comando simples, temos as seguintes opções:
-    1. cat file                     [cmd] [arquivo]
-    2. echo "oi"                    [cmd] [opção]
-    2. ls -l file                   [cmd] [opção] [arquivo]
-    3. ls -l -a -m file             [cmd] [opção] [opção] [opção] [arquivo]
-    4. ls -lam file                 [cmd] [opção] [arquivo]
-    5. cat file > file              [cmd] [opção] [output] [arquivo]
-    6. cat file > file2 ls          [cmd] [opção] [output] [arquivo]                      {erro}
-    7. cat file > file2 < file3     [cmd] [opção] [output] [arquivo] [input] [arquivo]    {ignora o input}
-    8. ls -l < file                 [cmd] [opção] [input] [arquivo]                       {ignora o input}
-    0. < file tr 'a' 'p'            [input] [arquivo] [cmd]
-    0. > file ls > file2
-    0. > file ls > file2 ls > file3
+    0. cat file                         [cmd] [arquivo]
+    1. echo "oi"                        [cmd] [opção]
+    2. ls -l file                       [cmd] [opção] [arquivo]
+    3. ls -l -a -m file                 [cmd] [opção] [opção] [opção] [arquivo]
+    4. ls -lam file                     [cmd] [opção] [arquivo]
+    5. cat file > file                  [cmd] [opção] [output] [arquivo]
+    6. cat file > file2 ls              [cmd] [opção] [output] [arquivo]                      {erro}
+    7. ls -l > file > file1             [cmd] [opção] [output] [arquivo] [output] [arquivo] 
+    8. cat file > file2 < file3         [cmd] [opção] [output] [arquivo] [input] [arquivo]    {ignora o input}
+    9. ls -l < file                     [cmd] [opção] [input] [arquivo]                       {ignora o input}
+    10. ls -l < file ls                 [cmd] [opção] [input] [arquivo] [cmd]
+    11. ls -l < file > file             [cmd] [opção] [input] [arquivo] [output] [arquivo]      {ignora o input}
+    12. cat Makefile < file < file1     [cmd] [opção] [input] [arquivo] [input] [arquivo]
+    0. < file tr 'a' 'p'                [input] [arquivo] [cmd]
+    0. > file ls > file2                [output] [arquivo] [cmd] [output] [arquivo]
+    0. > file ls > file2 ls > file3     [output] [arquivo] [cmd] [output] [arquivo] [cmd] [output] [arquivo]
+
+    input (file3) input (cat file)
