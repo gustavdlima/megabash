@@ -8,4 +8,5 @@ Num comando simples, temos as seguintes opções:
     2. echo "oi"            [cmd] [opção]
     2. ls -l file           [cmd] [opção] [arquivo]
     3. ls -l -a -m file     [cmd] [opção] [opção] [opção] [arquivo]
-    4. ls -lam file         [cmd] [opção] [arquivo] 
+    4. ls -lam file         [cmd] [opção] [arquivo]
+    5. 
