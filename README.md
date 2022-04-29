@@ -2,8 +2,8 @@
 
 ## 0. "|" : precisa de dois argumentos, a prioridade de execução é do segundo argumento.
 <strong>0.1. Enquanto o segundo não for encontrado, o comando não fecha.<br>
-1.1. Se o primeiro comando trabalhar com texto e o segundo trabalhar alterando texto, então os dois são executados.<br><br></strong>
-- o que leva o pipe a dar prioridade a um argumento?
+1.1. Se o primeiro comando trabalhar com texto e o segundo trabalhar alterando texto, então os dois são executados.<br></strong>
+o que leva o pipe a dar prioridade a um argumento?
 
 - EX1:<br>
 echo oi | tr i @<br>
