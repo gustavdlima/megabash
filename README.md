@@ -1,7 +1,7 @@
 # megabash
 
 ## 0. "|" : precisa de dois argumentos, a prioridade de execução é do segundo argumento.
-- o que leva o pipe a dar prioridade a um argumento?
+- o que leva o pipe a dar prioridade a um argumento? <br><br>
 <strong>0.1. Enquanto o segundo não for encontrado, o comando não fecha.<br>
 1.1. Se o primeiro comando trabalhar com texto e o segundo trabalhar alterando texto, então os dois são executados.</strong>
 
@@ -61,8 +61,8 @@ só cat com o segundo tr são executados
 
 
 ## 3. "<" : o texto de input utilizado para alterações será o do primeiro arquivo a direita.
-3.1. Se houver mais arquivos no meio, nada será alterado dentro deles. (eles são tipo ignorados)
-3.2. Se o comando utilizado for do tipo que trabalha com texto, seu texto será printado no prompt.
+<strong>3.1. Se houver mais arquivos no meio, nada será alterado dentro deles. (eles são tipo ignorados)<br>
+3.2. Se o comando utilizado for do tipo que trabalha com texto, seu texto será printado no prompt.</strong>
 
 - EX1:<br>
 tr 'i' '$' > file < file.txt<br>
