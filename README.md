@@ -87,16 +87,16 @@ printou ls no prompt, mas bugou (tr não foi aplicado)
 - EX6:
 ls -l < file < file.txt
 total 268
--rw-r--r--  1 juliana juliana   2840 Apr 27 21:19 Makefile [\n]
--rw-r--r--  1 juliana juliana   3324 Apr 29 00:28 README.md[\n]
-drwxr-xr-x 12 juliana juliana   4096 Apr 27 22:04 build[\n]
--rw-r--r--  1 juliana juliana     17 Apr 29 00:15 file[\n]
--rw-r--r--  1 juliana juliana     15 Apr 29 00:12 file.txt[\n]
-drwxr-xr-x  2 juliana juliana   4096 Apr 27 21:19 includes[\n]
-drwxr-xr-x  3 juliana juliana   4096 Apr 11 23:08 libs[\n]
--rwxr-xr-x  1 juliana juliana 235664 Apr 27 22:13 minishell[\n]
--rw-r--r--  1 juliana juliana    474 Apr 14 14:10 readline.supp[\n]
-drwxr-xr-x 12 juliana juliana   4096 Apr 27 21:19 src[\n]
+-rw-r--r--  1 juliana juliana   2840 Apr 27 21:19 Makefile <br>
+-rw-r--r--  1 juliana juliana   3324 Apr 29 00:28 README.md<br>
+drwxr-xr-x 12 juliana juliana   4096 Apr 27 22:04 build<br>
+-rw-r--r--  1 juliana juliana     17 Apr 29 00:15 file<br>
+-rw-r--r--  1 juliana juliana     15 Apr 29 00:12 file.txt<br>
+drwxr-xr-x  2 juliana juliana   4096 Apr 27 21:19 includes<br>
+drwxr-xr-x  3 juliana juliana   4096 Apr 11 23:08 libs<br>
+-rwxr-xr-x  1 juliana juliana 235664 Apr 27 22:13 minishell<br>
+-rw-r--r--  1 juliana juliana    474 Apr 14 14:10 readline.supp<br>
+drwxr-xr-x 12 juliana juliana   4096 Apr 27 21:19 src
 
 - EX7:
 ls -l | tr 'i' '$' < file < file.txt
