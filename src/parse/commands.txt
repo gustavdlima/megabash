@@ -1,0 +1,12 @@
+Parsing
+
+Na hora de parsear o comando precisamos considerar o que tem antes e depois do token, pois assim
+podemos assumir se a sintaxe do token está correta.
+
+Num comando simples, temos as seguintes opções:
+    1. cat file             [cmd] [arquivo]
+    2. echo "oi"            [cmd] [opção]
+    2. ls -l file           [cmd] [opção] [arquivo]
+    3. ls -l -a -m file     [cmd] [opção] [opção] [opção] [arquivo]
+    4. ls -lam file         [cmd] [opção] [arquivo]
+    5. 

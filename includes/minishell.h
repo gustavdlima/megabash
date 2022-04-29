@@ -11,13 +11,10 @@
 # define TRUE 1
 # define FALSE 0
 
-# define IS_BUILTIN		10
-# define IS_CMD			11
 # define IS_WORD		12
 # define IS_PIPE		13
 # define IS_REDIRECT	14
 # define IS_HERE_DOC	15
-# define IS_FILE		16
 
 typedef struct s_env{
 	char			*name;
@@ -34,9 +31,8 @@ typedef struct s_token{
 typedef struct s_commands{
 	int					type;
 	char				*cmd;
-	char				*input;
-	char				*output;
 	char				**content;
+	struct s_redirect	*redirect;
 	struct s_commands	*next;
 }				t_commands;
 

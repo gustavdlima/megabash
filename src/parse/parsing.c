@@ -21,30 +21,7 @@
 
 // t_commands	*take_command(t_token *token, t_commands *command)
 // {
-// 	char	*temp;
-// 	char	*cmd;
-
-// 	cmd = ft_strdup("");
-// 	while (token)
-// 	{
-// 		if (token->type == IS_BUILTIN || token->type == IS_CMD)
-// 			command->cmd = ft_strdup(token->content);
-// 		if (token->type == IS_PARAMETER || token->type == IS_BUILTIN
-// 			|| token->type == IS_CMD)
-// 		{
-// 			temp = ft_strjoin(cmd, token->content);
-// 			temp = insert_caracter(temp, ' ');
-// 			cmd = ft_strdup(temp);
-// 			free(temp);
-// 			if ((token->next == NULL) || token->next->type == IS_PIPE)
-// 				command->content = ft_split(cmd, ' ');
-// 		}
-// 		if (token->next == NULL || token->next->type == IS_PIPE)
-// 			break ;
-// 		token = token->next;
-// 	}
-// 	free(cmd);
-// 	return (command);
+	
 // }
 
 // t_token	*to_null_or_pipe(t_token *token)
@@ -60,33 +37,35 @@
 
 // void	parsing(void)
 // {
-// 	t_token		*t_list;
-// 	t_commands	*c_list;
+// 	t_token		*token;
+// 	t_commands	*command;
 
-// 	t_list = g_megabash.token_list;
-// 	c_list = NULL;
-// 	while (t_list)
+// 	token = g_megabash.token_list;
+// 	command = NULL;
+// 	while (token)
 // 	{
-// 		if (c_list == NULL)
-// 		{
-// 			c_list = take_command(t_list, cmd_lst_new());
-// 			t_list = to_null_or_pipe(t_list);
-// 			if (t_list->next == NULL || t_list->next->type == IS_PIPE)
-// 				t_list = t_list->next;
-// 			g_megabash.cmd_list = c_list;
-// 			continue ;
-// 		}
-// 		cmd_addback(&c_list, take_command(t_list, cmd_lst_new()));
-// 		t_list = to_null_or_pipe(t_list);
-// 		t_list = t_list->next;
+
 // 	}
-// 	treat_parse_list();
+//     // print_commands(command);
+// 	// treat_parse_list();
 // }
 
 /*
-- criar um novo no da estrutura comando, definir o tipo do comando e seus
-argumentos, na parte de argumento eh soh colocar numa array de string;
+    Em cada nó da lista de comando, vão ter esses momentos:
 
-- dependendo de quantos pipes tiver eu ja posso criar a lista de comandos e
-depois so mudo os valores das variaveis
+    ps: a ordem dos comandos vai depender do redirecionamento <-
+
+    1. definir o cmd principal do nó;
+        input: ls -l | cat arquivo          (comando principal ls e cat);
+    2. definir o tipo do comando
+        input: echo "oi"                    (type = BUILTIN)
+    2. juntar o input inteiro até um operador;
+        input: ls -l | cat arquivo          (conteudo vai ser ls -l e cat arquivo);
+    3. se o token for de redirect ou here-doc, vou colocar
+
 */
+
+Existem comandos simples e comandos complexos. Comandos simples não tem pipe, ja complexos tem  
+
+ o Word pode ser reduzido para cmd se aparecer no início, arg_list se aparecer depois de um comando, 
+ file se aparecer depois de um redirecionamento, então a sentença é analisada de acordo com a gramática,
