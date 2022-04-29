@@ -6,26 +6,26 @@
 	1.1. Se o primeiro comando trabalhar com texto e o segundo trabalhar alterando texto, então os dois são executados.
 
 - EX1:
-echo oi | tr i @
+echo oi | tr i @<br>
 o@
 
 - EX2:
-echo oi | tr i @ | echo fui
+echo oi | tr i @ | echo fui<br>
 fui
 
 - EX3:
-echo oi | tr i @ | tr i $
-o@
+echo oi | tr i @ | tr i $<br>
+o@<br>
 considerou o primeiro tr
 
 - EX4:
-echo fui | echo oi | tr i @ | tr i $
-o@
+echo fui | echo oi | tr i @ | tr i $<br>
+o@<br>
 da direita pra esquerda, considerou o primeiro parzinho de comandos (echo + tr)
 
 - EX5:
-echo fui | echo oi | tr i @ |echo meio| tr i $
-me$o
+echo fui | echo oi | tr i @ |echo meio| tr i $<br>
+me$o<br>
 da direita pra esquerda, o primeiro a fazer parzinho de comando (echo + tr) foi executado
 
 - Então, basicamente, vamos ter dois tipos de comandos (até agora): o que trabalha com texto e o que trabalha alterando texto, e NESSE CASO de redirecionamento, ele deve vir depois do texto ter sido especificado.
@@ -37,23 +37,23 @@ da direita pra esquerda, o primeiro a fazer parzinho de comando (echo + tr) foi 
 	1.4. Se o conteúdo for inválido, o arquivo fica vazio.
 
 - EX1:
-echo oi | tr i @ | tr i '&' | cat README.md  > file
+echo oi | tr i @ | tr i '&' | cat README.md  > file<br>
 só cat é executado
 
 - EX2:
-echo oi | tr i @ | tr i $ > file
+echo oi | tr i @ | tr i $ > file<br>
 só echo com o primeiro tr são executados
 
 - EX3:
-echo oi | tr i @ | cat README.md | tr i $ > file
+echo oi | tr i @ | cat README.md | tr i $ > file<br>
 só cat com o segundo tr são executados
 
 - EX4:
-echo oi | tr i @ | cat README.md | tr i $ | ls > file
+echo oi | tr i @ | cat README.md | tr i $ | ls > file<br>
 só ls é executado
 
 - EX5:
-ls | echo oi | tr i @ | cat README.md | tr i $ > file
+ls | echo oi | tr i @ | cat README.md | tr i $ > file<br>
 só cat com o segundo tr são executados
 
 
@@ -65,28 +65,28 @@ só cat com o segundo tr são executados
 	3.2. Se o comando utilizado for do tipo que trabalha com texto, seu texto será printado no prompt.
 
 - EX1:
-tr 'i' '$' > file < file.txt
+tr 'i' '$' > file < file.txt<br>
 pega o conteudo de file.txt, altera com tr, e manda para file
 
 - EX2:
-tr 'i' '$' < file < file.txt
+tr 'i' '$' < file < file.txt<br>
 pega o conteudo de file.txt, altera com tr, e printa no prompt (nada acontece com file)
 
 - EX3:
-tr 'i' '$' < file1 < file.txt < file
+tr 'i' '$' < file1 < file.txt < file<br>
 pega o conteudo de file e altera com tr, printa a alteração no prompt
 
 - EX4:
-ls | tr 'i' '$' < file < file.txt
+ls | tr 'i' '$' < file < file.txt<br>
 pega o conteudo de file.txt, altera com tr, e printa no prompt (nada acontece com file e ls é ignorado, talvez pq o texto já esteja sendo especificado em file.txt)
 
 - EX5:
-tr 'i' '$' | ls < file < file.txt
+tr 'i' '$' | ls < file < file.txt<br>
 printou ls no prompt, mas bugou (tr não foi aplicado)
 
 - EX6:
-ls -l < file < file.txt
-total 268
+ls -l < file < file.txt<br>
+total 268<br>
 -rw-r--r--  1 juliana juliana   2840 Apr 27 21:19 Makefile <br>
 -rw-r--r--  1 juliana juliana   3324 Apr 29 00:28 README.md<br>
 drwxr-xr-x 12 juliana juliana   4096 Apr 27 22:04 build<br>
@@ -99,31 +99,31 @@ drwxr-xr-x  3 juliana juliana   4096 Apr 11 23:08 libs<br>
 drwxr-xr-x 12 juliana juliana   4096 Apr 27 21:19 src
 
 - EX7:
-ls -l | tr 'i' '$' < file < file.txt
-o$?
-o$o$o$o$o$
+ls -l | tr 'i' '$' < file < file.txt<br>
+o$?<br>
+o$o$o$o$o$<br>
 Aplicou tr em file.txt
 
 ## 4. "<<" : cria um texto que pode ser redirecionado pra um arquivo e esse texto é/pode ser alterado por comandos que estão na esquerda.
 
 - EX1:
-tr 'i' '$' > file << end
-oi
-kkk
-end
+tr 'i' '$' > file << end<br>
+oi<br>
+kkk<br>
+end<br>
 tr é aplicado no arquivo file que receberá o que for especificado no heredoc
 
 - EX2:
-< file.txt tr 'i' '$' > file << end
-oi
-kkk
-end
+< file.txt tr 'i' '$' > file << end<br>
+oi<br>
+kkk<br>
+end<br>
 ele IGNORA (É ISSO MESMO???) o file.txt e executa a mesma coisa que o exemplo anterior
 
 - EX3:
-tr 'i' '@' > file > file.txt << end
-oi
-kkk
-end
-Tudo o que está em file é apagado e o comando tr é aplicado no input do heredoc e mandado para o file.txt
-Se o arquivo especificado não existir, ele é criado mesmo assim: se for o primeiro da direita pra esquerda, ele recebe o conteúdo do heredoc, caso contrário, fica vazio.
+tr 'i' '@' > file > file.txt << end<br>
+oi<br>
+kkk<br>
+end<br>
+Tudo o que está em file é apagado e o comando tr é aplicado no input do heredoc e mandado para o file.txt<br>
+Se o arquivo especificado não existir, ele é criado mesmo assim: se for o primeiro da direita pra esquerda, ele recebe o conteúdo do heredoc, caso contrário, fica vazio.<br>
