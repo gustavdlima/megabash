@@ -17,8 +17,47 @@ Num comando simples, temos as seguintes opções:
     10. ls -l < file ls                 [cmd] [opção] [input] [arquivo] [cmd]
     11. ls -l < file > file             [cmd] [opção] [input] [arquivo] [output] [arquivo]      {ignora o input}
     12. cat Makefile < file < file1     [cmd] [opção] [input] [arquivo] [input] [arquivo]
-    0. < file tr 'a' 'p'                [input] [arquivo] [cmd]
-    0. > file ls > file2                [output] [arquivo] [cmd] [output] [arquivo]
-    0. > file ls > file2 ls > file3     [output] [arquivo] [cmd] [output] [arquivo] [cmd] [output] [arquivo]
+    13. > file ls -l > file1            [output] [arquivo] [comando] [opção] [output] [arquivo]
+    14. > file ls > file2               [output] [arquivo] [cmd] [output] [arquivo]
+    15. > file ls > file2 ls > file3    [output] [arquivo] [cmd] [output] [arquivo] [cmd] [output] [arquivo]
+    16. < file tr 'a' 'p'               [input] [arquivo] [cmd]
+    17. < file ls > file1
 
-    input (file3) input (cat file)
+
+Estrutura de dados para lidar com o parsing
+
+typedef struct s_commands{
+	int					type; execve
+	char				*cmd; cat
+	char				**content; cat file
+	typedef struct s_redirect{
+        int         type;
+        char        *content; a gente trata como string ou uma array de string
+        t_redirect  *next;
+    }
+	struct s_commands	*next;
+}				t_commands;
+
+cat file.txt >> echo 'oi' tr i $ | tr i ! | ls
+ ls -l > file > file1 
+< file tr 'a' 'b' | cat file > file > file > file
+cat FILE < makefile cat echo 
+
+
+dps de >> e > a gente considera como arquivo
+dps de < file a gente aguardar um comando
+
+
+PSEUDOCÓDIGO
+
+cat file.txt >> echo 'oi' tr i $ | tr i ! | ls
+
+1. pegar a lista de token e colocar num loop;
+2. a gente vai verificar qual o tipo do token;
+3. se for do tipo word, a gente chama uma função que vai ter as verificações pra o caso word:
+    3.1 caso word:
+            3.1.1 a gente adiciona no *cmd e verifica o que tem antes e depois dela;
+            3.1.2 se tiver algo antes e for diferente de uma operação, a gente concatena com o cmd no content;
+            provavelmente a gente iria ter que ir passando o token_list->next.
+            3.1.3 se for uma operação, fazer o que tiver de fazer dependendo da operação;
+
