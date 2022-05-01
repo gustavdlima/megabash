@@ -47,8 +47,6 @@ cat FILE < makefile cat echo
 dps de >> e > a gente considera como arquivo
 dps de < file a gente aguardar um comando
 
-> file > file1 cat Makefile > file2 -> CASO EXTREMAMENTE BIZAROO
-
 PSEUDOCÓDIGO
 
 cat file.txt >> echo 'oi' tr i $ | tr i ! | ls
@@ -60,8 +58,8 @@ cat file.txt >> echo 'oi' tr i $ | tr i ! | ls
             3.1.1 a gente adiciona no *cmd e verifica o que tem depois do token;
             3.1.2 se tiver algo depois e for diferente de uma operação, a gente concatena com o cmd no content 
                   ate ter uma operacao;
-                3.1.2.1 se for >> ou > a gente adiciona na struct de redirect o tipo e o que vier depois ate 
-                        outra operacao em content;
+                3.1.2.1 se for >> ou > a gente adiciona na struct de redirect o tipo e o que vir depois da operacao 
+                        em content. (se for uma word seguida de outra word depois da operacao, consideramos como comando);
                 3.1.2.2 se for < a gente adiciona na struct de redirect o tipo e o que vier depois no conteudo,
                         mas depois do que vier dps de < a gente considera como comando e faz um outro NO;
             3.1.3 vai verificando ate ter um pipe (lembrar de salvar a quantidade de pipe na variavel global)
@@ -69,5 +67,16 @@ cat file.txt >> echo 'oi' tr i $ | tr i ! | ls
     4.1 caso operacao:
             4.1.1 se for < a gente adiciona na struct de redirect o tipo e o que vier depois no conteudo,
                         mas depois do que vier dps de < a gente considera como comando e faz um outro NO;
-            4.1.2 se for >> ou > a gente adiciona na struct de redirect o tipo e o que vier depois ate 
-                        outra operacao em content;
+            4.1.2 se for >> ou > a gente adiciona na struct de redirect o tipo e o que vir depois da operacao 
+                  em content. (se for uma word seguida de outra word depois da operacao, consideramos como comando)
+
+se o loop for desse jeito:
+
+while (token)
+{
+    token = funcao que trata tudo ate o pipe e retorna no pipe;
+    if (token == |)
+        pipe++;
+        token = token->next;
+    continue ;
+}
