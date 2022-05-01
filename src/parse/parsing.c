@@ -58,14 +58,14 @@
     1. definir o cmd principal do nó;
         input: ls -l | cat arquivo          (comando principal ls e cat);
     2. definir o tipo do comando
-        input: echo "oi"                    (type = BUILTIN)
-    2. juntar o input inteiro até um operador;
-        input: ls -l | cat arquivo          (conteudo vai ser ls -l e cat arquivo);
-    3. se o token for de redirect ou here-doc, vou colocar
+//         input: echo "oi"                    (type = BUILTIN)
+//     2. juntar o input inteiro até um operador;
+//         input: ls -l | cat arquivo          (conteudo vai ser ls -l e cat arquivo);
+//     3. se o token for de redirect ou here-doc, vou colocar
 
-*/
+// */
 
-Existem comandos simples e comandos complexos. Comandos simples não tem pipe, ja complexos tem  
+// Existem comandos simples e comandos complexos. Comandos simples não tem pipe, ja complexos tem  
 
- o Word pode ser reduzido para cmd se aparecer no início, arg_list se aparecer depois de um comando, 
- file se aparecer depois de um redirecionamento, então a sentença é analisada de acordo com a gramática,
+//  o Word pode ser reduzido para cmd se aparecer no início, arg_list se aparecer depois de um comando, 
+//  file se aparecer depois de um redirecionamento, então a sentença é analisada de acordo com a gramática,
