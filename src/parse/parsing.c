@@ -44,7 +44,10 @@
 // 	command = NULL;
 // 	while (token)
 // 	{
+//         if (token->type == IS_WORD)
+//         {
 
+//         }
 // 	}
 //     // print_commands(command);
 // 	// treat_parse_list();

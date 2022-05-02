@@ -43,7 +43,6 @@ cat file.txt >> echo 'oi' tr i $ | tr i ! | ls
 < file tr 'a' 'b' | cat file > file > file > file
 cat FILE < makefile cat echo 
 
-
 dps de >> e > a gente considera como arquivo
 dps de < file a gente aguardar um comando
 
