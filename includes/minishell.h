@@ -16,10 +16,10 @@ enum e_boolean
 
 enum e_types
 {
-	 IS_WORD = 12,
-	 IS_PIPE,
-	 IS_REDIRECT,
-	 IS_HERE_DOC
+	IS_WORD = 12,
+	IS_PIPE,
+	IS_REDIRECT,
+	IS_HERE_DOC
 };
 
 typedef struct s_env{

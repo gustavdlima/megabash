@@ -35,40 +35,65 @@
 // 	return (token);
 // }
 
-// void	parsing(void)
-// {
-// 	t_token		*token;
-// 	t_commands	*command;
+// primeiro passo, testar com um comando normal
 
-// 	token = g_megabash.token_list;
-// 	command = NULL;
-// 	while (token)
-// 	{
-//         if (token->type == IS_WORD)
-//         {
+t_token *command_parse(t_token *token, t_commands *command)
+{
+	char	*temp;
+	char	*cmd_string;
 
-//         }
-// 	}
-//     // print_commands(command);
-// 	// treat_parse_list();
-// }
+	command->cmd = ft_strdup(token->content);
+	token = token->next;
+	cmd_string = ft_strdup(command->cmd);
+	while (token)
+	{
+		if (token->type == IS_PIPE)
+			return (token);
+		if (token->type == IS_WORD && (token->prev->type != IS_REDIRECT
+			|| token->prev->type != IS_HERE_DOC))
+		{
+			cmd_string = insert_caracter(cmd_string, ' ');
+			temp = ft_strjoin(cmd_string, token->content);
+			cmd_string = ft_strdup(temp);			free(temp);
+		}
+		if (token->type == IS_REDIRECT || token->type == IS_HERE_DOC)
+		{	
+			printf ("era pra ter um redirect aqui\n");
+		}
+		token = token->next;
+	}
+	// tenho que verificar se no ultimo espaco da split eh null ou espaco
+	command->content = ft_split(cmd_string, ' ');
+	printf("command->cmd = %s\n", command->cmd);
+	printf("command->content: ");
+	for (int p = 0; command->content[p]; p++)
+		printf("%s ", command->content[p]);
+	printf("\n");
+	return (token);
+}
 
-/*
-    Em cada nó da lista de comando, vão ter esses momentos:
+// ls > file
+// < file ls > file
+// file1 > file2 > file3 cat Makefile > file4
 
-    ps: a ordem dos comandos vai depender do redirecionamento <-
+void	parsing(void)
+{
+	t_token		*token;
 
-    1. definir o cmd principal do nó;
-        input: ls -l | cat arquivo          (comando principal ls e cat);
-    2. definir o tipo do comando
-//         input: echo "oi"                    (type = BUILTIN)
-//     2. juntar o input inteiro até um operador;
-//         input: ls -l | cat arquivo          (conteudo vai ser ls -l e cat arquivo);
-//     3. se o token for de redirect ou here-doc, vou colocar
-
-// */
-
-// Existem comandos simples e comandos complexos. Comandos simples não tem pipe, ja complexos tem  
-
-//  o Word pode ser reduzido para cmd se aparecer no início, arg_list se aparecer depois de um comando, 
-//  file se aparecer depois de um redirecionamento, então a sentença é analisada de acordo com a gramática,
+	token = g_megabash.token_list;
+	while (token)
+	{
+		if (token->type == IS_WORD)
+		{
+        	token = command_parse(token, cmd_lst_new());
+			continue ;
+		}
+        if (token->type == IS_PIPE)
+			g_megabash.pipe++;
+		if (token->type == IS_REDIRECT || token->type == IS_HERE_DOC)
+			printf ("comecamos com redirect ou here-doc\n");
+		token = token->next;
+	}
+    // print_commands(command);
+	// treat_parse_list();
+}

@@ -50,9 +50,9 @@ PSEUDOCÓDIGO
 
 cat file.txt >> echo 'oi' tr i $ | tr i ! | ls
 
-1. pegar a lista de token e colocar num loop; ou pode ser um loop infinito
-2. a gente vai verificar qual o tipo do token;
-3. se for do tipo word, a gente chama uma função que vai ter as verificações pra o caso word:
+1. pegar a lista de token e colocar num loop;
+2. vamos verificar se o comando inicia com word ou operacao, dai a gente vai parsear o comando ate encontrar um pipe dentro de uma funcao;
+3. dentro da funcao verificamos o tipo, se for do tipo word, a gente chama uma função que vai ter as verificações pra o caso word:
     3.1 caso word:
             3.1.1 a gente adiciona no *cmd e verifica o que tem depois do token;
             3.1.2 se tiver algo depois e for diferente de uma operação, a gente concatena com o cmd no content 
@@ -68,14 +68,3 @@ cat file.txt >> echo 'oi' tr i $ | tr i ! | ls
                         mas depois do que vier dps de < a gente considera como comando e faz um outro NO;
             4.1.2 se for >> ou > a gente adiciona na struct de redirect o tipo e o que vir depois da operacao 
                   em content. (se for uma word seguida de outra word depois da operacao, consideramos como comando)
-
-se o loop for desse jeito:
-
-while (token)
-{
-    token = funcao que trata tudo ate o pipe e retorna no pipe;
-    if (token == |)
-        pipe++;
-        token = token->next;
-    continue ;
-}
