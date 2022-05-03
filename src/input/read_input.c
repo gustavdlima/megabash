@@ -56,7 +56,6 @@ static int	is_it_history(char *cmd)
 int	too_many_pipes(char *cmd)
 {
 	int	i;
-	int	sign;
 
 	i = 0;
 	if (open_quotes(cmd) == TRUE)
