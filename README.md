@@ -1,5 +1,9 @@
 # megabash
 
+cat : tudo o que tiver na frente até encontrar um sinal (|, >, <) ele printa, se o arquivo ou o diretório não existir, ele printa erro no prompt. Se tiver redirect de output, ele só preenche com oq for válido e printa no prompt se tiver algum erro.
+
+
+
 ## 0. "|" : precisa de dois argumentos, a prioridade de execução é do segundo argumento.
 <strong>0.1. Enquanto o segundo não for encontrado, o comando não fecha.<br>
 1.1. Se o primeiro comando trabalhar com texto e o segundo trabalhar alterando texto, então os dois são executados.<br></strong>
@@ -56,6 +60,25 @@ só ls é executado
 ls | echo oi | tr i @ | cat README.md | tr i $ > file<br>
 só cat com o segundo tr são executados
 
+EX6:
+echo oi > cat file cat
+cria um arquivo chamado cat com o texto "oi file cat"
+
+EX7:
+echo oi > cat file
+cria um arquivo chamado cat com o texto "oi file"
+
+echo oi > cat fiiiiiiiile cat | tr i $
+preenche o arquivo cat com "oi fiiiiiiiile cat" e ignora o tr
+
+echo oi > cat fiiiiiiiile cat | ls | tr i $
+preenche o arquivo cat com "oi fiiiiiiiile cat" E aplica tr em ls no prompt
+
+echo oi > cat fiiiiiiiile cat | tr i $ | ls
+preenche o arquivo cat com "oi fiiiiiiiile cat" E printa ls no prompt
+
+cat file.txt > file file2 file3 file4
+vai mandar o conteudo de file.txt, file2, file3 e file4 para o file. Se file tiver um conteudo dentro, ele será apagado.
 
 ## 2. ">>" : parecido com o anterior, porém ele ACRESCENTA ao arquivo o conteúdo e utiliza as mesmas regras explicadas acima.
 
