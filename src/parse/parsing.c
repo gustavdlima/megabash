@@ -21,7 +21,7 @@
 
 // t_commands	*take_command(t_token *token, t_commands *command)
 // {
-	
+
 // }
 
 // t_token	*to_null_or_pipe(t_token *token)
@@ -80,6 +80,7 @@ t_token *command_parse(t_token *token, t_commands *command)
 	command->cmd = ft_strdup(token->content);
 	token = token->next;
 	cmd_string = ft_strdup(command->cmd);
+	command->redirect = NULL;
 	while (token)
 	{
 		if (token->type == is_pipe)
@@ -88,11 +89,11 @@ t_token *command_parse(t_token *token, t_commands *command)
 		{
 			cmd_string = insert_caracter(cmd_string, ' ');
 			temp = ft_strjoin(cmd_string, token->content);
-			cmd_string = ft_strdup(temp);			
+			cmd_string = ft_strdup(temp);
 			free(temp);
 		}
 		if (token->type == is_redirect)
-		{	
+		{
 			if (!command->redirect)
 			{
 				command->redirect = redirect_lst_new();
