@@ -18,7 +18,7 @@ static char	*double_operator(char *input, int i, int is_second_space)
 	char	*aux;
 	char	*str;
 
-	if (is_second_space == TRUE)
+	if (is_second_space == true)
 		aux = ft_substr(input + i, 0, 1);
 	else
 		aux = ft_substr(input + i, 0, 2);
@@ -39,7 +39,7 @@ static void	insert_space_after(char *input, int i, char **temp,
 		aux = double_operator(input, i, is_second_space);
 	else
 	{
-		if (is_second_space == TRUE)
+		if (is_second_space == true)
 			aux = ft_strdup(" ");
 		else
 		{
@@ -85,10 +85,10 @@ char	*check_operator_space(char *input)
 			{
 				insert_space_before(input + i, &temp);
 				if (input[i + 1] != ' ' && input[i + 1])
-					insert_space_after(input, i, &temp, TRUE);
+					insert_space_after(input, i, &temp, true);
 			}
 			else if (input[i + 1] != ' ' && input[i + 1])
-				insert_space_after(input, i, &temp, FALSE);
+				insert_space_after(input, i, &temp, false);
 		}
 		else
 			getting_temp_with_char(&temp, input + i);

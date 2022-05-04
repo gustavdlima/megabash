@@ -13,7 +13,7 @@ static t_env	*get_env_previous_node(t_env *list, char *name)
 	{
 		if (list->next)
 		{
-			if (ft_new_strncmp(list->next->name, name) == TRUE)
+			if (ft_new_strncmp(list->next->name, name) == true)
 				return (list);
 		}
 		list = list->next;

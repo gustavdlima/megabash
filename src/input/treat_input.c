@@ -67,7 +67,7 @@ static int	expand_dollar(char *cmd, int i, char **name)
 		skip++;
 		curly_bracket = 1;
 	}
-	if (is_question_mark(cmd + i) == TRUE)
+	if (is_question_mark(cmd + i) == true)
 	{
 		*name = ft_itoa(g_megabash.exit_status);
 		skip = skip + 2 + curly_bracket;
@@ -91,8 +91,8 @@ char	*treat_dollar(char *cmd)
 	final = ft_substr(cmd, 0, i);
 	while (cmd[i])
 	{
-		if (cmd[i] == '$' && single_dollar(cmd + i) == FALSE
-			&& single_quotted_argument(cmd, i) == FALSE)
+		if (cmd[i] == '$' && single_dollar(cmd + i) == false
+			&& single_quotted_argument(cmd, i) == false)
 			i = i + expand_dollar(cmd, i, &name);
 		else
 		{
@@ -111,29 +111,29 @@ char	*treat_dollar(char *cmd)
 int	is_operator(char *input)
 {
 	if (!ft_strncmp(input, "|", 2))
-		return (IS_PIPE);
+		return (is_pipe);
 	else if (!ft_strncmp(input, ">", 2))
-		return (IS_REDIRECT);
+		return (is_redirect);
 	else if (!ft_strncmp(input, "<", 2))
-		return (IS_REDIRECT);
+		return (is_redirect);
 	else if (!ft_strncmp(input, ">>", 3))
-		return (IS_REDIRECT);
+		return (is_redirect);
 	else if (!ft_strncmp(input, "<<", 3))
-		return (IS_HERE_DOC);
+		return (is_redirect);
 	else
-		return (FALSE);
+		return (false);
 }
 
 int	check_operator(char operator)
 {
 	if (operator == '|')
-		return (TRUE);
+		return (true);
 	else if (operator == '<')
-		return (TRUE);
+		return (true);
 	else if (operator == '>')
-		return (TRUE);
+		return (true);
 	else
-		return (FALSE);
+		return (false);
 }
 
 char	*treat_operators(char *input)

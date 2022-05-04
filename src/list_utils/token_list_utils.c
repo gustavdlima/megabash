@@ -20,11 +20,11 @@ int	token_pipe_checker(t_token *token)
 	list = token;
 	while (list)
 	{
-		if (list->type == IS_PIPE)
-			return (TRUE);
+		if (list->type == is_pipe)
+			return (true);
 		list = list->next;
 	}
-	return (FALSE);
+	return (false);
 }
 
 t_token	*token_lst_new(char *content)

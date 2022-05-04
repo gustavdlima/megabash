@@ -10,16 +10,23 @@
 
 enum e_boolean
 {
-	FALSE,
-	TRUE
+	false,
+	true
 };
 
 enum e_types
 {
-	IS_WORD = 12,
-	IS_PIPE,
-	IS_REDIRECT,
-	IS_HERE_DOC
+	is_word = 12,
+	is_pipe,
+	is_redirect,
+};
+
+enum e_redirect_type
+{
+	is_input = 5,
+	is_output,
+	is_append,
+	is_here_doc,
 };
 
 typedef struct s_env{
@@ -35,13 +42,15 @@ typedef struct s_token{
 	struct s_token	*prev;
 }				t_token;
 
-typedef struct s_redirect{
+typedef struct s_redirect
+{
 	int         type;
-    char        **content;
+    char        *content;
     struct s_redirect  *next;
 }				t_redirect;
 
-typedef struct s_commands{
+typedef struct s_commands
+{
 	int					type;
 	char				*cmd;
 	char				**content;

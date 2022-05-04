@@ -28,37 +28,79 @@
 // {
 // 	while (token)
 // 	{
-// 		if (token->next == NULL || token->next->type == IS_PIPE)
+// 		if (token->next == NULL || token->next->type == is_pipe)
 // 			break ;
 // 		token = token->next;
 // 	}
 // 	return (token);
 // }
 
-// primeiro passo, testar com um comando normal
+int	redirect_type(char *content)
+{
+	if (!ft_strncmp(content, ">", 2))
+		return (is_output);
+	else if (!ft_strncmp(content, "<", 2))
+		return (is_input);
+	else if (!ft_strncmp(content, ">>", 3))
+		return (is_append);
+	else if (!ft_strncmp(content, "<<", 3))
+		return (is_here_doc);
+	else
+		return (false);
+}
+
+t_token *redirect_parse(t_token *token, struct s_redirect *redirect)
+{
+	char	*temp;
+
+	redirect->type = redirect_type(token->content);
+	token = token->next;
+	redirect->content = ft_strdup("");
+	while (token)
+	{
+		if (token->type == is_word)
+		{
+			temp = ft_strjoin(redirect->content, token->content);
+			redirect->content = ft_strdup(temp);
+			redirect->content = insert_caracter(redirect->content, ' ');
+			free(temp);
+		}
+		if (token->type == is_redirect)
+			return (token);
+		token = token->next;
+	}
+	return (token);
+}
 
 t_token *command_parse(t_token *token, t_commands *command)
 {
-	char	*temp;
-	char	*cmd_string;
+	char		*temp;
+	char		*cmd_string;
 
 	command->cmd = ft_strdup(token->content);
 	token = token->next;
 	cmd_string = ft_strdup(command->cmd);
 	while (token)
 	{
-		if (token->type == IS_PIPE)
+		if (token->type == is_pipe)
 			return (token);
-		if (token->type == IS_WORD && (token->prev->type != IS_REDIRECT
-			|| token->prev->type != IS_HERE_DOC))
+		if (token->type == is_word)
 		{
 			cmd_string = insert_caracter(cmd_string, ' ');
 			temp = ft_strjoin(cmd_string, token->content);
-			cmd_string = ft_strdup(temp);			free(temp);
+			cmd_string = ft_strdup(temp);			
+			free(temp);
 		}
-		if (token->type == IS_REDIRECT || token->type == IS_HERE_DOC)
+		if (token->type == is_redirect)
 		{	
-			printf ("era pra ter um redirect aqui\n");
+			if (!command->redirect)
+			{
+				command->redirect = redirect_lst_new();
+				token = redirect_parse(token, command->redirect);
+			}
+			else
+				token = redirect_parse(token, redirect_addback(&command->redirect, redirect_lst_new()));
+			continue ;
 		}
 		token = token->next;
 	}
@@ -69,6 +111,7 @@ t_token *command_parse(t_token *token, t_commands *command)
 	for (int p = 0; command->content[p]; p++)
 		printf("%s ", command->content[p]);
 	printf("\n");
+	print_redirect(command->redirect);
 	return (token);
 }
 
@@ -83,17 +126,16 @@ void	parsing(void)
 	token = g_megabash.token_list;
 	while (token)
 	{
-		if (token->type == IS_WORD)
+		if (token->type == is_word)
 		{
         	token = command_parse(token, cmd_lst_new());
 			continue ;
 		}
-        if (token->type == IS_PIPE)
+        if (token->type == is_pipe)
 			g_megabash.pipe++;
-		if (token->type == IS_REDIRECT || token->type == IS_HERE_DOC)
+		if (token->type == is_redirect || token->type == is_here_doc)
 			printf ("comecamos com redirect ou here-doc\n");
 		token = token->next;
 	}
-    // print_commands(command);
 	// treat_parse_list();
 }

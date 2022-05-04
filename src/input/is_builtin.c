@@ -2,19 +2,19 @@
 
 int	is_builtin(char *input)
 {
-	if (ft_new_strncmp("export", input) == TRUE)
-		return (TRUE);
-	if (ft_new_strncmp("unset", input) == TRUE)
-		return (TRUE);
-	if (ft_new_strncmp("echo", input) == TRUE)
-		return (TRUE);
-	if (ft_new_strncmp("exit", input) == TRUE)
-		return (TRUE);
-	if (ft_new_strncmp("env", input) == TRUE)
-		return (TRUE);
-	if (ft_new_strncmp("pwd", input) == TRUE)
-		return (TRUE);
-	if (ft_new_strncmp("cd", input) == TRUE)
-		return (TRUE);
-	return (FALSE);
+	if (ft_new_strncmp("export", input) == true)
+		return (true);
+	if (ft_new_strncmp("unset", input) == true)
+		return (true);
+	if (ft_new_strncmp("echo", input) == true)
+		return (true);
+	if (ft_new_strncmp("exit", input) == true)
+		return (true);
+	if (ft_new_strncmp("env", input) == true)
+		return (true);
+	if (ft_new_strncmp("pwd", input) == true)
+		return (true);
+	if (ft_new_strncmp("cd", input) == true)
+		return (true);
+	return (false);
 }

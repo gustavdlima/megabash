@@ -13,7 +13,7 @@ void    set_token_type(t_token *list)
         }
         else
         {
-            list->type = IS_WORD;
+            list->type = is_word;
             printf("tipo: %d\n", list->type);
         }
         list = list->next;

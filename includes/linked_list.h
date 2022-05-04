@@ -23,4 +23,9 @@ int			token_pipe_checker(t_token *token);
 void		print_token(t_token *token);
 void		free_token(t_token *token);
 
+t_redirect	*redirect_lst_new(void);
+t_redirect	*redirect_last_node(t_redirect *lst);
+t_redirect	*redirect_addback(t_redirect **lst, t_redirect *new);
+void	print_redirect(t_redirect *redirect);
+
 #endif
