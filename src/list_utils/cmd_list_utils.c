@@ -21,7 +21,7 @@ void	print_commands(t_commands *commands)
 	}
 }
 
-void	cmd_addback(t_commands **lst, t_commands *new)
+void	cmd_lst_addback(t_commands **lst, t_commands *new)
 {
 	t_commands	*i;
 
