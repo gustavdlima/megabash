@@ -1,0 +1,11 @@
+total 264
+-rw-r--r--  1 juliana juliana   2840 Apr 27 21:19 Makefile
+-rw-r--r--  1 juliana juliana   5549 Apr 29 20:41 README.md
+drwxr-xr-x 12 juliana juliana   4096 May  3 16:02 build
+-rw-r--r--  1 juliana juliana      0 May  3 23:30 file
+drwxr-xr-x  2 juliana juliana   4096 May  3 15:33 includes
+drwxr-xr-x  3 juliana juliana   4096 Apr 11 23:08 libs
+-rw-r--r--  1 juliana juliana      0 May  3 23:30 ls
+-rwxr-xr-x  1 juliana juliana 236808 May  3 16:02 minishell
+-rw-r--r--  1 juliana juliana    474 Apr 14 14:10 readline.supp
+drwxr-xr-x 12 juliana juliana   4096 May  3 15:33 src

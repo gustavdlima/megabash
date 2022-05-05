@@ -73,22 +73,33 @@ char	*check_operator_space(char *input)
 {
 	int		i;
 	char	*temp;
+	char	*aux;
+	char	*auxiliar;
 
 	i = -1;
 	temp = ft_strdup("");
 	while (input[++i])
 	{
-		if (check_operator(input[i])
-			&& (input[i - 1] != ' ' || input[i + 1] != ' '))
+		if (check_operator(input[i]))
 		{
-			if (input[i - 1] != ' ' && input[i - 1])
+			if (i != 0 && input[i - 1] && input[i - 1] != ' ')
 			{
 				insert_space_before(input + i, &temp);
 				if (input[i + 1] != ' ' && input[i + 1])
 					insert_space_after(input, i, &temp, true);
 			}
-			else if (input[i + 1] != ' ' && input[i + 1])
+			else if (input[i + 1] && input[i + 1] != ' ')
+
 				insert_space_after(input, i, &temp, false);
+			else
+			{
+				auxiliar = ft_substr(input + i, 0, 1);
+				aux = ft_strjoin(temp, auxiliar);
+				free(auxiliar);
+				free(temp);
+				temp = ft_strdup(aux);
+				free(aux);
+			}
 		}
 		else
 			getting_temp_with_char(&temp, input + i);
