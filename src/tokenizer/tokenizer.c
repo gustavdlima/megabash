@@ -22,12 +22,16 @@ void	tokenizer(char *input)
 	int		i;
 
 	i = 1;
+	printf(">>> oq vai ser splitado: %s\n",input);
 	temp = ft_split(input, ' ');
 	if (temp != NULL)
 	{
 		g_megabash.token_list = token_lst_new(temp[0]);
+	printf(">>> temp[0]: %s\n",temp[0]);
+	printf(">>> temp[1]: %s\n",temp[1]);
 		while (temp[i])
 		{
+	printf(">>> temp[%d]: %s\n",i,temp[i]);
 			token_addback(&g_megabash.token_list, token_lst_new(temp[i]));
 			if (temp[i])
 				i++;
