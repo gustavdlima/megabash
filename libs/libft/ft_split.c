@@ -3,71 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 20:07:05 by gusalves          #+#    #+#             */
-/*   Updated: 2022/01/08 19:52:12 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/05/05 16:35:03 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	count_len_words(char const *str, char delimiter)
+static size_t	ft_row(char const *s, char c)
+{
+	size_t	row;
+	size_t	i;
+
+	i = 0;
+	row = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] != c && (s[i + 1] == '\0' || s[i + 1] == c))
+			row++;
+		i++;
+	}
+	return (row);
+}
+
+static size_t	ft_words(char const *s, char c)
 {
 	size_t	i;
 
 	i = 0;
-	while (str[i] != delimiter && str[i])
-		i++;
-	return (i);
-}
-
-static size_t	count_words(char const *str, char delimiter)
-{
-	size_t	i;
-	size_t	aux;
-
-	if (!*str)
-		return (0);
-	i = 1;
-	aux = 0;
-	while (str[i])
+	while (*s && *s != c)
 	{
-		if (str[i] != delimiter && str[i])
-		{
-			aux++;
-			while (str[i] != delimiter && str[i])
-				i++;
-		}
-		else
-			i++;
+		i++;
+		s++;
 	}
-	return (aux);
+	return (i);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	n_words;
-	size_t	n_chars;
-	size_t	index;
-	char	**string;
+	char	**split;
+	size_t	rows;
+	size_t	i;
+	size_t	k;
 
-	if (!s)
-		return (0);
-	n_words = count_words(s, c);
-	string = (char **)malloc((n_words + 1) * sizeof(char *));
-	if (!string)
-		return (0);
-	index = 0;
-	while (index < n_words)
+	rows = ft_row(s, c);
+	split = ft_calloc(sizeof(char *), (rows + 1));
+	if (split == NULL)
+		return (NULL);
+	k = 0;
+	while (*s)
 	{
-		while (*s && *s == c)
+		if (*s != c)
+		{
+			i = ft_words(s, c);
+			split[k] = ft_substr(s, 0, i);
+			if (!split[k])
+				return (NULL);
+			s += i;
+			k++;
+		}
+		while (*s && (*s == c))
 			s++;
-		n_chars = count_len_words(s, c);
-		string[index] = ft_substr(s, 0, n_chars);
-		s += n_chars + 1;
-		index++;
 	}
-	string[index] = 0;
-	return (string);
+	return (split);
 }
