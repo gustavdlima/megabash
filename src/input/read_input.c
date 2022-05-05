@@ -44,8 +44,8 @@ static int	is_it_history(char *cmd)
 		return (false);
 	if (only_space(cmd) == true)
 		return (false);
-	if (theres_delimiter(cmd) == true)
-		return (false);
+	// if (theres_delimiter(cmd) == true)
+	// 	return (false);
 	if (ft_new_strncmp(cmd, g_megabash.last_input) == true)
 		return (false);
 	free(g_megabash.last_input);

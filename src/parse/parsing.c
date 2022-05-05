@@ -19,11 +19,6 @@
 // 	}
 // }
 
-// t_commands	*take_command(t_token *token, t_commands *command)
-// {
-
-// }
-
 // t_token	*to_null_or_pipe(t_token *token)
 // {
 // 	while (token)
@@ -49,7 +44,7 @@ int	redirect_type(char *content)
 		return (false);
 }
 
-t_token *redirect_parse(t_token *token, struct s_redirect *redirect)
+t_token *cmd_redirect_parse(t_token *token, struct s_redirect *redirect)
 {
 	char	*temp;
 
@@ -72,7 +67,7 @@ t_token *redirect_parse(t_token *token, struct s_redirect *redirect)
 	return (token);
 }
 
-t_token *command_parse(t_token *token, t_commands *command)
+t_token *cmd_parse(t_token *token, t_commands *command)
 {
 	char		*temp;
 	char		*cmd_string;
@@ -97,28 +92,77 @@ t_token *command_parse(t_token *token, t_commands *command)
 			if (!command->redirect)
 			{
 				command->redirect = redirect_lst_new();
-				token = redirect_parse(token, command->redirect);
+				token = cmd_redirect_parse(token, command->redirect);
 			}
 			else
-				token = redirect_parse(token, redirect_addback(&command->redirect, redirect_lst_new()));
+				token = cmd_redirect_parse(token, redirect_addback(&command->redirect, redirect_lst_new()));
 			continue ;
 		}
 		token = token->next;
 	}
 	// tenho que verificar se no ultimo espaco da split eh null ou espaco
 	command->content = ft_split(cmd_string, ' ');
-	printf("command->cmd = %s\n", command->cmd);
-	printf("command->content: ");
-	for (int p = 0; command->content[p]; p++)
-		printf("%s ", command->content[p]);
-	printf("\n");
-	print_redirect(command->redirect);
+	// printf("command->cmd = %s\n", command->cmd);
+	// printf("command->content: ");
+	// for (int p = 0; command->content[p]; p++)
+	// 	printf("%s ", command->content[p]);
+	// printf("\n");
+	print_commands(command);
 	return (token);
 }
 
-// ls > file
-// < file ls > file
-// file1 > file2 > file3 cat Makefile > file4
+ // < file tr 'a' 'b'
+//  > file cat Makefile
+t_token *redirect_cmd_parse(t_token *token, t_redirect *redirect)
+{
+	char	*temp;
+
+	redirect->type = redirect_type(token->content);
+	token = token->next;
+	redirect->content = ft_strdup("");
+	while (token)
+	{
+		if (token->type == is_word && token->prev->type == is_word)
+			return (token);
+		if (token->type == is_word)
+		{
+			temp = ft_strjoin(redirect->content, token->content);
+			redirect->content = ft_strdup(temp);
+			redirect->content = insert_caracter(redirect->content, ' ');
+			free(temp);
+		}
+		if (token->type == is_redirect)
+			return (token);
+		token = token->next;
+	}
+	return (token);
+}
+ 
+ // < file tr 'a' 'b'
+//  > file cat Makefile
+t_token *redirect_parse(t_token *token, t_commands *command)
+{
+	command->redirect = NULL;
+	while (token)
+	{
+		if (token->type == is_redirect)
+		{
+			if (!command->redirect)
+			{
+				command->redirect = redirect_lst_new();
+				token = cmd_redirect_parse(token, command->redirect);
+			}
+			else
+				token = cmd_redirect_parse(token, redirect_addback(&command->redirect, redirect_lst_new()));
+			continue ;
+		}
+		if (token->type == is_word)
+			return (token);
+		token = token->next;
+	}
+	print_commands(command);
+	return (token);
+}
 
 void	parsing(void)
 {
@@ -129,13 +173,16 @@ void	parsing(void)
 	{
 		if (token->type == is_word)
 		{
-        	token = command_parse(token, cmd_lst_new());
+        	token = cmd_parse(token, cmd_lst_new());
 			continue ;
 		}
         if (token->type == is_pipe)
 			g_megabash.pipe++;
-		if (token->type == is_redirect || token->type == is_here_doc)
-			printf ("comecamos com redirect ou here-doc\n");
+		if (token->type == is_redirect)
+		{
+			token = redirect_parse(token, cmd_lst_new());
+			continue ;
+		}
 		token = token->next;
 	}
 	// treat_parse_list();

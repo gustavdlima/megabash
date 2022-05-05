@@ -6,10 +6,16 @@ void	print_commands(t_commands *commands)
 		return ;
 	while (commands)
 	{
-		printf("type: %d\n", commands->type);
-		printf("cmd: %s\n", commands->cmd);
+		printf("command-> type: %d\n", commands->type);
+		printf("command-> cmd: %s\n", commands->cmd);
 		for (int j = 0; commands->content[j]; j++)
-			printf("content: %s\n", commands->content[j]);
+			printf("command-> content: %s\n", commands->content[j]);
+		while (commands->redirect)
+		{
+			printf("redirect-> type: %d\n", commands->redirect->type);
+			printf("redirect-> file: %s\n", commands->redirect->content);
+			commands->redirect = commands->redirect->next;
+		}
 		commands = commands->next;
 	}
 }
