@@ -162,3 +162,8 @@ void	treat_input(char **input)
 	tokenizer(treated);
 	treat_token_list();
 }
+
+// a e i o u -> some o u
+// a ee ii oo u -> some o u
+// aa ee ii oo u -> nao some nada
+// aa ee ii oo uu -> nao some nada

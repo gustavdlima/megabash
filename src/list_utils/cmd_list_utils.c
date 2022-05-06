@@ -69,6 +69,7 @@ t_commands	*cmd_lst_new(void)
 		element->cmd = NULL;
 		element->content = NULL;
 		element->next = NULL;
+		element->redirect = NULL;
 		return (element);
 	}
 	return (0);

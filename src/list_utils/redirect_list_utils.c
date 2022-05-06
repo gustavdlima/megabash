@@ -12,7 +12,7 @@ void	print_redirect(t_redirect *redirect)
 	}
 }
 
-t_redirect	*redirect_addback(t_redirect **lst, t_redirect *new)
+void	redirect_addback(t_redirect **lst, t_redirect *new)
 {
 	t_redirect	*i;
 
@@ -23,7 +23,6 @@ t_redirect	*redirect_addback(t_redirect **lst, t_redirect *new)
 	}
 	else
 		*lst = new;
-	return (new);
 }
 
 t_redirect	*redirect_last_node(t_redirect *lst)
