@@ -9,8 +9,11 @@ void	print_commands(t_commands *commands)
 		printf("command-> type: %d\n", commands->type);
 		printf("command-> cmd: %s\n", commands->cmd);
 		if (commands->content)
+		{
+			printf("KKKKKKKKKKK FALAAAAAAAAAAAAAAAAA\n");
 			for (int j = 0; commands->content[j]; j++)
 				printf("command-> content: %s\n", commands->content[j]);
+		}
 		while (commands->redirect)
 		{
 			printf("redirect-> type: %d\n", commands->redirect->type);
