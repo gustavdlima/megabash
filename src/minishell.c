@@ -57,6 +57,16 @@ static void	megaexecute(char **input)
 	parsing();
 	while (g_megabash.cmd_list)
 	{
+		if(!ft_strncmp(g_megabash.cmd_list->cmd, "cd", 3))
+		{
+			cd(g_megabash.cmd_list->content);
+			return;
+		}
+		if(!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
+		{
+			cd(g_megabash.cmd_list->content);
+			return;
+		}
 		if (g_megabash.pipe > 0 || g_megabash.cmd_list->redirect)
 		{
 			pipe(fd);
@@ -71,6 +81,8 @@ static void	megaexecute(char **input)
 	// 	unset(g_megabash.cmd_list->content);
 	// if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
 	// 	print_env(g_megabash.env);
+	// if(!ft_strncmp(g_megabash.cmd_list->cmd, "pwd", 4))
+	// 	pwd();
 	// if(!ft_strncmp(g_megabash.cmd_list->cmd, "pwd", 4))
 	// 	pwd();
 	// g_megabash.exit_status = 0;
