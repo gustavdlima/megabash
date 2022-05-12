@@ -9,6 +9,6 @@ void	unset(char **command);
 void	pwd(void);
 void	free_unset(t_env *list);
 void	cd(char **matrix);
-
+void	builtin_env(void);
 
 #endif

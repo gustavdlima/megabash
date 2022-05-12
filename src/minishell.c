@@ -64,7 +64,7 @@ static void	megaexecute(char **input)
 		}
 		if(!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
 		{
-			cd(g_megabash.cmd_list->content);
+			builtin_env();
 			return;
 		}
 		if (g_megabash.pipe > 0 || g_megabash.cmd_list->redirect)
