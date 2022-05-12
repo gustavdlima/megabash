@@ -1,8 +1,5 @@
 #include "minishell.h"
 
-// ele volta para o diretorio anterior atraves da env oldpwd
-// pegar o conteudo da env old_pwd e mandar para chdir
-
 static void new_pwd_env(void)
 {
 	char	*directory;
@@ -29,6 +26,22 @@ static void	new_oldpwd_env(void)
 		env_node->content = ft_strdup(directory);
 }
 
+static void home_execute(void)
+{
+	t_env	*env_node;
+
+	env_node = get_env_node(g_megabash.env, "HOME");
+	if (env_node == NULL)
+		return ;
+	else
+	{
+		new_oldpwd_env();
+		chdir(env_node->content);
+		new_pwd_env();
+	}
+}
+// pegar o conteudo que tem na variavel home e ir para ele
+
 static void	dash_execute(void)
 {
 	char	*directory;
@@ -48,11 +61,10 @@ static void	dash_execute(void)
 
 void	cd(char **matrix)
 {
-
 	if(!ft_strncmp(g_megabash.cmd_list->content[1], "-", 2))
-	{
 		dash_execute();
-	}
+	else if(!ft_strncmp(g_megabash.cmd_list->content[1], "~", 2))
+		home_execute();
 	else
 	{
 		new_oldpwd_env();
