@@ -10,5 +10,6 @@ void	pwd(void);
 void	free_unset(t_env *list);
 void	cd(char **matrix);
 void	builtin_env(void);
+void	echo(char **matrix);
 
 #endif

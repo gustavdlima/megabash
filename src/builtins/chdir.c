@@ -40,7 +40,6 @@ static void home_execute(void)
 		new_pwd_env();
 	}
 }
-// pegar o conteudo que tem na variavel home e ir para ele
 
 static void	dash_execute(void)
 {
@@ -72,9 +71,3 @@ void	cd(char **matrix)
 		new_pwd_env();
 	}
 }
-
-
-// funcao para pegar o diretorio atual e salvar na env pwd
-// mudar o diretorio
-// funcao para pegar o diretorio antigo e salvar na env old_pwd
-// cd -, cd ~, cd 

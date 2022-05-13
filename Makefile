@@ -41,6 +41,7 @@ SRCS	=	minishell.c	\
 			$(BUILTIN_PATH)export.c						\
 			$(BUILTIN_PATH)pwd.c						\
 			$(BUILTIN_PATH)unset.c						\
+			$(BUILTIN_PATH)echo.c						\
 			$(TOKEN_PATH)quotes.c						\
 			$(TOKEN_PATH)special_or_metacharacters.c	\
 			$(TOKEN_PATH)tokenizer.c					\

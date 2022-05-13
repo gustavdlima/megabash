@@ -31,7 +31,6 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 		}
 		if (token->type == is_word)
 		{
-			printf("oi to parseando a word\n");
 			cmd_string = insert_caracter(cmd_string, ' ');
 			temp = ft_strjoin(cmd_string, token->content);
 			cmd_string = ft_strdup(temp);
@@ -142,6 +141,6 @@ void	parsing(void)
 		token = token->next;
 	}
 	g_megabash.cmd_list = cmd_temp;
-	// print_commands(g_megabash.cmd_list);
+	print_commands(g_megabash.cmd_list);
 	// treat_parse_list();
 }
