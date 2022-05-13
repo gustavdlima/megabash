@@ -65,13 +65,23 @@ static void	megaexecute(char **input)
 		
 		if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
 		{
-			builtin_env();
+			builtin_env(g_megabash.cmd_list->content);
 			return;
 		}
 
 		if (!ft_strncmp(g_megabash.cmd_list->cmd, "echo", 5))
 		{
 			echo(g_megabash.cmd_list->content);
+			return;
+		}
+		if (!ft_strncmp(g_megabash.cmd_list->cmd, "unset", 6))
+		{
+			unset(g_megabash.cmd_list->content);
+			return;
+		}
+		if (!ft_strncmp(g_megabash.cmd_list->cmd, "export", 7))
+		{
+			export(g_megabash.cmd_list->content);
 			return;
 		}
 		if (g_megabash.pipe > 0 || g_megabash.cmd_list->redirect)

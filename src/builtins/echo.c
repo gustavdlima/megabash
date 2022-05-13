@@ -2,7 +2,6 @@
 
 void	echo(char **matrix)
 {
-	char	*temp;
 	int		flag;
 	int		i;
 
@@ -10,7 +9,7 @@ void	echo(char **matrix)
 	i = 1;
 	if (!matrix[1])
 	{
-		ft_putchar_fd("\n", 1);
+		ft_putchar_fd('\n', 1);
 		return ;
 	}
 	if (!ft_strncmp(matrix[1], "-n", 3))
@@ -28,7 +27,3 @@ void	echo(char **matrix)
 	if (flag == 0)
 		ft_putstr_fd("\n", 1);
 }
-
-// comportamento do echo
-// echo printa o que tem depois do comando
-// a opcao -n tira a quebra de linha
