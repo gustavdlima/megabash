@@ -60,6 +60,8 @@ static void	dash_execute(void)
 
 void	cd(char **matrix)
 {
+	if (matrix[2])
+		ft_putendl_fd("megabash: cd: too many arguments", 2);
 	if(!ft_strncmp(g_megabash.cmd_list->content[1], "-", 2))
 		dash_execute();
 	else if(!ft_strncmp(g_megabash.cmd_list->content[1], "~", 2))
@@ -67,7 +69,15 @@ void	cd(char **matrix)
 	else
 	{
 		new_oldpwd_env();
-		chdir(matrix[1]);
+		if (chdir(matrix[1]))
+		{
+			// se for esse caso, nao preciso
+			printf("RETORNOU ALGO QUE NAO EH 0");
+		}
+		else
+			printf("RETORNOU 0");
 		new_pwd_env();
 	}
 }
+
+// o que vai acontecer caso entre um diretorio errado?

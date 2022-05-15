@@ -31,24 +31,24 @@ static int	check_arg(char *arg)
 	return (true);
 }
 
-void	exit_builtin(char *arg)
+void	exit_builtin(char **matrix)
 {
-	char **matrix;
+	char **cmd;
 
 	printf("exit\n");
-	if (arg)
+	if (matrix)
 	{
-		matrix = ft_split(arg, ' ');
-		if (matrix_size(matrix) > 0)
+		cmd = ft_split(matrix, ' ');
+		if (matrix_size(cmd) > 0)
 		{
 			print_error_exit("too many arguments");
 			return ;
 		}
-		if (matrix[1] && !check_arg(matrix[1]))
-			g_megabash.exit_status = ft_atoi(matrix[1]);
-		if (matrix[1] && check_arg(matrix[1]))
+		if (cmd[1] && !check_arg(cmd[1]))
+			g_megabash.exit_status = ft_atoi(cmd[1]);
+		if (cmd[1] && check_arg(cmd[1]))
 			g_megabash.exit_status = 2;
-		free_exit_builtin(arg, matrix);
+		free_exit_builtin(matrix, cmd);
 	}
 	exit(g_megabash.exit_status);
 }

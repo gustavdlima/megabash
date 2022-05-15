@@ -84,6 +84,11 @@ static void	megaexecute(char **input)
 			export(g_megabash.cmd_list->content);
 			return;
 		}
+		if (!ft_strncmp(g_megabash.cmd_list->cmd, "exit", 5))
+		{
+			exit_builtin(g_megabash.cmd_list->content);
+			return;
+		}
 		if (g_megabash.pipe > 0 || g_megabash.cmd_list->redirect)
 		{
 			pipe(fd);

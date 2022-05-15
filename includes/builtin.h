@@ -3,7 +3,7 @@
 
 # include "minishell.h"
 
-void	exit_builtin(char *arg);
+void	exit_builtin(char **matrix);
 void	export(char **command);
 void	unset(char **command);
 void	pwd(void);
