@@ -24,7 +24,7 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 	cmd_string = ft_strdup(command->cmd);
 	while (token)
 	{
-		if (token->type == is_pipe)
+		if (token->type == is_pipe || token->type == is_redirect)
 		{
 			command->content = ft_split(cmd_string, ' ');
 			return (token);
@@ -36,11 +36,11 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 			cmd_string = ft_strdup(temp);
 			free(temp);
 		}
-		if (token->type == is_redirect)
-		{
-			command->content = ft_split(cmd_string, ' ');
-			return (token);
-		}
+		// if (token->type == is_redirect)
+		// {
+		// 	command->content = ft_split(cmd_string, ' ');
+		// 	return (token);
+		// }
 		token = token->next;
 	}
 	command->content = ft_split(cmd_string, ' ');
@@ -59,10 +59,7 @@ static t_token *redirect_parse(t_token *token, t_redirect *redirect)
 		if (token->type == is_pipe)
 			return (token);
 		if (token->type == is_word && token->prev->type == is_word)
-		{
-			printf("Entrei aqui pq sou o comando > %s\n", token->content);
 			return (token);
-		}
 		if (token->type == is_word)
 		{
 			printf("oi to parseando a file\n");
@@ -96,20 +93,9 @@ static t_token *parsing_check(t_token *token, t_commands *command)
 		}
 		else if (token->type == is_redirect)
 		{
-			if (command->redirect == NULL)
-			{
-				printf("Entrei aqui para criar o nó do redirect \n");
-				command->redirect = redirect_lst_new();
-				token = redirect_parse(token, command->redirect);
-				continue ;
-			}
-			else
-			{
-				printf("Entrei aqui para continuar o nó do redirect \n");
 				redirect_addback(&command->redirect, redirect_lst_new());
 				token = redirect_parse(token, redirect_last_node(command->redirect));
 				continue ;
-			}
 		}
 		token = token->next;
 	}
@@ -146,22 +132,11 @@ void	parsing(void)
 	cmd_temp = NULL;
 	while (token)
 	{
-		if (cmd_temp == NULL)
-		{
-			cmd_temp = cmd_lst_new();
-			token = parsing_check(token, cmd_temp);
-			continue ;
-		}
-		else
-		{
-			printf ("oi\n");
-			cmd_lst_addback(&cmd_temp, cmd_lst_new());
-			token = parsing_check(token, cmd_last_node(cmd_temp));
-			continue ;
-		}
-		token = token->next;
+		cmd_lst_addback(&cmd_temp, cmd_lst_new());
+		token = parsing_check(token, cmd_last_node(cmd_temp));
+		continue ;
 	}
 	g_megabash.cmd_list = cmd_temp;
 	print_commands(g_megabash.cmd_list);
-	treat_parse_list();
+	// treat_parse_list();
 }
