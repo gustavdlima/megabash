@@ -116,6 +116,27 @@ static t_token *parsing_check(t_token *token, t_commands *command)
 	return (token);
 }
 
+static void	treat_parse_list(void)
+{
+	t_commands	*cmd_temp;
+	int			i;
+
+	cmd_temp = g_megabash.cmd_list;
+	while (cmd_temp)
+	{
+		i = 0;
+		while (cmd_temp->content[i])
+		{
+			printf("command no treated: %s\n", cmd_temp->content[i]);
+			reverse_input_chars(cmd_temp->content[i]);
+			cmd_temp->content[i] = no_quotes(cmd_temp->content[i]);
+			printf("command treated: %s\n", cmd_temp->content[i]);
+			i++;
+		}
+		cmd_temp = cmd_temp->next;
+	}
+}
+
 void	parsing(void)
 {
 	t_token	*token;
@@ -142,5 +163,5 @@ void	parsing(void)
 	}
 	g_megabash.cmd_list = cmd_temp;
 	print_commands(g_megabash.cmd_list);
-	// treat_parse_list();
+	treat_parse_list();
 }
