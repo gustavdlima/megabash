@@ -12,7 +12,7 @@ void	check_dup(int a, int b)
 	close(a);
 }
 
-static void	execute_execve(int *fd, int a, int b)
+static void	execute_execve(int *fd)
 {
 	char	*pathway;
 
@@ -24,8 +24,13 @@ static void	execute_execve(int *fd, int a, int b)
 	}
 	else
 	{
-		check_dup(a, b);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		// check_dup(fd[0], STDIN_FILENO);
+		// close(fd[0]);
 		execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
+		exit (1);
 	}
 	print_commands(g_megabash.cmd_list);
 }
@@ -43,14 +48,35 @@ static void	forking_input(int *fd)
 	}
 	if (pid == 0)
 	{
-		execute_execve(fd, fd[0], STDIN_FILENO);
+		execute_execve(fd);
 	}
 	else
 	{
-		// execute_execve(fd, fd[1], STDOUT_FILENO);
+		pid = fork();
+		if (pid == 0)
+		{
+			dup2(fd[0], STDIN_FILENO);
+			close(fd[1]);
+			close(fd[0]);
+			char *pathway = what_cmd(g_megabash.cmd_list->cmd);
+			if (!pathway)
+			{
+				printf("NÃO EXISTE!!\n");
+				g_megabash.exit_status = 1;
+			}
+			execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
+			exit (1);
+		}
+		else
+		{
+		close(fd[0]);
 		close(fd[1]);
 		waitpid(pid, &g_megabash.exit_status, 0);
-		close(fd[0]);
+		}
+		// close(fd[1]);
+		// waitpid(pid, &g_megabash.exit_status, 0);
+		// // execute_execve_sec(fd);
+		// close(fd[0]);
 	}
 }
 
