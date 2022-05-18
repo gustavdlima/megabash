@@ -2,7 +2,17 @@
 
 t_global	g_megabash;
 
-static void	execute_execve(int *fd)
+void	check_dup(int a, int b)
+{
+	if (dup2(a, b) == -1)
+	{
+		write(2, "Permission denined.\n", 21);
+		exit(1);
+	}
+	close(a);
+}
+
+static void	execute_execve(int *fd, int a, int b)
 {
 	char	*pathway;
 
@@ -14,14 +24,7 @@ static void	execute_execve(int *fd)
 	}
 	else
 	{
-		if (dup2(fd[0], STDIN_FILENO) != -1)
-		{
-			close(fd[0]);
-			// if (dup2(fd[1], STDOUT_FILENO) != -1)
-			// {
-			// 	close(fd[1]);
-			// }
-		}
+		check_dup(a, b);
 		execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
 	}
 	print_commands(g_megabash.cmd_list);
@@ -40,11 +43,15 @@ static void	forking_input(int *fd)
 	}
 	if (pid == 0)
 	{
-		execute_execve(fd);
+		execute_execve(fd, fd[0], STDIN_FILENO);
 	}
-	close(fd[1]);
-	waitpid(pid, &g_megabash.exit_status, 0);
-	close(fd[0]);
+	else
+	{
+		// execute_execve(fd, fd[1], STDOUT_FILENO);
+		close(fd[1]);
+		waitpid(pid, &g_megabash.exit_status, 0);
+		close(fd[0]);
+	}
 }
 
 static void	megaexecute(char **input)
@@ -62,7 +69,7 @@ static void	megaexecute(char **input)
 			cd(g_megabash.cmd_list->content);
 			return;
 		}
-		
+
 		if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
 		{
 			builtin_env(g_megabash.cmd_list->content);
@@ -89,10 +96,10 @@ static void	megaexecute(char **input)
 			exit_builtin(g_megabash.cmd_list->content);
 			return;
 		}
-		if (g_megabash.pipe > 0 || g_megabash.cmd_list->redirect)
-		{
+		// if (g_megabash.pipe > 0 || g_megabash.cmd_list->redirect)
+		// {
 			pipe(fd);
-		}
+		// }
 		forking_input(fd);
 		g_megabash.cmd_list = g_megabash.cmd_list->next;
 	}
