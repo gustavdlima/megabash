@@ -7,7 +7,7 @@ void	check_dup(int a, int b)
 	if (dup2(a, b) == -1)
 	{
 		write(2, "Permission denined.\n", 21);
-		exit(1);
+		g_megabash.exit_status = 1;
 	}
 	close(a);
 }
@@ -24,13 +24,9 @@ static void	execute_execve(int *fd)
 	}
 	else
 	{
-		dup2(fd[1], STDOUT_FILENO);
+		check_dup(fd[1], STDOUT_FILENO);
 		close(fd[0]);
-		close(fd[1]);
-		// check_dup(fd[0], STDIN_FILENO);
-		// close(fd[0]);
 		execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
-		exit (1);
 	}
 	print_commands(g_megabash.cmd_list);
 }
@@ -44,7 +40,6 @@ static void	forking_input(int *fd)
 	{
 		printf("deu ruim\n");
 		g_megabash.exit_status = 1;
-		exit (1);
 	}
 	if (pid == 0)
 	{
@@ -55,9 +50,6 @@ static void	forking_input(int *fd)
 		pid = fork();
 		if (pid == 0)
 		{
-			dup2(fd[0], STDIN_FILENO);
-			close(fd[1]);
-			close(fd[0]);
 			char *pathway = what_cmd(g_megabash.cmd_list->cmd);
 			if (!pathway)
 			{
@@ -65,18 +57,13 @@ static void	forking_input(int *fd)
 				g_megabash.exit_status = 1;
 			}
 			execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
-			exit (1);
 		}
 		else
 		{
-		close(fd[0]);
-		close(fd[1]);
-		waitpid(pid, &g_megabash.exit_status, 0);
+			close(fd[1]);
+			close(fd[0]);
+			waitpid(pid, &g_megabash.exit_status, 0);
 		}
-		// close(fd[1]);
-		// waitpid(pid, &g_megabash.exit_status, 0);
-		// // execute_execve_sec(fd);
-		// close(fd[0]);
 	}
 }
 
