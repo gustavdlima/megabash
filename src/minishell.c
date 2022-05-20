@@ -24,8 +24,8 @@ static void	execute_execve(int *fd)
 	}
 	else
 	{
-		check_dup(fd[1], STDOUT_FILENO);
 		close(fd[0]);
+		check_dup(fd[1], STDOUT_FILENO);
 		execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
 	}
 	print_commands(g_megabash.cmd_list);
@@ -56,6 +56,8 @@ static void	forking_input(int *fd)
 				printf("NÃO EXISTE!!\n");
 				g_megabash.exit_status = 1;
 			}
+			close(fd[1]);
+			check_dup(fd[0], STDIN_FILENO);
 			execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
 		}
 		else
