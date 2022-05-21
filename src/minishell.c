@@ -7,87 +7,72 @@ void	check_dup(int a, int b)
 	if (dup2(a, b) == -1)
 	{
 		write(2, "Permission denined.\n", 21);
-		exit(1);
+		g_megabash.exit_status = 1;
 	}
 	close(a);
 }
 
-static void	execute_execve(int *fd)
-{
-	char	*pathway;
-
-	pathway = what_cmd(g_megabash.cmd_list->cmd);
-	if (!pathway)
-	{
-		printf("NÃO EXISTE!!\n");
-		g_megabash.exit_status = 1;
-	}
-	else
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		// check_dup(fd[0], STDIN_FILENO);
-		// close(fd[0]);
-		execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
-		exit (1);
-	}
-	print_commands(g_megabash.cmd_list);
-}
-
-static void	forking_input(int *fd)
+static void	forking_input(int **matrix_fd, int *fd, int index)
 {
 	pid_t	pid;
+	char	*pathway;
 
 	pid = fork();
 	if (pid == -1)
-	{
-		printf("deu ruim\n");
-		g_megabash.exit_status = 1;
-		exit (1);
-	}
+		error_message("Deu ruim, boy...", 1);
 	if (pid == 0)
 	{
-		execute_execve(fd);
+		// execute_execve(fd);
+		pathway = what_cmd(g_megabash.cmd_list->cmd);
+		if (!pathway)
+			error_message("NÃO EXISTE!!", 1);
+		check_dup(fd[0], STDIN_FILENO);
+		check_dup(fd[1], STDOUT_FILENO);
+	printf("OiiiiiiiiiiiiiiiiiiiiiiI\n");
+		execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
 	}
 	else
 	{
-		pid = fork();
-		if (pid == 0)
+		pathway = what_cmd(g_megabash.cmd_list->cmd);
+		if (!pathway)
+			error_message("NÃO EXISTE!!", 1);
+		if (matrix_fd[index])
 		{
-			dup2(fd[0], STDIN_FILENO);
-			close(fd[1]);
-			close(fd[0]);
-			char *pathway = what_cmd(g_megabash.cmd_list->cmd);
-			if (!pathway)
-			{
-				printf("NÃO EXISTE!!\n");
-				g_megabash.exit_status = 1;
-			}
-			execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
-			exit (1);
+			check_dup(fd[1], STDIN_FILENO);
+			check_dup(matrix_fd[index][0], STDOUT_FILENO);
 		}
 		else
 		{
-		close(fd[0]);
-		close(fd[1]);
-		waitpid(pid, &g_megabash.exit_status, 0);
+			check_dup(fd[0], STDIN_FILENO);
+			check_dup(fd[1], STDOUT_FILENO);
 		}
-		// close(fd[1]);
-		// waitpid(pid, &g_megabash.exit_status, 0);
-		// // execute_execve_sec(fd);
-		// close(fd[0]);
+	printf("OOOOOOOOOOOOOOOOOOOOOI\n");
+		execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
+	}
+	print_commands(g_megabash.cmd_list);
+	int	k = 0;
+	while (k <= g_megabash.pipe - 1)
+	{
+		waitpid(pid, &g_megabash.exit_status, 0);
+		k++;
 	}
 }
 
 static void	megaexecute(char **input)
 {
-	int		fd[2];
+	int		**fd;
 
 	g_megabash.pipe = 0;
 	treat_input(input);
 	print_token(g_megabash.token_list);
 	parsing();
+	fd = (int **)ft_calloc(g_megabash.pipe, sizeof(int *));
+	int l = g_megabash.pipe - 1;
+	while (l >= 0)
+	{
+		fd[l] = ft_calloc(2, sizeof(int));
+		l--;
+	}
 	while (g_megabash.cmd_list)
 	{
 		if (!ft_strncmp(g_megabash.cmd_list->cmd, "cd", 3))
@@ -95,7 +80,6 @@ static void	megaexecute(char **input)
 			cd(g_megabash.cmd_list->content);
 			return;
 		}
-
 		if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
 		{
 			builtin_env(g_megabash.cmd_list->content);
@@ -122,11 +106,30 @@ static void	megaexecute(char **input)
 			exit_builtin(g_megabash.cmd_list->content);
 			return;
 		}
-		// if (g_megabash.pipe > 0 || g_megabash.cmd_list->redirect)
-		// {
-			pipe(fd);
-		// }
-		forking_input(fd);
+		int i = 0;
+		if (g_megabash.pipe > 0)
+		{
+			while (i <= g_megabash.pipe - 1)
+			{
+				// eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
+				// criar todos os pipes
+				pipe(fd[i]);
+				i++;
+			}
+			int j = 0;
+			while (j <= g_megabash.pipe - 1)
+			{
+				forking_input(fd, fd[j], j + 1);
+				j++;
+			}
+		}
+		else
+		{
+			char *pathway = what_cmd(g_megabash.cmd_list->cmd);
+			if (!pathway)
+				error_message("NÃO EXISTE!!", 1);
+			execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
+		}
 		g_megabash.cmd_list = g_megabash.cmd_list->next;
 	}
 	// print_commands(g_megabash.cmd_list);
