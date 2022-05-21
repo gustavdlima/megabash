@@ -29,7 +29,7 @@ int	execute_builtin(void)
 	}
 	if (!ft_strncmp(g_megabash.cmd_list->cmd, "exit", 5))
 	{
-		exit_builtin(g_megabash.cmd_list->content);
+		b_exit(g_megabash.cmd_list->content);
 		return (true);
 	}
 	return (false);

@@ -69,50 +69,34 @@ static void	megaexecute(char **input)
 	treat_input(input);
 	print_token(g_megabash.token_list);
 	parsing();
-	fd = (int **)ft_calloc(g_megabash.pipe, sizeof(int *));
-	i = g_megabash.pipe - 1;
-	while (i >= 0)
-	{
-		fd[i] = ft_calloc(2, sizeof(int));
-		i--;
-	}
+	fd = malloc_int_matrix();
 	while (g_megabash.cmd_list)
 	{
-		// if (g_megabash.pipe > 0)
-		// {
-			// eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
-			// criar todos os pipes
-			i = 0;
-			while (i <= g_megabash.pipe - 1 || i == 0)
-			{
-				pipe(fd[i]);
-				printf("pipe %d\n", i);
-				i++;
-			}
-			i = 0;
-			while (i <= g_megabash.pipe - 1 || i == 0)
-			{
-				// forking_input(fd, fd[i], i + 1);
-				pid = fork();
-				if (execute_builtin() == false)
-					execute_execve();
-				printf("pid %d\n", i);
-				i++;
-			}
-			while (i <= g_megabash.pipe - 1 || i == 0)
-			{
-				waitpid(pid, &g_megabash.exit_status, 0);
-				printf("waitpid %d\n", i);
-				i++;
-			}
-		// }
-		// else
-		// {
-		// 	if (execute_builtin() == false)
-		// 	{
-		// 		execute_execve();
-		// 	}
-		// }
+		// eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
+		// criar todos os pipes
+		i = 0;
+		while (i <= g_megabash.pipe - 1 || i == 0)
+		{
+			pipe(fd[i]);
+			printf("pipe %d\n", i);
+			i++;
+		}
+		i = 0;
+		while (i <= g_megabash.pipe - 1 || i == 0)
+		{
+			// forking_input(fd, fd[i], i + 1);
+			pid = fork();
+			if (execute_builtin() == false)
+				execute_execve();
+			printf("pid %d\n", i);
+			i++;
+		}
+		while (i <= g_megabash.pipe - 1 || i == 0)
+		{
+			waitpid(pid, &g_megabash.exit_status, 0);
+			printf("waitpid %d\n", i);
+			i++;
+		}
 		g_megabash.cmd_list = g_megabash.cmd_list->next;
 	}
 }

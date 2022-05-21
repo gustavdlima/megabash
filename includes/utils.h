@@ -44,5 +44,6 @@ int		execute_builtin(void);
 
 // execute_utils.c
 void	execute_execve(void);
+int		**malloc_int_matrix(void);
 
 #endif

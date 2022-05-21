@@ -10,13 +10,17 @@ void	execute_execve(void)
 	execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
 }
 
-int **malloc_int_matrix()
+int	**malloc_int_matrix(void)
 {
-	fd = (int **)ft_calloc(g_megabash.pipe, sizeof(int *));
+	int	**fd;
+	int	i;
+
 	i = g_megabash.pipe - 1;
+	fd = (int **)ft_calloc(g_megabash.pipe, sizeof(int *));
 	while (i >= 0)
 	{
 		fd[i] = ft_calloc(2, sizeof(int));
 		i--;
 	}
+	return (fd);
 }
