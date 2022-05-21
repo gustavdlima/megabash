@@ -27,6 +27,8 @@ void	unset(char **command)
 	int	i;
 
 	i = 1;
+	if (command && !command[1])
+		return ;
 	while (command[i])
 	{
 		temp = get_env_previous_node(g_megabash.env, command[i]);

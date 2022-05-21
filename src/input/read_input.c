@@ -108,8 +108,6 @@ char	*read_input(void)
 					break ;
 			}
 		}
-		if (!input || !ft_strncmp(input, "exit", 4))
-			exit_builtin(input);
 		if (input && is_it_history(input) == true)
 		{
 			add_history(input);
