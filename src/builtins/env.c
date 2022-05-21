@@ -4,7 +4,7 @@ void	builtin_env(char **matrix)
 {
 	t_env	*temp;
 
-	temp= g_megabash.env;
+	temp = g_megabash.env;
 	if (matrix[1])
 	{
 		ft_putstr_fd("env: ‘", 2);

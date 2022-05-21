@@ -3,10 +3,10 @@
 
 # include "minishell.h"
 
-void	exit_builtin(char **matrix);
+void	b_exit(char **matrix);
 void	export(char **command);
 void	unset(char **command);
-void	pwd(void);
+void	pwd(char **command);
 void	free_unset(t_env *list);
 void	cd(char **matrix);
 void	builtin_env(char **matrix);

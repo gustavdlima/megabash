@@ -1,18 +1,24 @@
 #include "minishell.h"
 
-static void	free_exit_builtin(char *string, char **matrix)
+
+static int is_numeric(char *string)
 {
-	free(string);
+	int	i;
+
+	i = 0;
+	while (string[i])
+	{
+		if(!ft_isdigit(string[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+static void	free_exit_builtin(char **matrix)
+{
 	free_matrix(matrix);
 	free_env(g_megabash.env);
 	rl_clear_history();
-}
-
-static void	print_error_exit(char *error_msg)
-{
-	g_megabash.exit_status = 1;
-	ft_putstr_fd("megabash error: exit: ", 2);
-	ft_putendl_fd(error_msg, 2);
 }
 
 static int	check_arg(char *arg)
@@ -31,24 +37,24 @@ static int	check_arg(char *arg)
 	return (true);
 }
 
-void	exit_builtin(char **matrix)
+void	b_exit(char **matrix)
 {
-	char **cmd;
-
 	printf("exit\n");
 	if (matrix)
 	{
-		cmd = ft_split(matrix, ' ');
-		if (matrix_size(cmd) > 0)
+		if (matrix[2])
 		{
-			print_error_exit("too many arguments");
+			ft_putendl_fd("megabash error: exit: too many arguments", 2);
 			return ;
 		}
-		if (cmd[1] && !check_arg(cmd[1]))
-			g_megabash.exit_status = ft_atoi(cmd[1]);
-		if (cmd[1] && check_arg(cmd[1]))
-			g_megabash.exit_status = 2;
-		free_exit_builtin(matrix, cmd);
+		if (matrix[1] && is_numeric(matrix[1]))
+		{
+			if (matrix[1] && !check_arg(matrix[1]))
+				g_megabash.exit_status = ft_atoi(matrix[1]);
+		}
+		if (matrix[1] && check_arg(matrix[1]))
+				g_megabash.exit_status = 2;
+		free_exit_builtin(matrix);
 	}
 	exit(g_megabash.exit_status);
 }
