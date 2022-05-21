@@ -39,4 +39,10 @@ int		command_not_found(char *cmd);
 // exit_status.c
 void	error_message(char *msg, int exit_status);
 
+// builtin_utils.c
+int		execute_builtin(void);
+
+// execute_utils.c
+void	execute_execve(void);
+
 #endif
