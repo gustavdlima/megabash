@@ -29,11 +29,13 @@ int		different_redirection_signs(char *cmd);
 int		redirect_to_no_arguments(char *cmd);
 int		too_many_redirections(char *cmd);
 
-//validate_utils.c
+// validate_utils.c
 int		open_curly_bracket(char *cmd);
 int		open_quotes(char *cmd);
 int		bash_syntax_error(char *cmd);
 int		command_not_found(char *cmd);
 
+// exit_status.c
+void	error_message(char *msg, int exit_status);
 
 #endif
