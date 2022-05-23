@@ -1,6 +1,14 @@
 #include "minishell.h"
 
-
+void	quit_megabash(void)
+{
+	//funcoes para dar free
+	free_env(g_megabash.env);
+	free_token(g_megabash.token_list);
+	free_commands(g_megabash.cmd_list);
+	rl_clear_history();
+	exit(g_megabash.exit_status);
+}
 
 
 // tenho que garantir que o exit_code esteja sendo gravado em g_megabash.exit_code durante o 

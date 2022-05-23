@@ -2,9 +2,9 @@
 
 void	free_megabash(void)
 {
-	printf("exit\n");
 	free_env(g_megabash.env);
 	free_token(g_megabash.token_list);
+	free_commands(g_megabash.cmd_list);
 	rl_clear_history();
 }
 
@@ -20,6 +20,7 @@ void	free_matrix(char **matrix)
 			free(matrix[i]);
 			i++;
 		}
+		free(matrix);
 	}
 }
 

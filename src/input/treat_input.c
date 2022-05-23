@@ -105,6 +105,7 @@ char	*treat_dollar(char *cmd)
 		final = ft_strdup(temp);
 		free(temp);
 	}
+	free(cmd);
 	return (final);
 }
 

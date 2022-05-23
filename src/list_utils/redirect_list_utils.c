@@ -50,16 +50,17 @@ t_redirect	*redirect_lst_new(void)
 	}
 	return (0);
 }
-// void	free_commands(t_redirect *redirections)
-// {
-// 	t_commands	*temp;
 
-// 	while (redirections)
-// 	{
-// 		temp = redirections;
-// 		redirections = redirections->next;
-// 		free(temp->cmd);
-// 		free(temp);
-// 	}
-// }
+void	free_redirect(t_redirect *redirections)
+{
+	t_redirect	*temp;
 
+	while (redirections)
+	{
+		temp = redirections;
+		redirections = redirections->next;
+		free(temp->content);
+		free(temp->type);
+		free(temp);
+	}
+}
