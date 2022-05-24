@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-void	execute_execve(void)
+void	execute_execve(t_commands *cmd_list)
 {
 	char	*pathway;
 
-	pathway = what_cmd(g_megabash.cmd_list->cmd);
+	pathway = what_cmd(cmd_list->cmd);
 	if (!pathway)
 		error_message("NÃO EXISTE!!", 1);
-	execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
+	execve(pathway, cmd_list->content, g_megabash.envp);
 }
 
 int	**malloc_int_matrix(void)

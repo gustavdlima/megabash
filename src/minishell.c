@@ -61,47 +61,79 @@ void	check_dup(int a, int b)
 
 static void	megaexecute(char **input)
 {
-	pid_t	pid;
-	int		**fd;
-	int		i;
+	t_commands	*cmd_list;
+	pid_t		pid;
+	int			**fd;
+	int			i;
 
 	g_megabash.pipe = 0;
 	treat_input(input);
 	print_token(g_megabash.token_list);
 	parsing();
 	fd = malloc_int_matrix();
-	while (g_megabash.cmd_list)
+	cmd_list = g_megabash.cmd_list;
+	// eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
+	i = 0;
+	while (i <= g_megabash.pipe - 1)
 	{
-		// eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
-		// criar todos os pipes
-		i = 0;
-		while (i <= g_megabash.pipe - 1 || i == 0)
+		if (pipe(fd[i]) == -1)
 		{
-			pipe(fd[i]);
-			printf("pipe %d\n", i);
-			i++;
+			g_megabash.exit_status = 1;
+			write(2, "Process error\n", 15);
 		}
-		i = 0;
-		while (i <= g_megabash.pipe - 1 || i == 0)
+		i++;
+	}
+	i = 0;
+	while (i <= g_megabash.pipe - 1)
+	{
+		pid = fork();
+		if (pid == 0)
 		{
-			// forking_input(fd, fd[i], i + 1);
-			pid = fork();
+			if (i > 0)
+			{
+				dup2(fd[i][0], STDIN_FILENO);
+				close(fd[i][0]);
+			}
+			if (i < g_megabash.pipe)
+			{
+				dup2(fd[i][1], STDOUT_FILENO);
+				close(fd[i][1]);
+			}
 			if (execute_builtin() == false)
-				execute_execve();
-			printf("pid %d\n", i);
-			i++;
+				execute_execve(cmd_list);
+			dprintf(2, "pid 0 : %s\n", cmd_list->content);
 		}
-		while (i <= g_megabash.pipe - 1 || i == 0)
+		else
 		{
-			waitpid(pid, &g_megabash.exit_status, 0);
-			printf("waitpid %d\n", i);
-			i++;
+			if (i > 0)
+			{
+				dup2(fd[i - 1][0], STDIN_FILENO);
+				close(fd[i - 1][0]);
+			}
+			if (i < g_megabash.pipe)
+			{
+				dup2(fd[i][1], STDOUT_FILENO);
+				close(fd[i][1]);
+			}
+			if (execute_builtin() == false)
+				execute_execve(cmd_list);
+			dprintf(2, "pid : %s\n", cmd_list->content);
 		}
-		g_megabash.cmd_list = g_megabash.cmd_list->next;
+		i++;
+		cmd_list = cmd_list->next;
+	}
+	i = 0;
+	while (i <= g_megabash.pipe - 1)
+	{
+		waitpid(-1, &g_megabash.exit_status, 0);
+		i++;
+	}
+	if (g_megabash.pipe == 0)
+	{
+		if (execute_builtin() == false)
+			execute_execve(cmd_list);
 	}
 }
-
-
 
 static void	megastart(void)
 {

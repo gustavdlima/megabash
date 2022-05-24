@@ -43,7 +43,7 @@ void	error_message(char *msg, int exit_status);
 int		execute_builtin(void);
 
 // execute_utils.c
-void	execute_execve(void);
+void	execute_execve(t_commands *cmd_list);
 int		**malloc_int_matrix(void);
 
 #endif
