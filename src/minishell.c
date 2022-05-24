@@ -148,8 +148,8 @@ static void	megastart(void)
 			megaexecute(&input);
 		else
 			printf("BORN TO BE BASH\n");
-		// create_list(read);
 		// free_megabash();
+		// free(input);
 	}
 }
 

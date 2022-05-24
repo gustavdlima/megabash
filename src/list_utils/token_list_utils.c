@@ -35,7 +35,7 @@ t_token	*token_lst_new(char *content)
 	if (element)
 	{
 		element->type = 0;
-		element->content = content;
+		element->content = ft_strdup(content);
 		element->next = NULL;
 		element->prev = NULL;
 		return (element);

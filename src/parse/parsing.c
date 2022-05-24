@@ -36,14 +36,10 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 			cmd_string = ft_strdup(temp);
 			free(temp);
 		}
-		// if (token->type == is_redirect)
-		// {
-		// 	command->content = ft_split(cmd_string, ' ');
-		// 	return (token);
-		// }
 		token = token->next;
 	}
 	command->content = ft_split(cmd_string, ' ');
+	free(cmd_string);
 	return (token);
 }
 

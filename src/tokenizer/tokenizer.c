@@ -4,14 +4,11 @@ void	treat_token_list(void)
 {
 	t_token	*temp;
 
-	// check_input();
 	temp = g_megabash.token_list;
 	while (temp)
 	{
 		treat_quote(temp->content);
 		temp->content = treat_dollar(temp->content);
-		// temp->content = no_quotes(temp->content);
-		// reverse_input_chars(temp->content);
 		temp = temp->next;
 	}
 }
@@ -33,5 +30,6 @@ void	tokenizer(char *input)
 				i++;
 		}
 	}
+	free_matrix(temp);
 	set_token_type(g_megabash.token_list);
 }

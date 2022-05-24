@@ -14,10 +14,9 @@ static int is_numeric(char *string)
 	}
 	return (1);
 }
-static void	free_exit_builtin(char **matrix)
+static void	free_exit_builtin(void)
 {
-	free_matrix(matrix);
-	free_env(g_megabash.env);
+	free_megabash();
 	rl_clear_history();
 }
 
@@ -42,7 +41,7 @@ void	b_exit(char **matrix)
 	printf("exit\n");
 	if (matrix)
 	{
-		if (matrix[2])
+		if (matrix[1] && matrix[2])
 		{
 			ft_putendl_fd("megabash error: exit: too many arguments", 2);
 			return ;
@@ -54,7 +53,7 @@ void	b_exit(char **matrix)
 		}
 		if (matrix[1] && check_arg(matrix[1]))
 				g_megabash.exit_status = 2;
-		free_exit_builtin(matrix);
+		free_exit_builtin();
 	}
 	exit(g_megabash.exit_status);
 }

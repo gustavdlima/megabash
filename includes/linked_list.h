@@ -27,5 +27,5 @@ t_redirect	*redirect_lst_new(void);
 t_redirect	*redirect_last_node(t_redirect *lst);
 void		redirect_addback(t_redirect **lst, t_redirect *new);
 void		print_redirect(t_redirect *redirect);
-
+void		free_redirect(t_redirect *redirections);
 #endif
