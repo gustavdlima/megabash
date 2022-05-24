@@ -12,53 +12,6 @@ void	check_dup(int a, int b)
 	close(a);
 }
 
-// static void	forking_input(int **matrix_fd, int *fd, int index)
-// {
-// 	pid_t	pid;
-// 	char	*pathway;
-
-// 	pid = fork();
-// 	if (pid == -1)
-// 		error_message("Deu ruim, boy...", 1);
-// 	if (pid == 0)
-// 	{
-// 		// execute_execve(fd);
-// 		pathway = what_cmd(g_megabash.cmd_list->cmd);
-// 		if (!pathway)
-// 			error_message("NÃO EXISTE!!", 1);
-// 		check_dup(fd[0], STDIN_FILENO);
-// 		check_dup(fd[1], STDOUT_FILENO);
-// 	printf("OiiiiiiiiiiiiiiiiiiiiiiI\n");
-// 		execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
-// 	}
-// 	else
-// 	{
-// 		pathway = what_cmd(g_megabash.cmd_list->cmd);
-// 		if (!pathway)
-// 			error_message("NÃO EXISTE!!", 1);
-// 		// if (matrix_fd[index])
-// 		// {
-// 			check_dup(fd[1], STDIN_FILENO);
-// 			// check_dup(matrix_fd[index][0], STDOUT_FILENO);
-// 		// }
-// 		// else
-// 		// {
-// 			check_dup(fd[0], STDIN_FILENO);
-// 			check_dup(fd[1], STDOUT_FILENO);
-// 		// }
-// 	printf("OOOOOOOOOOOOOOOOOOOOOI\n");
-// 		execve(pathway, g_megabash.cmd_list->content, g_megabash.envp);
-// 	}
-// 	print_commands(g_megabash.cmd_list);
-// 	int	k = 0;
-// 	while (k <= g_megabash.pipe - 1)
-// 	{
-// 		waitpid(pid, &g_megabash.exit_status, 0);
-// 		k++;
-// 	}
-// 		g_megabash.cmd_list = g_megabash.cmd_list->next;
-// }
-
 static void	megaexecute(char **input)
 {
 	t_commands	*cmd_list;
