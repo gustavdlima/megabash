@@ -26,10 +26,8 @@ void	environment(char **envp)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	g_megabash.envp = envp;
-	g_megabash.env = env_lst_new(get_env_name(envp[0]),
-									get_env_path(envp[0]));
 	while (envp[i])
 	{
 		env_addback(&g_megabash.env, env_lst_new(get_env_name(envp[i]),

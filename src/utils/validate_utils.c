@@ -33,7 +33,7 @@ int	open_curly_bracket(char *cmd)
 					&& cmd[i] != '\'')
 					i++;
 				if (cmd[i] != '}')
-					return (TRUE);
+					return (true);
 				if (!cmd[i])
 					break ;
 			}
@@ -41,7 +41,7 @@ int	open_curly_bracket(char *cmd)
 		if (cmd[i])
 			i++;
 	}
-	return (FALSE);
+	return (false);
 }
 
 int	open_quotes(char *cmd)
@@ -60,9 +60,31 @@ int	open_quotes(char *cmd)
 			while (cmd[i] && cmd[i] != sign)
 				i++;
 			if (cmd[i] != sign)
-				return (TRUE);
+				return (true);
 		}
 		i++;
 	}
-	return (FALSE);
+	return (false);
+}
+
+int	bash_syntax_error(char *cmd)
+{
+	if (cmd[0] == '|' || cmd[0] == ';' || cmd[0] == '&')
+	{
+		printf("bash: syntax error near unexpected token `%c'\n", cmd[0]);
+		g_megabash.exit_status = 2;
+		return (true);
+	}
+	return (false);
+}
+
+int	command_not_found(char *cmd)
+{
+	if (ft_strlen(cmd) == 1 && cmd[0] != 'l' && ft_isascii(cmd[0]))
+	{
+		printf("%c: command not found\n", cmd[0]);
+		g_megabash.exit_status = 127;
+		return (true);
+	}
+	return (false);
 }

@@ -8,16 +8,26 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-# define TRUE 1
-# define FALSE 0
+enum e_boolean
+{
+	false,
+	true
+};
 
-# define IS_BUILTIN		10
-# define IS_CMD			11
-# define IS_PIPE		12
-# define IS_REDIRECT	13
-# define IS_HERE_DOC	14
-# define IS_FILE		15
-# define IS_PARAMETER	16
+enum e_types
+{
+	is_word = 12,
+	is_pipe,
+	is_redirect,
+};
+
+enum e_redirect_type
+{
+	is_input = 5,
+	is_output,
+	is_append,
+	is_here_doc,
+};
 
 typedef struct s_env{
 	char			*name;
@@ -26,16 +36,26 @@ typedef struct s_env{
 }				t_env;
 
 typedef struct s_token{
-	int				type;
+	int				type;     
 	char			*content;
 	struct s_token	*next;
+	struct s_token	*prev;
 }				t_token;
 
-typedef struct s_commands{
+
+typedef struct s_redirect
+{
+	int         type;
+    char        *content;
+    struct s_redirect  *next;
+}				t_redirect;
+
+typedef struct s_commands
+{
 	int					type;
 	char				*cmd;
 	char				**content;
-	char				*file;
+	struct s_redirect	*redirect;
 	struct s_commands	*next;
 }				t_commands;
 
@@ -47,7 +67,6 @@ typedef struct s_global{
 	char		*last_input;
 	int			operation;
 	int			pipe;
-	int			tokens;
 	int			exit_status;
 }				t_global;
 

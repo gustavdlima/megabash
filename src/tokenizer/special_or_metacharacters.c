@@ -17,39 +17,9 @@ int	jump_special_or_metacharacters(char *cmd)
 
 int	special_or_metacharacters(char c)
 {
-	if (c == ';' || c == '\\' || c == '(' || c == ')' || c == '&' || c == '#'
-		|| c == '[' || c == ']')
-		return (TRUE);
-	return (FALSE);
-}
-
-int	pipe_no_arguments(char *cmd)
-{
-	char	**arguments;
-	int		pipes;
-	int		i;
-
-	i = -1;
-	pipes = 0;
-	treat_char(cmd, '|', 6);
-	while (cmd[++i])
-	{
-		if (cmd[i] == '|')
-			pipes++;
-	}
-	if (pipes != 0)
-	{
-		i = -1;
-		arguments = ft_split(cmd, '|');
-		while (arguments[++i]);
-		free_matrix(arguments);
-		reverse_char(cmd, 6, '|');
-		if (pipes == (i - 1))
-			return (FALSE);
-		return (TRUE);
-	}
-	reverse_char(cmd, 6, '|');
-	return (FALSE);
+	if (ft_isascii(c) != false && ft_isalnum(c) == false)
+		return (true);
+	return (false);
 }
 
 int	wheres_special_metacharacter(char *cmd)
@@ -75,6 +45,12 @@ int	unquotted_special_metacharacters(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
+		if (special_or_metacharacters(cmd[i]) == true)
+		{
+			ft_putendl_fd("Syntax error: special or metacharacters on unquotted arguments.", 2);
+			g_megabash.exit_status = 130;
+			return (true);
+		}
 		if (cmd[i] == '\'' || cmd[i] == '\"')
 		{
 			sign = cmd[i];
@@ -82,9 +58,7 @@ int	unquotted_special_metacharacters(char *cmd)
 			while (cmd[i] != sign)
 				i++;
 		}
-		if (special_or_metacharacters(cmd[i]) == TRUE)
-			return (TRUE);
 		i++;
 	}
-	return (FALSE);
+	return (false);
 }

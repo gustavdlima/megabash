@@ -2,21 +2,50 @@
 
 t_global	g_megabash;
 
+void	check_dup(int a, int b)
+{
+	if (dup2(a, b) == -1)
+	{
+		write(2, "Permission denined.\n", 21);
+		g_megabash.exit_status = 1;
+	}
+	close(a);
+}
+
 static void	megaexecute(char **input)
 {
+	t_commands	*cmd_list;
+	pid_t		pid;
+	int			*fd[2];
+	int			i;
+
+	g_megabash.pipe = 0;
 	treat_input(input);
 	print_token(g_megabash.token_list);
 	parsing();
-	print_commands(g_megabash.cmd_list);
-	if(!ft_strncmp(g_megabash.cmd_list->cmd, "export", 7))
-		export(g_megabash.cmd_list->content);
-	if(!ft_strncmp(g_megabash.cmd_list->cmd, "unset", 6))
-		unset(g_megabash.cmd_list->content);
-	if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
-		print_env(g_megabash.env);
-	if(!ft_strncmp(g_megabash.cmd_list->cmd, "pwd", 4))
-		pwd();
-	g_megabash.exit_status = 0;
+	cmd_list = g_megabash.cmd_list;
+	// // eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
+	// if (g_megabash.pipe == 0)
+	// {
+	if (pipe(fd[i]) == -1)
+	{
+		g_megabash.exit_status = 1;
+		write(2, "Process error\n", 15);
+	}
+	pid = fork();
+	if (pid == 0)
+	{
+		check_dup(cmd_list->content, STDIN_FILENO);
+		check_dup(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		if (execute_builtin() == false)
+			execute_execve(cmd_list);
+	}
+	close(fd[1]);
+	waitpid(-1, &g_megabash.exit_status, 0);
+	// check_dup(fd[0], STDIN_FILENO);
+	// check_dup(1, STDOUT_FILENO);
+	// close(fd[1]);
 }
 
 static void	megastart(void)
@@ -28,12 +57,12 @@ static void	megastart(void)
 		signal_handler();
 		input = read_input();
 		printf("\n\ninput: %s\n", input);
-		if (validate_input(input) == TRUE)
+		if (input && validate_input(input) == true)
 			megaexecute(&input);
 		else
 			printf("BORN TO BE BASH\n");
-		// create_list(read);
 		// free_megabash();
+		// free(input);
 	}
 }
 

@@ -19,13 +19,13 @@ int	single_quotted_argument(char *cmd, int dollar)
 				i++;
 			end = i;
 			if (dollar < end && dollar > begin && sign == '\'')
-				return (TRUE);
+				return (true);
 			else if (dollar < end && dollar > begin && sign == '\"')
-				return (FALSE);
+				return (false);
 		}
 		i++;
 	}
-	return (FALSE);
+	return (false);
 }
 
 static int	is_there_quotes(char *cmd)

@@ -5,10 +5,10 @@ int	env_name_check(t_env *lst, char *name)
 	while (lst->next)
 	{
 		if (lst->name == name)
-			return (TRUE);
+			return (true);
 		lst = lst->next;
 	}
-	return (FALSE);
+	return (false);
 }
 
 int	env_lst_size(t_env *lst)

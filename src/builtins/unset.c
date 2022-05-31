@@ -13,7 +13,7 @@ static t_env	*get_env_previous_node(t_env *list, char *name)
 	{
 		if (list->next)
 		{
-			if (ft_new_strncmp(list->next->name, name) == TRUE)
+			if (ft_new_strncmp(list->next->name, name) == true)
 				return (list);
 		}
 		list = list->next;
@@ -27,6 +27,8 @@ void	unset(char **command)
 	int	i;
 
 	i = 1;
+	if (command && !command[1])
+		return ;
 	while (command[i])
 	{
 		temp = get_env_previous_node(g_megabash.env, command[i]);

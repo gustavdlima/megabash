@@ -14,8 +14,8 @@ static int	theres_delimiter(char *cmd)
 		i++;
 	}
 	if (delimiter >= 2) //pode colocar mais delimitadores?
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
 }
 
 int	only_space(char *cmd)
@@ -34,22 +34,52 @@ int	only_space(char *cmd)
 		i++;
 	}
 	if (space == cmd_len)
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
 }
 
 static int	is_it_history(char *cmd)
 {
 	if (cmd == NULL)
-		return (FALSE);
-	if (only_space(cmd) == TRUE)
-		return (FALSE);
-	if (theres_delimiter(cmd) == TRUE)
-		return (FALSE);
-	if (ft_new_strncmp(cmd, g_megabash.last_input) == TRUE)
-		return (FALSE);
-	g_megabash.last_input = cmd;
-	return (TRUE);
+		return (false);
+	if (only_space(cmd) == true)
+		return (false);
+	// if (theres_delimiter(cmd) == true)
+	// 	return (false);
+	if (ft_new_strncmp(cmd, g_megabash.last_input) == true)
+		return (false);
+	free(g_megabash.last_input);
+	g_megabash.last_input = ft_strdup(cmd);
+	return (true);
+}
+
+int	too_many_pipes(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (open_quotes(cmd) == true)
+		return (false);
+	treat_char(cmd, '|', 6);
+	while (cmd[i])
+	{
+		if (cmd[i] == '|')
+		{
+			i++;
+			while(cmd[i] == ' ')
+				i++;
+			if (cmd[i] == '|')
+			{
+				ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
+				g_megabash.exit_status = 42;
+				return (true);
+			}
+		}
+		if (cmd[i])
+			i++;
+	}
+	reverse_char(cmd, 6, '|');
+	return (false);
 }
 
 char	*read_input(void)
@@ -59,20 +89,31 @@ char	*read_input(void)
 	char	*aux;
 
 	input = readline("\033[0;35mmegabash$ \033[0m");
-	while (open_quotes(input) == TRUE || pipe_no_arguments(input) == TRUE)
+	if (input)
 	{
-		temp = readline("\033[0;35m> \033[0m");
-		aux = ft_strjoin(input, temp);
-		free(input);
-		free(temp);
-		input = ft_strjoin(aux, "\n");
-		free(aux);
+		if (open_quotes(input) == true || pipe_no_arguments(input) == true)
+		{
+			while (too_many_pipes(input) == false)
+			{
+				temp = readline("\033[0;35m> \033[0m");
+				aux = ft_strjoin(input, " ");
+				free(input);
+				if (temp && only_space(temp) == false)
+					input = ft_strjoin(aux, temp);
+				else
+					input = ft_strdup(aux);
+				free(temp);
+				free(aux);
+				if (open_quotes(input) == false && pipe_no_arguments(input) == false)
+					break ;
+			}
+		}
+		if (input && is_it_history(input) == true)
+		{
+			add_history(input);
+		}
+		return (input);
 	}
-	if (!ft_strncmp(input, "exit", 4))
-		exit_builtin(input);
-	if (is_it_history(input) == TRUE)
-	{
-		add_history(input);
-	}
-	return (input);
+	else
+		exit (0);
 }

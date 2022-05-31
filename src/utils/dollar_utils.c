@@ -8,10 +8,10 @@ int	is_there_dollar(char *cmd, int max_i)
 	while (cmd[i] || i < max_i)
 	{
 		if (cmd[i] == '$')
-			return (TRUE);
+			return (true);
 		i++;
 	}
-	return (FALSE);
+	return (false);
 }
 
 int	wheres_dollar(char *cmd)
@@ -58,12 +58,12 @@ int	single_dollar(char *cmd)
 
 	i = 1;
 	if (cmd[i] == '?' || cmd[i] == '{')
-		return (FALSE);
+		return (false);
 	if (cmd[i] == 1 || cmd[i] == ' ' || !cmd[i] || cmd[i] == '$')
-		return (TRUE);
+		return (true);
 	if (ft_isascii(cmd[i]) != 0 && ft_isalnum(cmd[i]) == 0)
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
 }
 
 int	is_question_mark(char *cmd)
@@ -72,6 +72,6 @@ int	is_question_mark(char *cmd)
 
 	i = 1;
 	if (cmd[i] == '?')
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
 }

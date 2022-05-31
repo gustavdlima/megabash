@@ -20,11 +20,11 @@ int	token_pipe_checker(t_token *token)
 	list = token;
 	while (list)
 	{
-		if (list->type == IS_PIPE)
-			return (TRUE);
+		if (list->type == is_pipe)
+			return (true);
 		list = list->next;
 	}
-	return (FALSE);
+	return (false);
 }
 
 t_token	*token_lst_new(char *content)
@@ -35,8 +35,9 @@ t_token	*token_lst_new(char *content)
 	if (element)
 	{
 		element->type = 0;
-		element->content = content;
+		element->content = ft_strdup(content);
 		element->next = NULL;
+		element->prev = NULL;
 		return (element);
 	}
 	return (0);
@@ -44,12 +45,17 @@ t_token	*token_lst_new(char *content)
 
 void	token_addback(t_token **lst, t_token *new)
 {
-	t_token	*i;
+	t_token	*last_node;
 
+	if (!lst || !new)
+		return ;
+	if (*lst == NULL)
+		*lst = new;
 	if (*lst)
 	{
-		i = token_last_node(*lst);
-		i->next = new;
+		last_node = token_last_node(*lst);
+		last_node->next = new;
+		new->prev = last_node;
 	}
 	else
 		*lst = new;

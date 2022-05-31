@@ -11,7 +11,7 @@ int			env_lst_size(t_env *lst);
 
 t_commands	*cmd_lst_new(void);
 t_commands	*cmd_lst_new_args(char *cmd);
-void		cmd_addback(t_commands **lst, t_commands *new);
+void		cmd_lst_addback(t_commands **lst, t_commands *new);
 t_commands	*cmd_last_node(t_commands *lst);
 void		free_commands(t_commands *commands);
 void		print_commands(t_commands *commands);
@@ -23,4 +23,9 @@ int			token_pipe_checker(t_token *token);
 void		print_token(t_token *token);
 void		free_token(t_token *token);
 
+t_redirect	*redirect_lst_new(void);
+t_redirect	*redirect_last_node(t_redirect *lst);
+void		redirect_addback(t_redirect **lst, t_redirect *new);
+void		print_redirect(t_redirect *redirect);
+void		free_redirect(t_redirect *redirections);
 #endif

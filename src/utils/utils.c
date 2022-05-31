@@ -56,13 +56,32 @@ int	ft_new_strncmp(char *s1, char *s2)
 	i = 0;
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
+	if (!s1_len || !s2_len)
+		return (false);
 	if (s1_len != s2_len)
-		return (FALSE);
+		return (false);
 	while (i < s1_len)
 	{
 		if (s1[i] != s2[i])
-			return (FALSE);
+			return (false);
 		i++;
 	}
-	return (TRUE);
+	return (true);
+}
+
+int    is_alphabetic(char *str)
+{
+    int    i;
+
+    i = 0;
+    while (str[i])
+    {
+        if ((str[i] >= 65 && str[i] <= 90)
+            || (str[i] >= 97 && str[i] <= 122) || str[i] == '_')
+            return (0);
+        else
+            break ;
+        i++;
+    }
+    return (1);
 }

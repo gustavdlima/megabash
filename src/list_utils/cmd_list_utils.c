@@ -6,15 +6,24 @@ void	print_commands(t_commands *commands)
 		return ;
 	while (commands)
 	{
-		printf("type: %d\n", commands->type);
-		printf("cmd: %s\n", commands->cmd);
-		for (int j = 0; commands->content[j]; j++)
-			printf("content: %s\n", commands->content[j]);
+		printf("command-> type: %d\n", commands->type);
+		printf("command-> cmd: %s\n", commands->cmd);
+		if (commands->content)
+		{
+			for (int j = 0; commands->content[j]; j++)
+				printf("command-> content: %s\n", commands->content[j]);
+		}
+		while (commands->redirect)
+		{
+			printf("redirect-> type: %d\n", commands->redirect->type);
+			printf("redirect-> file: %s\n", commands->redirect->content);
+			commands->redirect = commands->redirect->next;
+		}
 		commands = commands->next;
 	}
 }
 
-void	cmd_addback(t_commands **lst, t_commands *new)
+void	cmd_lst_addback(t_commands **lst, t_commands *new)
 {
 	t_commands	*i;
 
@@ -46,6 +55,8 @@ void	free_commands(t_commands *commands)
 	{
 		temp = commands;
 		commands = commands->next;
+		free_matrix(temp->content);
+		free_redirect(temp->redirect);
 		free(temp->cmd);
 		free(temp);
 	}
@@ -62,6 +73,7 @@ t_commands	*cmd_lst_new(void)
 		element->cmd = NULL;
 		element->content = NULL;
 		element->next = NULL;
+		element->redirect = NULL;
 		return (element);
 	}
 	return (0);

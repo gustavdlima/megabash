@@ -16,7 +16,7 @@ struct s_env 	*get_env_node(t_env *list, char *name)
 {
 	while (list)
 	{
-		if (ft_new_strncmp(list->name, name) == TRUE)
+		if (ft_new_strncmp(list->name, name) == true)
 			return (list);
 		list = list->next;
 	}

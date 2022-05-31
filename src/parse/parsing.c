@@ -1,92 +1,138 @@
 #include "minishell.h"
 
-static void	treat_parse_list(void)
+static int redirect_type(char *content)
 {
-	t_commands	*temp;
-	int			i;
-
-	temp = g_megabash.cmd_list;
-	i = 0;
-	while (temp)
-	{
-		while (temp->content[i])
-		{
-			temp->content[i] = no_quotes(temp->content[i]);
-			reverse_input_chars(temp->content[i]);
-			i++;
-		}
-		temp = temp->next;
-	}
+	if (!ft_strncmp(content, ">", 2))
+		return (is_output);
+	else if (!ft_strncmp(content, "<", 2))
+		return (is_input);
+	else if (!ft_strncmp(content, ">>", 3))
+		return (is_append);
+	else if (!ft_strncmp(content, "<<", 3))
+		return (is_here_doc);
+	else
+		return (false);
 }
 
-t_commands	*take_command(t_token *token, t_commands *command)
+static t_token *cmd_parse(t_token *token, t_commands *command)
 {
-	char	*temp;
-	char	*cmd;
+	char		*temp;
+	char		*cmd_string;
 
-	cmd = ft_strdup("");
+	command->cmd = ft_strdup(token->content);
+	token = token->next;
+	cmd_string = ft_strdup(command->cmd);
 	while (token)
 	{
-		if (token->type == IS_BUILTIN || token->type == IS_CMD)
-			command->cmd = ft_strdup(token->content);
-		if (token->type == IS_PARAMETER || token->type == IS_BUILTIN
-			|| token->type == IS_CMD)
+		if (token->type == is_pipe || token->type == is_redirect)
 		{
-			temp = ft_strjoin(cmd, token->content);
-			temp = insert_caracter(temp, ' ');
-			cmd = ft_strdup(temp);
-			free(temp);
-			if ((token->next == NULL) || token->next->type == IS_PIPE)
-				command->content = ft_split(cmd, ' ');
+			command->content = ft_split(cmd_string, ' ');
+			return (token);
 		}
-		if (token->next == NULL || token->next->type == IS_PIPE)
-			break ;
+		if (token->type == is_word)
+		{
+			cmd_string = insert_caracter(cmd_string, ' ');
+			temp = ft_strjoin(cmd_string, token->content);
+			cmd_string = ft_strdup(temp);
+			free(temp);
+		}
 		token = token->next;
 	}
-	free(cmd);
-	return (command);
+	command->content = ft_split(cmd_string, ' ');
+	free(cmd_string);
+	return (token);
 }
 
-t_token	*to_null_or_pipe(t_token *token)
+static t_token *redirect_parse(t_token *token, t_redirect *redirect)
 {
+	char	*temp;
+
+	redirect->type = redirect_type(token->content);
+	token = token->next;
+	redirect->content = ft_strdup("");
 	while (token)
 	{
-		if (token->next == NULL || token->next->type == IS_PIPE)
-			break ;
+		if (token->type == is_pipe)
+			return (token);
+		if (token->type == is_word && token->prev->type == is_word)
+			return (token);
+		if (token->type == is_word)
+		{
+			printf("oi to parseando a file\n");
+			temp = ft_strjoin(redirect->content, token->content);
+			redirect->content = ft_strdup(temp);
+			redirect->content = insert_caracter(redirect->content, ' ');
+			printf ("file >>> %s\n", redirect->content);
+			free(temp);
+		}
+		if (token->type == is_redirect)
+			return (token);
 		token = token->next;
 	}
 	return (token);
 }
 
-void	parsing(void)
+static t_token *parsing_check(t_token *token, t_commands *command)
 {
-	t_token		*t_list;
-	t_commands	*c_list;
-
-	t_list = g_megabash.token_list;
-	c_list = NULL;
-	while (t_list)
+	while (token)
 	{
-		if (c_list == NULL)
+		if (token->type == is_word)
 		{
-			c_list = take_command(t_list, cmd_lst_new());
-			t_list = to_null_or_pipe(t_list);
-			if (t_list->next == NULL || t_list->next->type == IS_PIPE)
-				t_list = t_list->next;
-			g_megabash.cmd_list = c_list;
+			token = cmd_parse(token, command);
 			continue ;
 		}
-		cmd_addback(&c_list, take_command(t_list, cmd_lst_new()));
-		t_list = to_null_or_pipe(t_list);
-		t_list = t_list->next;
+		else if (token->type == is_pipe)
+		{
+			g_megabash.pipe++;
+			token = token->next;
+			return (token);
+		}
+		else if (token->type == is_redirect)
+		{
+				redirect_addback(&command->redirect, redirect_lst_new());
+				token = redirect_parse(token, redirect_last_node(command->redirect));
+				continue ;
+		}
+		token = token->next;
 	}
-	treat_parse_list();
+	return (token);
 }
 
-/*
-- criar um novo no da estrutura comando, definir o tipo do comando e seus
-argumentos, na parte de argumento eh soh colocar numa array de string;
+static void	treat_parse_list(void)
+{
+	t_commands	*cmd_temp;
+	int			i;
 
-- dependendo de quantos pipes tiver eu ja posso criar a lista de comandos e
-depois so mudo os valores das variaveis
-*/
+	cmd_temp = g_megabash.cmd_list;
+	while (cmd_temp)
+	{
+		i = 0;
+		while (cmd_temp->content[i])
+		{
+			printf("command no treated: %s\n", cmd_temp->content[i]);
+			cmd_temp->content[i] = no_quotes(cmd_temp->content[i]);
+			reverse_input_chars(cmd_temp->content[i]);
+			printf("command treated: %s\n", cmd_temp->content[i]);
+			i++;
+		}
+		cmd_temp = cmd_temp->next;
+	}
+}
+
+void	parsing(void)
+{
+	t_token	*token;
+	t_commands	*cmd_temp;
+
+	token = g_megabash.token_list;
+	cmd_temp = NULL;
+	while (token)
+	{
+		cmd_lst_addback(&cmd_temp, cmd_lst_new());
+		token = parsing_check(token, cmd_last_node(cmd_temp));
+		continue ;
+	}
+	g_megabash.cmd_list = cmd_temp;
+	print_commands(g_megabash.cmd_list);
+	treat_parse_list();
+}
