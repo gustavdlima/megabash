@@ -17,32 +17,42 @@ static void	megaexecute(char **input)
 	t_commands	*cmd_list;
 	pid_t		pid;
 	int			fd[2];
+	int			repeat;
 
 	g_megabash.pipe = 0;
 	treat_input(input);
 	print_token(g_megabash.token_list);
 	parsing();
 	// // eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
-	cmd_list = g_megabash.cmd_list;
-	if (pipe(fd) == -1)
-	{
-		g_megabash.exit_status = 1;
-		write(2, "Process error\n", 15);
-	}
-	pid = fork();
-	if (pid == 0)
-	{
-		check_dup(fd[0], STDIN_FILENO);
-		printf("1\n");
-		if (execute_builtin() == false)
-			execute_execve(cmd_list);
-	}
+	if (g_megabash.pipe > 0)
+		repeat = g_megabash.pipe + 1;
 	else
+		repeat = 1;
+	while (repeat)
 	{
-		close(fd[1]);
-		printf("2\n");
-		waitpid(-1, &g_megabash.exit_status, 0);
-		dup2(fd[1], STDOUT_FILENO);
+		cmd_list = g_megabash.cmd_list;
+		if (pipe(fd) == -1)
+		{
+			g_megabash.exit_status = 1;
+			write(2, "Process error\n", 15);
+		}
+		pid = fork();
+		if (pid == 0)
+		{
+			check_dup(fd[0], STDIN_FILENO);
+			printf("1\n");
+			if (execute_builtin() == false)
+				execute_execve(cmd_list);
+		}
+		else
+		{
+			close(fd[1]);
+			printf("2\n");
+			waitpid(-1, &g_megabash.exit_status, 0);
+			dup2(fd[1], STDOUT_FILENO);
+		}
+		g_megabash.cmd_list = g_megabash.cmd_list->next;
+		repeat--;
 	}
 }
 
