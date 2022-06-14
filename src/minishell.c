@@ -17,6 +17,7 @@ static void	megaexecute(char **input)
 	t_commands	*cmd_list;
 	pid_t		pid;
 	int			fd[2];
+	// int			fd[2][2];
 	int			repeat;
 
 	g_megabash.pipe = 0;
@@ -31,7 +32,12 @@ static void	megaexecute(char **input)
 	while (repeat)
 	{
 		cmd_list = g_megabash.cmd_list;
-		if (pipe(fd) == -1)
+		if (pipe(fd[0]) == -1)
+		{
+			g_megabash.exit_status = 1;
+			write(2, "Process error\n", 15);
+		}
+		if (pipe(fd[1]) == -1)
 		{
 			g_megabash.exit_status = 1;
 			write(2, "Process error\n", 15);
@@ -40,18 +46,30 @@ static void	megaexecute(char **input)
 		if (pid == 0)
 		{
 			check_dup(fd[0], STDIN_FILENO);
+			// dup2(fd[0][0], STDIN_FILENO);
+			// close(fd[0][0]);
+			// dup2(fd[0][1], STDOUT_FILENO);
+			// close(fd[0][1]);
 			printf("1\n");
-			if (execute_builtin() == false)
+			if (is_builtin(cmd_list->content) == true)
+				execute_builtin();
+			else
 				execute_execve(cmd_list);
 		}
 		else
 		{
 			close(fd[1]);
+			// dup2(fd[0][1], STDIN_FILENO);
+			// close(fd[0][1]);
 			printf("2\n");
-			waitpid(-1, &g_megabash.exit_status, 0);
+			// dup2(fd[1][0], STDOUT_FILENO);
+			// close(fd[1][0]);
+			waitpid(pid, &g_megabash.exit_status, 0);
 			dup2(fd[1], STDOUT_FILENO);
+
 		}
-		g_megabash.cmd_list = g_megabash.cmd_list->next;
+		if (g_megabash.cmd_list && g_megabash.cmd_list->next)
+			g_megabash.cmd_list = g_megabash.cmd_list->next;
 		repeat--;
 	}
 }

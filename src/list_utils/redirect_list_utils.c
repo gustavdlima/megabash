@@ -60,7 +60,7 @@ void	free_redirect(t_redirect *redirections)
 		temp = redirections;
 		redirections = redirections->next;
 		free(temp->content);
-		free(temp->type);
+		// free(temp->type);
 		free(temp);
 	}
 }
