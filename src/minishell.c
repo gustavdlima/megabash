@@ -16,40 +16,44 @@ static void	megaexecute(char **input)
 {
 	t_commands	*cmd_list;
 	pid_t		pid;
-	int			fd[2];
-	// int			fd[2][2];
-	int			repeat;
+	int			**fd;
 
 	g_megabash.pipe = 0;
 	treat_input(input);
 	print_token(g_megabash.token_list);
 	parsing();
 	// // eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
-	if (g_megabash.pipe > 0)
-		repeat = g_megabash.pipe + 1;
-	else
-		repeat = 1;
-	while (repeat)
+	fd = malloc_int_matrix();
+	int i = 0;
+	while (fd[i])
+	{
+		if (pipe(fd[i]) == -1)
+			error_message("Process error", 1);
+		i++;
+	}
+	i = 0;
+	while (fd[i])
 	{
 		cmd_list = g_megabash.cmd_list;
-		if (pipe(fd[0]) == -1)
-		{
-			g_megabash.exit_status = 1;
-			write(2, "Process error\n", 15);
-		}
-		if (pipe(fd[1]) == -1)
-		{
-			g_megabash.exit_status = 1;
-			write(2, "Process error\n", 15);
-		}
 		pid = fork();
 		if (pid == 0)
 		{
-			check_dup(fd[0], STDIN_FILENO);
-			// dup2(fd[0][0], STDIN_FILENO);
-			// close(fd[0][0]);
-			// dup2(fd[0][1], STDOUT_FILENO);
-			// close(fd[0][1]);
+			if (i > 0)
+			{
+				check_dup(fd[i - 1][0], STDIN_FILENO);
+				check_dup(fd[i][1], STDOUT_FILENO);
+			}
+			else
+			{
+				check_dup(fd[i][0], STDIN_FILENO);
+				// if (fd[i + 1])
+				// 	check_dup(fd[i + 1][1], STDOUT_FILENO);
+				// else
+				// 	check_dup(fd[i][1], STDOUT_FILENO);
+			}
+			// // check_dup(fd[i][0], STDIN_FILENO);
+			// if (fd[i + 1])
+			// 	check_dup(fd[i + 1][1], STDOUT_FILENO);
 			printf("1\n");
 			if (is_builtin(cmd_list->content) == true)
 				execute_builtin();
@@ -58,19 +62,14 @@ static void	megaexecute(char **input)
 		}
 		else
 		{
-			close(fd[1]);
-			// dup2(fd[0][1], STDIN_FILENO);
-			// close(fd[0][1]);
+			close(fd[i][1]);
+			// dup2(fd[i][1], STDOUT_FILENO);
 			printf("2\n");
-			// dup2(fd[1][0], STDOUT_FILENO);
-			// close(fd[1][0]);
 			waitpid(pid, &g_megabash.exit_status, 0);
-			dup2(fd[1], STDOUT_FILENO);
-
 		}
 		if (g_megabash.cmd_list && g_megabash.cmd_list->next)
 			g_megabash.cmd_list = g_megabash.cmd_list->next;
-		repeat--;
+		i++;
 	}
 }
 

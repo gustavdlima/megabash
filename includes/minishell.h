@@ -36,7 +36,7 @@ typedef struct s_env{
 }				t_env;
 
 typedef struct s_token{
-	int				type;     
+	int				type;
 	char			*content;
 	struct s_token	*next;
 	struct s_token	*prev;

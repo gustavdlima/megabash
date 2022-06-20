@@ -6,8 +6,9 @@ void	execute_execve(t_commands *cmd_list)
 
 	pathway = what_cmd(cmd_list->cmd);
 	if (!pathway)
-		error_message("NÃO EXISTE!!", 1);
-	execve(pathway, cmd_list->content, g_megabash.envp);
+		error_message("Command does not exists", 1);
+	else
+		execve(pathway, cmd_list->content, g_megabash.envp);
 }
 
 int	**malloc_int_matrix(void)
@@ -15,11 +16,14 @@ int	**malloc_int_matrix(void)
 	int	**fd;
 	int	i;
 
-	i = g_megabash.pipe - 1;
-	fd = (int **)ft_calloc(g_megabash.pipe, sizeof(int *));
+	if (g_megabash.pipe > 0)
+		i = g_megabash.pipe;
+	else
+		i = 1;
+	fd = (int **)malloc((i + 1) * sizeof(int *));
 	while (i >= 0)
 	{
-		fd[i] = ft_calloc(2, sizeof(int));
+		fd[i] = malloc(2 * sizeof(int));
 		i--;
 	}
 	return (fd);
