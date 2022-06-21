@@ -44,7 +44,8 @@ void	b_exit(char **matrix)
 		if (matrix[1] && matrix[2])
 		{
 			ft_putendl_fd("megabash error: exit: too many arguments", 2);
-			return ;
+			g_megabash.exit_status = 1;
+			exit(1);
 		}
 		if (matrix[1] && is_numeric(matrix[1]))
 		{

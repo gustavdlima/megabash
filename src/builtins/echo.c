@@ -10,7 +10,8 @@ void	echo(char **matrix)
 	if (!matrix[1])
 	{
 		ft_putchar_fd('\n', 1);
-		return ;
+		g_megabash.exit_status = 1;
+		exit(1);
 	}
 	if (!ft_strncmp(matrix[1], "-n", 3))
 	{

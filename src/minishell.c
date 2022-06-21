@@ -12,6 +12,37 @@ void	check_dup(int a, int b)
 	close(a);
 }
 
+void	execute_multiple_commands(void)
+{
+	int		**fd;
+
+	fd = malloc_int_matrix();
+
+}
+
+void	execute_single_command(void)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (is_builtin(g_megabash.cmd_list->cmd))
+			execute_builtin();
+		else
+			execute_execve(g_megabash.cmd_list);
+	}
+	waitpid(pid, &g_megabash.exit_status, 0);
+}
+
+void	executing_processes(void)
+{
+	if (g_megabash.pipe == 0)
+		execute_single_command();
+	// else
+	// 	execute_multiple_commands();
+}
+
 static void	megaexecute(char **input)
 {
 	t_commands	*cmd_list;
@@ -22,91 +53,7 @@ static void	megaexecute(char **input)
 	treat_input(input);
 	// print_token(g_megabash.token_list);
 	parsing();
-	// // eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
-	cmd_list = g_megabash.cmd_list;
-	// while (cmd_list != NULL)
-	// {
-	// 	pipe(fd);
-	// pid = fork();
-	// if (pid == 0)
-	// {
-	// 	close(fd[0]);
-	// 	if (g_megabash.pipe > 0)
-	// 	{
-	// 		printf("EU TO PASSANO AQUI QUANDO DEVO\n");
-	// 		dup2(fd[1], STDOUT_FILENO);
-	// 	}
-	// 	close(fd[1]);
-	// 	execute_execve(cmd_list);
-	// }
-	// waitpid(pid, NULL, 0);
-	// if (g_megabash.pipe > 0)
-	// {
-	// 	dup2(fd[0], STDIN_FILENO);
-	// }
-	// 	close(fd[0]);
-	// 	close(fd[1]);
-	// 	cmd_list = cmd_list->next;
-	// 	i++;
-	// }
-	fd = malloc_int_matrix();
-	int i = 0;
-	while (fd[i])
-	{
-		if (pipe(fd[i]) == -1)
-			error_message("Process error", 1);
-		i++;
-	}
-	i = 0;
-		cmd_list = g_megabash.cmd_list;
-		int raoni = 0;
-	while (fd[i])
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			if (i > 0)
-			{
-				// check_dup(fd[i - 1][0], STDIN_FILENO);
-				// check_dup(fd[i][1], STDOUT_FILENO);
-				close(fd[i - 1][0]);
-				close(fd[i][1]);
-			}
-			else
-			{
-				// if (g_megabash.pipe > 0)
-				// {
-				printf("ALO ARAGUARI\n");
-					check_dup(fd[i + 1][1], STDOUT_FILENO);
-					// close(fd[i + 1][1]);
-				// }
-				// else
-				// {
-				// 	check_dup(fd[i][1], STDOUT_FILENO);
-				// 	check_dup(fd[i][0], STDIN_FILENO);
-				// }
-			}
-			// printf("1\n");
-			if (is_builtin(cmd_list->content) == true)
-				execute_builtin();
-			else
-				execute_execve(cmd_list);
-		}
-			// if (i == 0)
-				close(fd[i - 1][0]);
-				close(fd[i][1]);
-				close(fd[i + 1][1]);
-			waitpid(pid, &g_megabash.exit_status, 0);
-			if (g_megabash.pipe > 0)
-			{
-				check_dup(fd[i][0], STDIN_FILENO);
-				raoni++;
-			}
-		if (g_megabash.cmd_list && g_megabash.cmd_list->next)
-			cmd_list = cmd_list->next;
-		i++;
-	}
-	printf("RAONI : %d\n", raoni);
+	executing_processes();
 }
 
 static void	megastart(void)
