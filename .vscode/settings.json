@@ -3,6 +3,8 @@
 		"readline.h": "c",
 		"minishell.h": "c",
 		"stdio.h": "c",
-		"tokenizer.h": "c"
-	}
+		"tokenizer.h": "c",
+		"history.h": "c"
+	},
+	"codetogether.virtualCursorJoin": "sharedVirtualCursor"
 }

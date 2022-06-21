@@ -133,6 +133,5 @@ void	parsing(void)
 		continue ;
 	}
 	g_megabash.cmd_list = cmd_temp;
-	print_commands(g_megabash.cmd_list);
 	treat_parse_list();
 }

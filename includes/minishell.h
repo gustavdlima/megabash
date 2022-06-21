@@ -80,6 +80,7 @@ typedef struct s_global{
 # include "signal_handler.h"
 # include "command.h"
 # include "parsing.h"
+# include "heredoc.h"
 
 extern t_global	g_megabash;
 
