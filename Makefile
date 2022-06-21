@@ -1,7 +1,7 @@
 NAME			= minishell
 
 CC				= gcc
-CFLAGS			= -g -Wall -Wextra #-Werror
+CFLAGS			= -g3 -Wall -Wextra #-Werror
 RM				= rm -f
 VALGRIND 		= valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
 

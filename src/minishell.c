@@ -20,9 +20,35 @@ static void	megaexecute(char **input)
 
 	g_megabash.pipe = 0;
 	treat_input(input);
-	print_token(g_megabash.token_list);
+	// print_token(g_megabash.token_list);
 	parsing();
 	// // eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
+	cmd_list = g_megabash.cmd_list;
+	// while (cmd_list != NULL)
+	// {
+	// 	pipe(fd);
+	// pid = fork();
+	// if (pid == 0)
+	// {
+	// 	close(fd[0]);
+	// 	if (g_megabash.pipe > 0)
+	// 	{
+	// 		printf("EU TO PASSANO AQUI QUANDO DEVO\n");
+	// 		dup2(fd[1], STDOUT_FILENO);
+	// 	}
+	// 	close(fd[1]);
+	// 	execute_execve(cmd_list);
+	// }
+	// waitpid(pid, NULL, 0);
+	// if (g_megabash.pipe > 0)
+	// {
+	// 	dup2(fd[0], STDIN_FILENO);
+	// }
+	// 	close(fd[0]);
+	// 	close(fd[1]);
+	// 	cmd_list = cmd_list->next;
+	// 	i++;
+	// }
 	fd = malloc_int_matrix();
 	int i = 0;
 	while (fd[i])
@@ -32,9 +58,9 @@ static void	megaexecute(char **input)
 		i++;
 	}
 	i = 0;
+		cmd_list = g_megabash.cmd_list;
 	while (fd[i])
 	{
-		cmd_list = g_megabash.cmd_list;
 		pid = fork();
 		if (pid == 0)
 		{
@@ -45,15 +71,12 @@ static void	megaexecute(char **input)
 			}
 			else
 			{
-				check_dup(fd[i][0], STDIN_FILENO);
-				// if (fd[i + 1])
-				// 	check_dup(fd[i + 1][1], STDOUT_FILENO);
-				// else
-				// 	check_dup(fd[i][1], STDOUT_FILENO);
+				// if (g_megabash.pipe > 0)
+				// {
+					// check_dup(fd[i + 1][1], STDOUT_FILENO);
+					check_dup(fd[i][0], STDIN_FILENO);
+				// }
 			}
-			// // check_dup(fd[i][0], STDIN_FILENO);
-			// if (fd[i + 1])
-			// 	check_dup(fd[i + 1][1], STDOUT_FILENO);
 			printf("1\n");
 			if (is_builtin(cmd_list->content) == true)
 				execute_builtin();
@@ -62,13 +85,12 @@ static void	megaexecute(char **input)
 		}
 		else
 		{
-			close(fd[i][1]);
-			// dup2(fd[i][1], STDOUT_FILENO);
-			printf("2\n");
+			// if (i == 0)
+				close(fd[i][1]);
 			waitpid(pid, &g_megabash.exit_status, 0);
 		}
 		if (g_megabash.cmd_list && g_megabash.cmd_list->next)
-			g_megabash.cmd_list = g_megabash.cmd_list->next;
+			cmd_list = cmd_list->next;
 		i++;
 	}
 }
@@ -76,6 +98,7 @@ static void	megaexecute(char **input)
 static void	megastart(void)
 {
 	char	*input;
+	int		fd_temp[2];
 
 	while (1)
 	{
