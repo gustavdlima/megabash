@@ -59,6 +59,7 @@ static void	megaexecute(char **input)
 	}
 	i = 0;
 		cmd_list = g_megabash.cmd_list;
+		int raoni = 0;
 	while (fd[i])
 	{
 		pid = fork();
@@ -66,33 +67,46 @@ static void	megaexecute(char **input)
 		{
 			if (i > 0)
 			{
-				check_dup(fd[i - 1][0], STDIN_FILENO);
-				check_dup(fd[i][1], STDOUT_FILENO);
+				// check_dup(fd[i - 1][0], STDIN_FILENO);
+				// check_dup(fd[i][1], STDOUT_FILENO);
+				close(fd[i - 1][0]);
+				close(fd[i][1]);
 			}
 			else
 			{
 				// if (g_megabash.pipe > 0)
 				// {
-					// check_dup(fd[i + 1][1], STDOUT_FILENO);
-					check_dup(fd[i][0], STDIN_FILENO);
+				printf("ALO ARAGUARI\n");
+					check_dup(fd[i + 1][1], STDOUT_FILENO);
+					// close(fd[i + 1][1]);
+				// }
+				// else
+				// {
+				// 	check_dup(fd[i][1], STDOUT_FILENO);
+				// 	check_dup(fd[i][0], STDIN_FILENO);
 				// }
 			}
-			printf("1\n");
+			// printf("1\n");
 			if (is_builtin(cmd_list->content) == true)
 				execute_builtin();
 			else
 				execute_execve(cmd_list);
 		}
-		else
-		{
 			// if (i == 0)
+				close(fd[i - 1][0]);
 				close(fd[i][1]);
+				close(fd[i + 1][1]);
 			waitpid(pid, &g_megabash.exit_status, 0);
-		}
+			if (g_megabash.pipe > 0)
+			{
+				check_dup(fd[i][0], STDIN_FILENO);
+				raoni++;
+			}
 		if (g_megabash.cmd_list && g_megabash.cmd_list->next)
 			cmd_list = cmd_list->next;
 		i++;
 	}
+	printf("RAONI : %d\n", raoni);
 }
 
 static void	megastart(void)
