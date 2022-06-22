@@ -29,7 +29,8 @@ int	only_space(char *cmd)
 	cmd_len = ft_strlen(cmd);
 	while (cmd[i])
 	{
-		if (cmd[i] == ' ')
+		if (cmd[i] == '\v' || cmd[i] == '\t' 
+			|| cmd[i] == '\r' || cmd [i] == ' ')
 			space++;
 		i++;
 	}

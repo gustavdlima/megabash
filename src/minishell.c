@@ -88,10 +88,6 @@ void	executing_processes(void)
 
 static void	megaexecute(char **input)
 {
-	t_commands	*cmd_list;
-	pid_t		pid;
-	int			**fd;
-
 	g_megabash.pipe = 0;
 	treat_input(input);
 	// print_token(g_megabash.token_list);
@@ -102,7 +98,6 @@ static void	megaexecute(char **input)
 static void	megastart(void)
 {
 	char	*input;
-	int		fd_temp[2];
 
 	while (1)
 	{

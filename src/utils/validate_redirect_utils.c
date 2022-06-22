@@ -82,7 +82,9 @@ int	too_many_redirections(char *cmd)
 	redirection = 1;
 	while (cmd[i])
 	{
-		if (cmd[i] == '>' || cmd[i] == '<')
+		if (cmd[i] == '>' || cmd[i] == '<' 
+			|| (cmd[i] == '<' && cmd[i + 1] == '<')
+			|| (cmd[i] == '>' && cmd[i + 1] == '>'))
 		{
 			sign = cmd[i];
 			while (cmd[++i] == sign)

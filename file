@@ -1,1 +1,12 @@
-oi
+total 40
+-rw-rw-r--  1 gstv gstv    0 Jun 22 09:49 a
+-rw-rw-r--  1 gstv gstv    4 Jun 22 09:49 b
+-rw-rw-r--  1 gstv gstv    0 Jun 22 10:12 file
+drwxrwxr-x  2 gstv gstv 4096 Jun 22 09:49 includes
+drwxrwxr-x  3 gstv gstv 4096 Jun 22 09:49 libs
+-rw-rw-r--  1 gstv gstv 3055 Jun 22 09:49 Makefile
+-rw-rw-r--  1 gstv gstv  867 Jun 22 09:49 oi.txt
+-rw-rw-r--  1 gstv gstv  474 Jun 22 09:49 readline.supp
+-rw-rw-r--  1 gstv gstv 5549 Jun 22 09:49 README.md
+drwxrwxr-x 13 gstv gstv 4096 Jun 22 09:49 src
+-rw-rw-r--  1 gstv gstv   15 Jun 22 09:49 txt.txt
