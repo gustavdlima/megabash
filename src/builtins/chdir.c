@@ -34,7 +34,7 @@ static void home_execute(void)
 	if (env_node == NULL)
 	{
 		ft_putendl_fd("megabash: cd: HOME not set", 2);
-		return ;
+		exit(2);
 	}
 	else
 	{

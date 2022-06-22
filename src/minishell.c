@@ -48,7 +48,7 @@ void	execute_multiple_commands(void)
 				check_dup(fd[i][1], STDOUT_FILENO);
 			}
 			if (is_builtin(pivot->cmd) == true)
-				execute_builtin();
+				execute_builtin(pivot);
 			else
 				execute_execve(pivot);
 		}
@@ -70,7 +70,7 @@ void	execute_single_command(void)
 	if (pid == 0)
 	{
 		if (is_builtin(g_megabash.cmd_list->cmd))
-			execute_builtin();
+			execute_builtin(g_megabash.cmd_list);
 		else
 			execute_execve(g_megabash.cmd_list);
 	}
