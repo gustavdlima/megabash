@@ -47,7 +47,7 @@ void	execute_multiple_commands(void)
 				close(fd[i][0]);
 				check_dup(fd[i][1], STDOUT_FILENO);
 			}
-			if (is_builtin(pivot->cmd))
+			if (is_builtin(pivot->cmd) == true)
 				execute_builtin();
 			else
 				execute_execve(pivot);
@@ -58,11 +58,8 @@ void	execute_multiple_commands(void)
 		pivot = pivot->next;
 	}
 	i = 0;
-	while (i < g_megabash.pipe + 1)
-	{
+	while (i++ < g_megabash.pipe + 1)
 		waitpid(-1, &g_megabash.exit_status, 0);
-		i++;
-	}
 }
 
 void	execute_single_command(void)
