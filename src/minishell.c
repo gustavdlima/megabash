@@ -37,18 +37,28 @@ void	execute_multiple_commands(void)
 		{
 			if (i != 0)
 			{
+				close(fd[i - 1][1]);
 				check_dup(fd[i - 1][0], STDIN_FILENO);
 			}
-			// else
-			check_dup(fd[i][1], STDOUT_FILENO);
+			if (fd[i] != NULL) // ls | wc
+			{
+				close(fd[i][0]);
+				check_dup(fd[i][1], STDOUT_FILENO);
+			}
 			if (is_builtin(g_megabash.cmd_list->cmd))
 				execute_builtin();
 			else
+			{
+				dprintf(2, "MDS KKKKKK\n");
 				execute_execve(g_megabash.cmd_list);
+			}
 		}
-		
-		if (fd[i + 1])
-			i++;
+		i++;
+		g_megabash.cmd_list = g_megabash.cmd_list->next;
+	}
+	while (g_megabash.cmd_list)
+	{
+		waitpid(-1, &g_megabash.exit_status, 0);
 		g_megabash.cmd_list = g_megabash.cmd_list->next;
 	}
 }
@@ -117,6 +127,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	g_megabash.last_input = ft_strdup("");
 	environment(envp);
+	printf("ENTROU\n");
 	megastart();
 	return (0);
 }
