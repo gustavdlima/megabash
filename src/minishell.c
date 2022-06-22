@@ -2,22 +2,55 @@
 
 t_global	g_megabash;
 
-void	check_dup(int a, int b)
+void	check_dup(int old, int new)
 {
-	if (dup2(a, b) == -1)
+	if (dup2(old, new) == -1)
 	{
 		write(2, "Permission denined.\n", 21);
 		g_megabash.exit_status = 1;
 	}
-	close(a);
+	close(old);
 }
 
 void	execute_multiple_commands(void)
 {
 	int		**fd;
+	int		i;
+	pid_t	pid;
 
 	fd = malloc_int_matrix();
-
+	i = 0;
+	while (fd[i])
+	{
+		if (pipe(fd[i]) == -1)
+		{
+			error_message("Proccess error : pipe", 1);
+			exit(1);
+		}
+		i++;
+	}
+	i = 0;
+	while (g_megabash.cmd_list)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			if (i != 0)
+			{
+				check_dup(fd[i - 1][0], STDIN_FILENO);
+			}
+			// else
+			check_dup(fd[i][1], STDOUT_FILENO);
+			if (is_builtin(g_megabash.cmd_list->cmd))
+				execute_builtin();
+			else
+				execute_execve(g_megabash.cmd_list);
+		}
+		
+		if (fd[i + 1])
+			i++;
+		g_megabash.cmd_list = g_megabash.cmd_list->next;
+	}
 }
 
 void	execute_single_command(void)
@@ -39,8 +72,8 @@ void	executing_processes(void)
 {
 	if (g_megabash.pipe == 0)
 		execute_single_command();
-	// else
-	// 	execute_multiple_commands();
+	else
+		execute_multiple_commands();
 }
 
 static void	megaexecute(char **input)

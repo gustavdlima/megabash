@@ -19,11 +19,10 @@ int	**malloc_int_matrix(void)
 	int	**fd;
 	int	i;
 
-	if (g_megabash.pipe > 0)
-		i = g_megabash.pipe;
-	else
-		i = 1;
+	i = g_megabash.pipe;
 	fd = (int **)malloc((i + 1) * sizeof(int *));
+	fd[i] = NULL;
+	i--;
 	while (i >= 0)
 	{
 		fd[i] = malloc(2 * sizeof(int));
