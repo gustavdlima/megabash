@@ -30,6 +30,7 @@ void	execute_multiple_commands(void)
 		i++;
 	}
 	i = 0;
+	// t_commands cmd_list = g_megabash.cmd_list;
 	while (g_megabash.cmd_list)
 	{
 		pid = fork();
@@ -38,29 +39,41 @@ void	execute_multiple_commands(void)
 			if (i != 0)
 			{
 				close(fd[i - 1][1]);
-				check_dup(fd[i - 1][0], STDIN_FILENO);
+				dup2(fd[i - 1][0], STDIN_FILENO);
+				close(fd[i - 1][0]);
 			}
-			if (fd[i] != NULL) // ls | wc
+			if (fd[i] != NULL)
 			{
 				close(fd[i][0]);
-				check_dup(fd[i][1], STDOUT_FILENO);
+				dup2(fd[i][1], STDOUT_FILENO);
+				close(fd[i][1]);
 			}
 			if (is_builtin(g_megabash.cmd_list->cmd))
 				execute_builtin();
 			else
 			{
-				dprintf(2, "MDS KKKKKK\n");
+				dprintf(2, "i : %d\n", i);
 				execute_execve(g_megabash.cmd_list);
+				dprintf(2, "UÉ....\n");
 			}
 		}
+		dprintf(2, "criou o fork O-O\n");
+		if (fd[i])
+			close(fd[i][1]);
 		i++;
 		g_megabash.cmd_list = g_megabash.cmd_list->next;
 	}
-	while (g_megabash.cmd_list)
+	dprintf(2, "saiu do loop dos forks\n");
+	i = 0;
+	printf("pipes: %d\n", g_megabash.pipe);
+	while (i < g_megabash.pipe + 1)
 	{
+		dprintf(2, "waiting for child proccess e.e\n");
 		waitpid(-1, &g_megabash.exit_status, 0);
-		g_megabash.cmd_list = g_megabash.cmd_list->next;
+		dprintf(2, "past waitpid for child proccess e.e\n");
+		i++;
 	}
+	dprintf(2, "saiu do loop do waitpid\n");
 }
 
 void	execute_single_command(void)
