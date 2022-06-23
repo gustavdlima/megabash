@@ -36,7 +36,12 @@ void	unset(char **command)
 	{
 		temp = get_env_previous_node(g_megabash.env, command[i]);
 		if (temp)
+		{
 			env_node_delete(temp);
+			// if (command[i + 1] == NULL)
+			// 	g_megabash.exit_status = 0;
+			// 	exit(0);
+		}
 		else
 		{
 			g_megabash.exit_status = 1;
