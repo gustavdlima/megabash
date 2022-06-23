@@ -63,6 +63,8 @@ static void	dash_execute(void)
 		new_oldpwd_env();
 		chdir(directory);
 		new_pwd_env();
+		g_megabash.exit_status = 0;
+		exit(0);
 	}
 }
 
