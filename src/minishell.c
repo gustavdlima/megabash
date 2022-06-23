@@ -40,12 +40,14 @@ void	execute_multiple_commands(void)
 			if (i != 0)
 			{
 				close(fd[i - 1][1]);
-				check_dup(fd[i - 1][0], STDIN_FILENO);
+				dup2(fd[i - 1][0], STDIN_FILENO);
+				close(fd[i - 1][0]);
 			}
 			if (fd[i] != NULL)
 			{
 				close(fd[i][0]);
 				check_dup(fd[i][1], STDOUT_FILENO);
+				close(fd[i][1]);
 			}
 			if (is_builtin(pivot->cmd) == true)
 				execute_builtin(pivot);

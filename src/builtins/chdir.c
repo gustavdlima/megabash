@@ -33,14 +33,16 @@ static void home_execute(void)
 	env_node = get_env_node(g_megabash.env, "HOME");
 	if (env_node == NULL)
 	{
-		ft_putendl_fd("megabash: cd: HOME not set", 2);
-		exit(2);
+		error_message("megabash: cd: HOME not set", 1);
+		exit(1);
 	}
 	else
 	{
 		new_oldpwd_env();
 		chdir(env_node->content);
 		new_pwd_env();
+		g_megabash.exit_status = 0;
+		exit(0);
 	}
 }
 
@@ -53,8 +55,8 @@ static void	dash_execute(void)
 	directory = ft_strdup(env_node->content);
 	if (env_node == NULL)
 	{
-		ft_putendl_fd("megabash: cd: OLDPWD not set", 2);
-		return ;
+		error_message("megabash: cd: OLDPWD not set", 1);
+		exit(1);
 	}
 	else
 	{
@@ -88,5 +90,7 @@ void	cd(char **matrix)
 			exit(1);
 		}
 		new_pwd_env();
+		g_megabash.exit_status = 0;
+		exit(0);
 	}
 }
