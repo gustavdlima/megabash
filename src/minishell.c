@@ -107,8 +107,9 @@ static void	megastart(void)
 		printf("\n\ninput: %s\n", input);
 		if (input && validate_input(input) == true)
 		{
-			if (ft_strnstr(input, "exit", ft_strlen(input)))
-				b_exit(input);
+			if (!ft_strncmp(input, "exit", 5) == 0
+				&& !ft_strnstr(input, "|", ft_strlen(input)))
+				b_exit(input, true);
 			else
 				megaexecute(&input);
 		}
