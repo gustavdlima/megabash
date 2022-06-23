@@ -26,5 +26,8 @@ void	echo(char **matrix)
 		i++;
 	}
 	if (flag == 0)
+	{
 		ft_putstr_fd("\n", 1);
+		exit(0);
+	}
 }
