@@ -106,7 +106,12 @@ static void	megastart(void)
 		input = read_input();
 		printf("\n\ninput: %s\n", input);
 		if (input && validate_input(input) == true)
-			megaexecute(&input);
+		{
+			if (ft_strnstr(input, "exit", ft_strlen(input)))
+				b_exit(input);
+			else
+				megaexecute(&input);
+		}
 		else
 			printf("BORN TO BE BASH\n");
 		// free_megabash();
