@@ -51,29 +51,10 @@ void	export(char **command)
 		name = ft_strdup("");
 		content = ft_strdup("");
 		i = export_execute(name, content, node, command, i);
+		// if (command[i + 1])
+		// 	g_megabash.exit_status = 0;
+		// 	exit(0);
 		continue ;
-		// if (!ft_strchr(command[i], '='))
-		// {
-		// 	i++;
-		// 	continue ;
-		// }
-		// if (is_alphabetic(command[i]))
-		// {
-		// 	print_export_error(command[i]);
-		// 	i++;
-		// 	continue ;
-		// }
-		// name = get_env_name(command[i]);
-		// content = get_env_path(command[i]);
-		// node = get_env_node(g_megabash.env, name);
-		// if (!node)
-		// 	env_addback(&g_megabash.env, env_lst_new(name, content));
-		// else
-		// {
-		// 	env_content_to_null(node, name);
-		// 	node->content = ft_strdup(content);
-		// }
-		// i++;
 	}
 }
 
