@@ -33,14 +33,16 @@ static void home_execute(void)
 	env_node = get_env_node(g_megabash.env, "HOME");
 	if (env_node == NULL)
 	{
-		ft_putendl_fd("megabash: cd: HOME not set", 2);
-		return ;
+		error_message("megabash: cd: HOME not set", 1);
+		exit(1);
 	}
 	else
 	{
 		new_oldpwd_env();
 		chdir(env_node->content);
 		new_pwd_env();
+		g_megabash.exit_status = 0;
+		exit(0);
 	}
 }
 
@@ -53,21 +55,27 @@ static void	dash_execute(void)
 	directory = ft_strdup(env_node->content);
 	if (env_node == NULL)
 	{
-		ft_putendl_fd("megabash: cd: OLDPWD not set", 2);
-		return ;
+		error_message("megabash: cd: OLDPWD not set", 1);
+		exit(1);
 	}
 	else
 	{
 		new_oldpwd_env();
 		chdir(directory);
 		new_pwd_env();
+		g_megabash.exit_status = 0;
+		exit(0);
 	}
 }
 
 void	cd(char **matrix)
 {
 	if (matrix_size(matrix) > 1)
+	{
 		ft_putendl_fd("megabash: cd: too many arguments", 2);
+		g_megabash.exit_status = 1;
+		exit(1);
+	}
 	if(matrix_size(matrix) == 0 || !ft_strncmp(g_megabash.cmd_list->content[1], "~", 2))
 		home_execute();
 	else if(!ft_strncmp(g_megabash.cmd_list->content[1], "-", 2))
@@ -80,7 +88,11 @@ void	cd(char **matrix)
 			ft_putstr_fd("megabash: cd:", 2);
 			ft_putstr_fd(matrix[1], 2);
 			ft_putendl_fd(": No such file or directory", 2);
+			g_megabash.exit_status = 1;
+			exit(1);
 		}
 		new_pwd_env();
+		g_megabash.exit_status = 0;
+		exit(0);
 	}
 }

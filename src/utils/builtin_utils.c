@@ -1,35 +1,40 @@
 #include "minishell.h"
 
-int	execute_builtin(void)
+int	execute_builtin(t_commands *cmd_list)
 {
-	if (!ft_strncmp(g_megabash.cmd_list->cmd, "cd", 3))
+	if (!ft_strncmp(cmd_list->cmd, "cd", 3))
 	{
-		cd(g_megabash.cmd_list->content);
+		cd(cmd_list->content);
 		return (true);
 	}
-	if (!ft_strncmp(g_megabash.cmd_list->cmd, "env", 4))
+	if (!ft_strncmp(cmd_list->cmd, "env", 4))
 	{
-		builtin_env(g_megabash.cmd_list->content);
+		builtin_env(cmd_list->content);
 		return (true);
 	}
-	if (!ft_strncmp(g_megabash.cmd_list->cmd, "echo", 5))
+	if (!ft_strncmp(cmd_list->cmd, "echo", 5))
 	{
-		echo(g_megabash.cmd_list->content);
+		echo(cmd_list->content);
 		return (true);
 	}
-	if (!ft_strncmp(g_megabash.cmd_list->cmd, "unset", 6))
+	if (!ft_strncmp(cmd_list->cmd, "unset", 6))
 	{
-		unset(g_megabash.cmd_list->content);
+		unset(cmd_list->content);
 		return (true);
 	}
-	if (!ft_strncmp(g_megabash.cmd_list->cmd, "export", 7))
+	if (!ft_strncmp(cmd_list->cmd, "export", 7))
 	{
-		export(g_megabash.cmd_list->content);
+		export(cmd_list->content);
 		return (true);
 	}
-	if (!ft_strncmp(g_megabash.cmd_list->cmd, "exit", 5))
+	if (!ft_strncmp(cmd_list->cmd, "exit", 5))
 	{
-		b_exit(g_megabash.cmd_list->content);
+		b_exit(cmd_list->content);
+		exit(g_megabash.exit_status);
+	}
+	if (!ft_strncmp(cmd_list->cmd, "pwd", 3))
+	{
+		pwd(cmd_list->content);
 		return (true);
 	}
 	return (false);

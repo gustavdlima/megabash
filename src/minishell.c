@@ -2,117 +2,103 @@
 
 t_global	g_megabash;
 
-void	check_dup(int a, int b)
+void	check_dup(int old, int new)
 {
-	if (dup2(a, b) == -1)
+	if (dup2(old, new) == -1)
 	{
 		write(2, "Permission denined.\n", 21);
 		g_megabash.exit_status = 1;
 	}
-	close(a);
+	close(old);
 }
 
-static void	megaexecute(char **input)
+void	execute_multiple_commands(void)
 {
-	t_commands	*cmd_list;
-	pid_t		pid;
-	int			**fd;
+	int		**fd;
+	int		i;
+	pid_t	pid;
+	t_commands	*pivot;
 
-	g_megabash.pipe = 0;
-	treat_input(input);
-	// print_token(g_megabash.token_list);
-	parsing();
-	// // eu preciso de TRÊS loops: 1 LOOP PRA CRIAR TODOS OS PIPES DE UMA VEZ; OUTRO LOOP PARA CRIAR E EXECUTA-LOS (EXECVE) TODOS OS FORKS DE UMA VEZ; CRIAR LOOP DE WAIT;
-	cmd_list = g_megabash.cmd_list;
-	// while (cmd_list != NULL)
-	// {
-	// 	pipe(fd);
-	// pid = fork();
-	// if (pid == 0)
-	// {
-	// 	close(fd[0]);
-	// 	if (g_megabash.pipe > 0)
-	// 	{
-	// 		printf("EU TO PASSANO AQUI QUANDO DEVO\n");
-	// 		dup2(fd[1], STDOUT_FILENO);
-	// 	}
-	// 	close(fd[1]);
-	// 	execute_execve(cmd_list);
-	// }
-	// waitpid(pid, NULL, 0);
-	// if (g_megabash.pipe > 0)
-	// {
-	// 	dup2(fd[0], STDIN_FILENO);
-	// }
-	// 	close(fd[0]);
-	// 	close(fd[1]);
-	// 	cmd_list = cmd_list->next;
-	// 	i++;
-	// }
+	pivot = g_megabash.cmd_list;
 	fd = malloc_int_matrix();
-	int i = 0;
+	i = 0;
 	while (fd[i])
 	{
 		if (pipe(fd[i]) == -1)
-			error_message("Process error", 1);
+		{
+			error_message("Proccess error : pipe", 1);
+			exit(1);
+		}
 		i++;
 	}
 	i = 0;
-		cmd_list = g_megabash.cmd_list;
-		int raoni = 0;
-	while (fd[i])
+	while (pivot)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-			if (i > 0)
+			if (i != 0)
 			{
-				// check_dup(fd[i - 1][0], STDIN_FILENO);
-				// check_dup(fd[i][1], STDOUT_FILENO);
+				close(fd[i - 1][1]);
+				dup2(fd[i - 1][0], STDIN_FILENO);
 				close(fd[i - 1][0]);
+			}
+			if (fd[i] != NULL)
+			{
+				close(fd[i][0]);
+				check_dup(fd[i][1], STDOUT_FILENO);
 				close(fd[i][1]);
 			}
+			if (is_builtin(pivot->cmd) == true)
+				execute_builtin(pivot);
 			else
-			{
-				// if (g_megabash.pipe > 0)
-				// {
-				printf("ALO ARAGUARI\n");
-					check_dup(fd[i + 1][1], STDOUT_FILENO);
-					// close(fd[i + 1][1]);
-				// }
-				// else
-				// {
-				// 	check_dup(fd[i][1], STDOUT_FILENO);
-				// 	check_dup(fd[i][0], STDIN_FILENO);
-				// }
-			}
-			// printf("1\n");
-			if (is_builtin(cmd_list->content) == true)
-				execute_builtin();
-			else
-				execute_execve(cmd_list);
+				execute_execve(pivot);
 		}
-			// if (i == 0)
-				close(fd[i - 1][0]);
-				close(fd[i][1]);
-				close(fd[i + 1][1]);
-			waitpid(pid, &g_megabash.exit_status, 0);
-			if (g_megabash.pipe > 0)
-			{
-				check_dup(fd[i][0], STDIN_FILENO);
-				raoni++;
-			}
-		if (g_megabash.cmd_list && g_megabash.cmd_list->next)
-			cmd_list = cmd_list->next;
+		if (fd[i])
+			close(fd[i][1]);
 		i++;
+		pivot = pivot->next;
 	}
-	printf("RAONI : %d\n", raoni);
+	i = 0;
+	while (i++ < g_megabash.pipe + 1)
+		waitpid(-1, &g_megabash.exit_status, 0);
+}
+
+void	execute_single_command(void)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (is_builtin(g_megabash.cmd_list->cmd))
+			execute_builtin(g_megabash.cmd_list);
+		else
+			execute_execve(g_megabash.cmd_list);
+	}
+	waitpid(pid, &g_megabash.exit_status, 0);
+}
+
+void	executing_processes(void)
+{
+	if (g_megabash.pipe == 0)
+		execute_single_command();
+	else
+		execute_multiple_commands();
+}
+
+static void	megaexecute(char **input)
+{
+	g_megabash.pipe = 0;
+	treat_input(input);
+	// print_token(g_megabash.token_list);
+	parsing();
+	executing_processes();
 }
 
 static void	megastart(void)
 {
 	char	*input;
-	int		fd_temp[2];
 
 	while (1)
 	{
@@ -120,7 +106,13 @@ static void	megastart(void)
 		input = read_input();
 		printf("\n\ninput: %s\n", input);
 		if (input && validate_input(input) == true)
-			megaexecute(&input);
+		{
+			if (ft_strnstr(input, "exit", 5)
+				&& !ft_strnstr(input, "|", ft_strlen(input)))
+				bb_exit(input);
+			else
+				megaexecute(&input);
+		}
 		else
 			printf("BORN TO BE BASH\n");
 		// free_megabash();
@@ -137,6 +129,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	g_megabash.last_input = ft_strdup("");
 	environment(envp);
+	printf("ENTROU\n");
 	megastart();
 	return (0);
 }

@@ -4,24 +4,18 @@ int	validate_input(char *input)
 {
 	if (input)
 	{
-		if (g_megabash.exit_status == 42)
-		{
-			g_megabash.exit_status = 2;
-			return (false);
-		}
+		// if (g_megabash.exit_status == 42)
+		// {
+		// 	g_megabash.exit_status = 2;
+		// 	return (false);
+		// }
 		if (!input[0] || only_space(input) == true)
 			return (false);
 		if (bash_syntax_error(input) == true)
 			return (false);
-		if (command_not_found(input) == true)
-			return (false);
-		if (open_curly_bracket(input) == true)
-		{
-			ft_putendl_fd("Syntax error: open curly bracket.", 2);
-			g_megabash.exit_status = 130;
-			return (false);
-		}
-		if (too_many_redirections(input) == true)
+		// if (command_not_found(input) == true)  fazer o check na execução individual do cmd
+		// 	return (false);
+		if (too_many_redirections(input) == true) // reescrever função para aceitar << e >> 
 			return (false);
 		if (redirect_to_no_arguments(input) == true)
 			return(false);
@@ -38,3 +32,5 @@ int	validate_input(char *input)
 	}
 	return (false);
 }
+
+// simbolos especiais juntos eh erro de syntax

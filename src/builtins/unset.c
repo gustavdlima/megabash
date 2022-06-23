@@ -28,14 +28,25 @@ void	unset(char **command)
 
 	i = 1;
 	if (command && !command[1])
-		return ;
+	{
+		g_megabash.exit_status = 1;
+		exit(1);
+	}
 	while (command[i])
 	{
 		temp = get_env_previous_node(g_megabash.env, command[i]);
 		if (temp)
+		{
 			env_node_delete(temp);
+			// if (command[i + 1] == NULL)
+			// 	g_megabash.exit_status = 0;
+			// 	exit(0);
+		}
 		else
-			return ;
+		{
+			g_megabash.exit_status = 1;
+			exit(1);
+		}
 		i++;
 	}
 }
