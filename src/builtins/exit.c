@@ -36,7 +36,7 @@ static int	check_arg(char *arg)
 	return (true);
 }
 
-void	b_exit(char *input, int single_cmd)
+void	bb_exit(char *input)
 {
 	char	**matrix;
 	int		to_exit;
@@ -56,8 +56,7 @@ void	b_exit(char *input, int single_cmd)
 		// }
 		else if (matrix[1])
 		{
-			if (single_cmd == true)
-				error_message("megabash error: exit: too many arguments", 1);
+			error_message("megabash error: exit: too many arguments", 1);
 			to_exit = false;
 		}
 		free_exit_builtin();
@@ -67,4 +66,24 @@ void	b_exit(char *input, int single_cmd)
 		printf("exit\n");
 		exit(g_megabash.exit_status);
 	}
+}
+
+void	b_exit(char **matrix)
+{
+	if (matrix)
+	{
+		if (matrix[1] && is_numeric(matrix[1]))
+		{
+			if (matrix[1] && !check_arg(matrix[1]))
+				g_megabash.exit_status = ft_atoi(matrix[1]);
+		}
+		// else if (matrix[1] && check_arg(matrix[1]))
+		// {
+		// 	g_megabash.exit_status = 2;
+		// }
+		else if (matrix[1])
+			error_message("megabash error: exit: too many arguments", 1);
+		free_exit_builtin();
+	}
+	exit(g_megabash.exit_status);
 }

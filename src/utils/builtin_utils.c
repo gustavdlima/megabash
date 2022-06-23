@@ -29,7 +29,7 @@ int	execute_builtin(t_commands *cmd_list)
 	}
 	if (!ft_strncmp(cmd_list->cmd, "exit", 5))
 	{
-		b_exit(cmd_list->content, false);
+		b_exit(cmd_list->content);
 		exit(g_megabash.exit_status);
 	}
 	if (!ft_strncmp(cmd_list->cmd, "pwd", 3))
