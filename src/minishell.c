@@ -19,6 +19,7 @@ void	execute_multiple_commands(void)
 	pid_t	pid;
 	t_commands	*pivot;
 
+
 	pivot = g_megabash.cmd_list;
 	fd = malloc_int_matrix();
 	i = 0;
@@ -34,6 +35,13 @@ void	execute_multiple_commands(void)
 	i = 0;
 	while (pivot)
 	{
+		if (parent_is_builtin(pivot->cmd) == true)
+		{
+			execute_builtin(pivot);
+			i++;
+			pivot = pivot->next;
+			continue ;
+		}
 		pid = fork();
 		if (pid == 0)
 		{
@@ -56,12 +64,6 @@ void	execute_multiple_commands(void)
 		}
 		if (fd[i])
 			close(fd[i][1]);
-		if (parent_is_builtin(pivot->cmd) == true)
-		{
-			execute_builtin(pivot);
-			pivot = pivot->next;
-			continue ;
-		}
 		i++;
 		pivot = pivot->next;
 	}
