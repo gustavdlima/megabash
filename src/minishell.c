@@ -19,7 +19,6 @@ void	execute_multiple_commands(void)
 	pid_t	pid;
 	t_commands	*pivot;
 
-
 	pivot = g_megabash.cmd_list;
 	fd = malloc_int_matrix();
 	i = 0;
@@ -125,9 +124,7 @@ static void	megastart(void)
 		input = read_input();
 		printf("\n\ninput: %s\n", input);
 		if (input && validate_input(input) == true)
-		{
 				megaexecute(&input);
-		}
 		else
 			printf("BORN TO BE BASH\n");
 		// free_megabash();
