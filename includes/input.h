@@ -23,7 +23,8 @@ void	reverse_input_chars(char *input);
 void	treat_input_chars(char *input);
 char	*treat_dollar(char *cmd);
 
-int		is_builtin(char *input);
+int		parent_is_builtin(char *input);
+int		child_is_builtin(char *input);
 void	check_input(void);
 
 // treat_operators.c
