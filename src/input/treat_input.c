@@ -157,9 +157,9 @@ void	treat_input(char **input)
 	char	*treated;
 
 	treat_input_chars(*input);
-	printf("treat_input_chars: %s\n", *input);
+	// printf("treat_input_chars: %s\n", *input);
 	treated = treat_operators(*input);
-	printf("treat_operators : %s\n", treated);
+	// printf("treat_operators : %s\n", treated);
 	tokenizer(treated);
 	print_token(g_megabash.token_list);
 	treat_token_list();

@@ -32,6 +32,7 @@ void	execute_multiple_commands(void)
 		i++;
 	}
 	i = 0;
+			// dprintf(2, "redirect : %s\n", g_megabash.cmd_list->redirect->content);
 	while (pivot)
 	{
 		if (parent_is_builtin(pivot->cmd) == true)
@@ -47,6 +48,18 @@ void	execute_multiple_commands(void)
 			if (i != 0)
 			{
 				close(fd[i - 1][1]);
+				if (pivot->redirect
+					&& pivot->redirect->type == 6)
+				{
+					dprintf(2,"TO NA CONDICAO!\n");
+					int outfile;
+					while (pivot->redirect)
+					{
+						outfile = open(pivot->redirect->content,  O_WRONLY | O_CREAT | O_TRUNC, 0777);
+						pivot->redirect = pivot->redirect->next;
+					}
+					check_dup(outfile, STDOUT_FILENO);
+				}
 				dup2(fd[i - 1][0], STDIN_FILENO);
 				close(fd[i - 1][0]);
 			}
@@ -85,6 +98,20 @@ void	execute_single_command(void)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (g_megabash.cmd_list->redirect
+			&& g_megabash.cmd_list->redirect->type == 6)
+		{
+			dprintf(2,"TO NA CONDICAO!\n");
+			int outfile;
+			while (pivot->redirect)
+			{
+				dprintf(2, "redirect.content : %s\n", pivot->redirect->content);
+				if (pivot->redirect->content)
+					outfile = open(pivot->redirect->content, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+				pivot->redirect = pivot->redirect->next;
+			}
+			check_dup(outfile, STDOUT_FILENO);
+		}
 		if (child_is_builtin(g_megabash.cmd_list->cmd))
 			execute_builtin(g_megabash.cmd_list);
 		else
@@ -122,7 +149,7 @@ static void	megastart(void)
 	{
 		signal_handler();
 		input = read_input();
-		printf("\n\ninput: %s\n", input);
+		// printf("\n\ninput: %s\n", input);
 		if (input && validate_input(input) == true)
 				megaexecute(&input);
 		else
