@@ -72,6 +72,47 @@ t_token	*token_last_node(t_token *lst)
 	return (NULL);
 }
 
+struct s_token 	*get_token_node(t_token *list, char *name)
+{
+	while (list)
+	{
+		if (ft_new_strncmp(list->content, name) == true)
+			return (list);
+		list = list->next;
+	}
+	return (NULL);
+}
+
+t_token *token_content_to_hell(t_token *list, char *name, char *true_name)
+{
+	while (list)
+	{
+		if (ft_new_strncmp(name, list->content))
+		{
+			if (list->next)
+			{
+				list->next->prev = list->prev;
+				list->prev->next = list->next;
+			}
+			else
+			{
+				list->prev->next = NULL;
+			}
+			break ;
+		}
+		list = list->next;
+	}
+	while (list)
+	{
+		if (ft_new_strncmp(true_name, list->content))
+		{
+			return (list);
+		}
+		list = list->prev;
+	}
+	return (list);
+}
+
 void	free_token(t_token *token)
 {
 	t_token	*temp;

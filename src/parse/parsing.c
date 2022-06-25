@@ -18,7 +18,8 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 {
 	char		*temp;
 	char		*cmd_string;
-
+	t_token		*token_temp;
+	
 	command->cmd = ft_strdup(token->content);
 	token = token->next;
 	cmd_string = ft_strdup(command->cmd);
@@ -26,7 +27,26 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 	{
 		if (token->type == is_pipe || token->type == is_redirect)
 		{
+			if (token->next->next && token->next->next->type == is_word)
+			{
+				token_temp = token->next->next;
+				while (token_temp->type == is_word)
+				{
+					cmd_string = insert_caracter(cmd_string, ' ');
+					temp = ft_strjoin(cmd_string, token_temp->content);
+					cmd_string = ft_strdup(temp);
+					token = token_content_to_hell(token, token_temp->content, token->content);
+					free(temp);
+					if (token_temp->next)
+						token_temp = token_temp->next;
+					else
+						break ;
+				}
+			}	
 			command->content = ft_split(cmd_string, ' ');
+			for (int j = 0; command->content[j]; j++)
+				printf("command-> content: %s\n", command->content[j]);
+			free (cmd_string);
 			return (token);
 		}
 		if (token->type == is_word)
