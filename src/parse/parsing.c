@@ -89,8 +89,10 @@ static t_token *parsing_check(t_token *token, t_commands *command)
 		}
 		else if (token->type == is_redirect)
 		{
+		 dprintf(2, "EU TO AQUI PO\n");
 				redirect_addback(&command->redirect, redirect_lst_new());
 				token = redirect_parse(token, redirect_last_node(command->redirect));
+				// printf("CONTEUDO REDIRECT : %s\n", command->redirect->content);
 				continue ;
 		}
 		token = token->next;
@@ -109,10 +111,10 @@ static void	treat_parse_list(void)
 		i = 0;
 		while (cmd_temp->content[i])
 		{
-			printf("command no treated: %s\n", cmd_temp->content[i]);
+			// printf("command no treated: %s\n", cmd_temp->content[i]);
 			cmd_temp->content[i] = no_quotes(cmd_temp->content[i]);
 			reverse_input_chars(cmd_temp->content[i]);
-			printf("command treated: %s\n", cmd_temp->content[i]);
+			// printf("command treated: %s\n", cmd_temp->content[i]);
 			i++;
 		}
 		cmd_temp = cmd_temp->next;
@@ -133,6 +135,6 @@ void	parsing(void)
 		continue ;
 	}
 	g_megabash.cmd_list = cmd_temp;
-	print_commands(g_megabash.cmd_list);
+	// print_commands(g_megabash.cmd_list);
 	treat_parse_list();
 }

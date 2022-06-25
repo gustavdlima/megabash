@@ -7,7 +7,7 @@ void	execute_execve(t_commands *cmd_list)
 	pathway = what_cmd(cmd_list->cmd);
 	if (!pathway)
 	{
-		printf("%s: ", cmd_list->cmd);
+		dprintf(2, "%s: ", cmd_list->cmd);
 		error_message("command not found", 1);
 		exit(1);
 	}

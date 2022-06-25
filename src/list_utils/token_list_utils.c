@@ -4,7 +4,7 @@ void	print_token(t_token *token)
 {
 	if (!token)
 		return ;
-	printf("\nToken content: ------------\n");
+	// printf("\nToken content: ------------\n");
 	while (token)
 	{
 		printf("%s\n", token->content);

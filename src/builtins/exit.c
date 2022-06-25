@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 
-static int is_numeric(char *string)
+int is_numeric(char *string)
 {
 	int	i;
 
@@ -36,13 +36,12 @@ static int	check_arg(char *arg)
 	return (true);
 }
 
-void	bb_exit(char *input)
+void	exit_the_program(char **matrix)
 {
-	char	**matrix;
 	int		to_exit;
 
+	dprintf(2, "exit_the_program\n");
 	to_exit = true;
-	matrix = ft_split(input, ' ');
 	if (matrix)
 	{
 		if (matrix[1] && is_numeric(matrix[1]))
@@ -70,6 +69,7 @@ void	bb_exit(char *input)
 
 void	b_exit(char **matrix)
 {
+	dprintf(2, "b_exit\n");
 	if (matrix)
 	{
 		if (matrix[1] && is_numeric(matrix[1]))
@@ -83,7 +83,7 @@ void	b_exit(char **matrix)
 		// }
 		else if (matrix[1])
 			error_message("megabash error: exit: too many arguments", 1);
-		free_exit_builtin();
+		// free_exit_builtin();
 	}
 	exit(g_megabash.exit_status);
 }

@@ -51,11 +51,6 @@ void	export(char **command)
 		name = ft_strdup("");
 		content = ft_strdup("");
 		i = export_execute(name, content, node, command, i);
-		// if (command[i + 1])
-		// 	g_megabash.exit_status = 0;
-		// 	exit(0);
 		continue ;
 	}
 }
-
-// se nao vier com =, so retorno a funcao

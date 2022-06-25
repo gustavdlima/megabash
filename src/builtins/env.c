@@ -22,7 +22,7 @@ void	builtin_env(char **matrix)
 	{
 		while(temp)
 		{
-			ft_putstr_fd(temp->name, 2);
+			ft_putstr_fd(temp->name, 1);
 			ft_putchar_fd('=', 1);
 			ft_putendl_fd(temp->content, 1);
 			temp = temp->next;
