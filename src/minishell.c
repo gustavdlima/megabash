@@ -48,18 +48,6 @@ void	execute_multiple_commands(void)
 			if (i != 0)
 			{
 				close(fd[i - 1][1]);
-				if (pivot->redirect
-					&& pivot->redirect->type == 6)
-				{
-					dprintf(2,"TO NA CONDICAO!\n");
-					int outfile;
-					while (pivot->redirect)
-					{
-						outfile = open(pivot->redirect->content,  O_WRONLY | O_CREAT | O_TRUNC, 0777);
-						pivot->redirect = pivot->redirect->next;
-					}
-					check_dup(outfile, STDOUT_FILENO);
-				}
 				dup2(fd[i - 1][0], STDIN_FILENO);
 				close(fd[i - 1][0]);
 			}
@@ -68,6 +56,20 @@ void	execute_multiple_commands(void)
 				close(fd[i][0]);
 				dup2(fd[i][1], STDOUT_FILENO);
 				close(fd[i][1]);
+			}
+			if (pivot->redirect
+				&& pivot->redirect->type == is_output)
+			{
+				dprintf(2,"TO NA CONDICAO!\n");
+				int outfile;
+				while (pivot->redirect)
+				{
+					dprintf(2, "pivot.cmd : %s\n redirect.content : %s\n", pivot->cmd, pivot->redirect->content);
+					if (pivot->redirect->content)
+						outfile = open(pivot->redirect->content,  O_WRONLY | O_CREAT | O_TRUNC, 0777);
+					pivot->redirect = pivot->redirect->next;
+				}
+				check_dup(outfile, STDOUT_FILENO);
 			}
 			if (child_is_builtin(pivot->cmd) == true)
 				execute_builtin(pivot);
@@ -105,7 +107,7 @@ void	execute_single_command(void)
 			int outfile;
 			while (pivot->redirect)
 			{
-				dprintf(2, "redirect.content : %s\n", pivot->redirect->content);
+				dprintf(2, "pivot.cmd : %s\n redirect.content : %s\n", pivot->cmd, pivot->redirect->content);
 				if (pivot->redirect->content)
 					outfile = open(pivot->redirect->content, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 				pivot->redirect = pivot->redirect->next;
