@@ -16,29 +16,35 @@ void	redirection_output_append(t_commands	*pivot)
 {
 	int	outfile;
 	int	infile;
+	int	im_input;
+	int	im_out_or_append;
 
-	if (pivot->redirect->type == is_input)
+	im_input = false;
+	im_out_or_append = false;
+	while (pivot->redirect)
 	{
-		if (pivot->redirect->content && pivot->redirect->type == is_input)
-			infile = open(pivot->redirect->content, O_RDONLY, 0777);
-		pivot->redirect = pivot->redirect->next;
-		check_dup(infile, STDIN_FILENO);
-	}
-	if (pivot->redirect->type == is_output
-		|| pivot->redirect->type == is_append)
-	{
-		while (pivot->redirect && (pivot->redirect->type == is_output
-		|| pivot->redirect->type == is_append))
+		if (pivot->redirect->type == is_input)
+		{
+			if (pivot->redirect->content && pivot->redirect->type == is_input)
+				infile = open(pivot->redirect->content, O_RDONLY, 0777);
+			im_input = true;
+		}
+		if (pivot->redirect->type == is_output
+			|| pivot->redirect->type == is_append)
 		{
 			dprintf(2, "pivot.cmd : %s\n redirect.content : %s\n", pivot->cmd, pivot->redirect->content);
 			if (pivot->redirect->content && pivot->redirect->type == is_output)
 				outfile = open(pivot->redirect->content,  O_WRONLY | O_CREAT | O_TRUNC, 0777);
 			if (pivot->redirect->content && pivot->redirect->type == is_append)
 				outfile = open(pivot->redirect->content, O_WRONLY | O_CREAT | O_APPEND, 0777);
-			pivot->redirect = pivot->redirect->next;
+			im_out_or_append = true;
 		}
-		check_dup(outfile, STDOUT_FILENO);
+		pivot->redirect = pivot->redirect->next;
 	}
+	if (im_input)
+		check_dup(infile, STDIN_FILENO);
+	if (im_out_or_append)
+		check_dup(outfile, STDOUT_FILENO);
 }
 
 void	child_proccess(t_commands *pivot, int **fd, int i)

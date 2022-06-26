@@ -23,5 +23,4 @@ ex:
 
 O redirect de input (<) e o heredoc (<<) são bem diferentes entre si
 
-ls -la > a >> b | ls -la
-ls | wc -l > n >> o
+wc -l > a < Makefile
