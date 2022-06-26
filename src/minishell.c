@@ -2,25 +2,31 @@
 
 t_global	g_megabash;
 
-void	check_dup(int old, int new)
+int	check_dup(int old, int new)
 {
 	if (dup2(old, new) == -1)
 	{
-		write(2, "Permission denined.\n", 21);
-		g_megabash.exit_status = 1;
+		error_message("Permission denined or FD does not exists.\n", 1);
+		return (false);
 	}
-	close(old);
+	else
+		close(old);
+	return (true);
 }
 
-void	redirection_output_append(t_commands	*pivot)
+int	redirection_output_append(t_commands	*pivot)
 {
 	int	outfile;
 	int	infile;
 	int	im_input;
 	int	im_out_or_append;
+	int	execute_im_input;
+	int	execute_im_out_or_append;
 
 	im_input = false;
 	im_out_or_append = false;
+	execute_im_input = 2;
+	execute_im_out_or_append = 2;
 	while (pivot->redirect)
 	{
 		if (pivot->redirect->type == is_input)
@@ -42,13 +48,19 @@ void	redirection_output_append(t_commands	*pivot)
 		pivot->redirect = pivot->redirect->next;
 	}
 	if (im_input)
-		check_dup(infile, STDIN_FILENO);
-	if (im_out_or_append)
-		check_dup(outfile, STDOUT_FILENO);
+		execute_im_input = check_dup(infile, STDIN_FILENO);
+	if (im_out_or_append && execute_im_input)
+		execute_im_out_or_append = check_dup(outfile, STDOUT_FILENO);
+	if (execute_im_input != false && execute_im_out_or_append != false)
+		return (true);
+	else
+		return (false);
 }
 
 void	child_proccess(t_commands *pivot, int **fd, int i)
 {
+	int	execute;
+
 	if (i != 0)
 	{
 		close(fd[i - 1][1]);
@@ -64,12 +76,14 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 	if (pivot->redirect)
 	{
 		dprintf(2,"TO NA CONDICAO!\n");
-		redirection_output_append(pivot);
+		execute = redirection_output_append(pivot);
 	}
-	if (child_is_builtin(pivot->cmd) == true)
+	if (child_is_builtin(pivot->cmd) == true && execute == true)
 		execute_builtin(pivot);
-	else
+	else if (execute == true)
 		execute_execve(pivot);
+	else
+		exit(g_megabash.exit_status);
 }
 
 void	execute_multiple_commands(void)
@@ -118,6 +132,7 @@ void	execute_single_command(void)
 {
 	pid_t		pid;
 	t_commands	*pivot;
+	int	execute;
 
 	pivot = g_megabash.cmd_list;
 	if (parent_is_builtin(pivot->cmd) == true)
@@ -131,12 +146,14 @@ void	execute_single_command(void)
 		if (pivot->redirect)
 		{
 			dprintf(2,"TO NA CONDICAO!\n");
-			redirection_output_append(pivot);
+			execute = redirection_output_append(pivot);
 		}
-		if (child_is_builtin(pivot->cmd))
+		if (child_is_builtin(pivot->cmd) && execute == true)
 			execute_builtin(pivot);
-		else
+		else if (execute == true)
 			execute_execve(pivot);
+		else
+			exit(g_megabash.exit_status);
 	}
 	waitpid(pid, &g_megabash.exit_status, 0);
 }
