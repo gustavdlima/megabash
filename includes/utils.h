@@ -38,6 +38,7 @@ int		command_not_found(char *cmd);
 
 // exit_status.c
 void	error_message(char *msg, int exit_status);
+void	error_message_exit(char *message, int exit_status);
 
 // builtin_utils.c
 int	execute_builtin(t_commands *cmd_list);
