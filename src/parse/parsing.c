@@ -48,7 +48,7 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 					else
 						break ;
 				}
-			}	
+			}
 			command->content = ft_split(cmd_string, ' ');
 			free (cmd_string);
 			return (token);
@@ -82,11 +82,8 @@ static t_token *redirect_parse(t_token *token, t_redirect *redirect)
 			return (token);
 		if (token->type == is_word)
 		{
-			printf("oi to parseando a file\n");
 			temp = ft_strjoin(redirect->content, token->content);
 			redirect->content = ft_strdup(temp);
-			redirect->content = insert_caracter(redirect->content, ' ');
-			printf ("file >>> %s\n", redirect->content);
 			free(temp);
 		}
 		if (token->type == is_redirect)
@@ -113,7 +110,6 @@ static t_token *parsing_check(t_token *token, t_commands *command)
 		}
 		else if (token->type == is_redirect)
 		{
-		 dprintf(2, "EU TO AQUI PO\n");
 				redirect_addback(&command->redirect, redirect_lst_new());
 				token = redirect_parse(token, redirect_last_node(command->redirect));
 				// printf("CONTEUDO REDIRECT : %s\n", command->redirect->content);
