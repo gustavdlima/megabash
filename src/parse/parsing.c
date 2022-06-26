@@ -25,7 +25,13 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 	cmd_string = ft_strdup(command->cmd);
 	while (token)
 	{
-		if (token->type == is_pipe || token->type == is_redirect)
+		if (token->type == is_pipe)
+		{
+			command->content = ft_split(cmd_string, ' ');
+			free (cmd_string);
+			return (token);
+		}
+		if (token->type == is_redirect)
 		{
 			if (token->next->next && token->next->next->type == is_word)
 			{
@@ -44,8 +50,6 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 				}
 			}	
 			command->content = ft_split(cmd_string, ' ');
-			for (int j = 0; command->content[j]; j++)
-				printf("command-> content: %s\n", command->content[j]);
 			free (cmd_string);
 			return (token);
 		}
