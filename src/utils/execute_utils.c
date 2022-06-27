@@ -32,7 +32,7 @@ int	**malloc_int_matrix(void)
 	return (fd);
 }
 
-int	check_dup(int old, int new)
+int	check_and_dup(int old, int new)
 {
 	if (dup2(old, new) == -1)
 	{

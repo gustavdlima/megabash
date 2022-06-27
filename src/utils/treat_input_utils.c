@@ -15,13 +15,16 @@ char	*get_name(char *cmd)
 		i++;
 	}
 	name = ft_substr(cmd, 0, i);
+			// dprintf(2, "get_name.name : %s\n", name);
 	i = 0;
 	while (name[i])
 	{
-		if (ft_isascii(name[i]) != 0 && ft_isalnum(name[i]) == 0)
+		if ((ft_isascii(name[i]) != 0) && name[i] != '_'
+			&& ft_isalnum(name[i]) == 0)
 		{
 			temp = ft_substr(name, 0, i);
 			free (name);
+			// dprintf(2, "get_name.temp : %s\n", temp);
 			return (temp);
 		}
 		i++;

@@ -75,6 +75,7 @@ static int	expand_dollar(char *cmd, int i, char **name)
 	else
 	{
 		*name = interpret_dollar(cmd, i);
+		// dprintf(2, "expand_dollar.name : %s\n", *name);
 		skip = skip + jump_positions(cmd + i + 1) + 1 + curly_bracket;
 	}
 	return (skip);
