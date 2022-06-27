@@ -35,6 +35,8 @@ SRCS	=	minishell.c	\
 			$(INPUT_PATH)validate_input.c				\
 			$(INPUT_PATH)is_builtin.c					\
 			$(COMMAND_PATH)cmd_path.c					\
+			$(COMMAND_PATH)execute_cmd.c				\
+			$(COMMAND_PATH)redirect_cmd.c				\
 			$(BUILTIN_PATH)env.c						\
 			$(BUILTIN_PATH)chdir.c						\
 			$(BUILTIN_PATH)exit.c						\
