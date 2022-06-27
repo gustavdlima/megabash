@@ -1,5 +1,5 @@
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#ifndef SIGNAL_HANDLER_H
+# define SIGNAL_HANDLER_H
 
 # include "minishell.h"
 
