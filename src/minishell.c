@@ -61,6 +61,7 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 {
 	int	execute;
 
+	execute = true;
 	if (i != 0)
 	{
 		close(fd[i - 1][1]);
@@ -134,6 +135,7 @@ void	execute_single_command(void)
 	t_commands	*pivot;
 	int	execute;
 
+	execute = true;
 	pivot = g_megabash.cmd_list;
 	if (parent_is_builtin(pivot->cmd) == true)
 	{
