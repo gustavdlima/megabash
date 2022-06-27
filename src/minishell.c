@@ -2,18 +2,6 @@
 
 t_global	g_megabash;
 
-int	check_dup(int old, int new)
-{
-	if (dup2(old, new) == -1)
-	{
-		error_message("Permission denined or FD does not exists.\n", 1);
-		return (false);
-	}
-	else
-		close(old);
-	return (true);
-}
-
 int	redirection_output_append(t_commands	*pivot)
 {
 	int	outfile;
