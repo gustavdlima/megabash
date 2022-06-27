@@ -12,8 +12,10 @@ int		single_dollar(char *cmd);
 
 //treat_input_utils.c
 char	*get_name(char *cmd);
-int		treat_no_dollar_input(char *cmd, char **final, char **temp,
-			char **sec_temp);
+void	treat_char(char *cmd, char c, int nbr);
+void	reverse_char(char *cmd, int nbr, char c);
+void	reverse_input_chars(char *input);
+char	*double_operator(char *input, int i, int is_second_space);
 
 //utils.c
 int		ft_new_strncmp(char *s1, char *s2);

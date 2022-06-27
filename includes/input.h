@@ -9,22 +9,22 @@ int		only_space(char *cmd);
 
 // treat_input.c
 void	treat_input(char **input);
-void	command_list(void);
-int		check_operator(char operator);
-void	process_exec(char *input);
-int		is_operator(char *input);
-int		validate_input(char *input);
-int		jump_positions(char *cmd);
-int		wheres_dollar(char *cmd);
-void	treat_space(char *cmd);
-void	treat_char(char *cmd, char c, int nbr);
-void	reverse_char(char *cmd, int nbr, char c);
-void	reverse_input_chars(char *input);
 void	treat_input_chars(char *input);
+int		check_operator(char operator);
+int		is_operator(char *input);
+
+// validate_input.c
+int		validate_input(char *input);
+
+// expand_env.c
+int		jump_positions(char *cmd);
 char	*treat_dollar(char *cmd);
 
+// is_builtin.c
 int		parent_is_builtin(char *input);
 int		child_is_builtin(char *input);
+
+// check_input.c
 void	check_input(void);
 
 // treat_operators.c
