@@ -8,12 +8,8 @@ static void	save_data(char *content)
 	write(fd, content, ft_strlen(content));
 }
 
-static void	prompt_loop(t_commands *command_list)
+static void	prompt_loop(t_commands *command_list, char *read, char *arraydoc)
 {
-	char	*read;
-	char	*arraydoc;
-
-	arraydoc = ft_strdup("");
 	while (1)
 	{
 		read = readline("> ");
@@ -32,20 +28,22 @@ static void	prompt_loop(t_commands *command_list)
 
 void	heredoc(t_commands *command_list)
 {
-	prompt_loop(command_list);
+	char	*read;
+	char	*arraydoc;
+	pid_t	pid;
+	
+	pid = fork();
+	if (pid == 0)
+	{
+		arraydoc = ft_strdup("");
+		prompt_loop(command_list, read, arraydoc);
+	}
 	return ;
 }
 
-//     um loop infinito
-//     ja consigo parar se for a palavra chave
-//     ja tenho tudo concatenado
 
 // o que falta?
 // criar um arquivo temporario e passar o conteudo do arraydoc para ele
-
-
-
-
 
 // tenho que abrir um prompt usando readline ou read
 // ao escrever, tenho que continuar abrindo prompt e ir guardando ate
@@ -59,3 +57,7 @@ void	heredoc(t_commands *command_list)
 // ctrl d interrompe abruptamente e salva o que foi feito ate o momento
 
 // usar fork pra poder abrir uma readline nova
+
+
+
+
