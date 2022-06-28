@@ -72,7 +72,7 @@ t_token	*token_last_node(t_token *lst)
 	return (NULL);
 }
 
-struct s_token 	*get_token_node(t_token *list, char *name)
+struct s_token	*get_token_node(t_token *list, char *name)
 {
 	while (list)
 	{
@@ -83,7 +83,7 @@ struct s_token 	*get_token_node(t_token *list, char *name)
 	return (NULL);
 }
 
-t_token *token_content_to_hell(t_token *list, char *name, char *true_name)
+t_token	*token_content_to_hell(t_token *list, char *name, char *true_name)
 {
 	while (list)
 	{

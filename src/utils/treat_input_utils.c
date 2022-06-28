@@ -15,7 +15,6 @@ char	*get_name(char *cmd)
 		i++;
 	}
 	name = ft_substr(cmd, 0, i);
-			// dprintf(2, "get_name.name : %s\n", name);
 	i = 0;
 	while (name[i])
 	{
@@ -24,7 +23,6 @@ char	*get_name(char *cmd)
 		{
 			temp = ft_substr(name, 0, i);
 			free (name);
-			// dprintf(2, "get_name.temp : %s\n", temp);
 			return (temp);
 		}
 		i++;

@@ -9,11 +9,12 @@ static	int	counting_args(char **arguments)
 	args = 0;
 	while (arguments[i])
 	{
-		if (ft_new_strncmp(arguments[i], "\n") == false && only_space(arguments[i]) == false)
+		if (ft_new_strncmp(arguments[i], "\n") == false
+			&& only_space(arguments[i]) == false)
 			args++;
 		i++;
 	}
-	return(args);
+	return (args);
 }
 
 static int	counting_pipes(char *cmd)
