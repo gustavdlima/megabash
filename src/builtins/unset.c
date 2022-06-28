@@ -23,8 +23,8 @@ static t_env	*get_env_previous_node(t_env *list, char *name)
 
 void	unset(char **command)
 {
-	t_env *temp;
-	int	i;
+	t_env	*temp;
+	int		i;
 
 	i = 1;
 	if (command && !command[1])
