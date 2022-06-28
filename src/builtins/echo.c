@@ -27,6 +27,7 @@ void	echo(char **matrix)
 	if (flag == 0)
 	{
 		ft_putstr_fd("\n", 1);
-		exit(0);
+		update_exit_status_and_exit(0);
 	}
+	update_exit_status_and_exit(0);
 }
