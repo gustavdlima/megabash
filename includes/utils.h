@@ -44,7 +44,7 @@ void	error_message_exit(char *message, int exit_status);
 void	update_exit_status_and_exit(int exit_status);
 
 // builtin_utils.c
-int		execute_builtin(t_commands *cmd_list);
+void	execute_builtin(t_commands *cmd_list);
 int		parent_execute_builtin(t_commands *cmd_list);
 
 // execute_utils.c

@@ -37,12 +37,10 @@ char	*interpret_dollar(char *cmd, int position)
 	if (cmd[position + 1] == '{')
 		position++;
 	name = get_name(cmd + position + 1);
-		// dprintf(2, "interpret_dollar.name : %s\n", name);
 	env_var = get_env_node(g_megabash.env, name);
 	if (env_var != NULL)
 	{
 		interpreted = ft_strdup(env_var->content);
-		// dprintf(2, "interpret_dollar.interpreted : %s\n", name);
 		free (name);
 		return (interpreted);
 	}

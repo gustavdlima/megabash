@@ -47,7 +47,9 @@ int	unquotted_special_metacharacters(char *cmd)
 	{
 		if (special_or_metacharacters(cmd[i]) == true)
 		{
-			ft_putendl_fd("Syntax error: special or metacharacters on unquotted arguments.", 2);
+			ft_putendl_fd
+			("Syntax error: special or metacharacters on unquotted arguments.",
+			2);
 			g_megabash.exit_status = 130;
 			return (true);
 		}
