@@ -59,12 +59,12 @@ int	redirect_to_no_arguments(char *cmd)
 			i++;
 			if (cmd[i] == '>' || cmd[i] == '<')
 				i++;
-			if (no_arguments(cmd + i) == true)
-			{
-				error_message
-				("bash: syntax error near unexpected token `newline'", 2);
-				return (true);
-			}
+			// if (no_arguments(cmd + i) == true && )
+			// {
+			// 	error_message
+			// 	("bash: syntax error near unexpected token `newline'", 2);
+			// 	return (true);
+			// }
 		}
 		if (cmd[i])
 			i++;

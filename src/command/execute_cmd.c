@@ -70,10 +70,7 @@ void	execute_multiple_commands(void)
 	while (fd[i])
 	{
 		if (pipe(fd[i]) == -1)
-		{
 			error_message_exit("Proccess error : pipe", 1);
-			exit(1);
-		}
 		i++;
 	}
 	initialize_process(fd);

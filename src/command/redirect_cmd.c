@@ -54,7 +54,10 @@ int	redirect_commands(t_commands *pivot)
 			im_out_or_append = true;
 		}
 		if (pivot->redirect->type == is_here_doc)
-			heredoc(pivot);
+		{
+			infile = heredoc(pivot);
+			im_input = true;
+		}
 		pivot->redirect = pivot->redirect->next;
 	}
 	is_valid_fd = valid_execution(im_input, im_out_or_append, infile, outfile);

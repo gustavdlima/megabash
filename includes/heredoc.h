@@ -3,6 +3,6 @@
 
 # include "minishell.h"
 
-void	heredoc(t_commands *command_list);
+int	heredoc(t_commands *command_list);
 
 #endif
