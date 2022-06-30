@@ -4,5 +4,6 @@
 # include "minishell.h"
 
 void	signal_handler(void);
+void	signal_handler_heredoc(int condition);
 
 #endif

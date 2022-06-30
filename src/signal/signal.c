@@ -7,7 +7,40 @@ static void	signint(int signum)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	g_megabash.exit_status = 130;
+}
+
+static void	signint_heredoc(int signum)
+{
+	(void)signum;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	update_exit_status_and_exit(130);
+}
+
+// static void	sign_heredoc(int signum)
+// {
+// 	(void)signum;
+// 	printf("\n");
+// 	rl_replace_line("", 0);
+// 	rl_on_new_line();
+// 	rl_redisplay();
+// 	update_exit_status_and_exit(130);
+// }
+
+void	signal_handler_heredoc(int condition)
+{
+	if (condition == true)
+	{
+		signal(SIGINT, signint_heredoc);
+		signal(SIGQUIT, signint_heredoc);
+	}
+	else if (condition == false)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, signint_heredoc);
+	}
 }
 
 void	signal_handler(void)
