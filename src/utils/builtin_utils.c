@@ -2,6 +2,8 @@
 
 void	execute_builtin(t_commands *cmd_list)
 {
+	if (!cmd_list->cmd)
+		return ;
 	if (!ft_strncmp(cmd_list->cmd, "cd", 3))
 		cd(cmd_list->content);
 	if (!ft_strncmp(cmd_list->cmd, "env", 4))
