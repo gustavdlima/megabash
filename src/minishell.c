@@ -31,7 +31,7 @@ static void	megaexecute(char **input)
 	// print_token(g_megabash.token_list);
 	parsing();
 	// print_commands(g_megabash.cmd_list);
-	if (ft_new_strncmp("exit", g_megabash.cmd_list->cmd) == true
+	if (g_megabash.cmd_list->cmd && ft_new_strncmp("exit", g_megabash.cmd_list->cmd) == true
 		&& g_megabash.pipe == 0)
 		exit_the_program(g_megabash.cmd_list->content);
 	else

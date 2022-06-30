@@ -7,7 +7,7 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 		dprintf(2, "TO NA CONDICAO!\n");
 		execute = redirect_commands(pivot);
 	}
-	if (child_is_builtin(pivot->cmd) == true && execute == true)
+	if (pivot->cmd && (pivot->cmd) == true && execute == true)
 		execute_builtin(pivot);
 	else if (execute == true)
 		execute_execve(pivot);
@@ -43,7 +43,7 @@ void	initialize_process(int **fd)
 	i = 0;
 	while (pivot)
 	{
-		if (parent_is_builtin(pivot->cmd) == true)
+		if (pivot->cmd && parent_is_builtin(pivot->cmd) == true)
 		{
 			execute_builtin(pivot);
 			i++;
@@ -87,7 +87,7 @@ void	execute_single_command(void)
 
 	execute = true;
 	pivot = g_megabash.cmd_list;
-	if (parent_is_builtin(pivot->cmd) == true)
+	if (pivot->cmd && parent_is_builtin(pivot->cmd) == true)
 	{
 		execute_builtin(pivot);
 		return ;

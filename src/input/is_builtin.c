@@ -2,6 +2,8 @@
 
 int	child_is_builtin(char *input)
 {
+	if (!input)
+		return (false);
 	if (ft_new_strncmp("echo", input) == true)
 		return (true);
 	if (ft_new_strncmp("env", input) == true)
@@ -15,6 +17,8 @@ int	child_is_builtin(char *input)
 
 int	parent_is_builtin(char *input)
 {
+	if (!input)
+		return (false);
 	if (ft_new_strncmp("export", input) == true)
 		return (true);
 	if (ft_new_strncmp("unset", input) == true)
