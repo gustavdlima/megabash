@@ -8,14 +8,15 @@ static void	print_export_error(char *name)
 	free(name);
 }
 
-static int	export_execute(char *name, char *content, t_env *node, char **command, int i)
+static int	export_execute(char *name, char *content, t_env *node,
+		char **command, int i)
 {
 	if (!ft_strchr(command[i], '='))
 	{
 		i++;
 		return (i);
 	}
-	if  (is_alphabetic(command[i]))
+	if (is_alphabetic(command[i]))
 	{
 		print_export_error(command[i]);
 		i++;

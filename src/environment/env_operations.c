@@ -4,7 +4,7 @@ void	print_env(t_env *env)
 {
 	if (!env)
 		return ;
-	while(env)
+	while (env)
 	{
 		printf("%s=", env->name);
 		printf("%s\n", env->content);
@@ -12,7 +12,7 @@ void	print_env(t_env *env)
 	}
 }
 
-struct s_env 	*get_env_node(t_env *list, char *name)
+struct s_env	*get_env_node(t_env *list, char *name)
 {
 	while (list)
 	{
@@ -25,7 +25,7 @@ struct s_env 	*get_env_node(t_env *list, char *name)
 
 void	env_node_delete(t_env *list)
 {
-	t_env *temp;
+	t_env	*temp;
 
 	if (list->next)
 	{

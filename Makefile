@@ -21,6 +21,8 @@ FREE_PATH		= free_functions/
 SIGNAL_PATH		= signal/
 COMMAND_PATH	= command/
 PARSE_PATH		= parse/
+HEREDOC_PATH	= heredoc/
+
 
 LIBFT_PATH	 	= ./libs/libft
 LIBFT			= $(LIBFT_PATH)/libft.a
@@ -35,6 +37,8 @@ SRCS	=	minishell.c	\
 			$(INPUT_PATH)validate_input.c				\
 			$(INPUT_PATH)is_builtin.c					\
 			$(COMMAND_PATH)cmd_path.c					\
+			$(COMMAND_PATH)execute_cmd.c				\
+			$(COMMAND_PATH)redirect_cmd.c				\
 			$(BUILTIN_PATH)env.c						\
 			$(BUILTIN_PATH)chdir.c						\
 			$(BUILTIN_PATH)exit.c						\
@@ -63,6 +67,7 @@ SRCS	=	minishell.c	\
 			$(UTILS_PATH)validate_pipes_utils.c			\
 			$(UTILS_PATH)validate_redirect_utils.c		\
 			$(UTILS_PATH)validate_utils.c				\
+			$(HEREDOC_PATH)heredoc.c				\
 			$(FREE_PATH)free.c							\
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
@@ -88,6 +93,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(SIGNAL_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(COMMAND_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(PARSE_PATH))
+	@mkdir -p $(addprefix $(OBJ_DIR)/,$(HEREDOC_PATH))
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ $(LIBFT_FLAGS)
 
 clean:

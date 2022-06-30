@@ -12,7 +12,7 @@ char	*get_env_path(char *envp)
 
 char	*get_env_name(char *envp)
 {
-	int	name_size;
+	int		name_size;
 	char	*sup;
 
 	name_size = ft_int_strchr(envp, '=');
@@ -31,7 +31,7 @@ void	environment(char **envp)
 	while (envp[i])
 	{
 		env_addback(&g_megabash.env, env_lst_new(get_env_name(envp[i]),
-					get_env_path(envp[i])));
+				get_env_path(envp[i])));
 		i++;
 	}
 }

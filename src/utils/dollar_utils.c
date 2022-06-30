@@ -31,25 +31,23 @@ int	wheres_dollar(char *cmd)
 char	*interpret_dollar(char *cmd, int position)
 {
 	char	*interpreted;
-	char	*temp;
 	char	*name;
 	t_env	*env_var;
 
-	temp = ft_strdup("");
 	if (cmd[position + 1] == '{')
 		position++;
 	name = get_name(cmd + position + 1);
 	env_var = get_env_node(g_megabash.env, name);
 	if (env_var != NULL)
 	{
-		free (temp);
 		interpreted = ft_strdup(env_var->content);
 		free (name);
 		return (interpreted);
 	}
 	free (name);
 	free_env(env_var);
-	return (temp);
+	name = ft_strdup("");
+	return (name);
 }
 
 int	single_dollar(char *cmd)

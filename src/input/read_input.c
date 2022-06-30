@@ -17,7 +17,6 @@
 // 		return (true);
 // 	return (false);
 // }
-
 int	only_space(char *cmd)
 {
 	int	i;
@@ -29,7 +28,7 @@ int	only_space(char *cmd)
 	cmd_len = ft_strlen(cmd);
 	while (cmd[i])
 	{
-		if (cmd[i] == '\v' || cmd[i] == '\t' 
+		if (cmd[i] == '\v' || cmd[i] == '\t'
 			|| cmd[i] == '\r' || cmd [i] == ' ')
 			space++;
 		i++;
@@ -67,12 +66,12 @@ int	too_many_pipes(char *cmd)
 		if (cmd[i] == '|')
 		{
 			i++;
-			while(cmd[i] == ' ')
+			while (cmd[i] == ' ')
 				i++;
 			if (cmd[i] == '|')
 			{
-				ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
-				g_megabash.exit_status = 42;
+				error_message("bash: syntax error near unexpected token `|'",
+					2);
 				return (true);
 			}
 		}
@@ -83,36 +82,41 @@ int	too_many_pipes(char *cmd)
 	return (false);
 }
 
+void	complete_input_properly(char **input)
+{
+	char	*temp;
+	char	*aux;
+
+	if (open_quotes(*input) == true || pipe_no_arguments(*input) == true)
+	{
+		while (too_many_pipes(*input) == false)
+		{
+			temp = readline("\033[0;35m> \033[0m");
+			aux = ft_strjoin(*input, " ");
+			free(*input);
+			if (temp && only_space(temp) == false)
+				*input = ft_strjoin(aux, temp);
+			else
+				*input = ft_strdup(aux);
+			free(temp);
+			free(aux);
+			if (open_quotes(*input) == false
+				&& pipe_no_arguments(*input) == false)
+				break ;
+		}
+	}
+}
+
 char	*read_input(void)
 {
 	char	*input;
-	char	*temp;
-	char	*aux;
 
 	input = readline("\033[0;35mmegabash$ \033[0m");
 	if (input)
 	{
-		if (open_quotes(input) == true || pipe_no_arguments(input) == true)
-		{
-			while (too_many_pipes(input) == false)
-			{
-				temp = readline("\033[0;35m> \033[0m");
-				aux = ft_strjoin(input, " ");
-				free(input);
-				if (temp && only_space(temp) == false)
-					input = ft_strjoin(aux, temp);
-				else
-					input = ft_strdup(aux);
-				free(temp);
-				free(aux);
-				if (open_quotes(input) == false && pipe_no_arguments(input) == false)
-					break ;
-			}
-		}
+		complete_input_properly(&input);
 		if (input && is_it_history(input) == true)
-		{
 			add_history(input);
-		}
 		return (input);
 	}
 	else

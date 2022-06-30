@@ -2,122 +2,17 @@
 
 t_global	g_megabash;
 
-void	check_dup(int old, int new)
+void	destroy_heredocs_fd(void)
 {
-	if (dup2(old, new) == -1)
-	{
-		write(2, "Permission denined.\n", 21);
-		g_megabash.exit_status = 1;
-	}
-	close(old);
-}
-
-void	execute_multiple_commands(void)
-{
-	int		**fd;
-	int		i;
-	pid_t	pid;
 	t_commands	*pivot;
 
 	pivot = g_megabash.cmd_list;
-	fd = malloc_int_matrix();
-	i = 0;
-	while (fd[i])
-	{
-		if (pipe(fd[i]) == -1)
-		{
-			error_message("Proccess error : pipe", 1);
-			exit(1);
-		}
-		i++;
-	}
-	i = 0;
-			// dprintf(2, "redirect : %s\n", g_megabash.cmd_list->redirect->content);
 	while (pivot)
 	{
-		if (parent_is_builtin(pivot->cmd) == true)
-		{
-			execute_builtin(pivot);
-			i++;
-			pivot = pivot->next;
-			continue ;
-		}
-		pid = fork();
-		if (pid == 0)
-		{
-			if (i != 0)
-			{
-				close(fd[i - 1][1]);
-				if (pivot->redirect
-					&& pivot->redirect->type == 6)
-				{
-					dprintf(2,"TO NA CONDICAO!\n");
-					int outfile;
-					while (pivot->redirect)
-					{
-						outfile = open(pivot->redirect->content,  O_WRONLY | O_CREAT | O_TRUNC, 0777);
-						pivot->redirect = pivot->redirect->next;
-					}
-					check_dup(outfile, STDOUT_FILENO);
-				}
-				dup2(fd[i - 1][0], STDIN_FILENO);
-				close(fd[i - 1][0]);
-			}
-			if (fd[i] != NULL)
-			{
-				close(fd[i][0]);
-				dup2(fd[i][1], STDOUT_FILENO);
-				close(fd[i][1]);
-			}
-			if (child_is_builtin(pivot->cmd) == true)
-				execute_builtin(pivot);
-			else
-				execute_execve(pivot);
-		}
-		if (fd[i])
-			close(fd[i][1]);
-		i++;
+		if (pivot->redirect && pivot->redirect->type == is_here_doc)
+			unlink("./src/heredoc/heredoc_content");
 		pivot = pivot->next;
 	}
-	i = 0;
-	while (i++ < g_megabash.pipe + 1)
-		waitpid(-1, &g_megabash.exit_status, 0);
-}
-
-void	execute_single_command(void)
-{
-	pid_t		pid;
-	t_commands	*pivot;
-
-	pivot = g_megabash.cmd_list;
-	if (parent_is_builtin(pivot->cmd) == true)
-	{
-		execute_builtin(pivot);
-		return ;
-	}
-	pid = fork();
-	if (pid == 0)
-	{
-		if (g_megabash.cmd_list->redirect
-			&& g_megabash.cmd_list->redirect->type == 6)
-		{
-			dprintf(2,"TO NA CONDICAO!\n");
-			int outfile;
-			while (pivot->redirect)
-			{
-				dprintf(2, "redirect.content : %s\n", pivot->redirect->content);
-				if (pivot->redirect->content)
-					outfile = open(pivot->redirect->content, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-				pivot->redirect = pivot->redirect->next;
-			}
-			check_dup(outfile, STDOUT_FILENO);
-		}
-		if (child_is_builtin(g_megabash.cmd_list->cmd))
-			execute_builtin(g_megabash.cmd_list);
-		else
-			execute_execve(g_megabash.cmd_list);
-	}
-	waitpid(pid, &g_megabash.exit_status, 0);
 }
 
 void	executing_processes(void)
@@ -126,6 +21,7 @@ void	executing_processes(void)
 		execute_single_command();
 	else
 		execute_multiple_commands();
+	destroy_heredocs_fd();
 }
 
 static void	megaexecute(char **input)
@@ -134,6 +30,7 @@ static void	megaexecute(char **input)
 	treat_input(input);
 	// print_token(g_megabash.token_list);
 	parsing();
+	// print_commands(g_megabash.cmd_list);
 	if (ft_new_strncmp("exit", g_megabash.cmd_list->cmd) == true
 		&& g_megabash.pipe == 0)
 		exit_the_program(g_megabash.cmd_list->content);

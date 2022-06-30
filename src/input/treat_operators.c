@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	getting_temp_with_char(char **temp, char *input)
+static void	getting_spaced_input_with_char(char **temp, char *input)
 {
 	char	*character;
 	char	*str;
@@ -11,22 +11,6 @@ static void	getting_temp_with_char(char **temp, char *input)
 	*temp = ft_strdup(str);
 	free(str);
 	free(character);
-}
-
-static char	*double_operator(char *input, int i, int is_second_space)
-{
-	char	*aux;
-	char	*str;
-
-	if (is_second_space == true)
-		aux = ft_substr(input + i, 0, 1);
-	else
-		aux = ft_substr(input + i, 0, 2);
-	str = ft_strjoin(aux, " ");
-	free (aux);
-	aux = ft_strdup(str);
-	free (str);
-	return (aux);
 }
 
 static void	insert_space_after(char *input, int i, char **temp,
@@ -69,42 +53,45 @@ static void	insert_space_before(char *input, char **temp)
 	free (str);
 }
 
-char	*check_operator_space(char *input)
+void	adding_space_to_input(char *input, char **temp, int i)
 {
-	int		i;
-	char	*temp;
 	char	*aux;
 	char	*auxiliar;
 
+	if (i != 0 && input[i - 1] && input[i - 1] != ' ')
+	{
+		insert_space_before(input + i, temp);
+		if (input[i + 1] != ' ' && input[i + 1])
+			insert_space_after(input, i, temp, true);
+	}
+	else if (input[i + 1] && input[i + 1] != ' ')
+		insert_space_after(input, i, temp, false);
+	else
+	{
+		auxiliar = ft_substr(input + i, 0, 1);
+		aux = ft_strjoin(*temp, auxiliar);
+		free(auxiliar);
+		free(*temp);
+		*temp = ft_strdup(aux);
+		free(aux);
+	}
+}
+
+char	*check_operator_space(char *input)
+{
+	int		i;
+	char	*spaced_input;
+
 	i = -1;
-	temp = ft_strdup("");
+	spaced_input = ft_strdup("");
 	while (input[++i])
 	{
 		if (check_operator(input[i]))
-		{
-			if (i != 0 && input[i - 1] && input[i - 1] != ' ')
-			{
-				insert_space_before(input + i, &temp);
-				if (input[i + 1] != ' ' && input[i + 1])
-					insert_space_after(input, i, &temp, true);
-			}
-			else if (input[i + 1] && input[i + 1] != ' ')
-
-				insert_space_after(input, i, &temp, false);
-			else
-			{
-				auxiliar = ft_substr(input + i, 0, 1);
-				aux = ft_strjoin(temp, auxiliar);
-				free(auxiliar);
-				free(temp);
-				temp = ft_strdup(aux);
-				free(aux);
-			}
-		}
+			adding_space_to_input(input, &spaced_input, i);
 		else
-			getting_temp_with_char(&temp, input + i);
+			getting_spaced_input_with_char(&spaced_input, input + i);
 		if (check_operator(input[i]) && (input[i + 1] == input[i]))
 			i++;
 	}
-	return (temp);
+	return (spaced_input);
 }

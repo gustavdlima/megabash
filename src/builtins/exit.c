@@ -1,19 +1,19 @@
 #include "minishell.h"
 
-
-int is_numeric(char *string)
+int	is_numeric(char *string)
 {
 	int	i;
 
 	i = 0;
 	while (string[i])
 	{
-		if(!ft_isdigit(string[i]))
+		if (!ft_isdigit(string[i]))
 			return (0);
 		i++;
 	}
 	return (1);
 }
+
 static void	free_exit_builtin(void)
 {
 	free_megabash();
@@ -49,10 +49,6 @@ void	exit_the_program(char **matrix)
 			if (matrix[1] && !check_arg(matrix[1]))
 				g_megabash.exit_status = ft_atoi(matrix[1]);
 		}
-		// else if (matrix[1] && check_arg(matrix[1]))
-		// {
-		// 	g_megabash.exit_status = 2;
-		// }
 		else if (matrix[1])
 		{
 			error_message("megabash error: exit: too many arguments", 1);
@@ -77,13 +73,8 @@ void	b_exit(char **matrix)
 			if (matrix[1] && !check_arg(matrix[1]))
 				g_megabash.exit_status = ft_atoi(matrix[1]);
 		}
-		// else if (matrix[1] && check_arg(matrix[1]))
-		// {
-		// 	g_megabash.exit_status = 2;
-		// }
 		else if (matrix[1])
 			error_message("megabash error: exit: too many arguments", 1);
-		// free_exit_builtin();
 	}
 	exit(g_megabash.exit_status);
 }

@@ -44,7 +44,7 @@ static int	no_arguments(char *cmd)
 		return (true);
 	if (!cmd)
 		return (true);
-	return(false);
+	return (false);
 }
 
 int	redirect_to_no_arguments(char *cmd)
@@ -59,12 +59,12 @@ int	redirect_to_no_arguments(char *cmd)
 			i++;
 			if (cmd[i] == '>' || cmd[i] == '<')
 				i++;
-			if (no_arguments(cmd + i) == true)
-			{
-				ft_putendl_fd("bash: syntax error near unexpected token `newline'", 2);
-				g_megabash.exit_status = 2;
-				return (true);
-			}
+			// if (no_arguments(cmd + i) == true && )
+			// {
+			// 	error_message
+			// 	("bash: syntax error near unexpected token `newline'", 2);
+			// 	return (true);
+			// }
 		}
 		if (cmd[i])
 			i++;
@@ -82,7 +82,7 @@ int	too_many_redirections(char *cmd)
 	redirection = 1;
 	while (cmd[i])
 	{
-		if (cmd[i] == '>' || cmd[i] == '<' 
+		if (cmd[i] == '>' || cmd[i] == '<'
 			|| (cmd[i] == '<' && cmd[i + 1] == '<')
 			|| (cmd[i] == '>' && cmd[i + 1] == '>'))
 		{
@@ -91,7 +91,8 @@ int	too_many_redirections(char *cmd)
 				redirection++;
 			if (redirection > 2)
 			{
-				printf("bash: syntax error near unexpected token `%c%c'\n", sign, sign);
+				printf("bash: syntax error near unexpected token `%c%c'\n",
+					sign, sign);
 				g_megabash.exit_status = 2;
 				return (true);
 			}

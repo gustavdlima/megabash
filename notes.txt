@@ -22,3 +22,5 @@ ex:
 	tempfile é criada e preenchida com o conteúdo referente a ls.
 
 O redirect de input (<) e o heredoc (<<) são bem diferentes entre si
+
+wc -l > a < Makefile

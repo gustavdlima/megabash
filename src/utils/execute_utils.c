@@ -31,3 +31,15 @@ int	**malloc_int_matrix(void)
 	}
 	return (fd);
 }
+
+int	check_and_dup(int old, int new)
+{
+	if (dup2(old, new) == -1)
+	{
+		error_message("No such file or directory\n", 1);
+		return (false);
+	}
+	else
+		close(old);
+	return (true);
+}

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int redirect_type(char *content)
+static int	redirect_type(char *content)
 {
 	if (!ft_strncmp(content, ">", 2))
 		return (is_output);
@@ -14,19 +14,44 @@ static int redirect_type(char *content)
 		return (false);
 }
 
-static t_token *cmd_parse(t_token *token, t_commands *command)
+static t_token	*cmd_parse(t_token *token, t_commands *command)
 {
 	char		*temp;
 	char		*cmd_string;
+	t_token		*token_temp;
 
 	command->cmd = ft_strdup(token->content);
 	token = token->next;
 	cmd_string = ft_strdup(command->cmd);
 	while (token)
 	{
-		if (token->type == is_pipe || token->type == is_redirect)
+		if (token->type == is_pipe)
 		{
 			command->content = ft_split(cmd_string, ' ');
+			free (cmd_string);
+			return (token);
+		}
+		if (token->type == is_redirect)
+		{
+			if (token->next->next && token->next->next->type == is_word)
+			{
+				token_temp = token->next->next;
+				while (token_temp->type == is_word)
+				{
+					cmd_string = insert_caracter(cmd_string, ' ');
+					temp = ft_strjoin(cmd_string, token_temp->content);
+					cmd_string = ft_strdup(temp);
+					token = token_content_to_hell(token, token_temp->content,
+							token->content);
+					free(temp);
+					if (token_temp->next)
+						token_temp = token_temp->next;
+					else
+						break ;
+				}
+			}
+			command->content = ft_split(cmd_string, ' ');
+			free (cmd_string);
 			return (token);
 		}
 		if (token->type == is_word)
@@ -43,7 +68,7 @@ static t_token *cmd_parse(t_token *token, t_commands *command)
 	return (token);
 }
 
-static t_token *redirect_parse(t_token *token, t_redirect *redirect)
+static t_token	*redirect_parse(t_token *token, t_redirect *redirect)
 {
 	char	*temp;
 
@@ -58,11 +83,8 @@ static t_token *redirect_parse(t_token *token, t_redirect *redirect)
 			return (token);
 		if (token->type == is_word)
 		{
-			printf("oi to parseando a file\n");
 			temp = ft_strjoin(redirect->content, token->content);
 			redirect->content = ft_strdup(temp);
-			redirect->content = insert_caracter(redirect->content, ' ');
-			printf ("file >>> %s\n", redirect->content);
 			free(temp);
 		}
 		if (token->type == is_redirect)
@@ -72,7 +94,7 @@ static t_token *redirect_parse(t_token *token, t_redirect *redirect)
 	return (token);
 }
 
-static t_token *parsing_check(t_token *token, t_commands *command)
+static t_token	*parsing_check(t_token *token, t_commands *command)
 {
 	while (token)
 	{
@@ -89,11 +111,11 @@ static t_token *parsing_check(t_token *token, t_commands *command)
 		}
 		else if (token->type == is_redirect)
 		{
-		 dprintf(2, "EU TO AQUI PO\n");
-				redirect_addback(&command->redirect, redirect_lst_new());
-				token = redirect_parse(token, redirect_last_node(command->redirect));
-				// printf("CONTEUDO REDIRECT : %s\n", command->redirect->content);
-				continue ;
+			redirect_addback(&command->redirect, redirect_lst_new());
+			token = redirect_parse(token,
+					redirect_last_node(command->redirect));
+			// printf("CONTEUDO REDIRECT : %s\n", command->redirect->content);
+			continue ;
 		}
 		token = token->next;
 	}
@@ -123,8 +145,8 @@ static void	treat_parse_list(void)
 
 void	parsing(void)
 {
-	t_token	*token;
 	t_commands	*cmd_temp;
+	t_token		*token;
 
 	token = g_megabash.token_list;
 	cmd_temp = NULL;

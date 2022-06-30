@@ -69,19 +69,19 @@ int	ft_new_strncmp(char *s1, char *s2)
 	return (true);
 }
 
-int    is_alphabetic(char *str)
+int	is_alphabetic(char *str)
 {
-    int    i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        if ((str[i] >= 65 && str[i] <= 90)
-            || (str[i] >= 97 && str[i] <= 122) || str[i] == '_')
-            return (0);
-        else
-            break ;
-        i++;
-    }
-    return (1);
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] >= 65 && str[i] <= 90)
+			|| (str[i] >= 97 && str[i] <= 122) || str[i] == '_')
+			return (0);
+		else
+			break ;
+		i++;
+	}
+	return (1);
 }
