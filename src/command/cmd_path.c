@@ -9,8 +9,9 @@ char	*what_cmd(char *cmd)
 	int		i;
 
 	i = 0;
+	printf("cheguei aqui no what_cmd \n");
 	if (cmd == NULL)
-		return ;
+		return (NULL);
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	path = get_env_node(g_megabash.env, "PATH");

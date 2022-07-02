@@ -36,16 +36,16 @@ int	different_redirection_signs(char *cmd)
 	return (false);
 }
 
-static int	no_arguments(char *cmd)
-{
-	if (ft_strlen(cmd) < 1)
-		return (true);
-	if (only_space(cmd) == true)
-		return (true);
-	if (!cmd)
-		return (true);
-	return (false);
-}
+// static int	no_arguments(char *cmd)
+// {
+// 	if (ft_strlen(cmd) < 1)
+// 		return (true);
+// 	if (only_space(cmd) == true)
+// 		return (true);
+// 	if (!cmd)
+// 		return (true);
+// 	return (false);
+// }
 
 int	redirect_to_no_arguments(char *cmd)
 {

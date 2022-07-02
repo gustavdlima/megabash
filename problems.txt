@@ -1,0 +1,4 @@
+command with problems
+
+
+1. historico nao ta funcionando -> ele nao tem mais historico e 

@@ -3,11 +3,8 @@
 void	execute_command_and_redirection(t_commands *pivot, int execute)
 {
 	if (pivot->redirect)
-	{
-		dprintf(2, "TO NA CONDICAO!\n");
 		execute = redirect_commands(pivot);
-	}
-	if (pivot->cmd && (pivot->cmd) == true && execute == true)
+	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)
 		execute_builtin(pivot);
 	else if (execute == true)
 		execute_execve(pivot);
