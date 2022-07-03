@@ -45,12 +45,10 @@ static void	megastart(void)
 
 	while (1)
 	{
-		if (g_megabash.cmd_list)
-			free_cmd_megabash();
 		input = read_input();
 		// printf("\n\ninput: %s\n", input);
 		if (input && validate_input(input) == true)
-				megaexecute(&input);
+			megaexecute(&input);
 		else
 			printf("BORN TO BE BASH\n");
 		// 	free(input);
