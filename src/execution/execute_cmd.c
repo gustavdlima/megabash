@@ -86,14 +86,16 @@ void	execute_single_command(void)
 
 	execute = true;
 	pivot = g_megabash.cmd_list;
-	printf("pivot->cmd = %s\n", pivot->cmd);
 	if (pivot->cmd && parent_is_builtin(pivot->cmd) == true)
 	{
 		execute_builtin(pivot);
 		return ;
 	}
 	pid = fork();
-	if (pivot->cmd && pid == 0)
+	if (pid == 0)
+	{
+		printf("executando um comando simples sem ser parent builtin\n");
 		execute_command_and_redirection(pivot, execute);
+	}
 	waitpid(pid, &g_megabash.exit_status, 0);
 }
