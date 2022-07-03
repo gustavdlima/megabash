@@ -2,14 +2,15 @@
 
 void	free_megabash(void)
 {
-	free_env(g_megabash.env);
+	// free_env(g_megabash.env);
 	free_commands(g_megabash.cmd_list);
-	rl_clear_history();
 }
 
 void	free_cmd_megabash(void)
 {
+	free_env(g_megabash.env);
 	free_commands(g_megabash.cmd_list);
+	rl_clear_history();
 }
 
 void	free_matrix(char **matrix)

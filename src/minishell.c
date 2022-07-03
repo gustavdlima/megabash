@@ -55,7 +55,7 @@ static void	megastart(void)
 		// 	free(input);
 		// else
 			// free(g_megabash.last_input);
-		// free_megabash();
+		free_megabash();
 		// free(input);
 	}
 }
