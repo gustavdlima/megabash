@@ -64,7 +64,8 @@ void	env_content_to_null(t_env *list, char *name)
 	while (list->next)
 	{
 		if (list->name == name)
-			list->content = NULL;
+			free(list->content);
+			// list->content = NULL;
 		list = list->next;
 		i++;
 	}

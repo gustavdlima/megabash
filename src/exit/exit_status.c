@@ -7,6 +7,7 @@ void	quit_megabash(void)
 	free(g_megabash.last_input);
 	free_token(g_megabash.token_list);
 	free_commands(g_megabash.cmd_list);
+	free_env(g_megabash.env);
 	rl_clear_history();
 	exit(g_megabash.exit_status);
 }

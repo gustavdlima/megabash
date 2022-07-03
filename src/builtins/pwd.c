@@ -7,8 +7,8 @@ void	pwd(char **matrix)
 
 	if (matrix[1])
 	{
-		error_message("megabash error: pwd: too many arguments", 1);
-		exit(1);
+		dprintf(1, "megabash error: pwd: too many arguments");
+		update_exit_status_and_exit(1);
 	}
 	directory = getcwd(NULL, 0);
 	if (directory)
@@ -17,6 +17,5 @@ void	pwd(char **matrix)
 		ft_putendl_fd(node->content, 1);
 	}
 	free (directory);
-	g_megabash.exit_status = 0;
-	exit(0);
+	update_exit_status_and_exit(0);
 }
