@@ -48,8 +48,11 @@ static int	is_it_history(char *cmd)
 	// 	return (false);
 	if (ft_new_strncmp(cmd, g_megabash.last_input) == true)
 		return (false);
-	free(g_megabash.last_input);
-	g_megabash.last_input = ft_strdup(cmd);
+	else
+	{
+		free(g_megabash.last_input);
+		g_megabash.last_input = cmd;
+	}
 	return (true);
 }
 
