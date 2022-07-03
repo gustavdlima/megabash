@@ -47,10 +47,6 @@ void	token_addback(t_token **lst, t_token *new)
 {
 	t_token	*last_node;
 
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
 	if (*lst)
 	{
 		last_node = token_last_node(*lst);
@@ -105,9 +101,7 @@ t_token	*token_content_to_hell(t_token *list, char *name, char *true_name)
 	while (list)
 	{
 		if (ft_new_strncmp(true_name, list->content))
-		{
 			return (list);
-		}
 		list = list->prev;
 	}
 	return (list);

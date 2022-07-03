@@ -5,7 +5,9 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 	if (pivot->redirect)
 		execute = redirect_commands(pivot);
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)
+	{
 		execute_builtin(pivot);
+	}
 	else if (execute == true)
 		execute_execve(pivot);
 	else
@@ -84,13 +86,14 @@ void	execute_single_command(void)
 
 	execute = true;
 	pivot = g_megabash.cmd_list;
+	printf("pivot->cmd = %s\n", pivot->cmd);
 	if (pivot->cmd && parent_is_builtin(pivot->cmd) == true)
 	{
 		execute_builtin(pivot);
 		return ;
 	}
 	pid = fork();
-	if (pid == 0)
+	if (pivot->cmd && pid == 0)
 		execute_command_and_redirection(pivot, execute);
 	waitpid(pid, &g_megabash.exit_status, 0);
 }

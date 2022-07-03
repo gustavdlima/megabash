@@ -11,12 +11,12 @@ void	builtin_env(char **matrix)
 		ft_putstr_fd(matrix[1], 2);
 		error_message_exit("’: No such file or directory", 1);
 	}
-	else if (!get_env_node(g_megabash.env, "PATH"))
+	if (!get_env_node(temp, "PATH"))
 	{
 		ft_putstr_fd("megabash: env", 2);
 		error_message_exit(": No such file or directory", 1);
 	}
-	else
+	if (matrix[0])
 	{
 		while (temp)
 		{

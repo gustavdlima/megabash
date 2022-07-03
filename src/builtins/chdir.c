@@ -10,7 +10,11 @@ static void	new_pwd_env(void)
 	if (env_node == NULL)
 		env_addback(&g_megabash.env, env_lst_new("PWD", directory));
 	else
+	{
+		free(env_node->content);
 		env_node->content = ft_strdup(directory);
+	}
+	free(directory);
 }
 
 static void	new_oldpwd_env(void)
@@ -23,7 +27,11 @@ static void	new_oldpwd_env(void)
 	if (env_node == NULL)
 		env_addback(&g_megabash.env, env_lst_new("OLDPWD", directory));
 	else
+	{
+		free(env_node->content);
 		env_node->content = ft_strdup(directory);
+	}
+	free(directory);
 }
 
 static void	home_execute(void)
@@ -60,6 +68,7 @@ static void	dash_execute(void)
 		chdir(directory);
 		new_pwd_env();
 	}
+	free(directory);
 }
 
 void	cd(char **matrix)

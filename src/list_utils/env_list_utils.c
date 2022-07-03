@@ -34,6 +34,7 @@ t_env	*env_lst_new(char *name, char *content)
 		element->name = name;
 		element->content = content;
 		element->next = NULL;
+		element->prev = NULL;
 		return (element);
 	}
 	return (0);
@@ -47,6 +48,7 @@ void	env_addback(t_env **lst, t_env *new)
 	{
 		i = env_last_node(*lst);
 		i->next = new;
+		new->prev = i;
 	}
 	else
 		*lst = new;

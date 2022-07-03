@@ -19,7 +19,7 @@ TOKEN_PATH		= tokenizer/
 BUILTIN_PATH	= builtins/
 FREE_PATH		= free_functions/
 SIGNAL_PATH		= signal/
-COMMAND_PATH	= command/
+EXECUTION_PATH	= execution/
 PARSE_PATH		= parse/
 HEREDOC_PATH	= heredoc/
 
@@ -36,9 +36,9 @@ SRCS	=	minishell.c	\
 			$(INPUT_PATH)treat_operators.c				\
 			$(INPUT_PATH)validate_input.c				\
 			$(INPUT_PATH)is_builtin.c					\
-			$(COMMAND_PATH)cmd_path.c					\
-			$(COMMAND_PATH)execute_cmd.c				\
-			$(COMMAND_PATH)redirect_cmd.c				\
+			$(EXECUTION_PATH)cmd_path.c					\
+			$(EXECUTION_PATH)execute_cmd.c				\
+			$(EXECUTION_PATH)redirect_cmd.c				\
 			$(BUILTIN_PATH)env.c						\
 			$(BUILTIN_PATH)chdir.c						\
 			$(BUILTIN_PATH)exit.c						\
@@ -91,7 +91,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(BUILTIN_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(FREE_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(SIGNAL_PATH))
-	@mkdir -p $(addprefix $(OBJ_DIR)/,$(COMMAND_PATH))
+	@mkdir -p $(addprefix $(OBJ_DIR)/,$(EXECUTION_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(PARSE_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(HEREDOC_PATH))
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ $(LIBFT_FLAGS)

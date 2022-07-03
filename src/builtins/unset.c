@@ -7,34 +7,21 @@ void	free_unset(t_env *list)
 	free(list);
 }
 
-static t_env	*get_env_previous_node(t_env *list, char *name)
-{
-	while (list)
-	{
-		if (list->next)
-		{
-			if (ft_new_strncmp(list->next->name, name) == true)
-				return (list);
-		}
-		list = list->next;
-	}
-	return (NULL);
-}
-
 void	unset(char **command)
 {
 	t_env	*temp;
+	t_env	*env_test;
 	int		i;
 
+	env_test = g_megabash.env;
 	i = 1;
 	if (command && !command[1])
 		return ;
 	while (command[i])
 	{
-		temp = get_env_previous_node(g_megabash.env, command[i]);
+		temp = get_env_node(env_test, command[i]);
 		if (temp)
 		{
-			printf("entrei no unset\n");
 			env_node_delete(temp);
 		}
 		i++;

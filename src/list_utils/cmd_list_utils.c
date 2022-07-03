@@ -56,8 +56,8 @@ void	free_commands(t_commands *commands)
 		temp = commands;
 		commands = commands->next;
 		free_matrix(temp->content);
-		free_redirect(temp->redirect);
 		free(temp->cmd);
+		free_redirect(temp->redirect);
 		free(temp);
 	}
 }
@@ -76,5 +76,5 @@ t_commands	*cmd_lst_new(void)
 		element->redirect = NULL;
 		return (element);
 	}
-	return (0);
+	return (NULL);
 }

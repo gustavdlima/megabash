@@ -30,6 +30,7 @@ static void	megaexecute(char **input)
 	treat_input(input);
 	// print_token(g_megabash.token_list);
 	parsing();
+	free_token(g_megabash.token_list);
 	// print_commands(g_megabash.cmd_list);
 	if (g_megabash.cmd_list->cmd && ft_new_strncmp("exit", g_megabash.cmd_list->cmd) == true
 		&& g_megabash.pipe == 0)
@@ -65,7 +66,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	g_megabash.last_input = ft_strdup("");
 	environment(envp);
-	printf("ENTROU\n");
 	megastart();
 	return (0);
 }

@@ -3,9 +3,13 @@
 void	free_megabash(void)
 {
 	free_env(g_megabash.env);
-	free_token(g_megabash.token_list);
 	free_commands(g_megabash.cmd_list);
 	rl_clear_history();
+}
+
+void	free_cmd_megabash(void)
+{
+	free_commands(g_megabash.cmd_list);
 }
 
 void	free_matrix(char **matrix)
@@ -36,4 +40,5 @@ void	free_env(t_env *env)
 		free(temp->content);
 		free(temp);
 	}
+	free(env);
 }

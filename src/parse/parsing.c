@@ -40,6 +40,7 @@ static t_token	*cmd_parse(t_token *token, t_commands *command)
 				{
 					cmd_string = insert_caracter(cmd_string, ' ');
 					temp = ft_strjoin(cmd_string, token_temp->content);
+					free(cmd_string);
 					cmd_string = ft_strdup(temp);
 					token = token_content_to_hell(token, token_temp->content,
 							token->content);
@@ -58,6 +59,7 @@ static t_token	*cmd_parse(t_token *token, t_commands *command)
 		{
 			cmd_string = insert_caracter(cmd_string, ' ');
 			temp = ft_strjoin(cmd_string, token->content);
+			free(cmd_string);
 			cmd_string = ft_strdup(temp);
 			free(temp);
 		}

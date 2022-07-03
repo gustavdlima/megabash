@@ -9,7 +9,6 @@ char	*what_cmd(char *cmd)
 	int		i;
 
 	i = 0;
-	printf("cheguei aqui no what_cmd \n");
 	if (cmd == NULL)
 		return (NULL);
 	if (access(cmd, F_OK) == 0)
