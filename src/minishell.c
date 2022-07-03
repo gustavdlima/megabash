@@ -45,6 +45,7 @@ static void	megastart(void)
 
 	while (1)
 	{
+		signal_handler();
 		input = read_input();
 		// printf("\n\ninput: %s\n", input);
 		if (input && validate_input(input) == true)
@@ -66,7 +67,8 @@ int	main(int argc, char **argv, char **envp)
 		ft_putendl_fd("Error: Try only ./minishell", 2);
 		exit(1);
 	}
-	g_megabash.last_input = ft_strdup("");
+	// g_megabash.last_input = ft_strdup("");
+	g_megabash.last_input = NULL;
 	environment(envp);
 	megastart();
 	return (0);

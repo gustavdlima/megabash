@@ -46,13 +46,18 @@ static int	is_it_history(char *cmd)
 		return (false);
 	// if (theres_delimiter(cmd) == true)
 	// 	return (false);
-	if (ft_new_strncmp(cmd, g_megabash.last_input) == true)
-		return (false);
-	else
+	if (g_megabash.last_input)
 	{
-		free(g_megabash.last_input);
-		g_megabash.last_input = cmd;
+		if (ft_new_strncmp(cmd, g_megabash.last_input) == true)
+			return (false);
+		else
+		{
+			free(g_megabash.last_input);
+			g_megabash.last_input = cmd;
+		}
 	}
+	else
+		g_megabash.last_input = cmd;
 	return (true);
 }
 
