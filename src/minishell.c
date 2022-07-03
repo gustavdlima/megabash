@@ -45,7 +45,8 @@ static void	megastart(void)
 
 	while (1)
 	{
-		signal_handler();
+		if (g_megabash.cmd_list)
+			free_cmd_megabash();
 		input = read_input();
 		// printf("\n\ninput: %s\n", input);
 		if (input && validate_input(input) == true)
