@@ -19,9 +19,8 @@ void	execute_execve(t_commands *cmd_list)
 		execve(pathway, cmd_list->content, g_megabash.envp);
 }
 
-int	**malloc_int_matrix(void)
+int	**malloc_int_matrix(int **fd)
 {
-	int	**fd;
 	int	i;
 
 	i = g_megabash.pipe;

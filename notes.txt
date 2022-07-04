@@ -1,26 +1,13 @@
-Quando o redirect de output (>) estiver feito, o redirect de append (>>) será mais simples, pois:
+tudo dando problema
 
-> redireciona todo o output processado para um arquivo criado, mesmo que já exista um arquivo com o mesmo nome.
-ex:
-
-	ls | grep a | wc -l > outfile.txt	,
-	outfile conterá o numero de linhas de ls que tem a letra "a".
-
-	Porém, se
-	cat Makefile > outfile.txt	,
-	o arquivo outfile é criado novamente, só que com o conteúdo do arquivo Makefile, ie, outfile não terá mais a quantidade de linhas [...]
-
->> ACRESCENTA conteúdo a um arquivo já existente, porém, se o arquivo não existir, ele é criado e preenchido com as informações fornecidas.
-ex:
-
-	Pegando o mesmo arquivo anterior "outfile.txt" e
-	ls >> outfile.txt
-	Agora, ALÉM do conteúdo referente ao Makefile, outfile TAMBÉM tem o conteúdo referente ao ls.
-
-	Se tempfile é um arquivo inexistente e
-	ls >> tempfile.txt
-	tempfile é criada e preenchida com o conteúdo referente a ls.
-
-O redirect de input (<) e o heredoc (<<) são bem diferentes entre si
-
-wc -l > a < Makefile
+cat
+echo ">" klkkkk
+<< eof wc -l
+cat << eof wc -l
+env > pinico2
+alguma coisa ai anderson
+echo alguma coisa > meninx
+ls | << (heredoc tem q ter delimitador)
+command not found ta dando vazamento (nao podemos deixar no execve)
+comandos entre aspas eh p funcionar
+ECHO 'HOME' "$HOME" $HOME

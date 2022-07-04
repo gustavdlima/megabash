@@ -59,6 +59,7 @@ void	treat_input(char **input)
 	treated = treat_operators(*input);
 	tokenizer(treated);
 	treat_token_list();
+	free(treated);
 }
 
 // a e i o u -> some o u

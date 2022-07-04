@@ -33,6 +33,7 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 		close(fd[i][0]);
 		check_and_dup(fd[i][1], STDOUT_FILENO);
 	}
+	free_int_matrix(fd);
 	execute_command_and_redirection(pivot, execute);
 }
 
@@ -68,7 +69,8 @@ void	execute_multiple_commands(void)
 	int			**fd;
 	int			i;
 
-	fd = malloc_int_matrix();
+	fd = NULL;
+	fd = malloc_int_matrix(fd);
 	i = 0;
 	while (fd[i])
 	{
@@ -80,6 +82,7 @@ void	execute_multiple_commands(void)
 	i = 0;
 	while (i++ < g_megabash.pipe + 1)
 		waitpid(-1, &g_megabash.exit_status, 0);
+	free_int_matrix(fd);
 }
 
 void	execute_single_command(void)
@@ -97,9 +100,6 @@ void	execute_single_command(void)
 	}
 	pid = fork();
 	if (pid == 0)
-	{
-		printf("executando um comando simples sem ser parent builtin\n");
 		execute_command_and_redirection(pivot, execute);
-	}
 	waitpid(pid, &g_megabash.exit_status, 0);
 }

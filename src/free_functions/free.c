@@ -13,6 +13,22 @@ void	free_cmd_megabash(void)
 	rl_clear_history();
 }
 
+void	free_int_matrix(int **matrix)
+{
+	int	i;
+
+	i = 0;
+	if (matrix)
+	{
+		while (matrix[i])
+		{
+			free(matrix[i]);
+			i++;
+		}
+		free(matrix);
+	}
+}
+
 void	free_matrix(char **matrix)
 {
 	int	i;

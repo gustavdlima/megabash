@@ -49,7 +49,7 @@ int		parent_execute_builtin(t_commands *cmd_list);
 
 // execute_utils.c
 void	execute_execve(t_commands *cmd_list);
-int		**malloc_int_matrix(void);
+int		**malloc_int_matrix(int **fd);
 int		check_and_dup(int old, int new);
 
 #endif
