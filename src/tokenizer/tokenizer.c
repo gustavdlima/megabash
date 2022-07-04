@@ -20,7 +20,6 @@ void	tokenizer(char *input)
 
 	i = 1;
 	temp = ft_split(input, ' ');
-	// free(input);
 	if (temp != NULL)
 	{
 		g_megabash.token_list = token_lst_new(temp[0]);

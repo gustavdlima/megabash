@@ -28,10 +28,8 @@ static void	megaexecute(char **input)
 {
 	g_megabash.pipe = 0;
 	treat_input(input);
-	// print_token(g_megabash.token_list);
 	parsing();
 	free_token(g_megabash.token_list);
-	// print_commands(g_megabash.cmd_list);
 	if (g_megabash.cmd_list->cmd && ft_new_strncmp("exit", g_megabash.cmd_list->cmd) == true
 		&& g_megabash.pipe == 0)
 		exit_the_program(g_megabash.cmd_list->content);
@@ -47,16 +45,13 @@ static void	megastart(void)
 	{
 		signal_handler();
 		input = read_input();
-		// printf("\n\ninput: %s\n", input);
 		if (input && validate_input(input) == true)
+		{
 			megaexecute(&input);
+			free_megabash();
+		}
 		else
 			printf("BORN TO BE BASH\n");
-		// 	free(input);
-		// else
-			// free(g_megabash.last_input);
-		free_megabash();
-		// free(input);
 	}
 }
 
@@ -67,7 +62,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_putendl_fd("Error: Try only ./minishell", 2);
 		exit(1);
 	}
-	// g_megabash.last_input = ft_strdup("");
 	g_megabash.last_input = NULL;
 	environment(envp);
 	megastart();

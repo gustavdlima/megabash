@@ -40,7 +40,6 @@ void	exit_the_program(char **matrix)
 {
 	int		to_exit;
 
-	dprintf(2, "exit_the_program\n");
 	to_exit = true;
 	if (matrix)
 	{
@@ -54,7 +53,8 @@ void	exit_the_program(char **matrix)
 			error_message("megabash error: exit: too many arguments", 1);
 			to_exit = false;
 		}
-		free_exit_builtin();
+		else
+			free_exit_builtin();
 	}
 	if (to_exit == true)
 	{

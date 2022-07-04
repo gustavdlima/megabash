@@ -137,7 +137,6 @@ static void	treat_parse_list(void)
 		{
 			while (cmd_temp->content[i])
 			{
-				// printf("command no treated: %s\n", cmd_temp->content[i]);
 				cmd_temp->content[i] = no_quotes(cmd_temp->content[i]);
 				reverse_input_chars(cmd_temp->content[i]);
 				// printf("command treated: %s\n", cmd_temp->content[i]);
@@ -162,6 +161,5 @@ void	parsing(void)
 		continue ;
 	}
 	g_megabash.cmd_list = cmd_temp;
-	// print_commands(g_megabash.cmd_list);
 	treat_parse_list();
 }

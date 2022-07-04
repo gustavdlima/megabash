@@ -48,13 +48,10 @@ static int	is_it_history(char *cmd)
 	// 	return (false);
 	if (g_megabash.last_input)
 	{
-		if (ft_new_strncmp(cmd, g_megabash.last_input) == true)
+		if (ft_new_strncmp(g_megabash.last_input, cmd) == true)
 			return (false);
 		else
-		{
-			free(g_megabash.last_input);
 			g_megabash.last_input = cmd;
-		}
 	}
 	else
 		g_megabash.last_input = cmd;

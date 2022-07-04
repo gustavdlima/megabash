@@ -56,9 +56,7 @@ void	treat_input(char **input)
 	char	*treated;
 
 	treat_input_chars(*input);
-	// printf("treat_input_chars: %s\n", *input);
 	treated = treat_operators(*input);
-	// printf("treat_operators : %s\n", treated);
 	tokenizer(treated);
 	treat_token_list();
 }

@@ -11,7 +11,11 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 	else if (execute == true)
 		execute_execve(pivot);
 	else
-		exit(g_megabash.exit_status);
+	{
+		int a = g_megabash.exit_status;
+		free_cmd_megabash();
+		exit(a);
+	}
 }
 
 void	child_proccess(t_commands *pivot, int **fd, int i)
