@@ -38,7 +38,7 @@ int	only_space(char *cmd)
 	return (false);
 }
 
-static int	is_it_history(char *cmd)
+int	is_it_history(char *cmd)
 {
 	if (cmd == NULL)
 		return (false);
@@ -51,10 +51,13 @@ static int	is_it_history(char *cmd)
 		if (ft_new_strncmp(g_megabash.last_input, cmd) == true)
 			return (false);
 		else
-			g_megabash.last_input = cmd;
+		{
+			free(g_megabash.last_input);
+			g_megabash.last_input = ft_strdup(cmd);
+		}
 	}
 	else
-		g_megabash.last_input = cmd;
+		g_megabash.last_input = ft_strdup(cmd);
 	return (true);
 }
 
@@ -103,7 +106,6 @@ void	complete_input_properly(char **input)
 				*input = ft_strjoin(aux, temp);
 			else
 				*input = ft_strdup(aux);
-			free(temp);
 			free(aux);
 			if (open_quotes(*input) == false
 				&& pipe_no_arguments(*input) == false)
@@ -120,8 +122,8 @@ char	*read_input(void)
 	if (input)
 	{
 		complete_input_properly(&input);
-		if (input && is_it_history(input) == true)
-			add_history(input);
+		// if (input && is_it_history(input) == true)
+		// 	add_history(input);
 		return (input);
 	}
 	else

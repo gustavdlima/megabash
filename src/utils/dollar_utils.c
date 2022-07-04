@@ -1,11 +1,13 @@
 #include "minishell.h"
 
-int	is_there_dollar(char *cmd, int max_i)
+int	is_there_dollar(char *cmd)
 {
+	int	cmd_len;
 	int	i;
 
 	i = 0;
-	while (cmd[i] || i < max_i)
+	cmd_len = ft_strlen(cmd);
+	while (cmd[i] || i < cmd_len)
 	{
 		if (cmd[i] == '$')
 			return (true);

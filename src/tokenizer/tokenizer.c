@@ -8,7 +8,8 @@ void	treat_token_list(void)
 	while (temp)
 	{
 		treat_quote(temp->content);
-		temp->content = treat_dollar(temp->content);
+		if (is_there_dollar(temp->content) == true)
+			temp->content = treat_dollar(temp->content);
 		temp = temp->next;
 	}
 }

@@ -6,7 +6,7 @@
 //dolar_utils.c
 char	*interpret_dollar(char *cmd, int position);
 int		is_question_mark(char *cmd);
-int		is_there_dollar(char *cmd, int max_i);
+int		is_there_dollar(char *cmd);
 int		wheres_dollar(char *cmd);
 int		single_dollar(char *cmd);
 

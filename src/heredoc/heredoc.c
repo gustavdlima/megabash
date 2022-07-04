@@ -4,7 +4,10 @@ static void	save_data(char *content, int fd)
 {
 	fd = open("./src/heredoc/heredoc_content", O_WRONLY | O_CREAT | O_TRUNC,
 			0777);
-	write(fd, content, ft_strlen(content));
+	if (!content)
+		write(fd, "", 1);
+	else
+		write(fd, content, ft_strlen(content));
 }
 
 static void	prompt_loop(t_commands *command_list, char *read, char *arraydoc, int fd)
@@ -22,7 +25,8 @@ static void	prompt_loop(t_commands *command_list, char *read, char *arraydoc, in
 				{
 					save_data(arraydoc, fd);
 					free(arraydoc);
-					break ;
+					free (read);
+					update_exit_status_and_exit(0);
 				}
 			}
 			arraydoc = ft_strjoin(arraydoc, read);
@@ -30,7 +34,6 @@ static void	prompt_loop(t_commands *command_list, char *read, char *arraydoc, in
 			free(read);
 		}
 	}
-	update_exit_status_and_exit(0);
 }
 
 int	heredoc(t_commands *command_list)
@@ -43,10 +46,10 @@ int	heredoc(t_commands *command_list)
 	fd = 0;
 	signal_handler_heredoc(false);
 	pid = fork();
-	read = ft_strdup("");
+	read = NULL;
 	if (pid == 0)
 	{
-		arraydoc = ft_strdup("");
+		arraydoc = NULL;
 		prompt_loop(command_list, read, arraydoc, fd);
 		if (fd >= 0)
 			close(fd);

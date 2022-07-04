@@ -55,11 +55,13 @@ void	treat_input(char **input)
 {
 	char	*treated;
 
+	if (*input && is_it_history(*input) == true)
+		add_history(*input);
 	treat_input_chars(*input);
 	treated = treat_operators(*input);
 	tokenizer(treated);
-	treat_token_list();
 	free(treated);
+	treat_token_list();
 }
 
 // a e i o u -> some o u

@@ -49,7 +49,6 @@ static void	megastart(void)
 		{
 			megaexecute(&input);
 			free_megabash();
-			free(input);
 		}
 		else
 			printf("BORN TO BE BASH\n");
