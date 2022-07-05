@@ -5,6 +5,7 @@
 
 // read_input.c
 char	*read_input(void);
+int		too_many_pipes(char *cmd);
 int		only_space(char *cmd);
 int		is_it_history(char *cmd);
 void	complete_input_properly(char **input);
@@ -32,4 +33,7 @@ void	check_input(void);
 // treat_operators.c
 char	*treat_operators(char *input);
 char	*check_operator_space(char *input);
+
+
+int	too_many_pipes(char *cmd);
 #endif

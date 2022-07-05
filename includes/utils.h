@@ -37,6 +37,7 @@ int		open_curly_bracket(char *cmd);
 int		open_quotes(char *cmd);
 int		bash_syntax_error(char *cmd);
 int		command_not_found(char *cmd);
+int		no_words_after_redirect(char *input);
 
 // exit_status.c
 void	error_message(char *msg, int exit_status);

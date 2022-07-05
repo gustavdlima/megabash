@@ -45,7 +45,11 @@ static void	megastart(void)
 		signal_handler();
 		input = readline("\033[0;35mmegabash$ \033[0m");
 		if (input)
+		{
 			complete_input_properly(&input);
+			if (is_it_history(input) == true)
+				add_history(input);
+		}
 		else
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);

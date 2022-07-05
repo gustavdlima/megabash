@@ -12,21 +12,24 @@ static void	save_data(char *content, int fd)
 
 static void	prompt_loop(t_commands *command_list, char *read, char *arraydoc, int fd)
 {
+	t_redirect *temp;
+
+	temp = command_list->redirect;
 	while (1)
 	{
 		signal_handler_heredoc(true);
 		read = readline("> ");
-		// if (ft_new_strncmp(command_list->redirect->content, read))
-		if (read || ft_new_strncmp(command_list->redirect->content, read)) // TEM QUE REPETIR ENQUANTO NÃO FOR IGUAL O ARGUMENTO
+		if (read || ft_new_strncmp(temp->content, read))
 		{
-			if (command_list->redirect->type == is_here_doc)
+			if (temp->type == is_here_doc)
 			{
-				if (!ft_strncmp(command_list->redirect->content, read, ft_strlen(read)))
+				if (!ft_strncmp(temp->content, read, ft_strlen(read)))
 				{
 					save_data(arraydoc, fd);
 					free(arraydoc);
 					free (read);
-					update_exit_status_and_exit(0);
+					exit(0);
+					// update_exit_status_and_exit(0);
 				}
 			}
 			arraydoc = ft_strjoin(arraydoc, read);

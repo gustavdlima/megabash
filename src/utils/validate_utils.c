@@ -1,5 +1,33 @@
 #include "minishell.h"
 
+int	no_words_after_redirect(char *input)
+{
+	char	**matrix;
+	int		i;
+
+	printf("aaaaaaaaaaaa\n");
+	i = 0;
+	matrix = ft_split(input, ' ');
+	while (matrix[i])
+	{
+		if(!ft_new_strncmp(">>", matrix[i]) || !ft_new_strncmp(">", matrix[i])
+			|| !ft_new_strncmp("<<", matrix[i]) || !ft_new_strncmp("<", matrix[i]))
+		{
+			// i++;
+			// if (!matrix[i] || (ft_new_strncmp("|", matrix[i])) || (ft_new_strncmp("||", matrix[i])
+			// 	|| (ft_new_strncmp("&", matrix[i])) || (ft_new_strncmp("&&", matrix[i]))
+			// 	|| (ft_new_strncmp(">>", matrix[i])) || (ft_new_strncmp(">", matrix[i]))
+			// 	|| (ft_new_strncmp("<<", matrix[i])) || (ft_new_strncmp("<", matrix[i]))))
+			{
+				error_message("megabash: syntax error near unexpected token", 2);
+				return (true);
+			}
+		}
+		i++;
+	}
+	return (false);
+}
+
 static int	incrementing_i_for_single_quotes(char *cmd)
 {
 	int	i;

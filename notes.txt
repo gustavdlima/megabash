@@ -1,13 +1,6 @@
-tudo dando problema
 
-cat
-echo ">" klkkkk
 << eof wc -l
 cat << eof wc -l
-env > pinico2
-alguma coisa ai anderson
-echo alguma coisa > meninx
 ls | << (heredoc tem q ter delimitador)
-command not found ta dando vazamento (nao podemos deixar no execve) (OK!)
-comandos entre aspas eh p funcionar
-ECHO 'HOME' "$HOME" $HOME
+
+enter vazio buga
