@@ -49,6 +49,7 @@ static void	insert_space_before(char *input, char **temp)
 	free (str);
 	str = ft_strjoin(*temp, aux);
 	free (aux);
+	free(*temp);
 	*temp = ft_strdup(str);
 	free (str);
 }

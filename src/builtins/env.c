@@ -27,6 +27,10 @@ void	builtin_env(char **matrix)
 			ft_putendl_fd(temp->content, 1);
 			temp = temp->next;
 		}
-		update_exit_status_and_exit(0);
+		g_megabash.exit_status = 0;
+		free(g_megabash.last_input);
+		free_env(g_megabash.env);
+		free_commands(g_megabash.cmd_list);
+		exit(0);
 	}
 }

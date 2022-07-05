@@ -22,17 +22,26 @@ static int	export_execute(char *name, char *content, t_env *node,
 		i++;
 		return (i);
 	}
-	free(name);
-	free(content);
+	if (name)
+		free(name);
+	if (content)
+		free(content);
 	name = get_env_name(command[i]);
 	content = get_env_path(command[i]);
 	node = get_env_node(g_megabash.env, name);
 	if (!node)
+	{
 		env_addback(&g_megabash.env, env_lst_new(name, content));
+		free(name);
+		free(content);
+	}
 	else
 	{
 		env_content_to_null(node, name);
-		node->content = ft_strdup(content);
+		free(node->content);
+		free(name);
+		node->content = content;
+		// node->content = ft_strdup(content);
 	}
 	i++;
 	return (i);
@@ -47,10 +56,10 @@ void	export(char **command)
 
 	node = g_megabash.env;
 	i = 1;
+	name = NULL;
+	content = NULL;
 	while (command[i])
 	{
-		name = ft_strdup("");
-		content = ft_strdup("");
 		i = export_execute(name, content, node, command, i);
 		continue ;
 	}

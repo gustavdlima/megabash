@@ -59,12 +59,15 @@ int	ft_new_strncmp(char *s1, char *s2)
 	else
 		s1_len = 0;
 	if (s2)
+	{
+
 		s2_len = ft_strlen(s2);
+	}
 	else
 		s2_len = 0;
 	if (s1_len != s2_len)
 		return (false);
-	while (i < s1_len)
+	while (s1[i] && s2[i] && i < s1_len)
 	{
 		if (s1[i] != s2[i])
 			return (false);

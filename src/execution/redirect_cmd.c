@@ -40,8 +40,6 @@ int	redirect_commands(t_commands *pivot)
 
 	im_input = false;
 	im_out_or_append = false;
-	// fazer loop pra cada redirecionamento, caso tudo de errao duaehauhd
-	// 1. pra input, se tiver tudo ok, aí faz outputs
 	while (pivot->redirect)
 	{
 		if (pivot->redirect->type == is_input && pivot->redirect->content)

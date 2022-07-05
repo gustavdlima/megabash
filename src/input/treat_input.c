@@ -30,13 +30,18 @@ int	check_operator(char operator)
 
 char	*treat_operators(char *input)
 {
-	int	i;
+	int		i;
+	char	*treated_input;
 
 	i = 0;
 	while (input[i])
 	{
 		if (check_operator(input[i]))
-			return (check_operator_space(input));
+		{
+			treated_input = check_operator_space(input);
+			free(input);
+			return (treated_input);
+		}
 		else
 			i++;
 	}

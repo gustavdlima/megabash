@@ -12,7 +12,10 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 		execute_execve(pivot);
 	else
 	{
-		update_exit_status_and_exit( g_megabash.exit_status);
+		free(g_megabash.last_input);
+		free_commands(g_megabash.cmd_list);
+		free_env(g_megabash.env);
+		exit(g_megabash.exit_status);
 	}
 }
 

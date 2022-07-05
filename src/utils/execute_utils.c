@@ -12,8 +12,11 @@ void	execute_execve(t_commands *cmd_list)
 		free(pathway);
 		dprintf(2, "%s: ", cmd_list->cmd);
 		error_message("command not found", 1);
-		// free_cmd_megabash();
-		update_exit_status_and_exit(1);
+		g_megabash.exit_status = 1;
+		free(g_megabash.last_input);
+		free_cmd_megabash();
+		// free_env(g_megabash.env);
+		exit(g_megabash.exit_status);
 	}
 	else
 		execve(pathway, cmd_list->content, g_megabash.envp);

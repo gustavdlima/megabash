@@ -4,9 +4,11 @@ static void	new_pwd_env(void)
 {
 	char	*directory;
 	t_env	*env_node;
+	t_env	*temp;
 
+	temp = g_megabash.env;
 	directory = getcwd(NULL, 0);
-	env_node = get_env_node(g_megabash.env, "PWD");
+	env_node = get_env_node(temp, "PWD");
 	if (env_node == NULL)
 		env_addback(&g_megabash.env, env_lst_new("PWD", directory));
 	else
@@ -21,9 +23,11 @@ static void	new_oldpwd_env(void)
 {
 	char	*directory;
 	t_env	*env_node;
+	t_env	*temp;
 
+	temp = g_megabash.env;
 	directory = getcwd(NULL, 0);
-	env_node = get_env_node(g_megabash.env, "OLDPWD");
+	env_node = get_env_node(temp, "OLDPWD");
 	if (env_node == NULL)
 		env_addback(&g_megabash.env, env_lst_new("OLDPWD", directory));
 	else
@@ -37,8 +41,10 @@ static void	new_oldpwd_env(void)
 static void	home_execute(void)
 {
 	t_env	*env_node;
+	t_env	*temp;
 
-	env_node = get_env_node(g_megabash.env, "HOME");
+	temp = g_megabash.env;
+	env_node = get_env_node(temp, "HOME");
 	if (env_node == NULL)
 	{
 		error_message("megabash: cd: HOME not set", 1);
@@ -55,8 +61,10 @@ static void	dash_execute(void)
 {
 	char	*directory;
 	t_env	*env_node;
+	t_env	*temp;
 
-	env_node = get_env_node(g_megabash.env, "OLDPWD");
+	temp = g_megabash.env;
+	env_node = get_env_node(temp, "OLDPWD");
 	directory = ft_strdup(env_node->content);
 	if (env_node == NULL)
 	{

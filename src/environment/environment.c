@@ -2,20 +2,17 @@
 
 char	*get_env_path(char *envp)
 {
-	char		*sup;
-	char		*temp;
+	const char *temp = ft_strchr(envp, '=') + 1;
+	const char *sup = ft_strdup(temp);
 
-	temp = ft_strchr(envp, '=') + 1;
-	sup = ft_strdup(temp);
-	return (sup);
+	return ((char *)sup);
 }
 
 char	*get_env_name(char *envp)
 {
-	int		name_size;
+	const int	name_size = ft_int_strchr(envp, '=');
 	char	*sup;
 
-	name_size = ft_int_strchr(envp, '=');
 	sup = malloc((sizeof(char *) * name_size));
 	ft_memcpy(sup, envp, name_size);
 	sup[name_size] = '\0';
@@ -24,14 +21,19 @@ char	*get_env_name(char *envp)
 
 void	environment(char **envp)
 {
-	int	i;
+	char	*temp_name;
+	char	*temp_path;
+	int		i;
 
 	i = 0;
 	g_megabash.envp = envp;
 	while (envp[i])
 	{
-		env_addback(&g_megabash.env, env_lst_new(get_env_name(envp[i]),
-				get_env_path(envp[i])));
+		temp_name = get_env_name(envp[i]);
+		temp_path = get_env_path(envp[i]);
+		env_addback(&g_megabash.env, env_lst_new(temp_name, temp_path));
+		free(temp_name);
+		free(temp_path);
 		i++;
 	}
 }

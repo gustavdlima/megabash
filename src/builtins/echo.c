@@ -10,7 +10,10 @@ void	echo(char **matrix)
 	if (!matrix[1])
 	{
 		ft_putchar_fd('\n', 1);
-		update_exit_status_and_exit(1);
+			free(g_megabash.last_input);
+	free_commands(g_megabash.cmd_list);
+		free_env(g_megabash.env);
+		exit(1);
 	}
 	if (!ft_strncmp(matrix[1], "-n", 3))
 	{
@@ -27,7 +30,13 @@ void	echo(char **matrix)
 	if (flag == 0)
 	{
 		ft_putstr_fd("\n", 1);
-		update_exit_status_and_exit(0);
+			free(g_megabash.last_input);
+	free_commands(g_megabash.cmd_list);
+		free_env(g_megabash.env);
+		exit(0);
 	}
-	update_exit_status_and_exit(0);
+	free(g_megabash.last_input);
+	free_commands(g_megabash.cmd_list);
+		free_env(g_megabash.env);
+		exit(0);
 }

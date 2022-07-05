@@ -31,8 +31,8 @@ t_env	*env_lst_new(char *name, char *content)
 	element = malloc(sizeof(t_env));
 	if (element)
 	{
-		element->name = name;
-		element->content = content;
+		element->name = ft_strdup(name);
+		element->content = ft_strdup(content);
 		element->next = NULL;
 		element->prev = NULL;
 		return (element);
