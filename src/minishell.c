@@ -44,7 +44,24 @@ static void	megastart(void)
 	while (1)
 	{
 		signal_handler();
-		input = read_input();
+		input = readline("\033[0;35mmegabash$ \033[0m");
+		if (input)
+		{
+			complete_input_properly(&input);
+		}
+		else
+		{
+			ft_putendl_fd("exit", STDOUT_FILENO);
+			rl_clear_history();
+			if (g_megabash.last_input)
+				free(g_megabash.last_input);
+			if (g_megabash.env)
+				free_env(g_megabash.env);
+			// if (g_megabash.cmd_list)
+			// 	free_cmd_megabash();
+			exit(0);
+		}
+		// input = read_input();
 		if (input && validate_input(input) == true)
 		{
 			megaexecute(&input);

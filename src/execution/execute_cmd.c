@@ -12,9 +12,7 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 		execute_execve(pivot);
 	else
 	{
-		int a = g_megabash.exit_status;
-		free_cmd_megabash();
-		exit(a);
+		update_exit_status_and_exit( g_megabash.exit_status);
 	}
 }
 

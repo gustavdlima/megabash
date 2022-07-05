@@ -86,6 +86,7 @@ static t_token	*redirect_parse(t_token *token, t_redirect *redirect)
 		if (token->type == is_word)
 		{
 			temp = ft_strjoin(redirect->content, token->content);
+			free(redirect->content);
 			redirect->content = ft_strdup(temp);
 			free(temp);
 		}

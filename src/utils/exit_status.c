@@ -20,3 +20,16 @@ void	update_exit_status_and_exit(int exit_status)
 	free_cmd_megabash();
 	exit(exit_status);
 }
+
+void	quit_megabash(void)
+{
+	// //funcoes para dar free
+	// free_env(g_megabash.env);
+	free(g_megabash.last_input);
+	if (g_megabash.cmd_list->content[1])
+		free_commands(g_megabash.cmd_list);
+	// free_token(g_megabash.token_list);
+	free_env(g_megabash.env);
+	rl_clear_history();
+	exit(g_megabash.exit_status);
+}

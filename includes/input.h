@@ -7,6 +7,7 @@
 char	*read_input(void);
 int		only_space(char *cmd);
 int		is_it_history(char *cmd);
+void	complete_input_properly(char **input);
 
 // treat_input.c
 void	treat_input(char **input);

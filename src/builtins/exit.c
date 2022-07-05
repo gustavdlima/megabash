@@ -59,7 +59,7 @@ void	exit_the_program(char **matrix)
 	if (to_exit == true)
 	{
 		printf("exit\n");
-		exit(g_megabash.exit_status);
+		quit_megabash();
 	}
 }
 

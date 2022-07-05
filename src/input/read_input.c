@@ -114,18 +114,19 @@ void	complete_input_properly(char **input)
 	}
 }
 
-char	*read_input(void)
-{
-	char	*input;
+// char	*read_input(void)
+// {
+// 	char	*input;
 
-	input = readline("\033[0;35mmegabash$ \033[0m");
-	if (input)
-	{
-		complete_input_properly(&input);
-		// if (input && is_it_history(input) == true)
-		// 	add_history(input);
-		return (input);
-	}
-	else
-		exit (0);
-}
+// 	input = readline("\033[0;35mmegabash$ \033[0m");
+// 	if (input)
+// 	{
+// 		complete_input_properly(&input);
+// 		// if (input && is_it_history(input) == true)
+// 		// 	add_history(input);
+// 		return (input);
+// 	}
+// 		ft_putendl_fd("exit", STDOUT_FILENO);
+// 		rl_clear_history();
+// 		quit_megabash();
+// }

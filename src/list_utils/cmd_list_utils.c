@@ -54,10 +54,12 @@ void	free_commands(t_commands *commands)
 	while (commands)
 	{
 		temp = commands;
+		
 		commands = commands->next;
 		free_matrix(temp->content);
 		free(temp->cmd);
-		free_redirect(temp->redirect);
+		if (temp->redirect)
+			free_redirect(temp->redirect);
 		free(temp);
 	}
 }

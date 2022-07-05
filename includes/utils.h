@@ -42,6 +42,7 @@ int		command_not_found(char *cmd);
 void	error_message(char *msg, int exit_status);
 void	error_message_exit(char *message, int exit_status);
 void	update_exit_status_and_exit(int exit_status);
+void	quit_megabash(void);
 
 // builtin_utils.c
 void	execute_builtin(t_commands *cmd_list);
