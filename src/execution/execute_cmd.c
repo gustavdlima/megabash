@@ -5,9 +5,7 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 	if (pivot->redirect)
 		execute = redirect_commands(pivot);
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)
-	{
 		execute_builtin(pivot);
-	}
 	else if (execute == true)
 		execute_execve(pivot);
 	else

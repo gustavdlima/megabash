@@ -37,18 +37,20 @@ int	redirect_commands(t_commands *pivot)
 	int	im_input;
 	int	im_out_or_append;
 	int	is_valid_fd;
+	t_redirect *temp;
 
+	temp = pivot->redirect;
 	im_input = false;
 	im_out_or_append = false;
-	while (pivot->redirect)
+	while (temp)
 	{
-		if (pivot->redirect->type == is_input && pivot->redirect->content)
+		if (temp->type == is_input && temp->content)
 		{
-			infile = open(pivot->redirect->content, O_RDONLY, 0777);
+			infile = open(temp->content, O_RDONLY, 0777);
 			im_input = true;
 		}
-		if (pivot->redirect->content && (pivot->redirect->type == is_output
-				|| pivot->redirect->type == is_append))
+		if (temp->content && (temp->type == is_output
+				|| temp->type == is_append))
 		{
 			if (im_input == true && infile >= 0)
 				outfile = open_fd_to_output_or_append(pivot);
@@ -56,9 +58,9 @@ int	redirect_commands(t_commands *pivot)
 				outfile = open_fd_to_output_or_append(pivot);
 			im_out_or_append = true;
 		}
-		if (pivot->redirect->type == is_here_doc)
+		if (temp->type == is_here_doc)
 			heredoc(pivot);
-		pivot->redirect = pivot->redirect->next;
+		temp = temp->next;
 	}
 	is_valid_fd = valid_execution(im_input, im_out_or_append, infile, outfile);
 	return (is_valid_fd);

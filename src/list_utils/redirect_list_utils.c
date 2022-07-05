@@ -64,3 +64,16 @@ void	free_redirect(t_redirect *redirections)
 		free(temp);
 	}
 }
+
+int	redirect_lst_size(t_redirect *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}

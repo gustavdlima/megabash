@@ -45,9 +45,7 @@ static void	megastart(void)
 		signal_handler();
 		input = readline("\033[0;35mmegabash$ \033[0m");
 		if (input)
-		{
 			complete_input_properly(&input);
-		}
 		else
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
