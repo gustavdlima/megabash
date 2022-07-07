@@ -34,6 +34,5 @@ void	check_input(void);
 char	*treat_operators(char *input);
 char	*check_operator_space(char *input);
 
-
-int	too_many_pipes(char *cmd);
+int		too_many_pipes(char *cmd);
 #endif

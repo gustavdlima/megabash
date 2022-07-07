@@ -53,5 +53,5 @@ int		parent_execute_builtin(t_commands *cmd_list);
 void	execute_execve(t_commands *cmd_list);
 int		**malloc_int_matrix(int **fd);
 int		check_and_dup(int old, int new);
-
+char	*what_cmd(char *cmd);
 #endif

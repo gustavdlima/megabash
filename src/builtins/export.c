@@ -1,31 +1,27 @@
 #include "minishell.h"
 
-static void	print_export_error(char *name)
+static int	i_plus_plus(int i)
 {
+	i++;
+	return(i);
+}
+
+static int	print_export_error(char *name, int i)
+{
+	i++;
 	ft_putstr_fd("export: '", 2);
 	ft_putstr_fd(name, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
-	free(name);
+	return(i);
 }
 
 static int	export_execute(char *name, char *content, t_env *node,
 		char **command, int i)
 {
 	if (!ft_strchr(command[i], '='))
-	{
-		i++;
-		return (i);
-	}
+		return (i_plus_plus(i));
 	if (is_alphabetic(command[i]))
-	{
-		print_export_error(command[i]);
-		i++;
-		return (i);
-	}
-	if (name)
-		free(name);
-	if (content)
-		free(content);
+		return (print_export_error(command[i], i));
 	name = get_env_name(command[i]);
 	content = get_env_path(command[i]);
 	node = get_env_node(g_megabash.env, name);
@@ -41,7 +37,6 @@ static int	export_execute(char *name, char *content, t_env *node,
 		free(node->content);
 		free(name);
 		node->content = content;
-		// node->content = ft_strdup(content);
 	}
 	i++;
 	return (i);

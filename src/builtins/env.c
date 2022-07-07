@@ -1,5 +1,16 @@
 #include "minishell.h"
 
+static void	print_env_builtin(t_env *env)
+{
+	while (env)
+	{
+		ft_putstr_fd(env->name, 1);
+		ft_putchar_fd('=', 1);
+		ft_putendl_fd(env->content, 1);
+		env = env->next;
+	}
+}
+
 void	builtin_env(char **matrix)
 {
 	t_env	*temp;
@@ -20,17 +31,8 @@ void	builtin_env(char **matrix)
 	}
 	if (matrix[0])
 	{
-		while (temp)
-		{
-			ft_putstr_fd(temp->name, 1);
-			ft_putchar_fd('=', 1);
-			ft_putendl_fd(temp->content, 1);
-			temp = temp->next;
-		}
+		print_env_builtin(temp);
 		g_megabash.exit_status = 0;
-		free(g_megabash.last_input);
-		free_env(g_megabash.env);
-		free_commands(g_megabash.cmd_list);
-		exit(0);
+		child_builtins_free_and_exit(g_megabash.exit_status);
 	}
 }

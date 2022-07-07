@@ -19,54 +19,6 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 	// }
 }
 
-void	child_proccess(t_commands *pivot, int **fd, int i)
-{
-	int	execute;
-
-	execute = true;
-	if (i != 0)
-	{
-		close(fd[i - 1][1]);
-		if (pivot->redirect && pivot->redirect->type == is_here_doc)
-			g_megabash.stdin_backup = dup(STDIN_FILENO);
-		check_and_dup(fd[i - 1][0], STDIN_FILENO);
-	}
-	if (fd[i] != NULL)
-	{
-		close(fd[i][0]);
-		check_and_dup(fd[i][1], STDOUT_FILENO);
-	}
-	free_int_matrix(fd);
-	execute_command_and_redirection(pivot, execute);
-}
-
-void	initialize_process(int **fd)
-{
-	t_commands	*pivot;
-	pid_t		pid;
-	int			i;
-
-	pivot = g_megabash.cmd_list;
-	i = 0;
-	while (pivot)
-	{
-		if (pivot->cmd && parent_is_builtin(pivot->cmd) == true)
-		{
-			execute_builtin(pivot);
-			i++;
-			pivot = pivot->next;
-			continue ;
-		}
-		pid = fork();
-		if (pid == 0)
-			child_proccess(pivot, fd, i);
-		if (fd[i])
-			close(fd[i][1]);
-		i++;
-		pivot = pivot->next;
-	}
-}
-
 void	execute_multiple_commands(void)
 {
 	int			**fd;
@@ -82,7 +34,7 @@ void	execute_multiple_commands(void)
 			error_message_exit("Proccess error : pipe", 1);
 		i++;
 	}
-	initialize_process(fd);
+	initialize_execution_process(fd);
 	i = 0;
 	while (i++ < g_megabash.pipe + 1)
 		waitpid(-1, &g_megabash.exit_status, 0);

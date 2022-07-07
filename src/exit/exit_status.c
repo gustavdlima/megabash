@@ -12,7 +12,6 @@ void	quit_megabash(void)
 	exit(g_megabash.exit_status);
 }
 
-
 // tenho que garantir que o exit_code esteja sendo gravado em g_megabash.exit_code durante o
 // andamento do programa e prevendo os casos que vai ser 0, 127, 126 ou > 0
 // a funcao de exit e free sao necessarias pra casos especificos que eh basicamente

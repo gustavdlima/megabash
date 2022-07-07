@@ -80,7 +80,7 @@ typedef struct s_global{
 # include "free.h"
 # include "builtin.h"
 # include "signal_handler.h"
-# include "command.h"
+# include "execution.h"
 # include "parsing.h"
 # include "heredoc.h"
 

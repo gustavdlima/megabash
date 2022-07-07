@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+void	child_builtins_free_and_exit(int exit_status)
+{
+	free(g_megabash.last_input);
+	free_commands(g_megabash.cmd_list);
+	free_env(g_megabash.env);
+	exit(exit_status);
+}
+
 void	free_megabash(void)
 {
 	// free_env(g_megabash.env);

@@ -36,8 +36,9 @@ SRCS	=	minishell.c	\
 			$(INPUT_PATH)treat_operators.c				\
 			$(INPUT_PATH)validate_input.c				\
 			$(INPUT_PATH)is_builtin.c					\
-			$(EXECUTION_PATH)cmd_path.c					\
-			$(EXECUTION_PATH)execute_cmd.c				\
+			$(EXECUTION_PATH)command_execution.c		\
+			$(EXECUTION_PATH)execute.c					\
+			$(EXECUTION_PATH)initialize_process.c		\
 			$(EXECUTION_PATH)redirect_cmd.c				\
 			$(BUILTIN_PATH)env.c						\
 			$(BUILTIN_PATH)chdir.c						\
@@ -58,6 +59,7 @@ SRCS	=	minishell.c	\
 			$(LIST_PATH)cmd_list_utils.c				\
 			$(LIST_PATH)token_list_utils.c				\
 			$(LIST_PATH)redirect_list_utils.c			\
+			$(UTILS_PATH)cmd_path.c						\
 			$(UTILS_PATH)builtin_utils.c				\
 			$(UTILS_PATH)dollar_utils.c					\
 			$(UTILS_PATH)execute_utils.c				\

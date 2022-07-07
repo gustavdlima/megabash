@@ -8,5 +8,6 @@ void	free_int_matrix(int **matrix);
 void	free_env(t_env *env);
 void	free_megabash(void);
 void	free_cmd_megabash(void);
+void	child_builtins_free_and_exit(int exit_status);
 
 #endif
