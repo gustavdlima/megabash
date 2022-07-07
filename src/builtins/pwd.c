@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+static void	pwd_builtin_free_and_exit(char *directory, t_env *temp)
+{
+	free (directory);
+	free(g_megabash.last_input);
+	free_commands(g_megabash.cmd_list);
+	free_env(temp);
+	exit(0);
+}
+
 void	pwd(char **matrix)
 {
 	char	*directory;
@@ -18,9 +27,5 @@ void	pwd(char **matrix)
 		node = get_env_node(temp, "PWD");
 		ft_putendl_fd(node->content, 1);
 	}
-	free (directory);
-	free(g_megabash.last_input);
-	free_commands(g_megabash.cmd_list);
-	free_env(temp);
-	exit(0);
+	pwd_builtin_free_and_exit(directory, temp);
 }
