@@ -10,7 +10,7 @@ void	print_token(t_token *token)
 		printf("%s\n", token->content);
 		token = token->next;
 	}
-	printf("---------------------------\n");
+	// printf("---------------------------\n");
 }
 
 int	token_pipe_checker(t_token *token)

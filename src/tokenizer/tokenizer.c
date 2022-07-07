@@ -17,6 +17,7 @@ void	treat_token_list(void)
 void	tokenizer(char *input)
 {
 	char	**temp;
+	char	*new_token;
 	int		i;
 
 	i = 1;
@@ -26,7 +27,9 @@ void	tokenizer(char *input)
 		g_megabash.token_list = token_lst_new(temp[0]);
 		while (temp[i])
 		{
-			token_addback(&g_megabash.token_list, token_lst_new(temp[i]));
+			new_token = ft_strdup(temp[i]);
+			token_addback(&g_megabash.token_list, token_lst_new(new_token));
+			free(new_token);
 			if (temp[i])
 				i++;
 		}

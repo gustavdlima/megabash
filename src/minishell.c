@@ -58,8 +58,6 @@ static void	megastart(void)
 				free(g_megabash.last_input);
 			if (g_megabash.env)
 				free_env(g_megabash.env);
-			// if (g_megabash.cmd_list)
-			// 	free_cmd_megabash();
 			exit(0);
 		}
 		// input = read_input();
