@@ -72,6 +72,7 @@ void	execute_multiple_commands(void)
 	int			**fd;
 	int			i;
 
+	g_megabash.multiple_cmds = true;
 	fd = NULL;
 	fd = malloc_int_matrix(fd);
 	i = 0;
@@ -95,6 +96,7 @@ void	execute_single_command(void)
 	int			execute;
 
 	execute = true;
+	g_megabash.multiple_cmds = false;
 	pivot = g_megabash.cmd_list;
 	if (pivot->cmd && parent_is_builtin(pivot->cmd) == true)
 	{

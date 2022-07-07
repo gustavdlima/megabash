@@ -1,5 +1,3 @@
 
-<< eof wc -l
-cat << eof wc -l (ESTUDAR MELHOR, MAS TÁ QUASE LÁ)
-
-enter vazio buga
+ls | wc -l | echo oi | env | ls < eof wc -l > b (LEAKS)
+s | wc -l | echo oi | env | ls << eof wc -l > file (Não cria file)

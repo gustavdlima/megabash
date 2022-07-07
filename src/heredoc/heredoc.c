@@ -36,14 +36,13 @@ int	heredoc(t_commands *command_list)
 	char	*read;
 	char	*arraydoc;
 	pid_t	pid;
-	// int		fd[2];
 	int		fd;
 
-	// pipe(fd);
 	fd = 0;
 	read = NULL;
 	pid = fork();
-	check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);
+	if (g_megabash.multiple_cmds == true)
+		check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);
 	if (pid == 0)
 	{
 		arraydoc = NULL;
@@ -53,13 +52,8 @@ int	heredoc(t_commands *command_list)
 		free(g_megabash.last_input);
 		exit(0);
 	}
-	// if (fd >= 0)
-	// 	close(fd);
 	waitpid(pid, &g_megabash.exit_status, 0);
 	close(fd);
 	fd = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
-	// signal_handler_heredoc(false);
-	// check_and_dup(fd, STDIN_FILENO);
-	// fd[1] = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
 	return (fd);
 }
