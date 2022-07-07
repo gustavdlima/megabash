@@ -14,7 +14,7 @@ void	print_env(t_env *env)
 
 struct s_env	*get_env_node(t_env *list, char *name)
 {
-	t_env *list_temp;
+	t_env	*list_temp;
 
 	list_temp = list;
 	while (list_temp)
@@ -38,21 +38,19 @@ void	env_node_delete(t_env *list)
 			list = list->next;
 			list->prev = NULL;
 			g_megabash.env = list;
-			free_unset(temp);
 		}
 		else if (list->next && list->prev)
 		{
 			list = temp->next;
 			list->prev = temp->prev;
 			list->prev->next = list;
-			free_unset(temp);
 		}
 		else
 		{
 			list = temp->prev;
 			list->next = NULL;
-			free_unset(temp);
 		}
+		free_unset(temp);
 	}
 }
 
@@ -65,7 +63,6 @@ void	env_content_to_null(t_env *list, char *name)
 	{
 		if (list->name == name)
 			free(list->content);
-			// list->content = NULL;
 		list = list->next;
 		i++;
 	}

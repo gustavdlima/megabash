@@ -2,8 +2,8 @@
 
 char	*get_env_path(char *envp)
 {
-	const char *temp = ft_strchr(envp, '=') + 1;
-	const char *sup = ft_strdup(temp);
+	const char	*temp = ft_strchr(envp, '=') + 1;
+	const char	*sup = ft_strdup(temp);
 
 	return ((char *)sup);
 }
@@ -11,7 +11,7 @@ char	*get_env_path(char *envp)
 char	*get_env_name(char *envp)
 {
 	const int	name_size = ft_int_strchr(envp, '=');
-	char	*sup;
+	char		*sup;
 
 	sup = malloc((sizeof(char *) * name_size));
 	ft_memcpy(sup, envp, name_size);
