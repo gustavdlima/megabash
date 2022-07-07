@@ -2,16 +2,21 @@
 
 void	execute_command_and_redirection(t_commands *pivot, int execute)
 {
+	// t_redirect *temp = pivot->redirect;
+
 	if (pivot->redirect)
 		execute = redirect_commands(pivot);
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)
 		execute_builtin(pivot);
 	else if (execute == true)
 		execute_execve(pivot);
-	free(g_megabash.last_input);
-	free_commands(g_megabash.cmd_list);
-	free_env(g_megabash.env);
-	exit(g_megabash.exit_status);
+	// else
+	// {
+		free(g_megabash.last_input);
+		free_commands(g_megabash.cmd_list);
+		free_env(g_megabash.env);
+		exit(g_megabash.exit_status);
+	// }
 }
 
 void	child_proccess(t_commands *pivot, int **fd, int i)
@@ -22,6 +27,8 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 	if (i != 0)
 	{
 		close(fd[i - 1][1]);
+		if (pivot->redirect && pivot->redirect->type == is_here_doc)
+			g_megabash.stdin_backup = dup(STDIN_FILENO);
 		check_and_dup(fd[i - 1][0], STDIN_FILENO);
 	}
 	if (fd[i] != NULL)

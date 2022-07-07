@@ -1,6 +1,5 @@
 
 << eof wc -l
-cat << eof wc -l
-ls | << (heredoc tem q ter delimitador)
+cat << eof wc -l (ESTUDAR MELHOR, MAS TÁ QUASE LÁ)
 
 enter vazio buga

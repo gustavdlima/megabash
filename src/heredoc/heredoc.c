@@ -43,6 +43,7 @@ int	heredoc(t_commands *command_list)
 	fd = 0;
 	read = NULL;
 	pid = fork();
+	check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);
 	if (pid == 0)
 	{
 		arraydoc = NULL;
@@ -55,6 +56,7 @@ int	heredoc(t_commands *command_list)
 	// if (fd >= 0)
 	// 	close(fd);
 	waitpid(pid, &g_megabash.exit_status, 0);
+	close(fd);
 	fd = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
 	// signal_handler_heredoc(false);
 	// check_and_dup(fd, STDIN_FILENO);
