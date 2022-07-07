@@ -5,26 +5,27 @@ int	no_words_after_redirect(char *input)
 	char	**matrix;
 	int		i;
 
-	printf("aaaaaaaaaaaa\n");
 	i = 0;
 	matrix = ft_split(input, ' ');
+	int matrix_len = matrix_size(matrix);
 	while (matrix[i])
 	{
-		if(!ft_new_strncmp(">>", matrix[i]) || !ft_new_strncmp(">", matrix[i])
-			|| !ft_new_strncmp("<<", matrix[i]) || !ft_new_strncmp("<", matrix[i]))
+		if (i == matrix_len)
 		{
-			// i++;
-			// if (!matrix[i] || (ft_new_strncmp("|", matrix[i])) || (ft_new_strncmp("||", matrix[i])
-			// 	|| (ft_new_strncmp("&", matrix[i])) || (ft_new_strncmp("&&", matrix[i]))
-			// 	|| (ft_new_strncmp(">>", matrix[i])) || (ft_new_strncmp(">", matrix[i]))
-			// 	|| (ft_new_strncmp("<<", matrix[i])) || (ft_new_strncmp("<", matrix[i]))))
+
+			if (!matrix[i] || (ft_new_strncmp("|", matrix[i])) || (ft_new_strncmp("||", matrix[i])
+				|| (ft_new_strncmp("&", matrix[i])) || (ft_new_strncmp("&&", matrix[i]))
+				|| (ft_new_strncmp(">>", matrix[i])) || (ft_new_strncmp(">", matrix[i]))
+				|| (ft_new_strncmp("<<", matrix[i])) || (ft_new_strncmp("<", matrix[i]))))
 			{
 				error_message("megabash: syntax error near unexpected token", 2);
+				free_matrix(matrix);
 				return (true);
 			}
 		}
 		i++;
 	}
+	free_matrix(matrix);
 	return (false);
 }
 

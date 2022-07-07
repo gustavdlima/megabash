@@ -8,13 +8,10 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 		execute_builtin(pivot);
 	else if (execute == true)
 		execute_execve(pivot);
-	else
-	{
-		free(g_megabash.last_input);
-		free_commands(g_megabash.cmd_list);
-		free_env(g_megabash.env);
-		exit(g_megabash.exit_status);
-	}
+	free(g_megabash.last_input);
+	free_commands(g_megabash.cmd_list);
+	free_env(g_megabash.env);
+	exit(g_megabash.exit_status);
 }
 
 void	child_proccess(t_commands *pivot, int **fd, int i)
