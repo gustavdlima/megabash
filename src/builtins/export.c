@@ -3,7 +3,7 @@
 static int	i_plus_plus(int i)
 {
 	i++;
-	return(i);
+	return (i);
 }
 
 static int	print_export_error(char *name, int i)
@@ -12,12 +12,12 @@ static int	print_export_error(char *name, int i)
 	ft_putstr_fd("export: '", 2);
 	ft_putstr_fd(name, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
-	return(i);
+	return (i);
 }
 
 static int	export_execute(char *name, char *content, char **command, int i)
 {
-	t_env *node;
+	t_env	*node;
 
 	node = g_megabash.env;
 	if (!ft_strchr(command[i], '='))
