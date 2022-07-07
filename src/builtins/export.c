@@ -15,9 +15,11 @@ static int	print_export_error(char *name, int i)
 	return(i);
 }
 
-static int	export_execute(char *name, char *content, t_env *node,
-		char **command, int i)
+static int	export_execute(char *name, char *content, char **command, int i)
 {
+	t_env *node;
+
+	node = g_megabash.env;
 	if (!ft_strchr(command[i], '='))
 		return (i_plus_plus(i));
 	if (is_alphabetic(command[i]))
@@ -47,15 +49,13 @@ void	export(char **command)
 	int		i;
 	char	*name;
 	char	*content;
-	t_env	*node;
 
-	node = g_megabash.env;
 	i = 1;
 	name = NULL;
 	content = NULL;
 	while (command[i])
 	{
-		i = export_execute(name, content, node, command, i);
+		i = export_execute(name, content, command, i);
 		continue ;
 	}
 }
