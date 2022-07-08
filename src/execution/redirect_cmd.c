@@ -17,15 +17,15 @@ int	valid_execution(int im_input, int im_out_or_append, int infile, int outfile)
 		return (false);
 }
 
-int	open_fd_to_output_or_append(t_commands *pivot)
+int	open_fd_to_output_or_append(t_redirect *temp)
 {
 	int	outfile;
 
-	if (pivot->redirect->type == is_output)
-		outfile = open(pivot->redirect->content, O_WRONLY | O_CREAT
+	if (temp->type == is_output)
+		outfile = open(temp->content, O_WRONLY | O_CREAT
 				| O_TRUNC, 0777);
-	if (pivot->redirect->type == is_append)
-		outfile = open(pivot->redirect->content, O_WRONLY | O_CREAT
+	if (temp->type == is_append)
+		outfile = open(temp->content, O_WRONLY | O_CREAT
 				| O_APPEND, 0777);
 	return (outfile);
 }
@@ -52,10 +52,8 @@ int	redirect_commands(t_commands *pivot)
 		if (temp->content && (temp->type == is_output
 				|| temp->type == is_append))
 		{
-			if (im_input == true && infile >= 0)
-				outfile = open_fd_to_output_or_append(pivot);
-			if (im_input == false)
-				outfile = open_fd_to_output_or_append(pivot);
+			if ((im_input == true && infile >= 0) || im_input == false)
+				outfile = open_fd_to_output_or_append(temp);
 			im_out_or_append = true;
 		}
 		if (temp->type == is_here_doc)

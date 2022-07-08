@@ -2,8 +2,17 @@
 
 void	execute_command_and_redirection(t_commands *pivot, int execute)
 {
-	// t_redirect *temp = pivot->redirect;
+	t_commands *temp = pivot;
 
+	// if (temp->redirect)
+	// {
+	// 	while (temp->redirect)
+	// 	{
+	// 		if (temp->redirect->type == is_here_doc)
+	// 			heredoc(temp);
+	// 		temp->redirect = temp->redirect->next;
+	// 	}
+	// }
 	if (pivot->redirect)
 		execute = redirect_commands(pivot);
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)

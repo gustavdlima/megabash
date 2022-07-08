@@ -17,8 +17,14 @@ static void	prompt_loop(t_commands *command_list, char *read, char *arraydoc, in
 	temp = command_list->redirect;
 	while (1)
 	{
-		signal_handler_heredoc(true);
+		signal_handler_heredoc();
 		read = readline("> ");
+		if (!read)
+		{
+			free_env(g_megabash.env);
+			update_exit_status_and_exit(1);
+			break ;
+		}
 		if (read && !ft_new_strncmp(temp->content, read))
 		{
 			arraydoc = ft_strjoin(read, "\n");
@@ -54,6 +60,7 @@ int	heredoc(t_commands *command_list)
 	}
 	waitpid(pid, &g_megabash.exit_status, 0);
 	close(fd);
+	// free_env(g_megabash.env);
 	fd = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
 	return (fd);
 }

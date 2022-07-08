@@ -5,6 +5,12 @@ s | wc -l | echo oi | env | ls > file << eof wc -l		(cria file, mas não mostra 
 s | wc -l | echo oi | env | ls > file << eof wc -l		(cria file, mas ela tem o valor de wc -l, quando deveria ser vazia)
 
 ls >> a >> b
-wc -l < a > b > 
+wc -l < a > b >
 
 aparentemente depois de um redirecionamento ele ignora os outros
+
+heredoc
+
+ele não abre o prompt quando é o primeiro comando dos pipes ou está entre pipes, pq?
+
+dá leak na env quando ele é chamado sozinho, porem com mais comandos ele tá normal, porém se tentar tirar o leak pro caso dele estar sozinho, ele dá invalid read of size da env para os proximos comandos exceto quando é o próprio heredoc sozinho.
