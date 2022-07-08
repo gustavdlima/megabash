@@ -81,10 +81,13 @@ struct s_token	*get_token_node(t_token *list, char *name)
 
 t_token	*token_content_to_hell(t_token *list, char *name, char *true_name)
 {
+	t_token	*temp;
+	
 	while (list)
 	{
 		if (ft_new_strncmp(name, list->content))
 		{
+			temp = list;
 			if (list->next)
 			{
 				list->next->prev = list->prev;
@@ -101,7 +104,11 @@ t_token	*token_content_to_hell(t_token *list, char *name, char *true_name)
 	while (list)
 	{
 		if (ft_new_strncmp(true_name, list->content))
+		{
+			free(temp->content);
+			free(temp);
 			return (list);
+		}
 		list = list->prev;
 	}
 	return (list);

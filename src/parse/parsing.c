@@ -44,6 +44,8 @@ static t_token	*cmd_parse(t_token *token, t_commands *command)
 					cmd_string = ft_strdup(temp);
 					token = token_content_to_hell(token, token_temp->content,
 							token->content);
+					if(token->next)
+						token_temp = token->next;
 					free(temp);
 					if (token_temp->next)
 						token_temp = token_temp->next;
