@@ -14,15 +14,46 @@ static int	redirect_type(char *content)
 		return (false);
 }
 
+
+static t_commands	*copy_string_to_inside_matrix(t_commands *cmd_list, char *string)
+{
+	int	i;
+	char	*temp;
+	char	*new_string;
+
+	i = 0;
+	new_string = ft_strdup("");
+	while(cmd_list->content[i])
+	{
+		temp = ft_strjoin(new_string, cmd_list->content[i]);
+		free(new_string);
+		new_string = ft_strdup(temp);
+		free(temp);
+		i++;
+	}
+	new_string = insert_caracter(new_string, ' ');
+	temp = ft_strjoin(new_string, string);
+	free_matrix(cmd_list->content);
+	cmd_list->content = ft_split(temp, ' ');
+	free(new_string);
+	free(temp);
+	return (cmd_list);
+}
+
 static t_token	*cmd_parse(t_token *token, t_commands *command)
 {
 	char		*temp;
 	char		*cmd_string;
 	t_token		*token_temp;
 
-	command->cmd = ft_strdup(token->content);
+	if (!command->cmd)
+	{	
+		command->cmd = ft_strdup(token->content);
+		cmd_string = ft_strdup(token->content);
+	}
+	else
+		cmd_string = ft_strdup(token->content);
 	token = token->next;
-	cmd_string = ft_strdup(command->cmd);
 	while (token)
 	{
 		if (token->type == is_pipe)
@@ -67,8 +98,11 @@ static t_token	*cmd_parse(t_token *token, t_commands *command)
 		}
 		token = token->next;
 	}
-	command->content = ft_split(cmd_string, ' ');
-	free(cmd_string);
+	if (command->content[0])
+		command = copy_string_to_inside_matrix(command, cmd_string);
+	else
+		command->content = ft_split(cmd_string, ' ');
+	free(cmd_string);	
 	return (token);
 }
 
@@ -162,6 +196,6 @@ void	parsing(void)
 		continue ;
 	}
 	g_megabash.cmd_list = cmd_temp;
-	print_commands(cmd_temp);
+	// print_commands(cmd_temp);
 	treat_parse_list();
 }

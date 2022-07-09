@@ -3,6 +3,7 @@
 		"readline.h": "c",
 		"minishell.h": "c",
 		"stdio.h": "c",
-		"tokenizer.h": "c"
+		"tokenizer.h": "c",
+		"string": "c"
 	}
 }
