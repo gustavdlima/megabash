@@ -7,6 +7,7 @@ static void	signint(int signum)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+	g_megabash.exit_status = 130;
 }
 
 static void	signint_doc(int signum)
@@ -21,7 +22,7 @@ static void	signint_doc(int signum)
 	free(g_megabash.last_input);
 	free_commands(g_megabash.cmd_list);
 	// free_env(g_megabash.env);
-	exit(1);
+	exit(130);
 }
 
 void	signal_handler_heredoc(void)

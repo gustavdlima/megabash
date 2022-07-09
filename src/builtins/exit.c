@@ -40,27 +40,25 @@ static int	check_arg(char *arg)
 
 void	exit_the_program(char **matrix)
 {
-	int			to_exit;
-	const int	matrix_len = matrix_size(matrix);
+	int	to_exit;
+	int	matrix_len;
 
+	matrix_len = matrix_size(matrix);
 	to_exit = true;
-	if (matrix)
+	if (matrix_len > 1)
 	{
-		if (matrix_len > 1)
-		{
-			error_message("megabash error: exit: too many arguments", 1);
-			to_exit = false;
-		}
-		else if (matrix[1] && is_numeric(matrix[1]))
-		{
-			if (matrix[1] && !check_arg(matrix[1]))
-				g_megabash.exit_status = ft_atoi(matrix[1]);
-		}
-		else if (matrix[1])
-		{
-			error_message("megabash error: exit: numeric argument required", 1);
-			to_exit = false;
-		}
+		error_message("megabash error: exit: too many arguments", 1);
+		to_exit = false;
+	}
+	else if (matrix[1] && is_numeric(matrix[1]))
+	{
+		if (matrix[1] && !check_arg(matrix[1]))
+			g_megabash.exit_status = ft_atoi(matrix[1]);
+	}
+	else if (matrix[1])
+	{
+		error_message("megabash error: exit: numeric argument required", 1);
+		to_exit = false;
 	}
 	if (to_exit == true)
 	{

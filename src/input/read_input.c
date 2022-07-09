@@ -100,6 +100,11 @@ void	complete_input_properly(char **input)
 		while (too_many_pipes(*input) == false)
 		{
 			temp = readline("> ");
+			if (!temp)
+			{
+				g_megabash.exit_status = 130;
+				break ;
+			}
 			aux = ft_strjoin(*input, " ");
 			free(*input);
 			if (temp && only_space(temp) == false)
