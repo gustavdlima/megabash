@@ -14,6 +14,18 @@ static int	redirect_type(char *content)
 		return (false);
 }
 
+static	char *cmd_operation(char *cmd_string, char *token_content)
+{
+	char *temp;
+
+	cmd_string = insert_caracter(cmd_string, ' ');
+	temp = ft_strjoin(cmd_string, token_content);
+	free(cmd_string);
+	cmd_string = ft_strdup(temp);
+	free(temp);
+	return (cmd_string);
+}
+
 static t_commands	*copy_string_to_inside_matrix(t_commands *cmd_list, char *string)
 {
 	int	i;
@@ -43,7 +55,7 @@ static t_commands	*copy_string_to_inside_matrix(t_commands *cmd_list, char *stri
 static t_token *cmd_parse_loop(t_token *token, t_commands *command, char *cmd_string)
 {
 	t_token	*token_temp;
-	char	*temp;
+
 	while (token)
 	{
 		if (token->type == is_pipe)
@@ -59,15 +71,11 @@ static t_token *cmd_parse_loop(t_token *token, t_commands *command, char *cmd_st
 				token_temp = token->next->next;
 				while (token_temp->type == is_word)
 				{
-					cmd_string = insert_caracter(cmd_string, ' ');
-					temp = ft_strjoin(cmd_string, token_temp->content);
-					free(cmd_string);
-					cmd_string = ft_strdup(temp);
+					cmd_string = cmd_operation(cmd_string, token_temp->content);
 					token = token_content_to_hell(token, token_temp->content,
 							token->content);
 					if(token->next)
 						token_temp = token->next;
-					free(temp);
 					if (token_temp->next)
 						token_temp = token_temp->next;
 					else
@@ -79,13 +87,7 @@ static t_token *cmd_parse_loop(t_token *token, t_commands *command, char *cmd_st
 			return (token);
 		}
 		if (token->type == is_word)
-		{
-			cmd_string = insert_caracter(cmd_string, ' ');
-			temp = ft_strjoin(cmd_string, token->content);
-			free(cmd_string);
-			cmd_string = ft_strdup(temp);
-			free(temp);
-		}
+			cmd_string = cmd_operation(cmd_string, token->content);
 		token = token->next;
 	}
 	if (command->redirect && command->content[0])
