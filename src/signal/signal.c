@@ -27,8 +27,8 @@ static void	signint_doc(int signum)
 
 void	signal_handler_heredoc(void)
 {
-		signal(SIGINT, signint_doc);
-		signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, signint_doc);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	signal_handler(void)
