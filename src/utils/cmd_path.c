@@ -14,7 +14,10 @@ char	*what_cmd(char *cmd)
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	path = get_env_node(g_megabash.env, "PATH");
-	pathways = ft_split(path->content, ':');
+	if (path)
+		pathways = ft_split(path->content, ':');
+	else
+		return (NULL);
 	while (pathways[i])
 	{
 		temp = ft_strjoin(pathways[i], "/");

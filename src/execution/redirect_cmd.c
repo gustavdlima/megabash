@@ -44,10 +44,15 @@ int	redirect_commands(t_commands *pivot)
 	im_out_or_append = false;
 	while (temp)
 	{
-		if (temp->type == is_input && temp->content)
+		if (temp->type == is_here_doc || temp->type == is_input)
 		{
-			infile = open(temp->content, O_RDONLY, 0777);
-			im_input = true;
+			if (temp->type == is_input)
+			{
+				infile = open(temp->content, O_RDONLY, 0777);
+				im_input = true;
+			}
+			else
+				heredoc(temp);
 		}
 		if (temp->type == is_output || temp->type == is_append)
 		{
@@ -55,8 +60,6 @@ int	redirect_commands(t_commands *pivot)
 				outfile = open_fd_to_output_or_append(temp);
 			im_out_or_append = true;
 		}
-		if (temp->type == is_here_doc)
-			heredoc(temp);
 		temp = temp->next;
 	}
 	is_valid_fd = valid_execution(im_input, im_out_or_append, infile, outfile);

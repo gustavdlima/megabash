@@ -15,3 +15,18 @@ heredoc
 ele não abre o prompt quando é o primeiro comando dos pipes ou está entre pipes, pq?
 
 dá leak na env quando ele é chamado sozinho, porem com mais comandos ele tá normal, porém se tentar tirar o leak pro caso dele estar sozinho, ele dá invalid read of size da env para os proximos comandos exceto quando é o próprio heredoc sozinho.
+
+
+.:: PARADINHAS PRA RESOLVER ::.
+
+1. /n sozinha faz crashar
+
+3. $? : arrumar saídas
+
+7. Heredoc is not opening when is called
+
+8. O ultimo redirecionamento tem prioridade! (input/heredoc)
+
+9. >|< tem que aparecer bash: syntax error near unexpected token `<' por que?
+
+

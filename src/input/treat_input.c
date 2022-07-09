@@ -60,7 +60,6 @@ void	treat_input(char **input)
 {
 	char	*treated;
 
-	treat_input_chars(*input);
 	treated = treat_operators(*input);
 	tokenizer(treated);
 	free(treated);

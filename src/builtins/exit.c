@@ -17,7 +17,9 @@ int	is_numeric(char *string)
 static void	free_exit_builtin(void)
 {
 	free_megabash();
+	free_env(g_megabash.env);
 	rl_clear_history();
+	free(g_megabash.last_input);
 }
 
 static int	check_arg(char *arg)
@@ -38,23 +40,27 @@ static int	check_arg(char *arg)
 
 void	exit_the_program(char **matrix)
 {
-	int		to_exit;
+	int			to_exit;
+	const int	matrix_len = matrix_size(matrix);
 
 	to_exit = true;
 	if (matrix)
 	{
-		if (matrix[1] && is_numeric(matrix[1]))
+		if (matrix_len > 1)
+		{
+			error_message("megabash error: exit: too many arguments", 1);
+			to_exit = false;
+		}
+		else if (matrix[1] && is_numeric(matrix[1]))
 		{
 			if (matrix[1] && !check_arg(matrix[1]))
 				g_megabash.exit_status = ft_atoi(matrix[1]);
 		}
 		else if (matrix[1])
 		{
-			error_message("megabash error: exit: too many arguments", 1);
+			error_message("megabash error: exit: numeric argument required", 1);
 			to_exit = false;
 		}
-		else
-			free_exit_builtin();
 	}
 	if (to_exit == true)
 	{
@@ -66,15 +72,25 @@ void	exit_the_program(char **matrix)
 void	b_exit(char **matrix)
 {
 	dprintf(2, "b_exit\n");
+	const int	matrix_len = matrix_size(matrix);
+
 	if (matrix)
 	{
-		if (matrix[1] && is_numeric(matrix[1]))
+		if (matrix_len > 1)
+		{
+			error_message("megabash error: exit: too many arguments", 1);
+		}
+		else if (matrix[1] && is_numeric(matrix[1]))
 		{
 			if (matrix[1] && !check_arg(matrix[1]))
 				g_megabash.exit_status = ft_atoi(matrix[1]);
+			free_exit_builtin();
 		}
 		else if (matrix[1])
-			error_message("megabash error: exit: too many arguments", 1);
+		{
+			error_message("megabash error: exit: numeric argument required", 1);
+			free_exit_builtin();
+		}
 	}
 	exit(g_megabash.exit_status);
 }

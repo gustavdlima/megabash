@@ -2,6 +2,7 @@
 
 int	validate_input(char *input)
 {
+	treat_input_chars(input);
 	if (input)
 	{
 		if (!input[0] || only_space(input) == true)
