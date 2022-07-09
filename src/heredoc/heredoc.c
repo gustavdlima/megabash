@@ -10,21 +10,15 @@ static void	save_data(char *content, int fd)
 		write(fd, content, ft_strlen(content));
 }
 
-static void	prompt_loop(t_commands *command_list, char *read, char *arraydoc, int fd)
+static void	prompt_loop(t_redirect *command_list, char *read, char *arraydoc, int fd)
 {
 	t_redirect	*temp;
 
-	temp = command_list->redirect;
+	temp = command_list;
 	while (1)
 	{
 		signal_handler_heredoc();
 		read = readline("> ");
-		if (!read)
-		{
-			free_env(g_megabash.env);
-			update_exit_status_and_exit(1);
-			break ;
-		}
 		if (read && !ft_new_strncmp(temp->content, read))
 		{
 			arraydoc = ft_strjoin(read, "\n");
@@ -32,12 +26,23 @@ static void	prompt_loop(t_commands *command_list, char *read, char *arraydoc, in
 			save_data(arraydoc, fd);
 			free(arraydoc);
 		}
-		else
+		else if (ft_new_strncmp(temp->content, read))
+		{
+			g_megabash.exit_status = 0;
 			break ;
+		}
+		else
+		{
+			free_env(g_megabash.env);
+			g_megabash.exit_status = 1;
+			free(g_megabash.last_input);
+			free_commands(g_megabash.cmd_list);
+			exit(g_megabash.exit_status);
+		}
 	}
 }
 
-int	heredoc(t_commands *command_list)
+int	heredoc(t_redirect *command_list)
 {
 	char	*read;
 	char	*arraydoc;

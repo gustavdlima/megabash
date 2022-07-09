@@ -1,8 +1,9 @@
 
 ls | wc -l | echo oi | env | ls < eof wc -l > b			(LEAKS)
-s | wc -l | echo oi | env | ls << eof wc -l > file		(Não cria file)
-s | wc -l | echo oi | env | ls > file << eof wc -l		(cria file, mas não mostra prompt)
-s | wc -l | echo oi | env | ls > file << eof wc -l		(cria file, mas ela tem o valor de wc -l, quando deveria ser vazia)
+ls | wc -l | echo oi | env | ls << eof wc -l > file		(Cria file, abrindo o prompt, dá leak <- cria file)
+ls | wc -l | echo oi | env | ls > file << eof wc -l		(cria file, mas não mostra prompt)
+ls | wc -l | echo oi | env | ls > file << eof wc -l		(cria file, mas ela tem o valor de wc -l, quando deveria ser vazia)
+ls | wc -l | echo oi | env | ls > file << eof ls
 
 ls >> a >> b
 wc -l < a > b >

@@ -2,7 +2,7 @@
 
 void	execute_command_and_redirection(t_commands *pivot, int execute)
 {
-	t_commands *temp = pivot;
+	// t_commands *temp = pivot;
 
 	// if (temp->redirect)
 	// {
@@ -18,7 +18,9 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)
 		execute_builtin(pivot);
 	else if (execute == true)
+	{
 		execute_execve(pivot);
+	}
 	// else
 	// {
 		free(g_megabash.last_input);
@@ -56,6 +58,7 @@ void	execute_single_command(void)
 	pid_t		pid;
 	int			execute;
 
+	// print_commands(g_megabash.cmd_list);
 	execute = true;
 	g_megabash.multiple_cmds = false;
 	pivot = g_megabash.cmd_list;

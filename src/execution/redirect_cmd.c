@@ -49,15 +49,14 @@ int	redirect_commands(t_commands *pivot)
 			infile = open(temp->content, O_RDONLY, 0777);
 			im_input = true;
 		}
-		if (temp->content && (temp->type == is_output
-				|| temp->type == is_append))
+		if (temp->type == is_output || temp->type == is_append)
 		{
 			if ((im_input == true && infile >= 0) || im_input == false)
 				outfile = open_fd_to_output_or_append(temp);
 			im_out_or_append = true;
 		}
 		if (temp->type == is_here_doc)
-			heredoc(pivot);
+			heredoc(temp);
 		temp = temp->next;
 	}
 	is_valid_fd = valid_execution(im_input, im_out_or_append, infile, outfile);

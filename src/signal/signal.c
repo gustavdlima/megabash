@@ -17,7 +17,11 @@ static void	signint_doc(int signum)
 	rl_on_new_line();
 	rl_redisplay();
 	free_env(g_megabash.env);
-	update_exit_status_and_exit(1);
+	g_megabash.exit_status = 1;
+	free(g_megabash.last_input);
+	free_commands(g_megabash.cmd_list);
+	// free_env(g_megabash.env);
+	exit(1);
 }
 
 void	signal_handler_heredoc(void)

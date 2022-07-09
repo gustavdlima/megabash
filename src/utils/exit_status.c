@@ -18,7 +18,7 @@ void	update_exit_status_and_exit(int exit_status)
 	g_megabash.exit_status = exit_status;
 	free(g_megabash.last_input);
 	free_commands(g_megabash.cmd_list);
-	// free_env(g_megabash.env);
+	free_env(g_megabash.env);
 	exit(exit_status);
 }
 
