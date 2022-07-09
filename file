@@ -1,12 +1,18 @@
-a
-build
-file
-includes
-libs
-Makefile
-minishell
-notes.txt
-problems.txt
-readline.supp
-README.md
-src
+total 376
+drwxrwxr-x  8 gstv gstv   4096 Jul  9 18:39 .
+drwxrwxr-x  8 gstv gstv   4096 Jul  9 17:42 ..
+-rwxrwxr-x  1 gstv gstv      3 Jul  9 18:19 a
+drwxrwxr-x 13 gstv gstv   4096 Jul  9 17:51 build
+-rwxrwxr-x  1 gstv gstv      0 Jul  9 18:47 file
+drwxrwxr-x  8 gstv gstv   4096 Jul  9 18:39 .git
+-rw-rw-r--  1 gstv gstv    449 Jul  9 17:42 .gitignore
+drwxrwxr-x  2 gstv gstv   4096 Jul  9 17:42 includes
+drwxrwxr-x  3 gstv gstv   4096 Jul  9 17:42 libs
+-rw-rw-r--  1 gstv gstv   3373 Jul  9 17:42 Makefile
+-rwxrwxr-x  1 gstv gstv 319016 Jul  9 18:39 minishell
+-rw-rw-r--  1 gstv gstv   1114 Jul  9 17:42 notes.txt
+-rw-rw-r--  1 gstv gstv     88 Jul  9 17:42 problems.txt
+-rw-rw-r--  1 gstv gstv    196 Jul  9 17:42 readline.supp
+-rw-rw-r--  1 gstv gstv   5549 Jul  9 17:42 README.md
+drwxrwxr-x 14 gstv gstv   4096 Jul  9 17:42 src
+drwxrwxr-x  2 gstv gstv   4096 Jul  9 17:42 .vscode

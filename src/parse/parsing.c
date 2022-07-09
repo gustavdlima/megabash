@@ -76,11 +76,7 @@ static t_token *cmd_parse_loop(t_token *token, t_commands *command, char *cmd_st
 	while (token)
 	{
 		if (token->type == is_pipe)
-		{
-			command->content = ft_split(cmd_string, ' ');
-			free (cmd_string);
-			return (token);
-		}
+			break ;
 		if (token->type == is_redirect)
 		{
 			if (token->next->next && token->next->next->type == is_word)
