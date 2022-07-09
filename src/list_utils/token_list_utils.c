@@ -11,6 +11,12 @@ void	print_token(t_token *token)
 	}
 }
 
+static void	free_node(t_token *token)
+{
+	free(token->content);
+	free(token);
+}
+
 int	token_pipe_checker(t_token *token)
 {
 	t_token	*list;
@@ -53,7 +59,7 @@ t_token	*token_content_to_hell(t_token *list, char *name, char *true_name)
 	{
 		if (ft_new_strncmp(true_name, list->content))
 		{
-			free_token(temp);
+			free_node(temp);
 			return (list);
 		}
 		list = list->prev;
