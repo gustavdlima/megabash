@@ -58,6 +58,7 @@ SRCS	=	minishell.c	\
 			$(LIST_PATH)env_list_utils.c				\
 			$(LIST_PATH)cmd_list_utils.c				\
 			$(LIST_PATH)token_list_utils.c				\
+			$(LIST_PATH)token_list_utils_2.c			\
 			$(LIST_PATH)redirect_list_utils.c			\
 			$(UTILS_PATH)cmd_path.c						\
 			$(UTILS_PATH)builtin_utils.c				\

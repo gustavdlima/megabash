@@ -5,11 +5,11 @@ void	print_commands(t_commands *commands)
 	if (!commands)
 		return ;
 	while (commands)
-    {
-        dprintf(2, "command-> type: %d\n", commands->type);
-        dprintf(2, "command-> cmd: %s\n", commands->cmd);
-        if (commands->content)
-        {
+	{
+		dprintf(2, "command-> type: %d\n", commands->type);
+		dprintf(2, "command-> cmd: %s\n", commands->cmd);
+		if (commands->content)
+		{
             for (int j = 0; commands->content[j]; j++)
                 dprintf(2, "command-> content: %s\n", commands->content[j]);
         }
@@ -54,7 +54,6 @@ void	free_commands(t_commands *commands)
 	while (commands)
 	{
 		temp = commands;
-		
 		commands = commands->next;
 		free_matrix(temp->content);
 		free(temp->cmd);
