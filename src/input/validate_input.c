@@ -27,13 +27,11 @@ int	validate_input(char *input)
 		else if (too_many_redirections(input) == true)
 			return (false);
 		else if (redirect_to_no_arguments(input) == true)
-			return(false);
+			return (false);
 		else if (different_redirection_signs(input) == true)
 			return (false);
 		else if (no_words_after_redirect(input) == true)
 			return (false);
-		// else if (too_many_pipes(input) == true)
-		// 	return (false);
 		else if (theres_break_line(input) == true)
 			return (false);
 		return (true);

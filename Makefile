@@ -31,7 +31,6 @@ LIBFT_FLAGS		= -L$(LIBFT_PATH) -lft
 SRCS	=	minishell.c	\
 			$(INPUT_PATH)expand_env.c					\
 			$(INPUT_PATH)read_input.c					\
-			$(INPUT_PATH)check_input.c					\
 			$(INPUT_PATH)treat_input.c					\
 			$(INPUT_PATH)treat_operators.c				\
 			$(INPUT_PATH)validate_input.c				\

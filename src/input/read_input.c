@@ -1,22 +1,5 @@
 #include "minishell.h"
 
-// static int	theres_delimiter(char *cmd)
-// {
-// 	int	i;
-// 	int	delimiter;
-
-// 	i = 0;
-// 	delimiter = 0;
-// 	while (cmd[i])
-// 	{
-// 		if (cmd[i] == '<')
-// 			delimiter++;
-// 		i++;
-// 	}
-// 	if (delimiter >= 2) //pode colocar mais delimitadores?
-// 		return (true);
-// 	return (false);
-// }
 int	only_space(char *cmd)
 {
 	int	i;
@@ -44,8 +27,6 @@ int	is_it_history(char *cmd)
 		return (false);
 	if (only_space(cmd) == true)
 		return (false);
-	// if (theres_delimiter(cmd) == true)
-	// 	return (false);
 	if (g_megabash.last_input)
 	{
 		if (ft_new_strncmp(g_megabash.last_input, cmd) == true)
