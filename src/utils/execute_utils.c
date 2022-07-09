@@ -6,6 +6,8 @@ void	execute_execve(t_commands *cmd_list)
 
 	if (!cmd_list->cmd)
 		update_exit_status_and_exit(217);
+	if (ft_new_strncmp("/n", cmd_list->cmd))
+		update_exit_status_and_exit(0);
 	pathway = what_cmd(cmd_list->cmd);
 	if (!pathway)
 	{

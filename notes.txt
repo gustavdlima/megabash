@@ -6,7 +6,7 @@ ls | wc -l | echo oi | env | ls > file << eof wc -l		(cria file, mas ela tem o v
 ls | wc -l | echo oi | env | ls > file << eof ls
 
 ls >> a >> b
-wc -l < a > b >
+wc -l < a > b
 
 aparentemente depois de um redirecionamento ele ignora os outros
 
@@ -18,8 +18,6 @@ dá leak na env quando ele é chamado sozinho, porem com mais comandos ele tá n
 
 
 .:: PARADINHAS PRA RESOLVER ::.
-
-1. /n sozinha faz crashar
 
 3. $? : arrumar saídas
 

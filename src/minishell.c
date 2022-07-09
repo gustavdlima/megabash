@@ -21,7 +21,7 @@ static void	megastart(void)
 	while (1)
 	{
 		signal_handler();
-		input = readline("\033[0;35mmegabash$ \033[0m");
+		input = readline("megabash$ ");
 		if (input)
 		{
 			complete_input_properly(&input);
@@ -43,8 +43,6 @@ static void	megastart(void)
 			megaexecute(&input);
 			free_megabash();
 		}
-		else
-			printf("BORN TO BE BASH\n");
 	}
 }
 
