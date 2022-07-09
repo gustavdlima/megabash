@@ -52,6 +52,9 @@ SRCS	=	minishell.c	\
 			$(TOKEN_PATH)tokenizer.c					\
 			$(TOKEN_PATH)set_token_type.c				\
 			$(PARSE_PATH)parsing.c						\
+			$(PARSE_PATH)redirect_parse.c				\
+			$(PARSE_PATH)cmd_parse.c					\
+			$(PARSE_PATH)parsing_utils.c				\
 			$(ENV_PATH)environment.c 					\
 			$(ENV_PATH)env_operations.c					\
 			$(SIGNAL_PATH)signal.c						\
