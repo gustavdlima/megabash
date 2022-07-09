@@ -1,10 +1,8 @@
 #include "minishell.h"
 
-char	*get_name(char *cmd)
+static int	stop_on_some_chars(char *cmd)
 {
-	char	*name;
-	char	*temp;
-	int		i;
+	int	i;
 
 	i = 0;
 	while (cmd[i])
@@ -14,6 +12,16 @@ char	*get_name(char *cmd)
 			break ;
 		i++;
 	}
+	return (i);
+}
+
+char	*get_name(char *cmd)
+{
+	char	*name;
+	char	*temp;
+	int		i;
+
+	i = stop_on_some_chars(cmd);
 	name = ft_substr(cmd, 0, i);
 	i = 0;
 	while (name[i])
@@ -51,29 +59,6 @@ void	treat_char(char *cmd, char c, int nbr)
 		}
 		i++;
 	}
-}
-
-void	reverse_char(char *cmd, int nbr, char c)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == nbr)
-			cmd[i] = c;
-		i++;
-	}
-}
-
-void	reverse_input_chars(char *input)
-{
-	reverse_char(input, 1, ' ');
-	reverse_char(input, 2, '"');
-	reverse_char(input, 3, '\'');
-	reverse_char(input, 4, '>');
-	reverse_char(input, 5, '<');
-	reverse_char(input, 6, '|');
 }
 
 char	*double_operator(char *input, int i, int is_second_space)

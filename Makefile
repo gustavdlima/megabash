@@ -69,6 +69,7 @@ SRCS	=	minishell.c	\
 			$(UTILS_PATH)execute_utils.c				\
 			$(UTILS_PATH)exit_status.c					\
 			$(UTILS_PATH)treat_input_utils.c			\
+			$(UTILS_PATH)treat_input_utils_2.c			\
 			$(UTILS_PATH)utils.c						\
 			$(UTILS_PATH)validate_pipes_utils.c			\
 			$(UTILS_PATH)validate_redirect_utils.c		\
