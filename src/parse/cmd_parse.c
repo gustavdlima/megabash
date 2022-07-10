@@ -39,7 +39,7 @@ static t_token	*cmd_parse_loop(t_token *token, t_commands *command,
 			cmd_string = cmd_operation(cmd_string, token->content);
 		token = token->next;
 	}
-	if (command->redirect && command->content[0])
+	if (command->redirect && command->content)
 		command = copy_string_to_inside_matrix(command, cmd_string);
 	else
 		command->content = ft_split(cmd_string, ' ');
