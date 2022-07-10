@@ -21,10 +21,15 @@ static int	export_execute(char *name, char *content, char **command, int i)
 
 	node = g_megabash.env;
 	if (!ft_strchr(command[i], '='))
-		return (print_export_error(command[i], i));
-	if (is_alphabetic(command[i]))
-		return (print_export_error(command[i], i));
+		return (i_plus_plus(i));
 	name = get_env_name(command[i]);
+	if (!is_alphabetic(name))
+	{
+		dprintf(2, "%s\n", name);
+		dprintf(2, "aaaaaaaa\n");
+		free(name);
+		return (print_export_error(command[i], i));
+	}
 	content = get_env_path(command[i]);
 	node = get_env_node(g_megabash.env, name);
 	if (!node)
@@ -55,6 +60,12 @@ void	export(char **command)
 	content = NULL;
 	while (command[i])
 	{
+		if ((!ft_strchr(command[i], '=')) && (!is_alphabetic(command[i])))
+		{
+			dprintf(2, "pq to caindo aqui se tenho igual? kk\n");
+			i = print_export_error(command[i], i);
+			continue ;
+		}
 		i = export_execute(name, content, command, i);
 		continue ;
 	}

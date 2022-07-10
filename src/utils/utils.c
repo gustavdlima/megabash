@@ -79,16 +79,19 @@ int	ft_new_strncmp(char *s1, char *s2)
 int	is_alphabetic(char *str)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (str[i])
 	{
-		if ((str[i] >= 65 && str[i] <= 90)
-			|| (str[i] >= 97 && str[i] <= 122) || str[i] == '_')
-			return (0);
-		else
-			break ;
+		printf("char = %c\n", str[i]);
+		if (!ft_isalpha(str[i]) && str[i] != '_')
+			j++;
 		i++;
 	}
-	return (1);
+	printf("j = %d\n", j);
+	if (j > 0)
+		return (false);
+	return (true);
 }
