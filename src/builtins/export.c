@@ -21,7 +21,7 @@ static int	export_execute(char *name, char *content, char **command, int i)
 
 	node = g_megabash.env;
 	if (!ft_strchr(command[i], '='))
-		return (i_plus_plus(i));
+		return (print_export_error(command[i], i));
 	if (is_alphabetic(command[i]))
 		return (print_export_error(command[i], i));
 	name = get_env_name(command[i]);
