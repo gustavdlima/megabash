@@ -11,7 +11,7 @@ static int	print_export_error(char *name, int i)
 	i++;
 	ft_putstr_fd("export: '", 2);
 	ft_putstr_fd(name, 2);
-	ft_putendl_fd("': not a valid identifier", 2);
+	error_message("': not a valid identifier", 1);
 	return (i);
 }
 
