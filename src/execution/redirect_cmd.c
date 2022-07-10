@@ -1,14 +1,14 @@
 #include "minishell.h"
 
-int	valid_execution(int im_input, int im_out_or_append, int infile, int outfile)
+int	valid_execution(int im_input, int im_out_or_append, int outfile, int execute_im_input)
 {
-	int	execute_im_input;
+	// int	execute_im_input;
 	int	execute_im_out_or_append;
 
-	execute_im_input = 2;
+	// execute_im_input = 2;
 	execute_im_out_or_append = 2;
-	if (im_input)
-		execute_im_input = check_and_dup(infile, STDIN_FILENO);
+	if (!im_input)
+		execute_im_input = true;
 	if (im_out_or_append && execute_im_input)
 		execute_im_out_or_append = check_and_dup(outfile, STDOUT_FILENO);
 	if (execute_im_input != false && execute_im_out_or_append != false)
@@ -38,21 +38,24 @@ int	redirect_commands(t_commands *pivot)
 	int	im_out_or_append;
 	int	is_valid_fd;
 	t_redirect *temp;
+	int execute_im_input;
 
 	temp = pivot->redirect;
 	im_input = false;
 	im_out_or_append = false;
 	while (temp)
 	{
-		if (temp->type == is_here_doc || temp->type == is_input)
+		if (temp->type == is_here_doc)
 		{
-			if (temp->type == is_input)
-			{
-				infile = open(temp->content, O_RDONLY, 0777);
-				im_input = true;
-			}
-			else
-				heredoc(temp);
+			dprintf(2, "heredoc/n");
+			heredoc(temp);
+		}
+		if (temp->type == is_input)
+		{
+			dprintf(2, "input/n");
+			infile = open(temp->content, O_RDONLY, 0777);
+			execute_im_input = check_and_dup(infile, STDIN_FILENO);
+			im_input = true;
 		}
 		if (temp->type == is_output || temp->type == is_append)
 		{
@@ -62,6 +65,6 @@ int	redirect_commands(t_commands *pivot)
 		}
 		temp = temp->next;
 	}
-	is_valid_fd = valid_execution(im_input, im_out_or_append, infile, outfile);
+	is_valid_fd = valid_execution(im_input, im_out_or_append, outfile, execute_im_input);
 	return (is_valid_fd);
 }

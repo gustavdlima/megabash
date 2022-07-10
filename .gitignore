@@ -51,5 +51,15 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Testing files
+a
+b
+c
+d
+file
+
+# Tester
+/minishell_tester/
+
 minishell
 .vscode

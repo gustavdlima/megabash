@@ -3,13 +3,22 @@
 void	child_proccess(t_commands *pivot, int **fd, int i)
 {
 	int	execute;
+	t_redirect	*temp;
 
 	execute = true;
 	if (i != 0)
 	{
 		close(fd[i - 1][1]);
-		if (pivot->redirect && pivot->redirect->type == is_here_doc)
-			g_megabash.stdin_backup = dup(STDIN_FILENO);
+		if (pivot->redirect)
+		{
+			temp = pivot->redirect;
+			while (temp)
+			{
+				if (temp->type == is_here_doc)
+					g_megabash.stdin_backup = dup(STDIN_FILENO);
+				temp = temp->next;
+			}
+		}
 		check_and_dup(fd[i - 1][0], STDIN_FILENO);
 	}
 	if (fd[i] != NULL)

@@ -21,7 +21,7 @@ static void	megastart(void)
 	while (1)
 	{
 		signal_handler();
-		input = readline("✱ (≖ ͜ʖ≖) megabash$ ");
+		input = readline("✱ (≖ ͜ʖ≖) megabash ( ͡° ͜ʖ ͡°) ✱ $ ");
 		if (input)
 		{
 			complete_input_properly(&input);

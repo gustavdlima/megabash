@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static	char	*path_whays(char **pathways, char *cmd)
+static char	*path_whays(char **pathways, char *cmd)
 {
 	int		i;
 	char	*path_cmd;
@@ -13,8 +13,8 @@ static	char	*path_whays(char **pathways, char *cmd)
 		path_cmd = ft_strjoin(temp, cmd);
 		if (access(path_cmd, F_OK) == 0)
 		{
-			free(temp);
 			free_matrix(pathways);
+			free(temp);
 			return (path_cmd);
 		}
 		free(temp);
@@ -39,6 +39,7 @@ char	*what_cmd(char *cmd)
 	{
 		pathways = ft_split(path->content, ':');
 		path_cmd = path_whays(pathways, cmd);
+		// free_matrix(pathways);
 		return (path_cmd);
 	}
 	else

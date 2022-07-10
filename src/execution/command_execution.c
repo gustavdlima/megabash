@@ -2,17 +2,7 @@
 
 void	execute_command_and_redirection(t_commands *pivot, int execute)
 {
-	// t_commands *temp = pivot;
 
-	// if (temp->redirect)
-	// {
-	// 	while (temp->redirect)
-	// 	{
-	// 		if (temp->redirect->type == is_here_doc)
-	// 			heredoc(temp);
-	// 		temp->redirect = temp->redirect->next;
-	// 	}
-	// }
 	if (pivot->redirect)
 		execute = redirect_commands(pivot);
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)
@@ -21,13 +11,10 @@ void	execute_command_and_redirection(t_commands *pivot, int execute)
 	{
 		execute_execve(pivot);
 	}
-	// else
-	// {
 		free(g_megabash.last_input);
 		free_commands(g_megabash.cmd_list);
 		free_env(g_megabash.env);
 		exit(g_megabash.exit_status);
-	// }
 }
 
 void	execute_multiple_commands(void)
@@ -57,8 +44,9 @@ void	execute_single_command(void)
 	t_commands	*pivot;
 	pid_t		pid;
 	int			execute;
+	// t_redirect	*temp;
+	// t_redirect	*node_backup;
 
-	// print_commands(g_megabash.cmd_list);
 	execute = true;
 	g_megabash.multiple_cmds = false;
 	pivot = g_megabash.cmd_list;

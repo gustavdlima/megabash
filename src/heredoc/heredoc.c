@@ -64,8 +64,13 @@ int	heredoc(t_redirect *command_list)
 		exit(0);
 	}
 	waitpid(pid, &g_megabash.exit_status, 0);
-	close(fd);
-	// free_env(g_megabash.env);
+	// close(fd);
 	fd = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
+	// check_and_dup(fd, STDIN_FILENO);
+	// dprintf(2, "EU TO AQUI!! /n");
+
+	// close(fd);
+	// free_env(g_megabash.env);
+	unlink("./src/heredoc/heredoc_content");
 	return (fd);
 }

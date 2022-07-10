@@ -16,10 +16,12 @@ void	pwd(char **matrix)
 	t_env	*temp;
 
 	temp = g_megabash.env;
+
 	if (matrix[1])
 	{
-		dprintf(1, "megabash error: pwd: too many arguments");
-		update_exit_status_and_exit(1);
+		// dprintf(1, "megabash error: pwd: too many arguments");
+		// update_exit_status_and_exit(0);
+		g_megabash.exit_status = 0;
 	}
 	directory = getcwd(NULL, 0);
 	if (directory)

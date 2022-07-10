@@ -78,7 +78,7 @@ static void	expand_and_redirect(char *dir)
 void	cd(char **matrix)
 {
 	if (matrix_size(matrix) > 1)
-		ft_putendl_fd("megabash: cd: too many arguments", 2);
+		error_message("megabash: cd: too many arguments", 1);
 	if (matrix_size(matrix) == 0
 		|| !ft_strncmp(g_megabash.cmd_list->content[1], "~", 2))
 		home_execute();
@@ -91,7 +91,7 @@ void	cd(char **matrix)
 		{
 			ft_putstr_fd("megabash: cd:", 2);
 			ft_putstr_fd(matrix[1], 2);
-			ft_putendl_fd(": No such file or directory", 2);
+			error_message(": No such file or directory", 1);
 		}
 		else if (matrix[1][0] == '~')
 		{
