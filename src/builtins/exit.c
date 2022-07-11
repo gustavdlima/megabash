@@ -45,7 +45,6 @@ int	not_a_number(char *str)
 	i = 0;
 	while(str[i])
 	{
-		// dprintf(2, "str : %c\n", str[i]);
 		if (!ft_isdigit(str[i]) && str[i] != '-' && str[i] != '+')
 			return (true);
 		i++;
@@ -56,9 +55,15 @@ int	not_a_number(char *str)
 int	too_long_number(char *str)
 {
 	int	str_int;
-	str_int = atoi(str);
+	int	str_long;
+
+	str_int = ft_atoi(str);
 	if (str_int == 0 && !ft_new_strncmp("0", str))
+	{
+		str_long = ft_atoli(str);
+		if (str_long )
 		return (true);
+	}
 	return (false);
 }
 
@@ -78,16 +83,15 @@ void	exit_the_program(char **matrix)
 	else if (matrix[1])
 	{
 		convert_number = no_quotes(matrix[1]);
-		if (matrix[1] && not_a_number(convert_number)
-				&& too_long_number(convert_number))
+		if (not_a_number(convert_number) || too_long_number(convert_number))
 		{
 			error_message("megabash error: exit: numeric argument required", 2);
 			to_exit = false;
 		}
-		else if (matrix[1] && check_arg(convert_number)
-			&& !not_a_number(convert_number) && !too_long_number(convert_number))
+		else if (check_arg(convert_number)
+			&& !not_a_number(convert_number))
 			g_megabash.exit_status = ft_atoi(convert_number);
-		else if (matrix[1] && !not_a_number(convert_number) && !too_long_number(convert_number))
+		else if (!not_a_number(convert_number))
 			g_megabash.exit_status = ft_atoi(convert_number);
 		free(convert_number);
 	}

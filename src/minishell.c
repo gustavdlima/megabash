@@ -11,7 +11,10 @@ static void	megaexecute(char **input)
 	if (g_megabash.cmd_list->cmd && ft_new_strncmp("exit", g_megabash.cmd_list->cmd) == true && g_megabash.pipe == 0)
 		exit_the_program(g_megabash.cmd_list->content);
 	else
+	{
 		executing_processes();
+		free_commands(g_megabash.cmd_list);
+	}
 }
 
 static void	megastart(void)
@@ -37,7 +40,6 @@ static void	megastart(void)
 		if (input && validate_input(input) == true)
 		{
 			megaexecute(&input);
-			free_commands(g_megabash.cmd_list);
 			if (g_megabash.exit_status == 256)
 				g_megabash.exit_status = 127;
 		}

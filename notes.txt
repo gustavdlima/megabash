@@ -28,3 +28,4 @@ dá leak na env quando ele é chamado sozinho, porem com mais comandos ele tá n
 9. >|< tem que aparecer bash: syntax error near unexpected token `<' por que?
 
 
+16
