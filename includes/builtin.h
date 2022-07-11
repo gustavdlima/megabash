@@ -4,7 +4,7 @@
 # include "minishell.h"
 
 void	b_exit(char **matrix);
-void	exit_the_program(char **matrix);
+void	exit_the_program(char *input);
 void	export(char **command);
 void	unset(char **command);
 void	pwd(char **command);

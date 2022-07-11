@@ -8,7 +8,7 @@ char	*read_input(void);
 int		only_space(char *cmd);
 
 // treat_input.c
-void	treat_input(char **input);
+void	treat_input_and_tokenizer(char **input);
 void	treat_input_chars(char *input);
 int		check_operator(char operator);
 int		is_operator(char *input);

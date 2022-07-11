@@ -67,12 +67,14 @@ int	too_long_number(char *str)
 	return (false);
 }
 
-void	exit_the_program(char **matrix)
+void	exit_the_program(char *input)
 {
+	char	**matrix;
 	int		to_exit;
 	int		matrix_len;
 	char	*convert_number;
 
+	matrix = ft_split(input, ' ');
 	matrix_len = matrix_size(matrix);
 	to_exit = true;
 	if (matrix_len > 1)
@@ -95,6 +97,7 @@ void	exit_the_program(char **matrix)
 			g_megabash.exit_status = ft_atoi(convert_number);
 		free(convert_number);
 	}
+	free_matrix(matrix);
 	if (to_exit == true)
 	{
 		printf("exit\n");
@@ -104,7 +107,6 @@ void	exit_the_program(char **matrix)
 
 void	b_exit(char **matrix)
 {
-	dprintf(2, "b_exit\n");
 	const int	matrix_len = matrix_size(matrix);
 
 	if (matrix)

@@ -56,7 +56,7 @@ void	treat_input_chars(char *input)
 	treat_char(input, '|', 6);
 }
 
-void	treat_input(char **input)
+void	treat_input_and_tokenizer(char **input)
 {
 	char	*treated;
 

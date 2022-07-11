@@ -5,16 +5,20 @@ t_global	g_megabash;
 static void	megaexecute(char **input)
 {
 	g_megabash.pipe = 0;
-	treat_input(input);
+	if (ft_new_strncmp("exit", *input) == true && g_megabash.pipe == 0)
+		exit_the_program(*input);
+	treat_input_and_tokenizer(input);
 	parsing();
 	free_token(g_megabash.token_list);
-	if (g_megabash.cmd_list->cmd && ft_new_strncmp("exit", g_megabash.cmd_list->cmd) == true && g_megabash.pipe == 0)
-		exit_the_program(g_megabash.cmd_list->content);
-	else
-	{
-		executing_processes();
-		free_commands(g_megabash.cmd_list);
-	}
+	executing_processes();
+	free_commands(g_megabash.cmd_list);
+	// if (g_megabash.cmd_list->cmd && ft_new_strncmp("exit", g_megabash.cmd_list->cmd) == true && g_megabash.pipe == 0)
+	// 	exit_the_program(g_megabash.cmd_list->content);
+	// else
+	// {
+	// 	executing_processes();
+	// 	free_commands(g_megabash.cmd_list);
+	// }
 }
 
 static void	megastart(void)
