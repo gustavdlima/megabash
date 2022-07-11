@@ -23,11 +23,7 @@ static void	megastart(void)
 		signal_handler();
 		input = readline("✱ (≖ ͜ʖ≖) megabash ( ͡° ͜ʖ ͡°) ✱ $ ");
 		if (input)
-		{
-			complete_input_properly(&input);
-			if (is_it_history(input) == true)
-				add_history(input);
-		}
+			add_history(input);
 		else
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
@@ -41,7 +37,9 @@ static void	megastart(void)
 		if (input && validate_input(input) == true)
 		{
 			megaexecute(&input);
-			free_megabash();
+			free_commands(g_megabash.cmd_list);
+			if (g_megabash.exit_status == 256)
+				g_megabash.exit_status = 127;
 		}
 	}
 }

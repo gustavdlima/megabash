@@ -38,10 +38,35 @@ static int	check_arg(char *arg)
 	return (true);
 }
 
+int	not_a_number(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		// dprintf(2, "str : %c\n", str[i]);
+		if (!ft_isdigit(str[i]) && str[i] != '-' && str[i] != '+')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+int	too_long_number(char *str)
+{
+	int	str_int;
+	str_int = atoi(str);
+	if (str_int == 0 && !ft_new_strncmp("0", str))
+		return (true);
+	return (false);
+}
+
 void	exit_the_program(char **matrix)
 {
-	int	to_exit;
-	int	matrix_len;
+	int		to_exit;
+	int		matrix_len;
+	char	*convert_number;
 
 	matrix_len = matrix_size(matrix);
 	to_exit = true;
@@ -50,15 +75,21 @@ void	exit_the_program(char **matrix)
 		error_message("megabash error: exit: too many arguments", 1);
 		to_exit = false;
 	}
-	else if (matrix[1] && is_numeric(matrix[1]))
-	{
-		if (matrix[1] && !check_arg(matrix[1]))
-			g_megabash.exit_status = ft_atoi(matrix[1]);
-	}
 	else if (matrix[1])
 	{
-		error_message("megabash error: exit: numeric argument required", 1);
-		to_exit = false;
+		convert_number = no_quotes(matrix[1]);
+		if (matrix[1] && not_a_number(convert_number)
+				&& too_long_number(convert_number))
+		{
+			error_message("megabash error: exit: numeric argument required", 2);
+			to_exit = false;
+		}
+		else if (matrix[1] && check_arg(convert_number)
+			&& !not_a_number(convert_number) && !too_long_number(convert_number))
+			g_megabash.exit_status = ft_atoi(convert_number);
+		else if (matrix[1] && !not_a_number(convert_number) && !too_long_number(convert_number))
+			g_megabash.exit_status = ft_atoi(convert_number);
+		free(convert_number);
 	}
 	if (to_exit == true)
 	{

@@ -21,6 +21,7 @@ static char	*path_whays(char **pathways, char *cmd)
 		free(path_cmd);
 		i++;
 	}
+	free_matrix(pathways);
 	return (NULL);
 }
 
@@ -39,7 +40,6 @@ char	*what_cmd(char *cmd)
 	{
 		pathways = ft_split(path->content, ':');
 		path_cmd = path_whays(pathways, cmd);
-		// free_matrix(pathways);
 		return (path_cmd);
 	}
 	else

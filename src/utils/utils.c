@@ -85,12 +85,10 @@ int	is_alphabetic(char *str)
 	j = 0;
 	while (str[i])
 	{
-		printf("char = %c\n", str[i]);
 		if (!ft_isalpha(str[i]) && str[i] != '_')
 			j++;
 		i++;
 	}
-	printf("j = %d\n", j);
 	if (j > 0)
 		return (false);
 	return (true);

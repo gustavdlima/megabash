@@ -71,7 +71,6 @@ SRCS	=	minishell.c	\
 			$(UTILS_PATH)treat_input_utils.c			\
 			$(UTILS_PATH)treat_input_utils_2.c			\
 			$(UTILS_PATH)utils.c						\
-			$(UTILS_PATH)validate_pipes_utils.c			\
 			$(UTILS_PATH)validate_redirect_utils.c		\
 			$(UTILS_PATH)validate_utils.c				\
 			$(HEREDOC_PATH)heredoc.c				\

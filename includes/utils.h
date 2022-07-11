@@ -24,9 +24,6 @@ int		matrix_size(char **matrix);
 char	*insert_caracter(char *cmd, char caracter);
 int		is_alphabetic(char *str);
 
-//validate_pipes_utils.c
-int		pipe_no_arguments(char *cmd);
-
 //validate_redirect_utils.c
 int		different_redirection_signs(char *cmd);
 int		redirect_to_no_arguments(char *cmd);
@@ -36,7 +33,7 @@ int		too_many_redirections(char *cmd);
 int		open_curly_bracket(char *cmd);
 int		open_quotes(char *cmd);
 int		bash_syntax_error(char *cmd);
-int		command_not_found(char *cmd);
+int		pipe_no_arguments(char *cmd);
 int		no_words_after_redirect(char *input);
 
 // exit_status.c

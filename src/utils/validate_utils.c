@@ -12,13 +12,13 @@ int	no_words_after_redirect(char *input)
 	{
 		if (i == matrix_len)
 		{
-
 			if (!matrix[i] || (ft_new_strncmp("|", matrix[i])) || (ft_new_strncmp("||", matrix[i])
 				|| (ft_new_strncmp("&", matrix[i])) || (ft_new_strncmp("&&", matrix[i]))
 				|| (ft_new_strncmp(">>", matrix[i])) || (ft_new_strncmp(">", matrix[i]))
 				|| (ft_new_strncmp("<<", matrix[i])) || (ft_new_strncmp("<", matrix[i]))))
 			{
-				error_message("megabash: syntax error near unexpected token", 2);
+				dprintf(2, "megabash: syntax error near unexpected token `%s\'\n", matrix[i]);
+				g_megabash.exit_status = 2;
 				free_matrix(matrix);
 				return (true);
 			}
@@ -100,20 +100,53 @@ int	bash_syntax_error(char *cmd)
 {
 	if (cmd[0] == '|' || cmd[0] == ';' || cmd[0] == '&')
 	{
-		printf("bash: syntax error near unexpected token `%c'\n", cmd[0]);
+		dprintf(2, "bash: syntax error near unexpected token `%c'\n", cmd[0]);
 		g_megabash.exit_status = 2;
 		return (true);
 	}
 	return (false);
 }
 
-int	command_not_found(char *cmd)
+int	pipe_no_arguments(char *cmd)
 {
-	if (ft_strlen(cmd) == 1 && cmd[0] != 'l' && ft_isascii(cmd[0]))
+	char	*begin;
+	char	*end;
+	char	*temp;
+	int		i;
+
+	i = 0;
+	while (cmd[i])
 	{
-		printf("%c: command not found\n", cmd[0]);
-		g_megabash.exit_status = 127;
-		return (true);
+		if (cmd[i] == '|')
+		{
+			temp = ft_substr(cmd, 0, i);
+			begin = ft_strtrim(temp, " ");
+			free (temp);
+			if (begin)
+			{
+				if (begin[i - 1] == '>' || begin[i - 1] == '<')
+				{
+					free(begin);
+					error_message("bash: syntax error near unexpected token `|'\n", 2);
+					return (true);
+				}
+				free(begin);
+			}
+			temp = ft_substr(cmd + i, 0, ft_strlen(cmd));
+			end = ft_strtrim(temp, " ");
+			free (temp);
+			if (end)
+			{
+				if (end[0] == '>' || end[0] == '<')
+				{
+					free(end);
+					error_message("bash: syntax error near unexpected token `|'\n", 2);
+					return (true);
+				}
+				free(end);
+			}
+		}
+		i++;
 	}
 	return (false);
 }

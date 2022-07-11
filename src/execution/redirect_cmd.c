@@ -46,13 +46,9 @@ int	redirect_commands(t_commands *pivot)
 	while (temp)
 	{
 		if (temp->type == is_here_doc)
-		{
-			dprintf(2, "heredoc/n");
 			heredoc(temp);
-		}
 		if (temp->type == is_input)
 		{
-			dprintf(2, "input/n");
 			infile = open(temp->content, O_RDONLY, 0777);
 			execute_im_input = check_and_dup(infile, STDIN_FILENO);
 			im_input = true;

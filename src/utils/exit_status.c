@@ -28,7 +28,7 @@ void	quit_megabash(void)
 	// free_env(g_megabash.env);
 	free(g_megabash.last_input);
 	// if (g_megabash.cmd_list->content[1])
-		free_commands(g_megabash.cmd_list);
+		// free_commands(g_megabash.cmd_list);
 	// free_token(g_megabash.token_list);
 	free_env(g_megabash.env);
 	rl_clear_history();

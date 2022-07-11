@@ -16,8 +16,8 @@ void	free_megabash(void)
 
 void	free_cmd_megabash(void)
 {
-	free_env(g_megabash.env);
 	free_commands(g_megabash.cmd_list);
+	free_env(g_megabash.env);
 	rl_clear_history();
 }
 

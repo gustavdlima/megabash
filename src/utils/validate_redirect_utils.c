@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-static int	return_different_redirection_signs(void)
+static int	return_different_redirection_signs(char sign)
 {
-	ft_putendl_fd("bash: syntax error near unexpected token of redirection", 2);
+	dprintf(2, "megabash: syntax error near unexpected token `%c'\n", sign);
 	g_megabash.exit_status = 2;
 	return (true);
 }
@@ -20,7 +20,7 @@ int	different_redirection_signs(char *cmd)
 			if (cmd[i] == '<')
 				i++;
 			if (cmd[i] == '>')
-				return (return_different_redirection_signs());
+				return (return_different_redirection_signs(cmd[i]));
 		}
 		else if (cmd[i] == '>')
 		{
@@ -28,7 +28,7 @@ int	different_redirection_signs(char *cmd)
 			if (cmd[i] == '>')
 				i++;
 			if (cmd[i] == '<')
-				return (return_different_redirection_signs());
+				return (return_different_redirection_signs(cmd[i]));
 		}
 		if (cmd[i])
 			i++;
@@ -51,12 +51,12 @@ static int	no_arguments(char *cmd)
 		temp = ft_strtrim(cmd, " ");
 		if (temp)
 		{
-			if (temp[0] == '|')
-			{
+			// if (temp[0] == '<' || temp[0] == '>')
+			// {
 				free(temp);
-				return (true);
-			}
-			free (temp);
+				return (false);
+			// }
+			// free (temp);
 		}
 	}
 	return (false);
@@ -83,33 +83,22 @@ int redirect_to_pipe(char *cmd)
 int	redirect_to_no_arguments(char *cmd)
 {
 	int	i;
-	// int	is_stdout;
 
 	i = 0;
-	// is_stdout = false;
 	while (cmd[i])
 	{
 		if (cmd[i] == '>' || cmd[i] == '<')
 		{
 			i++;
 			if (cmd[i] == '>' || cmd[i] == '<')
-			{
-				if (cmd[i] == '>')
-					// is_stdout = true;
 				i++;
-			}
 			if (no_arguments(cmd + i) == true)
 			{
 				error_message
 				("megabash: syntax error near unexpected token `newline'", 2);
 				return (true);
 			}
-			// if (is_stdout == true || redirect_to_pipe(cmd + i))
-			// {
-			// 	error_message
-			// 	("megabash: syntax error near unexpected token `|'", 2);
-			// 	return (true);
-			// }
+			break ;
 		}
 		if (cmd[i])
 			i++;
@@ -136,8 +125,8 @@ int	too_many_redirections(char *cmd)
 				redirection++;
 			if (redirection > 2)
 			{
-				printf("bash: syntax error near unexpected token `%c%c'\n",
-					sign, sign);
+				dprintf(2, "bash: syntax error near unexpected token `%c'\n",
+					sign);
 				g_megabash.exit_status = 2;
 				return (true);
 			}
