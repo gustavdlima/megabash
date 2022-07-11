@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static t_token	*connect_cmd_to_late_args(t_token *token, char *cmd_string)
+static char	*connect_cmd_to_late_args(t_token *token, char *cmd_string)
 {
 	t_token	*token_temp;
 
@@ -17,7 +17,7 @@ static t_token	*connect_cmd_to_late_args(t_token *token, char *cmd_string)
 		else
 			break ;
 	}
-	return (token);
+	return (cmd_string);
 }
 
 static t_token	*cmd_parse_loop(t_token *token, t_commands *command,
@@ -30,7 +30,7 @@ static t_token	*cmd_parse_loop(t_token *token, t_commands *command,
 		if (token->type == is_redirect)
 		{
 			if (token->next->next && token->next->next->type == is_word)
-				token = connect_cmd_to_late_args(token, cmd_string);
+				cmd_string = connect_cmd_to_late_args(token, cmd_string);
 			command->content = ft_split(cmd_string, ' ');
 			free (cmd_string);
 			return (token);
