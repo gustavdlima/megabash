@@ -10,8 +10,6 @@ int	child_is_builtin(char *input)
 		return (true);
 	if (ft_new_strncmp("pwd", input) == true)
 		return (true);
-	if (ft_new_strncmp("exit", input) == true)
-		return (true);
 	return (false);
 }
 
@@ -24,6 +22,8 @@ int	parent_is_builtin(char *input)
 	if (ft_new_strncmp("unset", input) == true)
 		return (true);
 	if (ft_new_strncmp("cd", input) == true)
+		return (true);
+	if (ft_new_strncmp("exit", input) == true)
 		return (true);
 	return (false);
 }

@@ -2,10 +2,8 @@
 
 void	child_proccess(t_commands *pivot, int **fd, int i)
 {
-	int	execute;
 	t_redirect	*temp;
 
-	execute = true;
 	if (i != 0)
 	{
 		close(fd[i - 1][1]);
@@ -27,7 +25,7 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 		check_and_dup(fd[i][1], STDOUT_FILENO);
 	}
 	free_int_matrix(fd);
-	execute_command_and_redirection(pivot, execute);
+	execute_command_and_redirection(pivot);
 }
 
 void	initialize_execution_process(int **fd)

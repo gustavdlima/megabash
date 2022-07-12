@@ -16,7 +16,6 @@ void	pwd(char **matrix)
 	t_env	*temp;
 
 	temp = g_megabash.env;
-
 	if (matrix[1])
 	{
 		// dprintf(1, "megabash error: pwd: too many arguments");
