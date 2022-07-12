@@ -30,35 +30,39 @@ int	open_fd_to_output_or_append(t_redirect *temp)
 
 int	redirect_commands(t_commands *pivot)
 {
-	t_redirect	*temp;
-	int			outfile;
-	int			infile;
-	int			is_input;
-	int			is_out_or_append;
-	int			is_valid_fd;
-	int			execute_is_input;
+	int	outfile;
+	int	infile;
+	int	im_input;
+	int	im_out_or_append;
+	int	is_valid_fd;
+	t_redirect *temp;
+	int execute_im_input;
 
 	temp = pivot->redirect;
-	is_input = false;
-	is_out_or_append = false;
+	im_input = false;
+	im_out_or_append = false;
 	while (temp)
 	{
 		if (temp->type == is_here_doc)
-			heredoc(temp);
+		{
+			infile = heredoc(temp);
+			im_input = true;
+		}
 		if (temp->type == is_input)
 		{
 			infile = open(temp->content, O_RDONLY, 0777);
-			execute_is_input = check_and_dup(infile, STDIN_FILENO);
-			is_input = true;
+			im_input = true;
 		}
 		if (temp->type == is_output || temp->type == is_append)
 		{
-			if ((is_input == true && infile >= 0) || is_input == false)
+			if ((im_input == true && infile >= 0) || im_input == false)
 				outfile = open_fd_to_output_or_append(temp);
-			is_out_or_append = true;
+			im_out_or_append = true;
 		}
 		temp = temp->next;
 	}
-	is_valid_fd = valid_execution(is_input, is_out_or_append, outfile, execute_is_input);
+	if (im_input)
+		execute_im_input = check_and_dup(infile, STDIN_FILENO);
+	is_valid_fd = valid_execution(im_input, im_out_or_append, outfile, execute_im_input);
 	return (is_valid_fd);
 }

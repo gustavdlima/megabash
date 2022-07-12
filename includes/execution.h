@@ -3,6 +3,18 @@
 
 # include "minishell.h"
 
+typedef struct s_fd
+{
+	int			outfile;
+	int			infile;
+	int			is_input;
+	int			is_out_or_append;
+	int			is_valid_fd;
+	int			execute_input;
+	int			execute_out_or_append;
+}				t_fd;
+
+
 void	initialize_execution_process(int **fd);
 void	executing_processes(void);
 void	execute_single_command(void);

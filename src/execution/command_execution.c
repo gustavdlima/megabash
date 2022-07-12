@@ -2,14 +2,15 @@
 
 void	execute_command_and_redirection(t_commands *pivot)
 {
-	int			execute;
+	int	execute;
 
 	execute = true;
+	print_commands(pivot);
 	if (pivot->redirect)
 		execute = redirect_commands(pivot);
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)
 		execute_builtin(pivot);
-	else if (execute == true)
+	else if (pivot->cmd && execute == true)
 		execute_execve(pivot);
 	free(g_megabash.last_input);
 	free_commands(g_megabash.cmd_list);

@@ -35,8 +35,8 @@ static void	megastart(void)
 		if (input && validate_input(input) == true)
 		{
 			megaexecute(&input);
-			// if (g_megabash.exit_status == 256)
-			// 	g_megabash.exit_status = 127;
+			if (g_megabash.exit_status == 256)
+				g_megabash.exit_status = 127;
 		}
 	}
 }
