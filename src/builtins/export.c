@@ -1,11 +1,5 @@
 #include "minishell.h"
 
-static int	i_plus_plus(int i)
-{
-	i++;
-	return (i);
-}
-
 static int	print_export_error(char *name, int i)
 {
 	i++;
@@ -28,7 +22,7 @@ static int	export_execute(char *name, char *content, char **command, int i)
 
 	node = g_megabash.env;
 	if (!ft_strchr(command[i], '='))
-		return (i_plus_plus(i));
+		return (i + 1);
 	name = get_env_name(command[i]);
 	if (!is_alphabetic(name))
 	{
@@ -61,10 +55,11 @@ void	export(char **command)
 	content = NULL;
 	while (command[i])
 	{
-		if (ft_new_strncmp("=", command[i]))
+		if (ft_new_strncmp("=", command[i])
+			|| command[i][0] == '=')
 		{
 			i = print_export_error(command[i], i);
-			continue ;
+			continue;
 		}
 		if ((!ft_strchr(command[i], '=')) && (!is_alphabetic(command[i])))
 		{
