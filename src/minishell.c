@@ -2,6 +2,22 @@
 
 t_global	g_megabash;
 
+static void print_cool_intro(void)
+{
+	int		fd;
+	char	buff[1];
+
+	fd = open("img/intro.txt", O_RDONLY);
+	if (fd == -1)
+		return ;
+	while (read(fd, buff, 1))
+	{
+			printf("%c", buff[0]);
+	}
+	close(fd);
+	return ;
+}
+
 static void	megaexecute(char **input)
 {
 	g_megabash.pipe = 0;
@@ -19,7 +35,7 @@ static void	megastart(void)
 	while (1)
 	{
 		signal_handler();
-		input = readline("✱ (≖ ͜ʖ≖) megabash ( ͡° ͜ʖ ͡°) ✱ $ ");
+		input = readline("megabash$ ");
 		if (input)
 			add_history(input);
 		else
@@ -48,6 +64,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_putendl_fd("Error: Try only ./minishell", 2);
 		exit(1);
 	}
+	print_cool_intro();
 	g_megabash.last_input = NULL;
 	environment(envp);
 	megastart();
