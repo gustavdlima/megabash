@@ -13,15 +13,10 @@ static void	signint(int signum)
 static void	signint_doc(int signum)
 {
 	(void)signum;
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
 	free_env(g_megabash.env);
-	g_megabash.exit_status = 1;
+	g_megabash.exit_status = 130;
 	free(g_megabash.last_input);
 	free_commands(g_megabash.cmd_list);
-	// free_env(g_megabash.env);
 	exit(130);
 }
 

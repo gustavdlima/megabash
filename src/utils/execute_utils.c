@@ -18,8 +18,6 @@ void	execute_execve(t_commands *cmd_list)
 		free(g_megabash.last_input);
 		free_env(g_megabash.env);
 		free_commands(g_megabash.cmd_list);
-		// free_cmd_megabash();
-		// rl_clear_history();
 		exit(g_megabash.exit_status);
 	}
 	else
