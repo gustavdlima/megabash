@@ -19,6 +19,15 @@ static void	prompt_loop(t_redirect *command_list, char *read, char *arraydoc, in
 	{
 		signal_handler_heredoc();
 		read = readline("> ");
+		if (!read)
+		{
+			unlink("./src/heredoc/heredoc_content");
+			free_env(g_megabash.env);
+			g_megabash.exit_status = 1;
+			free(g_megabash.last_input);
+			free_commands(g_megabash.cmd_list);
+			exit(g_megabash.exit_status);
+		}
 		if (read && !ft_new_strncmp(temp->content, read))
 		{
 			arraydoc = ft_strjoin(read, "\n");
@@ -30,14 +39,6 @@ static void	prompt_loop(t_redirect *command_list, char *read, char *arraydoc, in
 		{
 			g_megabash.exit_status = 0;
 			break ;
-		}
-		else
-		{
-			free_env(g_megabash.env);
-			g_megabash.exit_status = 1;
-			free(g_megabash.last_input);
-			free_commands(g_megabash.cmd_list);
-			exit(g_megabash.exit_status);
 		}
 	}
 }
@@ -64,13 +65,7 @@ int	heredoc(t_redirect *command_list)
 		exit(0);
 	}
 	waitpid(pid, &g_megabash.exit_status, 0);
-	// close(fd);
 	fd = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
-	// check_and_dup(fd, STDIN_FILENO);
-	// dprintf(2, "EU TO AQUI!! /n");
-
-	// close(fd);
-	// free_env(g_megabash.env);
 	unlink("./src/heredoc/heredoc_content");
 	return (fd);
 }
