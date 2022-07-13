@@ -7,6 +7,16 @@ void	free_unset(t_env *list)
 	free(list);
 }
 
+static int	print_unset_error(char *name, int i)
+{
+	i++;
+	ft_putstr_fd("unset: '", 2);
+	ft_putstr_fd(name, 2);
+	error_message("': not a valid identifier", 1);
+	return (i);
+}
+
+
 void	unset(char **command)
 {
 	t_env	*temp;
@@ -19,11 +29,14 @@ void	unset(char **command)
 		return ;
 	while (command[i])
 	{
+		if (!is_alphabetic(command[i]))
+		{
+			i = print_unset_error(command[i], i);
+			continue ;
+		}
 		temp = get_env_node(env_test, command[i]);
 		if (temp)
-		{
 			env_node_delete(temp);
-		}
 		i++;
 	}
 }
