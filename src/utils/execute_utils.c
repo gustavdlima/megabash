@@ -46,7 +46,7 @@ int	check_and_dup(int old, int new)
 {
 	if (dup2(old, new) == -1)
 	{
-		error_message("megabash: No such file or directory\n", 1);
+		error_message("megabash: No such file or directory", 1);
 		return (false);
 	}
 	else
