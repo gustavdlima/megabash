@@ -5,7 +5,7 @@ void	execute_command_and_redirection(t_commands *pivot)
 	int	execute;
 
 	execute = true;
-	print_commands(pivot);
+	// print_commands(pivot);
 	if (pivot->redirect)
 		execute = redirect_commands(pivot);
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)
@@ -36,7 +36,7 @@ void	execute_multiple_commands(void)
 	initialize_execution_process(fd);
 	i = 0;
 	while (i++ < g_megabash.pipe + 1)
-		waitpid(-1, &g_megabash.exit_status, 0);
+		waitipid_save_exit_status(-1);
 	free_int_matrix(fd);
 }
 
@@ -55,5 +55,5 @@ void	execute_single_command(void)
 	pid = fork();
 	if (pid == 0)
 		execute_command_and_redirection(pivot);
-	waitpid(pid, &g_megabash.exit_status, 0);
+	waitipid_save_exit_status(pid);
 }

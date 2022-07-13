@@ -30,3 +30,12 @@ void	quit_megabash(void)
 	rl_clear_history();
 	exit(g_megabash.exit_status);
 }
+
+void	waitipid_save_exit_status(int pid)
+{
+	waitpid(pid, &g_megabash.exit_status, 0);
+	if (WIFEXITED(g_megabash.exit_status))
+		g_megabash.exit_status = WEXITSTATUS(g_megabash.exit_status);
+	else if (WIFSIGNALED(g_megabash.exit_status))
+		g_megabash.exit_status = WTERMSIG(g_megabash.exit_status) + 128;
+}

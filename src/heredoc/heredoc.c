@@ -64,7 +64,12 @@ int	heredoc(t_redirect *command_list)
 		free(g_megabash.last_input);
 		exit(0);
 	}
-	waitpid(pid, &g_megabash.exit_status, 0);
+	waitipid_save_exit_status(pid);
+	// waitpid(pid, &g_megabash.exit_status, 0);
+    // if (WIFEXITED(g_megabash.exit_status))
+    //     g_megabash.exit_status = WEXITSTATUS(g_megabash.exit_status);
+    // else if (WIFSIGNALED(g_megabash.exit_status))
+	// 	g_megabash.exit_status = WTERMSIG(g_megabash.exit_status) + 128;
 	fd = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
 	unlink("./src/heredoc/heredoc_content");
 	return (fd);
