@@ -1,13 +1,15 @@
 #include "minishell.h"
 
-void	execute_command_and_redirection(t_commands *pivot)
+void	execute_command_and_redirection(t_commands *pivot, int heredoc_fd)
 {
-	int	execute;
+	t_redirect	*temp;
+	int			execute;
 
+	temp = pivot->redirect;
 	execute = true;
-	// print_commands(pivot);
+	dprintf(2, "heredoc : %d\n", heredoc_fd);
 	if (pivot->redirect)
-		execute = redirect_commands(pivot);
+		execute = redirect_commands(temp, heredoc_fd);
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)
 		execute_builtin(pivot);
 	else if (pivot->cmd && execute == true)
@@ -54,6 +56,6 @@ void	execute_single_command(void)
 	}
 	pid = fork();
 	if (pid == 0)
-		execute_command_and_redirection(pivot);
+		execute_command_and_redirection(pivot, -42);
 	waitipid_save_exit_status(pid);
 }

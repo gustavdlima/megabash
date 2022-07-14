@@ -17,7 +17,6 @@ static void	prompt_loop(t_redirect *command_list, char *read, char *arraydoc, in
 	temp = command_list;
 	while (1)
 	{
-		signal_handler_heredoc();
 		read = readline("> ");
 		if (!read)
 		{
@@ -52,9 +51,28 @@ int	heredoc(t_redirect *command_list)
 
 	fd = 0;
 	read = NULL;
-	pid = fork();
+	arraydoc = NULL;
+	if (!ft_strlen(command_list->content))
+	{
+		error_message_exit("megabash: syntax error near unexpected token `newline'", 2);
+	}
 	if (g_megabash.multiple_cmds == true)
-		check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);
+	{
+		if (dup2(g_megabash.stdin_backup, STDIN_FILENO) == -1)
+		{
+			g_megabash.exit_status = 1;
+		}
+		else
+			close(g_megabash.stdin_backup);
+	}
+	// prompt_loop(command_list, read, arraydoc, fd);
+	// // free_commands(g_megabash.cmd_list);
+	// // free_env(g_megabash.env);
+	// free(g_megabash.last_input);
+		signal_handler_heredoc();
+	pid = fork();
+	// if (g_megabash.multiple_cmds == true)
+		// check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);
 	if (pid == 0)
 	{
 		arraydoc = NULL;
@@ -65,12 +83,7 @@ int	heredoc(t_redirect *command_list)
 		exit(0);
 	}
 	waitipid_save_exit_status(pid);
-	// waitpid(pid, &g_megabash.exit_status, 0);
-    // if (WIFEXITED(g_megabash.exit_status))
-    //     g_megabash.exit_status = WEXITSTATUS(g_megabash.exit_status);
-    // else if (WIFSIGNALED(g_megabash.exit_status))
-	// 	g_megabash.exit_status = WTERMSIG(g_megabash.exit_status) + 128;
 	fd = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
-	unlink("./src/heredoc/heredoc_content");
+	// unlink("./src/heredoc/heredoc_content");
 	return (fd);
 }

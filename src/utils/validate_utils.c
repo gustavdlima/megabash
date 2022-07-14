@@ -124,11 +124,14 @@ int	pipe_no_arguments(char *cmd)
 			free (temp);
 			if (begin)
 			{
-				if (begin[i - 1] == '>' || begin[i - 1] == '<')
+				if (begin[i - 2]) //essa parte da invalid read of size!! refatorar com cuidado!
 				{
-					free(begin);
-					error_message("bash: syntax error near unexpected token `|'\n", 2);
-					return (true);
+					if (begin[i - 2] == '>' || begin[i - 2] == '<')
+					{
+						free(begin);
+						error_message("bash: syntax error near unexpected token `|'\n", 2);
+						return (true);
+					}
 				}
 				free(begin);
 			}

@@ -3,7 +3,9 @@
 void	child_proccess(t_commands *pivot, int **fd, int i)
 {
 	t_redirect	*temp;
+	int	heredoc_fd;
 
+	heredoc_fd = 42;
 	if (i != 0)
 	{
 		close(fd[i - 1][1]);
@@ -13,11 +15,31 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 			while (temp)
 			{
 				if (temp->type == is_here_doc)
+				{
 					g_megabash.stdin_backup = dup(STDIN_FILENO);
+					heredoc_fd = heredoc(temp);
+				}
 				temp = temp->next;
 			}
 		}
-		check_and_dup(fd[i - 1][0], STDIN_FILENO);
+		else
+			check_and_dup(fd[i - 1][0], STDIN_FILENO);
+	}
+	else
+	{
+		if (pivot->redirect)
+		{
+			temp = pivot->redirect;
+			while (temp)
+			{
+				if (temp->type == is_here_doc)
+				{
+					g_megabash.stdin_backup = dup(STDIN_FILENO);
+					heredoc_fd = heredoc(temp);
+				}
+				temp = temp->next;
+			}
+		}
 	}
 	if (fd[i] != NULL)
 	{
@@ -25,7 +47,7 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 		check_and_dup(fd[i][1], STDOUT_FILENO);
 	}
 	free_int_matrix(fd);
-	execute_command_and_redirection(pivot);
+	execute_command_and_redirection(pivot, heredoc_fd);
 }
 
 void	initialize_execution_process(int **fd)

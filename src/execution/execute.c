@@ -15,7 +15,6 @@ void	destroy_heredocs_fd(void)
 
 void	executing_processes(void)
 {
-	// print_commands(g_megabash.cmd_list);
 	if (g_megabash.pipe == 0)
 		execute_single_command();
 	else
