@@ -7,7 +7,6 @@ void	execute_command_and_redirection(t_commands *pivot, int heredoc_fd)
 
 	temp = pivot->redirect;
 	execute = true;
-	dprintf(2, "heredoc : %d\n", heredoc_fd);
 	if (pivot->redirect)
 		execute = redirect_commands(temp, heredoc_fd);
 	if (pivot->cmd && child_is_builtin(pivot->cmd) == true && execute == true)

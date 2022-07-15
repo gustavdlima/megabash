@@ -5,41 +5,25 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 	t_redirect	*temp;
 	int	heredoc_fd;
 
-	heredoc_fd = 42;
+	heredoc_fd = -1;
+	if (pivot->redirect)
+	{
+		temp = pivot->redirect;
+		while (temp)
+		{
+			if (temp->type == is_here_doc)
+			{
+				g_megabash.stdin_backup = dup(STDIN_FILENO);
+				heredoc_fd = heredoc(temp);
+			}
+			temp = temp->next;
+		}
+	}
 	if (i != 0)
 	{
 		close(fd[i - 1][1]);
-		if (pivot->redirect)
-		{
-			temp = pivot->redirect;
-			while (temp)
-			{
-				if (temp->type == is_here_doc)
-				{
-					g_megabash.stdin_backup = dup(STDIN_FILENO);
-					heredoc_fd = heredoc(temp);
-				}
-				temp = temp->next;
-			}
-		}
-		else
+		if (heredoc_fd == -1)
 			check_and_dup(fd[i - 1][0], STDIN_FILENO);
-	}
-	else
-	{
-		if (pivot->redirect)
-		{
-			temp = pivot->redirect;
-			while (temp)
-			{
-				if (temp->type == is_here_doc)
-				{
-					g_megabash.stdin_backup = dup(STDIN_FILENO);
-					heredoc_fd = heredoc(temp);
-				}
-				temp = temp->next;
-			}
-		}
 	}
 	if (fd[i] != NULL)
 	{

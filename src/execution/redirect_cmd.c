@@ -39,11 +39,8 @@ static int	open_fd_to_heredoc_or_input(t_redirect *temp, int fd_heredoc)
 	{
 		if (fd_heredoc == -42)
 			infile = heredoc(temp);
-		else if (fd_heredoc != 42)
-		{
-			dprintf(2, "heredoc : %d\n", fd_heredoc);
+		else if (fd_heredoc != -1)
 			infile = fd_heredoc;
-		}
 	}
 	if (temp->type == is_input)
 		infile = open(temp->content, O_RDONLY, 0777);

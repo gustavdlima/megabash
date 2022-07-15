@@ -39,7 +39,6 @@ SRCS	=	minishell.c	\
 			$(EXECUTION_PATH)execute.c					\
 			$(EXECUTION_PATH)initialize_process.c		\
 			$(EXECUTION_PATH)redirect_cmd.c				\
-			$(EXECUTION_PATH)redirect_cmd_no_pipes.c	\
 			$(BUILTIN_PATH)env.c						\
 			$(BUILTIN_PATH)chdir.c						\
 			$(BUILTIN_PATH)chdir_utils.c				\

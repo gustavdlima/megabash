@@ -14,8 +14,8 @@ static void	signint_doc(int signum)
 {
 	(void)signum;
 	printf("\n");
-	// rl_replace_line("", 0);
-	// rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_on_new_line();
 	free_env(g_megabash.env);
 	g_megabash.exit_status = 130;
 	free(g_megabash.last_input);
