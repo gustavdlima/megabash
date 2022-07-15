@@ -56,3 +56,30 @@ int	different_redirection_signs(char *cmd)
 	}
 	return (false);
 }
+
+static int	is_valid_string(char *str)
+{
+	if (!str || (ft_new_strncmp("|", str)) || (ft_new_strncmp("||", str)
+			|| (ft_new_strncmp("&", str)) || (ft_new_strncmp("&&", str))
+			|| (ft_new_strncmp(">>", str)) || (ft_new_strncmp(">", str))
+			|| (ft_new_strncmp("<<", str)) || (ft_new_strncmp("<", str))))
+		return (false);
+	return (true);
+}
+
+int	no_words_after_redirect(char *input)
+{
+	int	i;
+
+	i = ft_strlen(input);
+	if (i >= 1)
+		i--;
+	if (!is_valid_string(input + i))
+	{
+		dprintf (2, "megabash: syntax error near unexpected token `%s\'\n",
+		input + i);
+		g_megabash.exit_status = 2;
+		return (true);
+	}
+	return (false);
+}

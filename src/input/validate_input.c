@@ -20,7 +20,7 @@ int	validate_input(char *input)
 	treat_input_chars(input);
 	if (input)
 	{
-		if (!input[0] || only_space(input) == true)
+		if (!input || only_space(input) == true)
 			return (false);
 		else if (bash_syntax_error(input) == true)
 			return (false);

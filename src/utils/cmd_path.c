@@ -33,7 +33,8 @@ char	*what_cmd(char *cmd)
 
 	if (cmd == NULL)
 		return (NULL);
-	if (access(cmd, F_OK) == 0)
+	if (access(cmd, F_OK) == 0 && (!ft_strncmp("/", cmd, 1)
+			|| !ft_strncmp("./", cmd, 2)))
 		return (cmd);
 	path = get_env_node(g_megabash.env, "PATH");
 	if (path)

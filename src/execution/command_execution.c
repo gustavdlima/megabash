@@ -5,7 +5,8 @@ void	execute_command_and_redirection(t_commands *pivot, int heredoc_fd)
 	t_redirect	*temp;
 	int			execute;
 
-	temp = pivot->redirect;
+	if (pivot->redirect)
+		temp = pivot->redirect;
 	execute = true;
 	if (pivot->redirect)
 		execute = redirect_commands(temp, heredoc_fd);

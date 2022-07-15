@@ -66,25 +66,11 @@ int	redirect_to_no_arguments(char *cmd)
 	return (false);
 }
 
-static int	counting_redirections(char *cmd)
+static int	more_redirections(char *cmd, int sign)
 {
-	int	redirection;
-	int	sign;
-	int	i;
-
-	i = 0;
-	redirection = 1;
-	sign = cmd[0];
-	while (cmd[i] && (cmd[i] == '>' || cmd[i] == '<' || cmd[i] == ' '))
+	if (cmd[0] && (cmd[0] == '>' || cmd[0] == '<'))
 	{
-		if (cmd[i] == '>' || cmd[i] == '<')
-			redirection++;
-		i++;
-	}
-	if (redirection > 2)
-	{
-		dprintf(2, "bash: syntax error near unexpected token `%c'\n",
-			sign);
+		dprintf(2, "bash: syntax error near unexpected token`%c'\n", sign);
 		g_megabash.exit_status = 2;
 		return (true);
 	}
@@ -93,6 +79,7 @@ static int	counting_redirections(char *cmd)
 
 int	too_many_redirections(char *cmd)
 {
+	int	sign;
 	int	i;
 
 	i = 0;
@@ -100,8 +87,17 @@ int	too_many_redirections(char *cmd)
 	{
 		if (cmd[i] == '>' || cmd[i] == '<')
 		{
-			if (counting_redirections(cmd + i))
-				return (true);
+			sign = cmd[i];
+			i++;
+			if (cmd[i] == '>' || cmd[i] == '<')
+				i++;
+			if (cmd[i])
+			{
+				while (cmd[i] && cmd[i] == ' ')
+					i++;
+				if (more_redirections(cmd + i, sign))
+					return (true);
+			}
 		}
 		if (cmd[i])
 			i++;

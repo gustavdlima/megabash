@@ -1,34 +1,5 @@
 #include "minishell.h"
 
-int	no_words_after_redirect(char *input)
-{
-	char	**matrix;
-	int		i;
-
-	i = 0;
-	matrix = ft_split(input, ' ');
-	int matrix_len = matrix_size(matrix);
-	while (matrix[i])
-	{
-		if (i == matrix_len)
-		{
-			if (!matrix[i] || (ft_new_strncmp("|", matrix[i])) || (ft_new_strncmp("||", matrix[i])
-				|| (ft_new_strncmp("&", matrix[i])) || (ft_new_strncmp("&&", matrix[i]))
-				|| (ft_new_strncmp(">>", matrix[i])) || (ft_new_strncmp(">", matrix[i]))
-				|| (ft_new_strncmp("<<", matrix[i])) || (ft_new_strncmp("<", matrix[i]))))
-			{
-				dprintf(2, "megabash: syntax error near unexpected token `%s\'\n", matrix[i]);
-				g_megabash.exit_status = 2;
-				free_matrix(matrix);
-				return (true);
-			}
-		}
-		i++;
-	}
-	free_matrix(matrix);
-	return (false);
-}
-
 static int	incrementing_i_for_single_quotes(char *cmd)
 {
 	int	i;
@@ -109,9 +80,6 @@ int	bash_syntax_error(char *cmd)
 
 int	pipe_no_arguments(char *cmd)
 {
-	char	*begin;
-	char	*end;
-	char	*temp;
 	int		i;
 
 	i = 0;
@@ -119,34 +87,13 @@ int	pipe_no_arguments(char *cmd)
 	{
 		if (cmd[i] == '|')
 		{
-			temp = ft_substr(cmd, 0, i);
-			begin = ft_strtrim(temp, " ");
-			free (temp);
-			if (begin)
+			i++;
+			if (cmd[i])
 			{
-				if (begin[i - 2]) //essa parte da invalid read of size!! refatorar com cuidado!
-				{
-					if (begin[i - 2] == '>' || begin[i - 2] == '<')
-					{
-						free(begin);
-						error_message("bash: syntax error near unexpected token `|'\n", 2);
-						return (true);
-					}
-				}
-				free(begin);
-			}
-			temp = ft_substr(cmd + i, 0, ft_strlen(cmd));
-			end = ft_strtrim(temp, " ");
-			free (temp);
-			if (end)
-			{
-				if (end[0] == '>' || end[0] == '<')
-				{
-					free(end);
-					error_message("bash: syntax error near unexpected token `|'\n", 2);
-					return (true);
-				}
-				free(end);
+				if (only_space(cmd + i))
+					error_message
+					("magabash: syntax error near unexpected token `|'\n", 2);
+				return (true);
 			}
 		}
 		i++;

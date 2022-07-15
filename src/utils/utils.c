@@ -59,10 +59,7 @@ int	ft_new_strncmp(char *s1, char *s2)
 	else
 		s1_len = 0;
 	if (s2)
-	{
-
 		s2_len = ft_strlen(s2);
-	}
 	else
 		s2_len = 0;
 	if (s1_len != s2_len)
