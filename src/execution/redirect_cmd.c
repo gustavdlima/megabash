@@ -1,6 +1,7 @@
 #include "minishell.h"
 
-static int	valid_execution(int im_input, int im_out_or_append, int outfile, int infile)
+static int	valid_execution(int im_input, int im_out_or_append, int outfile,
+	int infile)
 {
 	int	execute_im_input;
 	int	execute_im_out_or_append;
