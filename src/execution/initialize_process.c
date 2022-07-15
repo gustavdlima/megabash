@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	child_proccess(t_commands *pivot, int **fd, int i)
+static int	get_heredoc_fd(t_commands *pivot, int **fd)
 {
 	t_redirect	*temp;
 	int			heredoc_fd;
@@ -19,12 +19,24 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 			temp = temp->next;
 		}
 	}
+	return (heredoc_fd);
+}
+
+void	child_proccess(t_commands *pivot, int **fd, int i)
+{
+	int	heredoc_fd;
+
+	heredoc_fd = -1;
 	if (i != 0)
 	{
 		close(fd[i - 1][1]);
-		if (heredoc_fd == -1)
+		if (pivot->redirect)
+			heredoc_fd = get_heredoc_fd(pivot, fd);
+		else
 			check_and_dup(fd[i - 1][0], STDIN_FILENO);
 	}
+	if (i == 0)
+		heredoc_fd = get_heredoc_fd(pivot, fd);
 	if (fd[i] != NULL)
 	{
 		close(fd[i][0]);
