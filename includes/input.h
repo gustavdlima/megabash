@@ -6,6 +6,7 @@
 // read_input.c
 char	*read_input(void);
 int		only_space(char *cmd);
+int	different_redirection_signs(char *cmd);
 
 // treat_input.c
 void	treat_input_and_tokenizer(char **input);
