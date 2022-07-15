@@ -18,7 +18,6 @@ static void	signint_doc(int signum)
 	rl_on_new_line();
 	free_env(g_megabash.env);
 	g_megabash.exit_status = 130;
-	free(g_megabash.last_input);
 	if (g_megabash.fd)
 		free_int_matrix(g_megabash.fd);
 	free_commands(g_megabash.cmd_list);

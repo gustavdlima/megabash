@@ -3,7 +3,6 @@
 static void	line_break_and_exit(int exit_status)
 {
 	ft_putstr_fd("\n", 1);
-	free(g_megabash.last_input);
 	free_commands(g_megabash.cmd_list);
 	free_env(g_megabash.env);
 	exit(exit_status);

@@ -13,7 +13,6 @@ void	execute_command_and_redirection(t_commands *pivot, int heredoc_fd)
 		execute_builtin(pivot);
 	else if (pivot->cmd && execute == true)
 		execute_execve(pivot);
-	free(g_megabash.last_input);
 	free_commands(g_megabash.cmd_list);
 	free_env(g_megabash.env);
 	exit(g_megabash.exit_status);

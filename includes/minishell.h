@@ -64,7 +64,6 @@ typedef struct s_global{
 	t_commands	*cmd_list;
 	t_token		*token_list;
 	char		**envp;
-	char		*last_input;
 	int			operation;
 	int			pipe;
 	int			exit_status;

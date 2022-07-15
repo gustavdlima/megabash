@@ -42,8 +42,6 @@ static void	megastart(void)
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
 			rl_clear_history();
-			if (g_megabash.last_input)
-				free(g_megabash.last_input);
 			if (g_megabash.env)
 				free_env(g_megabash.env);
 			exit(0);
@@ -65,7 +63,6 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	}
 	print_cool_intro();
-	g_megabash.last_input = NULL;
 	environment(envp);
 	megastart();
 	return (0);

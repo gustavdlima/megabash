@@ -4,7 +4,6 @@ void	quit_megabash(void)
 {
 	// //funcoes para dar free
 	// free_env(g_megabash.env);
-	free(g_megabash.last_input);
 	free_token(g_megabash.token_list);
 	free_commands(g_megabash.cmd_list);
 	free_env(g_megabash.env);
