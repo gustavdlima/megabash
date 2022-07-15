@@ -68,8 +68,9 @@ typedef struct s_global{
 	int			operation;
 	int			pipe;
 	int			exit_status;
-	int			stdin_backup; //TESTANDO
-	int			multiple_cmds; //TESTANDO
+	int			stdin_backup;
+	int			multiple_cmds;
+	int			**fd;
 }				t_global;
 
 # include "environment.h"

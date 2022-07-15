@@ -3,7 +3,7 @@
 void	child_proccess(t_commands *pivot, int **fd, int i)
 {
 	t_redirect	*temp;
-	int	heredoc_fd;
+	int			heredoc_fd;
 
 	heredoc_fd = -1;
 	if (pivot->redirect)

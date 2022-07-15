@@ -27,6 +27,7 @@ void	execute_multiple_commands(void)
 	g_megabash.multiple_cmds = true;
 	fd = NULL;
 	fd = malloc_int_matrix(fd);
+	g_megabash.fd = fd;
 	i = 0;
 	while (fd[i])
 	{
