@@ -14,7 +14,7 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 			if (temp->type == is_here_doc)
 			{
 				g_megabash.stdin_backup = dup(STDIN_FILENO);
-				heredoc_fd = heredoc(temp);
+				heredoc_fd = heredoc(temp, fd);
 			}
 			temp = temp->next;
 		}

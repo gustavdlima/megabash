@@ -39,7 +39,7 @@ static int	open_fd_to_heredoc_or_input(t_redirect *temp, int fd_heredoc)
 	if (temp->type == is_here_doc)
 	{
 		if (fd_heredoc == -42)
-			infile = heredoc(temp);
+			infile = heredoc(temp, NULL);
 		else if (fd_heredoc != -1)
 			infile = fd_heredoc;
 	}

@@ -3,6 +3,6 @@
 
 # include "minishell.h"
 
-int	heredoc(t_redirect *command_list);
+int	heredoc(t_redirect *command_list, int **fd);
 
 #endif

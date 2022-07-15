@@ -42,12 +42,12 @@ static void	prompt_loop(t_redirect *command_list, int fd)
 	}
 }
 
-int	heredoc(t_redirect *command_list)
+int	heredoc(t_redirect *command_list, int **fd)
 {
 	pid_t	pid;
-	int		fd;
+	int		heredoc_fd;
 
-	fd = 0;
+	heredoc_fd = 0;
 	if (!ft_strlen(command_list->content))
 	{
 		error_message_exit("megabash: syntax error near unexpected token `newline'", 2);
@@ -58,12 +58,14 @@ int	heredoc(t_redirect *command_list)
 	pid = fork();
 	if (pid == 0)
 	{
-		prompt_loop(command_list, fd);
+		prompt_loop(command_list, heredoc_fd);
 		free_commands(g_megabash.cmd_list);
 		free_env(g_megabash.env);
+		if (fd)
+			free_int_matrix(fd);
 		exit(0);
 	}
 	waitipid_save_exit_status(pid);
-	fd = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
-	return (fd);
+	heredoc_fd = open("./src/heredoc/heredoc_content", O_RDONLY, 0777);
+	return (heredoc_fd);
 }
