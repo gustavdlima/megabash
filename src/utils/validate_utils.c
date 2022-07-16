@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 00:26:55 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 00:26:56 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 19:06:39 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int	pipe_no_arguments(char *cmd)
 	{
 		if (cmd[i] == '|')
 		{
-			i++;
+			if (cmd[i + 1])
+				i++;
 			if (cmd[i])
 			{
 				if (only_space(cmd + i))
