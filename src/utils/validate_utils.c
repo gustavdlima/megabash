@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   validate_utils.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 21:02:26 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:02:26 by gusalves         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static int	incrementing_i_for_single_quotes(char *cmd)
@@ -103,9 +91,11 @@ int	pipe_no_arguments(char *cmd)
 			if (cmd[i])
 			{
 				if (only_space(cmd + i))
+				{
 					error_message
 					("magabash: syntax error near unexpected token `|'\n", 2);
-				return (true);
+					return (true);
+				}
 			}
 		}
 		i++;
