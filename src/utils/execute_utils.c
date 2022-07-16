@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:00 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:02:00 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 19:18:34 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	execute_execve(t_commands *cmd_list)
 		update_exit_status_and_exit(217);
 	if (ft_new_strncmp("/n", cmd_list->cmd))
 		update_exit_status_and_exit(0);
-	pathway = what_cmd(cmd_list->cmd);
+	pathway = what_cmd(cmd_list->content[0]);
 	if (!pathway)
 	{
 		free(pathway);
