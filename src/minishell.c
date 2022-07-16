@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:04:14 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 00:27:11 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 19:25:55 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,35 @@ static void	megaexecute(char **input)
 	free_commands(g_megabash.cmd_list);
 }
 
+static int	megabash_validation(char *input)
+{
+	int	is_valid;
+
+	is_valid = true;
+	if (open_quotes(input) == true)
+	{
+		error_message("MEGABASH :  syntax error : There's an open quote\n", 2);
+		is_valid = false;
+	}
+	if (pipe_no_arguments(input) == true)
+		is_valid = false;
+	add_history(input);
+	return (is_valid);
+}
+
 static void	megastart(void)
 {
 	char	*input;
+	int		is_valid;
 
 	while (1)
 	{
+		is_valid = true;
 		signal_handler();
 		input = readline("megabash$ ");
 		if (input)
-			add_history(input);
-		else
+			is_valid = megabash_validation(input);
+		if (!input)
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
 			rl_clear_history();
@@ -59,7 +77,7 @@ static void	megastart(void)
 				free_env(g_megabash.env);
 			exit(0);
 		}
-		if (input && validate_input(input) == true)
+		if (input && validate_input(input, is_valid) == true)
 			megaexecute(&input);
 	}
 }
