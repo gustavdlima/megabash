@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:51:53 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 20:51:53 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:28:35 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	execute_command_and_redirection(t_commands *pivot, int heredoc_fd)
 
 void	execute_multiple_commands(void)
 {
-	int			**fd;
-	int			i;
+	int	*fd;
+	int	i;
 
 	g_megabash.multiple_cmds = true;
 	fd = NULL;
@@ -51,7 +51,8 @@ void	execute_multiple_commands(void)
 	i = 0;
 	while (i++ < g_megabash.pipe + 1)
 		waitipid_save_exit_status(-1);
-	free_int_matrix(fd);
+	if (fd)
+		free_int_matrix(fd);
 }
 
 void	execute_single_command(void)

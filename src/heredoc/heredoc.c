@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:56:01 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 22:03:25 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:26:25 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	prompt_loop(t_redirect *command_list, int fd)
 			free_env(g_megabash.env);
 			g_megabash.exit_status = 0;
 			free_commands(g_megabash.cmd_list);
+			if (g_megabash.fd)
+				free_int_matrix(g_megabash.fd);
 			exit(g_megabash.exit_status);
 		}
 		if (read && !ft_new_strncmp(temp->content, read))
@@ -48,8 +50,6 @@ static void	prompt_loop(t_redirect *command_list, int fd)
 		else if (ft_new_strncmp(temp->content, read))
 		{
 			g_megabash.exit_status = 0;
-			fd = open("./src/heredoc/heredoc_content",
-					O_WRONLY | O_CREAT | O_APPEND, 0777);
 			break ;
 		}
 	}
@@ -61,6 +61,7 @@ int	heredoc(t_redirect *command_list, int **fd)
 	int		heredoc_fd;
 
 	heredoc_fd = 0;
+	open("./src/heredoc/heredoc_content", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (g_megabash.multiple_cmds == true)
 		check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);
 	signal_handler_heredoc();

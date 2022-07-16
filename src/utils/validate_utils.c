@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/16 00:26:55 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/16 00:26:56 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	incrementing_i_for_single_quotes(char *cmd)
@@ -80,7 +92,7 @@ int	bash_syntax_error(char *cmd)
 
 int	pipe_no_arguments(char *cmd)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (cmd[i])

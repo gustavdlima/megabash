@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:04:14 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:04:38 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:27:11 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	print_cool_intro(void)
 static void	megaexecute(char **input)
 {
 	g_megabash.pipe = 0;
+	g_megabash.fd = NULL;
 	treat_input_and_tokenizer(input);
 	parsing();
 	free_token(g_megabash.token_list);

@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:52:05 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 20:52:06 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:27:59 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ void	child_proccess(t_commands *pivot, int **fd, int i)
 {
 	int	heredoc_fd;
 
-	heredoc_fd = -1;
 	if (i != 0)
 	{
 		close(fd[i - 1][1]);
-		if (pivot->redirect)
-			heredoc_fd = get_heredoc_fd(pivot, fd);
-		else
+		heredoc_fd = get_heredoc_fd(pivot, fd);
+		if (heredoc_fd == -1)
 			check_and_dup(fd[i - 1][0], STDIN_FILENO);
 	}
 	if (i == 0)
