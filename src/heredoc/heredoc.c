@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:56:01 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 20:56:25 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/15 22:03:25 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ int	heredoc(t_redirect *command_list, int **fd)
 	int		heredoc_fd;
 
 	heredoc_fd = 0;
-	if (!ft_strlen(command_list->content))
-	{
-		error_message_exit
-			("megabash: syntax error near unexpected token `newline'", 2);
-	}
 	if (g_megabash.multiple_cmds == true)
 		check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);
 	signal_handler_heredoc();
