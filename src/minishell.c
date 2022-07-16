@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 21:04:14 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 21:04:38 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_global	g_megabash;
 
-static void print_cool_intro(void)
+static void	print_cool_intro(void)
 {
 	int		fd;
 	char	buff[1];
@@ -12,7 +24,7 @@ static void print_cool_intro(void)
 		return ;
 	while (read(fd, buff, 1))
 	{
-			printf("%c", buff[0]);
+		printf("%c", buff[0]);
 	}
 	close(fd);
 	return ;

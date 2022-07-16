@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 21:06:46 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 21:07:44 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -7,6 +19,17 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include "environment.h"
+# include "input.h"
+# include "linked_list.h"
+# include "utils.h"
+# include "tokenizer.h"
+# include "free.h"
+# include "builtin.h"
+# include "signal_handler.h"
+# include "execution.h"
+# include "parsing.h"
+# include "heredoc.h"
 
 enum e_boolean
 {
@@ -71,18 +94,6 @@ typedef struct s_global{
 	int			multiple_cmds;
 	int			**fd;
 }				t_global;
-
-# include "environment.h"
-# include "input.h"
-# include "linked_list.h"
-# include "utils.h"
-# include "tokenizer.h"
-# include "free.h"
-# include "builtin.h"
-# include "signal_handler.h"
-# include "execution.h"
-# include "parsing.h"
-# include "heredoc.h"
 
 extern t_global	g_megabash;
 

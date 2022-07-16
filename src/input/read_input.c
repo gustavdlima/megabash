@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_input.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 20:57:21 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 20:57:21 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	only_space(char *cmd)
@@ -77,7 +89,7 @@ int	no_words_after_redirect(char *input)
 	if (!is_valid_string(input + i))
 	{
 		dprintf (2, "megabash: syntax error near unexpected token `%s\'\n",
-		input + i);
+			input + i);
 		g_megabash.exit_status = 2;
 		return (true);
 	}

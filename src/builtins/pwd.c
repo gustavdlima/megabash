@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 20:51:01 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 20:51:03 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	pwd_builtin_free_and_exit(char *directory, t_env *temp)
@@ -16,11 +28,7 @@ void	pwd(char **matrix)
 
 	temp = g_megabash.env;
 	if (matrix[1])
-	{
-		// dprintf(1, "megabash error: pwd: too many arguments");
-		// update_exit_status_and_exit(0);
 		g_megabash.exit_status = 0;
-	}
 	directory = getcwd(NULL, 0);
 	if (directory)
 	{

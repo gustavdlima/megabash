@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 21:00:33 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 21:00:51 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	treat_parse_list(void)
@@ -63,6 +75,5 @@ void	parsing(void)
 		continue ;
 	}
 	g_megabash.cmd_list = cmd_temp;
-	// print_commands(cmd_temp);
 	treat_parse_list();
 }

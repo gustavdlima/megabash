@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 21:02:00 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 21:02:00 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	execute_execve(t_commands *cmd_list)
@@ -9,7 +21,6 @@ void	execute_execve(t_commands *cmd_list)
 	if (ft_new_strncmp("/n", cmd_list->cmd))
 		update_exit_status_and_exit(0);
 	pathway = what_cmd(cmd_list->cmd);
-	dprintf(2, "CHEGUEI AQUI, Ó O CMD : %s\n", cmd_list->cmd);
 	if (!pathway)
 	{
 		free(pathway);

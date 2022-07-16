@@ -1,15 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_list_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 20:59:56 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 20:59:56 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	print_token(t_token *token)
-{
-	if (!token)
-		return ;
-	while (token)
-	{
-		printf("%s\n", token->content);
-		token = token->next;
-	}
-}
+#include "minishell.h"
 
 static void	free_node(t_token *token)
 {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 20:53:30 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 20:53:49 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	child_builtins_free_and_exit(int exit_status)
@@ -5,12 +17,6 @@ void	child_builtins_free_and_exit(int exit_status)
 	free_commands(g_megabash.cmd_list);
 	free_env(g_megabash.env);
 	exit(exit_status);
-}
-
-void	free_megabash(void)
-{
-	// free_env(g_megabash.env);
-	free_commands(g_megabash.cmd_list);
 }
 
 void	free_cmd_megabash(void)

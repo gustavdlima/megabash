@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 20:56:01 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 20:56:25 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	save_data(char *content, int fd)
@@ -36,7 +48,8 @@ static void	prompt_loop(t_redirect *command_list, int fd)
 		else if (ft_new_strncmp(temp->content, read))
 		{
 			g_megabash.exit_status = 0;
-			fd = open("./src/heredoc/heredoc_content", O_WRONLY | O_CREAT | O_APPEND, 0777);
+			fd = open("./src/heredoc/heredoc_content",
+					O_WRONLY | O_CREAT | O_APPEND, 0777);
 			break ;
 		}
 	}
@@ -50,7 +63,8 @@ int	heredoc(t_redirect *command_list, int **fd)
 	heredoc_fd = 0;
 	if (!ft_strlen(command_list->content))
 	{
-		error_message_exit("megabash: syntax error near unexpected token `newline'", 2);
+		error_message_exit
+			("megabash: syntax error near unexpected token `newline'", 2);
 	}
 	if (g_megabash.multiple_cmds == true)
 		check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 20:50:54 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 20:50:55 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	print_export_error(char *name, int i)
@@ -59,7 +71,7 @@ void	export(char **command)
 			|| command[i][0] == '=')
 		{
 			i = print_export_error(command[i], i);
-			continue;
+			continue ;
 		}
 		if ((!ft_strchr(command[i], '=')) && (!is_alphabetic(command[i])))
 		{

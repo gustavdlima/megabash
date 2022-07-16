@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   treat_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 20:57:38 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 20:57:38 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	is_operator(char *input)
@@ -65,8 +77,3 @@ void	treat_input_and_tokenizer(char **input)
 	free(treated);
 	treat_token_list();
 }
-
-// a e i o u -> some o u
-// a ee ii oo u -> some o u
-// aa ee ii oo u -> nao some nada
-// aa ee ii oo uu -> nao some nada

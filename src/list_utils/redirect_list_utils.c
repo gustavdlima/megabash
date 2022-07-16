@@ -1,16 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect_list_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 20:59:02 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 20:59:02 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	print_redirect(t_redirect *redirect)
-{
-	if (!redirect)
-		return ;
-	while (redirect)
-	{
-		printf("redirect->type = %d\n", redirect->type);
-		printf("redirect->content: = %s\n", redirect->content);
-		redirect = redirect->next;
-	}
-}
+#include "minishell.h"
 
 void	redirect_addback(t_redirect **lst, t_redirect *new)
 {

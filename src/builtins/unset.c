@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 20:51:08 by gusalves          #+#    #+#             */
+/*   Updated: 2022/07/15 20:51:10 by gusalves         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	free_unset(t_env *list)
@@ -15,7 +27,6 @@ static int	print_unset_error(char *name, int i)
 	error_message("': not a valid identifier", 1);
 	return (i);
 }
-
 
 void	unset(char **command)
 {
