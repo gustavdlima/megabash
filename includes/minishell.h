@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:06:46 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:07:44 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:37:12 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,36 +51,6 @@ enum e_redirect_type
 	is_append,
 	is_here_doc,
 };
-
-typedef struct s_env{
-	char			*name;
-	char			*content;
-	struct s_env	*next;
-	struct s_env	*prev;
-}				t_env;
-
-typedef struct s_token{
-	int				type;
-	char			*content;
-	struct s_token	*next;
-	struct s_token	*prev;
-}				t_token;
-
-typedef struct s_redirect
-{
-	int					type;
-	char				*content;
-	struct s_redirect	*next;
-}				t_redirect;
-
-typedef struct s_commands
-{
-	int					type;
-	char				*cmd;
-	char				**content;
-	struct s_redirect	*redirect;
-	struct s_commands	*next;
-}				t_commands;
 
 typedef struct s_global{
 	t_env		*env;

@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:04 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:02:04 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:58:01 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	update_exit_status_and_exit(int exit_status)
 void	quit_megabash(void)
 {
 	printf("exit\n");
+	free_commands(g_megabash.cmd_list);
 	free_env(g_megabash.env);
 	rl_clear_history();
 	exit(g_megabash.exit_status);

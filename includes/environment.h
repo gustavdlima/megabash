@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:05:44 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:05:45 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:36:05 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define ENVIRONMENT_H
 
 # include "minishell.h"
+
+typedef struct s_env{
+	char			*name;
+	char			*content;
+	struct s_env	*next;
+	struct s_env	*prev;
+}				t_env;
 
 void			environment(char **envp);
 char			*get_env_name(char *envp);

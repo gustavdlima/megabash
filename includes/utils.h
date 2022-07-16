@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:07:13 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:07:14 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:40:22 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,7 @@ void	update_exit_status_and_exit(int exit_status);
 void	quit_megabash(void);
 void	waitipid_save_exit_status(int pid);
 
-// builtin_utils.c
-void	execute_builtin(t_commands *cmd_list);
-int		parent_execute_builtin(t_commands *cmd_list);
-
 // execute_utils.c
-void	execute_execve(t_commands *cmd_list);
 int		**malloc_int_matrix(int **fd);
 int		check_and_dup(int old, int new);
 char	*what_cmd(char *cmd);

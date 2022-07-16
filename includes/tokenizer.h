@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:07:10 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:07:10 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:36:33 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define TOKENIZER_H
 
 # include "minishell.h"
+
+typedef struct s_token{
+	int				type;
+	char			*content;
+	struct s_token	*next;
+	struct s_token	*prev;
+}				t_token;
 
 int				jump_special_or_metacharacters(char *cmd);
 int				single_quotted_argument(char *cmd, int dollar);
