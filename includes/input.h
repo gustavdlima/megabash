@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:05:58 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:06:04 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 19:01:51 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		check_operator(char operator);
 int		is_operator(char *input);
 
 // validate_input.c
-int		validate_input(char *input);
+int		validate_input(char *input, int is_valid);
 
 // expand_env.c
 int		jump_positions(char *cmd);
