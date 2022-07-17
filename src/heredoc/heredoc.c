@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:56:01 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 00:26:25 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 22:41:54 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int	heredoc(t_redirect *command_list, int **fd)
 	open("./src/heredoc/heredoc_content", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (g_megabash.multiple_cmds == true)
 		check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);
-	signal_handler_heredoc();
 	pid = fork();
 	if (pid == 0)
 	{
+		signal_handler_heredoc();
 		prompt_loop(command_list, heredoc_fd);
 		free_commands(g_megabash.cmd_list);
 		free_env(g_megabash.env);
