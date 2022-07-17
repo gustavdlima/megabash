@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_child.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 21:01:02 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 23:37:46 by jmilson-         ###   ########.fr       */
+/*   Created: 2022/07/16 23:35:48 by jmilson-          #+#    #+#             */
+/*   Updated: 2022/07/16 23:36:32 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	signint(int signum)
+static void	signint_child(int signum)
 {
 	(void)signum;
-	dprintf(2, "\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
 	g_megabash.exit_status = 130;
+	dprintf(2, "\n");
 }
 
-void	signal_handler(void)
+static void	sigign_child(int signum)
 {
-	signal(SIGINT, signint);
-	signal(SIGQUIT, SIG_IGN);
+	(void)signum;
+	g_megabash.exit_status = 131;
+	dprintf(2, "Quit\n");
 }
 
-// ◦ ctrl-C displays a new prompt on a new line.
-
-// ◦ ctrl-D exits the shell.
-
-// ◦ ctrl-\ does nothing.
+void	signal_handler_child(void)
+{
+	signal(SIGINT, signint_child);
+	signal(SIGQUIT, sigign_child);
+}

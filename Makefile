@@ -58,6 +58,8 @@ SRCS	=	minishell.c	\
 			$(ENV_PATH)environment.c 					\
 			$(ENV_PATH)env_operations.c					\
 			$(SIGNAL_PATH)signal.c						\
+			$(SIGNAL_PATH)signal_child.c				\
+			$(SIGNAL_PATH)signal_heredoc.c				\
 			$(LIST_PATH)env_list_utils.c				\
 			$(LIST_PATH)cmd_list_utils.c				\
 			$(LIST_PATH)token_list_utils.c				\

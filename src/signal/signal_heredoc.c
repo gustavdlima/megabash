@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 21:01:02 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 23:37:46 by jmilson-         ###   ########.fr       */
+/*   Created: 2022/07/16 23:37:22 by jmilson-          #+#    #+#             */
+/*   Updated: 2022/07/16 23:37:51 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	signint(int signum)
+static void	signint_doc(int signum)
 {
 	(void)signum;
 	dprintf(2, "\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	free_env(g_megabash.env);
 	g_megabash.exit_status = 130;
+	if (g_megabash.fd)
+		free_int_matrix(g_megabash.fd);
+	free_commands(g_megabash.cmd_list);
+	exit(130);
 }
 
-void	signal_handler(void)
+void	signal_handler_heredoc(void)
 {
-	signal(SIGINT, signint);
+	signal(SIGINT, signint_doc);
 	signal(SIGQUIT, SIG_IGN);
 }
-
-// ◦ ctrl-C displays a new prompt on a new line.
-
-// ◦ ctrl-D exits the shell.
-
-// ◦ ctrl-\ does nothing.
