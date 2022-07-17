@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_process.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:52:05 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 00:27:59 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 22:21:39 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	initialize_execution_process(int **fd)
 			continue ;
 		}
 		pid = fork();
+		signal_handler_child();
 		if (pid == 0)
 			child_proccess(pivot, fd, i);
 		if (fd[i])

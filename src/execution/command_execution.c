@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:51:53 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 00:40:53 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 21:23:20 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	execute_single_command(void)
 		return ;
 	}
 	pid = fork();
+	signal_handler_child();
 	if (pid == 0)
 		execute_command_and_redirection(pivot, -42);
 	waitipid_save_exit_status(pid);
