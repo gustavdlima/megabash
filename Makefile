@@ -103,7 +103,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(EXECUTION_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(PARSE_PATH))
 	@mkdir -p $(addprefix $(OBJ_DIR)/,$(HEREDOC_PATH))
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ $(LIBFT_FLAGS)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	make clean -C $(LIBFT_PATH)
