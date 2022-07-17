@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:06:59 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:06:59 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 20:19:40 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 
 void	signal_handler(void);
 void	signal_handler_heredoc(void);
+void	signal_handler_child(void);
 
 #endif
