@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:01:02 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 21:29:37 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/16 23:23:32 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static void	signint(int signum)
 static void	signint_doc(int signum)
 {
 	(void)signum;
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
+	dprintf(2, "\n");
 	free_env(g_megabash.env);
 	g_megabash.exit_status = 130;
 	if (g_megabash.fd)
@@ -38,7 +36,6 @@ static void	signint_doc(int signum)
 
 void	signal_handler_heredoc(void)
 {
-	signal(SIGINT, SIG_IGN);
 	signal(SIGINT, signint_doc);
 	signal(SIGQUIT, SIG_IGN);
 }
