@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gusalves <gusalves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:51:01 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 20:51:03 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/17 22:57:58 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	pwd(char **matrix)
 	if (directory)
 	{
 		node = get_env_node(temp, "PWD");
+		if (!node)
+		{
+			error_message("megabash: pwd: PWD not set", 1);
+			pwd_builtin_free_and_exit(directory, temp);
+		}
 		ft_putendl_fd(node->content, 1);
 	}
 	pwd_builtin_free_and_exit(directory, temp);
