@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:01:02 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:01:02 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/16 21:29:37 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	signint(int signum)
 {
 	(void)signum;
-	printf("\n");
+	dprintf(2, "\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -41,6 +41,26 @@ void	signal_handler_heredoc(void)
 	signal(SIGINT, SIG_IGN);
 	signal(SIGINT, signint_doc);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+static void	signint_child(int signum)
+{
+	(void)signum;
+	g_megabash.exit_status = 130;
+	dprintf(2, "\n");
+}
+
+static void	sigign_child(int signum)
+{
+	(void)signum;
+	g_megabash.exit_status = 131;
+	dprintf(2, "Quit\n");
+}
+
+void	signal_handler_child(void)
+{
+	signal(SIGINT, signint_child);
+	signal(SIGQUIT, sigign_child);
 }
 
 void	signal_handler(void)
