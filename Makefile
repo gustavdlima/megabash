@@ -73,9 +73,10 @@ SRCS	=	minishell.c	\
 			$(UTILS_PATH)treat_input_utils.c			\
 			$(UTILS_PATH)treat_input_utils_2.c			\
 			$(UTILS_PATH)utils.c						\
+			$(UTILS_PATH)validate_input.c				\
 			$(UTILS_PATH)validate_redirect_utils.c		\
 			$(UTILS_PATH)validate_utils.c				\
-			$(HEREDOC_PATH)heredoc.c				\
+			$(HEREDOC_PATH)heredoc.c					\
 			$(FREE_PATH)free.c							\
 
 OBJS	:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
