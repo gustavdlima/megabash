@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:07:13 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 00:40:22 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/17 03:48:26 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,7 @@ void	waitipid_save_exit_status(int pid);
 int		**malloc_int_matrix(int **fd);
 int		check_and_dup(int old, int new);
 char	*what_cmd(char *cmd);
+
+// validate_input.c
+int		only_quotes(char *cmd);
 #endif

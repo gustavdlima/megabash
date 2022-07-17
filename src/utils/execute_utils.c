@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:00 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 19:18:34 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/17 04:06:55 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ void	execute_execve(t_commands *cmd_list)
 {
 	char	*pathway;
 
+	pathway = NULL;
 	if (!cmd_list->cmd)
 		update_exit_status_and_exit(217);
 	if (ft_new_strncmp("/n", cmd_list->cmd))
 		update_exit_status_and_exit(0);
-	pathway = what_cmd(cmd_list->content[0]);
+	if (!only_quotes(cmd_list->cmd))
+		pathway = what_cmd(cmd_list->content[0]);
 	if (!pathway)
 	{
 		free(pathway);
-		dprintf(2, "%s: ", cmd_list->cmd);
+		dprintf(2, "%s: ", cmd_list->content[0]);
 		error_message("command not found", 127);
 		free_env(g_megabash.env);
 		free_commands(g_megabash.cmd_list);
