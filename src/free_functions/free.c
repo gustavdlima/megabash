@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:53:30 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 20:53:49 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/19 23:28:58 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	free_matrix(char **matrix)
 			free(matrix[i]);
 			i++;
 		}
-		free(matrix);
+		if (matrix)
+			free(matrix);
 	}
 }
 

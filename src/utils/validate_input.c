@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 01:39:42 by jmilson-          #+#    #+#             */
-/*   Updated: 2022/07/19 22:48:13 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/19 23:54:40 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	only_quotes(char *cmd)
 	{
 		if (cmd[i] == '\'' || cmd[i] == '\"')
 			quotes++;
-		if (cmd[i] == '.')
+		if (cmd[i] == '.' || cmd[i] == '/')
 			quotes++;
 		i++;
 	}

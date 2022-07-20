@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:04:14 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 19:25:55 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/19 23:47:26 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	megaexecute(char **input)
 	parsing();
 	free_token(g_megabash.token_list);
 	executing_processes();
-	free_commands(g_megabash.cmd_list);
+	if (g_megabash.cmd_list)
+		free_commands(g_megabash.cmd_list);
 }
 
 static int	megabash_validation(char *input)

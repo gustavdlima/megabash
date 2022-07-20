@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:59:25 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 20:59:32 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/19 23:17:57 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	free_commands(t_commands *commands)
 	{
 		temp = commands;
 		commands = commands->next;
-		free_matrix(temp->content);
+		if (temp->content)
+			free_matrix(temp->content);
 		free(temp->cmd);
 		if (temp->redirect)
 			free_redirect(temp->redirect);

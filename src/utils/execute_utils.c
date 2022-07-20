@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:00 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/19 23:14:24 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/19 23:57:07 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	execute_execve(t_commands *cmd_list)
 			free(pathway);
 		error_message("command not found", 127);
 		free_env(g_megabash.env);
-		free_commands(g_megabash.cmd_list);
+		if (g_megabash.cmd_list)
+			free_commands(g_megabash.cmd_list);
 		exit(g_megabash.exit_status);
 	}
 }
