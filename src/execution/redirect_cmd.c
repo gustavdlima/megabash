@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:52:09 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/20 01:06:15 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:58:33 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	open_fd_to_output_or_append(t_redirect *temp)
 	if (temp->type == is_append)
 		outfile = open(temp->content, O_WRONLY | O_CREAT
 				| O_APPEND, 0777);
+	g_megabash.exit_status = 0;
 	return (outfile);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 23:37:22 by jmilson-          #+#    #+#             */
-/*   Updated: 2022/07/16 23:37:51 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:07:32 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	signint_doc(int signum)
 	(void)signum;
 	dprintf(2, "\n");
 	free_env(g_megabash.env);
+	rl_on_new_line();
 	g_megabash.exit_status = 130;
 	if (g_megabash.fd)
 		free_int_matrix(g_megabash.fd);

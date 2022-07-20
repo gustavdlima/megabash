@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:00 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/20 00:24:45 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:16:37 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@ static int	is_executable(char *path)
 
 	if (path)
 	{
-		if (stat(path, &buffer) != 0)
-			return (false);
-		if ((buffer.st_mode & S_IFMT) == S_IFDIR)
-			return (false);
-		if ((buffer.st_mode & S_IXUSR))
-			return (true);
+			if (stat(path, &buffer) != 0)
+				return (false);
+			if (buffer.st_mode & S_IFDIR)
+			{
+				g_megabash.exit_status = 126;
+				return (false);
+			}
+			if ((buffer.st_mode & S_IXUSR))
+				return (true);
 	}
 	return (false);
 }
@@ -47,9 +50,10 @@ void	execute_execve(t_commands *cmd_list)
 			dprintf(2, "%s: ", cmd_list->content[0]);
 		if (pathway)
 			free(pathway);
-		error_message("command not found", 127);
+		g_megabash.exit_status = 127;
+		dprintf(2, "command not found\n");
 		free_env(g_megabash.env);
-		if (g_megabash.cmd_list)
+		if (g_megabash.cmd_list->content)
 			free_commands(g_megabash.cmd_list);
 		exit(g_megabash.exit_status);
 	}
@@ -79,6 +83,9 @@ int	check_and_dup(int old, int new)
 		return (false);
 	}
 	else
+	{
+		g_megabash.exit_status = 0;
 		close(old);
+	}
 	return (true);
 }

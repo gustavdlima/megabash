@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:01:51 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/20 01:00:53 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:28:16 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static char	*path_whays(char **pathways, char *cmd)
 		else
 		{
 			free_matrix(pathways);
-			return (cmd);
+			if (access(cmd, F_OK) == 0)
+				return (cmd);
 		}
 		i++;
 	}
@@ -65,16 +66,16 @@ char	*what_cmd(char *cmd)
 
 	if (cmd == NULL)
 		return (NULL);
-	// if (access(cmd, F_OK) == 0)
-	// 	return (cmd);
 	path = get_env_node(g_megabash.env, "PATH");
 	if (path)
 	{
-
+		if ((cmd[0] == '.' || cmd[0] == '/') && access(cmd, F_OK) == 0)
+			return (cmd);
 		pathways = ft_split(path->content, ':');
 		path_cmd = path_whays(pathways, cmd);
-		return (path_cmd);
-	}
-	else
+		if (path_cmd)
+			return (path_cmd);
 		return (NULL);
+	}
+	return (NULL);
 }

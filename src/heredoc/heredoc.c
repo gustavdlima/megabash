@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:56:01 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 22:41:54 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:01:25 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	heredoc(t_redirect *command_list, int **fd)
 	if (g_megabash.multiple_cmds == true)
 		check_and_dup(g_megabash.stdin_backup, STDIN_FILENO);
 	pid = fork();
+	signal_handler_heredoc();
 	if (pid == 0)
 	{
 		signal_handler_heredoc();

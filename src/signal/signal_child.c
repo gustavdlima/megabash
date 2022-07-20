@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 23:35:48 by jmilson-          #+#    #+#             */
-/*   Updated: 2022/07/16 23:36:32 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:59:34 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	sigign_child(int signum)
 {
 	(void)signum;
 	g_megabash.exit_status = 131;
-	dprintf(2, "Quit\n");
 }
 
 void	signal_handler_child(void)
