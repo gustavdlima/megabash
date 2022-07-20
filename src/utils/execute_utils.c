@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:00 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/19 22:54:37 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/19 23:14:24 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ static int	is_executable(char *path)
 {
 	struct stat	buffer;
 
-	if (stat(path, &buffer) != 0)
-		return (false);
-	if ((buffer.st_mode & S_IFMT) == S_IFDIR)
-		return (false);
-	if ((buffer.st_mode & S_IXUSR))
-		return (true);
+	if (path)
+	{
+		if (stat(path, &buffer) != 0)
+			return (false);
+		if ((buffer.st_mode & S_IFMT) == S_IFDIR)
+			return (false);
+		if ((buffer.st_mode & S_IXUSR))
+			return (true);
+	}
 	return (false);
 }
 
