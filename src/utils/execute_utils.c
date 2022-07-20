@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:00 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/20 20:16:37 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:21:20 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static int	is_executable(char *path)
 
 	if (path)
 	{
-			if (stat(path, &buffer) != 0)
-				return (false);
-			if (buffer.st_mode & S_IFDIR)
-			{
-				g_megabash.exit_status = 126;
-				return (false);
-			}
-			if ((buffer.st_mode & S_IXUSR))
-				return (true);
+		if (stat(path, &buffer) != 0)
+			return (false);
+		if (buffer.st_mode & S_IFDIR)
+		{
+			g_megabash.exit_status = 126;
+			return (false);
+		}
+		if ((buffer.st_mode & S_IXUSR))
+			return (true);
 	}
 	return (false);
 }

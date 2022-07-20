@@ -6,13 +6,13 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:01:51 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/20 19:28:16 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:21:35 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *verify_pathway(char *pathways, char *cmd)
+static char	*verify_pathway(char *pathways, char *cmd)
 {
 	char	*path_cmd;
 	char	*temp;
