@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:01:51 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:01:51 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/19 22:43:39 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ char	*what_cmd(char *cmd)
 
 	if (cmd == NULL)
 		return (NULL);
-	if (access(cmd, F_OK) == 0 && (!ft_strncmp("/", cmd, 1)
-			|| !ft_strncmp("./", cmd, 2)))
+	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	path = get_env_node(g_megabash.env, "PATH");
 	if (path)

@@ -6,7 +6,7 @@
 /*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:06:46 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 00:37:12 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/19 20:00:55 by gusalves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <sys/stat.h>
 # include "environment.h"
 # include "input.h"
 # include "linked_list.h"
