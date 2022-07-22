@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:57:47 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/22 19:26:10 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:44:58 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static int	should_validate(char *input)
 	return (true);
 }
 
-int	validate_input(char *input, int is_valid)
+int	validate_input(char *input)
 {
-	if (is_valid && input)
+	if (input)
 	{
 		treat_input_chars(input);
 		if (input)

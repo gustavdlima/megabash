@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:05:58 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/16 19:01:51 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:45:42 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		check_operator(char operator);
 int		is_operator(char *input);
 
 // validate_input.c
-int		validate_input(char *input, int is_valid);
+int		validate_input(char *input);
 
 // expand_env.c
 int		jump_positions(char *cmd);
