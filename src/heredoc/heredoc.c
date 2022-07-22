@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:56:01 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/20 20:01:25 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/21 23:19:03 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	prompt_loop(t_redirect *command_list, int fd)
 		read = readline("> ");
 		if (!read)
 		{
+			free (read);
 			free_env(g_megabash.env);
 			g_megabash.exit_status = 0;
 			free_commands(g_megabash.cmd_list);
@@ -49,6 +50,7 @@ static void	prompt_loop(t_redirect *command_list, int fd)
 			save_data(read, fd);
 		else if (ft_new_strncmp(temp->content, read))
 		{
+			free (read);
 			g_megabash.exit_status = 0;
 			break ;
 		}

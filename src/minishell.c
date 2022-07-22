@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:04:14 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/21 23:09:14 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/21 23:43:48 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,23 @@ static void	megaexecute(char **input)
 		free_commands(g_megabash.cmd_list);
 }
 
-static int	megabash_validation(char *input)
-{
-	int	is_valid;
+// static int	megabash_validation(char *input)
+// {
+// 	int	is_valid;
 
-	is_valid = true;
-	if (open_quotes(input) == true)
-	{
-		error_message("MEGABASH :  syntax error : There's an open quote\n", 2);
-		is_valid = false;
-	}
-	if (pipe_no_arguments(input) == true)
-		is_valid = false;
-	add_history(input);
-	return (is_valid);
-}
+// 	is_valid = true;
+// 	if (open_quotes(input) == true)
+// 	{
+// 		error_message("MEGABASH :  syntax error : There's an open quote\n", 2);
+// 		is_valid = false;
+// 	}
+// 	if (pipe_no_arguments(input) == true)
+// 		is_valid = false;
+// 	add_history(input);
+// 	if (!is_valid)
+// 		free (input);
+// 	return (is_valid);
+// }
 
 static void	megastart(void)
 {
@@ -82,8 +84,9 @@ static void	megastart(void)
 				free_env(g_megabash.env);
 			exit(0);
 		}
-		if (input)
-			is_valid = megabash_validation(input);
+		// if (input)
+		// 	is_valid = megabash_validation(input);
+		add_history(input);
 		if (input && validate_input(input, is_valid) == true)
 			megaexecute(&input);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treat_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalves <gusalves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:12 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/15 21:02:12 by gusalves         ###   ########.fr       */
+/*   Updated: 2022/07/21 23:42:49 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,13 @@ void	treat_char(char *cmd, char c, int nbr)
 		{
 			sign = cmd[i];
 			i++;
-			while (cmd[i] != sign && cmd[i])
+			while (cmd[i] && cmd[i] != sign)
 			{
 				if (cmd[i] == c)
 					cmd[i] = nbr;
 				i++;
 			}
+			continue ;
 		}
 		i++;
 	}
