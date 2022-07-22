@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:12 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/21 23:42:49 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:19:47 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	treat_char(char *cmd, char c, int nbr)
 					cmd[i] = nbr;
 				i++;
 			}
-			continue ;
 		}
-		i++;
+		if (cmd[i])
+			i++;
 	}
 }
 

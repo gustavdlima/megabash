@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:57:47 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/21 23:44:22 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:20:44 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,5 @@ int	validate_input(char *input, int is_valid)
 				return (true);
 		}
 	}
-	free (input);
 	return (false);
 }

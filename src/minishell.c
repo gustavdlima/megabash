@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:04:14 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/21 23:54:31 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:20:30 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,6 @@ static void	megastart(void)
 		is_valid = true;
 		signal_handler();
 		input = readline("megabash$ ");
-		if (only_space(input))
-		{
-			free (input);
-			continue ;
-		}
 		if (!input)
 		{
 			free (input);
@@ -69,6 +64,8 @@ static void	megastart(void)
 		add_history(input);
 		if (input && validate_input(input, is_valid) == true)
 			megaexecute(&input);
+		else
+			free (input);
 	}
 }
 
