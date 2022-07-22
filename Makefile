@@ -3,8 +3,6 @@ NAME			= minishell
 CC				= gcc
 CFLAGS			= -g3 -Wall -Wextra -Werror
 RM				= rm -f
-VALGRIND 		= valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
-
 
 INCLUDES_DIR	= includes libs/libft
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIR))
@@ -115,7 +113,4 @@ fclean: clean
 
 re:	fclean all
 
-valgrind: $(NAME)
-	$(VALGRIND) ./$(NAME) $$ARG
-
-.PHONY:	all clean fclean re valgrind
+.PHONY:	all clean fclean re

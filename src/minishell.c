@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:04:14 by gusalves          #+#    #+#             */
-/*   Updated: 2022/07/21 23:43:48 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/21 23:54:31 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,6 @@ static void	megaexecute(char **input)
 		free_commands(g_megabash.cmd_list);
 }
 
-// static int	megabash_validation(char *input)
-// {
-// 	int	is_valid;
-
-// 	is_valid = true;
-// 	if (open_quotes(input) == true)
-// 	{
-// 		error_message("MEGABASH :  syntax error : There's an open quote\n", 2);
-// 		is_valid = false;
-// 	}
-// 	if (pipe_no_arguments(input) == true)
-// 		is_valid = false;
-// 	add_history(input);
-// 	if (!is_valid)
-// 		free (input);
-// 	return (is_valid);
-// }
-
 static void	megastart(void)
 {
 	char	*input;
@@ -82,10 +64,8 @@ static void	megastart(void)
 			rl_clear_history();
 			if (g_megabash.env)
 				free_env(g_megabash.env);
-			exit(0);
+			exit(g_megabash.exit_status);
 		}
-		// if (input)
-		// 	is_valid = megabash_validation(input);
 		add_history(input);
 		if (input && validate_input(input, is_valid) == true)
 			megaexecute(&input);
@@ -101,6 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	print_cool_intro();
 	environment(envp);
+	g_megabash.exit_status = 0;
 	megastart();
 	return (0);
 }
