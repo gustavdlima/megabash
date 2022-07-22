@@ -6,7 +6,7 @@
 /*   By: jmilson- <jmilson-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 01:39:42 by jmilson-          #+#    #+#             */
-/*   Updated: 2022/07/19 23:54:40 by jmilson-         ###   ########.fr       */
+/*   Updated: 2022/07/21 23:06:50 by jmilson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	only_quotes(char *cmd)
 	int	len_cmd;
 	int	i;
 
+	if (!cmd)
+		return (false);
 	len_cmd = ft_strlen(cmd);
 	quotes = 0;
 	i = 0;
