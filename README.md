@@ -1,14 +1,28 @@
 <div align="center">
 
   # megabash 😎👍
-  
+
   ![image](https://user-images.githubusercontent.com/67876847/188789023-841ce11e-14b7-4359-955c-14e4d6cc119b.png)
+
+<div  align="left">
+<h2>About</h2>
+In computing, a shell is a computer program that exposes an operating system's services to a human user or other programs.
+<br />
+This project is about creating a simple shell and learn a lot about processes and file descriptors!
+<br />
+</div>
+<br />
+</div>
+<h2>Preview</h2>
+  <img src="./img/ezgif.com-gif-maker.gif" width="600" />
+<div>
+<br />
 
 </div>
 
 ## How to use
 
-1. Clone this repository on your terminal. 
+1. Clone this repository on your terminal.
 ```bash
 git clone https://github.com/gustavdlima/megabash/
 ```
