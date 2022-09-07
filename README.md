@@ -27,3 +27,8 @@ cd megabash && make
 ```bash
 make fclean
 ```
+
+<br /><br /><br /><br /><br /><br /><br />
+Made by [gustavdlima](https://github.com/gustavdlima/) and [julianamilson](https://github.com/julianamilson/).
+
+Special thanks to our village members: [rodsmade](https://github.com/rodsmade), [Leticia-Franca](https://github.com/Leticia-Franca), [carlalrfranca](https://github.com/carlalrfranca), [adrianofaus](https://github.com/adrianofaus)!
